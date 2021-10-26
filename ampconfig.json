@@ -1,0 +1,19 @@
+{
+  "dataServiceGeneratorVersion": "0.10.0",
+  "appInfo": {
+    "name": "ProtoAndGoCore",
+    "description": "",
+    "version": "fp6y5u7e",
+    "id": "ckv7uajl59686061bs6j0y2m4uy",
+    "url": "https://app.amplication.com/ckv7uajl59686061bs6j0y2m4uy",
+    "settings": {
+      "dbHost": "localhost",
+      "dbName": "",
+      "dbPassword": "admin",
+      "dbPort": 5432,
+      "dbUser": "admin",
+      "appId": "ckv7uajl59686061bs6j0y2m4uy",
+      "authProvider": "Jwt"
+    }
+  }
+}
