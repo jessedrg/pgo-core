@@ -1,8 +1,10 @@
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsBoolean, IsOptional, ValidateNested, IsEnum } from "class-validator";
-import { ProductionWhereUniqueInput } from "./ProductionWhereUniqueInput";
+import { OrderWhereUniqueInput } from "../../order/base/OrderWhereUniqueInput";
 import { Type } from "class-transformer";
+import { PartWhereUniqueInput } from "../../part/base/PartWhereUniqueInput";
+import { ProviderWhereUniqueInput } from "../../provider/base/ProviderWhereUniqueInput";
 import { EnumProductionStatus } from "./EnumProductionStatus";
 @InputType()
 class ProductionUpdateInput {
@@ -19,15 +21,39 @@ class ProductionUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => ProductionWhereUniqueInput,
+    type: () => OrderWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => ProductionWhereUniqueInput)
+  @Type(() => OrderWhereUniqueInput)
   @IsOptional()
-  @Field(() => ProductionWhereUniqueInput, {
+  @Field(() => OrderWhereUniqueInput, {
     nullable: true,
   })
-  parentId?: ProductionWhereUniqueInput | null;
+  orderId?: OrderWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => PartWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => PartWhereUniqueInput)
+  @IsOptional()
+  @Field(() => PartWhereUniqueInput, {
+    nullable: true,
+  })
+  partId?: PartWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProviderWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => ProviderWhereUniqueInput)
+  @IsOptional()
+  @Field(() => ProviderWhereUniqueInput, {
+    nullable: true,
+  })
+  providerId?: ProviderWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

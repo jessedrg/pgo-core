@@ -5,6 +5,7 @@ export type QuoteOrderByInput = {
   completedAt?: SortOrder;
   createdAt?: SortOrder;
   id?: SortOrder;
+  providerIdId?: SortOrder;
   status?: SortOrder;
   updatedAt?: SortOrder;
 };

@@ -50,6 +50,15 @@ class QuoteOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  providerIdId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["Asc", "Desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   status?: SortOrder;
 
   @ApiProperty({

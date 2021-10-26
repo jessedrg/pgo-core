@@ -9,6 +9,7 @@ import {
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { Provider } from "../../provider/base/Provider";
 import { EnumQuoteStatus } from "./EnumQuoteStatus";
 @ObjectType()
 class Quote {
@@ -47,6 +48,15 @@ class Quote {
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => Provider,
+  })
+  @ValidateNested()
+  @Type(() => Provider)
+  @IsOptional()
+  providerId?: Provider | null;
 
   @ApiProperty({
     required: false,

@@ -9,6 +9,7 @@ import {
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { PartWhereUniqueInput } from "../../part/base/PartWhereUniqueInput";
 import { EnumOfferStatus } from "./EnumOfferStatus";
 @InputType()
 class OfferUpdateInput {
@@ -34,6 +35,18 @@ class OfferUpdateInput {
     nullable: true,
   })
   customNo?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => PartWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => PartWhereUniqueInput)
+  @IsOptional()
+  @Field(() => PartWhereUniqueInput, {
+    nullable: true,
+  })
+  partId?: PartWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

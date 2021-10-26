@@ -1,5 +1,5 @@
 import { PrismaService } from "nestjs-prisma";
-import { Prisma, Quote, Account } from "@prisma/client";
+import { Prisma, Quote, Account, Provider } from "@prisma/client";
 
 export class QuoteServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -42,5 +42,13 @@ export class QuoteServiceBase {
         where: { id: parentId },
       })
       .accountId();
+  }
+
+  async getProviderId(parentId: string): Promise<Provider | null> {
+    return this.prisma.quote
+      .findUnique({
+        where: { id: parentId },
+      })
+      .providerId();
   }
 }

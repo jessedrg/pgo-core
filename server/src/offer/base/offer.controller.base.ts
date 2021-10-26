@@ -66,6 +66,12 @@ export class OfferControllerBase {
               connect: data.accountId,
             }
           : undefined,
+
+        partId: data.partId
+          ? {
+              connect: data.partId,
+            }
+          : undefined,
       },
       select: {
         accountId: {
@@ -77,6 +83,13 @@ export class OfferControllerBase {
         createdAt: true,
         customNo: true,
         id: true,
+
+        partId: {
+          select: {
+            id: true,
+          },
+        },
+
         publishedAt: true,
         status: true,
         updatedAt: true,
@@ -126,6 +139,13 @@ export class OfferControllerBase {
         createdAt: true,
         customNo: true,
         id: true,
+
+        partId: {
+          select: {
+            id: true,
+          },
+        },
+
         publishedAt: true,
         status: true,
         updatedAt: true,
@@ -170,6 +190,13 @@ export class OfferControllerBase {
         createdAt: true,
         customNo: true,
         id: true,
+
+        partId: {
+          select: {
+            id: true,
+          },
+        },
+
         publishedAt: true,
         status: true,
         updatedAt: true,
@@ -232,6 +259,12 @@ export class OfferControllerBase {
                 connect: data.accountId,
               }
             : undefined,
+
+          partId: data.partId
+            ? {
+                connect: data.partId,
+              }
+            : undefined,
         },
         select: {
           accountId: {
@@ -243,6 +276,13 @@ export class OfferControllerBase {
           createdAt: true,
           customNo: true,
           id: true,
+
+          partId: {
+            select: {
+              id: true,
+            },
+          },
+
           publishedAt: true,
           status: true,
           updatedAt: true,
@@ -288,6 +328,13 @@ export class OfferControllerBase {
           createdAt: true,
           customNo: true,
           id: true,
+
+          partId: {
+            select: {
+              id: true,
+            },
+          },
+
           publishedAt: true,
           status: true,
           updatedAt: true,

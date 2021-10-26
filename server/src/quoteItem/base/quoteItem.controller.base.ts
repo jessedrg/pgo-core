@@ -66,6 +66,12 @@ export class QuoteItemControllerBase {
               connect: data.partId,
             }
           : undefined,
+
+        providerId: data.providerId
+          ? {
+              connect: data.providerId,
+            }
+          : undefined,
       },
       select: {
         basePrices: true,
@@ -82,6 +88,13 @@ export class QuoteItemControllerBase {
 
         prices: true,
         productionDays: true,
+
+        providerId: {
+          select: {
+            id: true,
+          },
+        },
+
         quantities: true,
         status: true,
         updatedAt: true,
@@ -136,6 +149,13 @@ export class QuoteItemControllerBase {
 
         prices: true,
         productionDays: true,
+
+        providerId: {
+          select: {
+            id: true,
+          },
+        },
+
         quantities: true,
         status: true,
         updatedAt: true,
@@ -185,6 +205,13 @@ export class QuoteItemControllerBase {
 
         prices: true,
         productionDays: true,
+
+        providerId: {
+          select: {
+            id: true,
+          },
+        },
+
         quantities: true,
         status: true,
         updatedAt: true,
@@ -247,6 +274,12 @@ export class QuoteItemControllerBase {
                 connect: data.partId,
               }
             : undefined,
+
+          providerId: data.providerId
+            ? {
+                connect: data.providerId,
+              }
+            : undefined,
         },
         select: {
           basePrices: true,
@@ -263,6 +296,13 @@ export class QuoteItemControllerBase {
 
           prices: true,
           productionDays: true,
+
+          providerId: {
+            select: {
+              id: true,
+            },
+          },
+
           quantities: true,
           status: true,
           updatedAt: true,
@@ -313,6 +353,13 @@ export class QuoteItemControllerBase {
 
           prices: true,
           productionDays: true,
+
+          providerId: {
+            select: {
+              id: true,
+            },
+          },
+
           quantities: true,
           status: true,
           updatedAt: true,

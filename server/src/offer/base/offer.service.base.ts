@@ -1,5 +1,5 @@
 import { PrismaService } from "nestjs-prisma";
-import { Prisma, Offer, Account } from "@prisma/client";
+import { Prisma, Offer, Account, Part } from "@prisma/client";
 
 export class OfferServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -42,5 +42,13 @@ export class OfferServiceBase {
         where: { id: parentId },
       })
       .accountId();
+  }
+
+  async getPartId(parentId: string): Promise<Part | null> {
+    return this.prisma.offer
+      .findUnique({
+        where: { id: parentId },
+      })
+      .partId();
   }
 }

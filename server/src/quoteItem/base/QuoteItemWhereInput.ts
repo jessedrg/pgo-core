@@ -7,6 +7,7 @@ import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { PartWhereUniqueInput } from "../../part/base/PartWhereUniqueInput";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { ProviderWhereUniqueInput } from "../../provider/base/ProviderWhereUniqueInput";
 import { EnumQuoteItemStatus } from "./EnumQuoteItemStatus";
 @InputType()
 class QuoteItemWhereInput {
@@ -87,6 +88,18 @@ class QuoteItemWhereInput {
     nullable: true,
   })
   productionDays?: IntNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProviderWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => ProviderWhereUniqueInput)
+  @IsOptional()
+  @Field(() => ProviderWhereUniqueInput, {
+    nullable: true,
+  })
+  providerId?: ProviderWhereUniqueInput;
 
   @ApiProperty({
     required: false,

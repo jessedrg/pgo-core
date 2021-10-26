@@ -1,0 +1,29 @@
+import * as React from "react";
+import {
+  Create,
+  SimpleForm,
+  CreateProps,
+  ReferenceInput,
+  SelectInput,
+  NumberInput,
+} from "react-admin";
+import { OrderTitle } from "../order/OrderTitle";
+import { PartTitle } from "../part/PartTitle";
+
+export const OrderItemCreate = (props: CreateProps): React.ReactElement => {
+  return (
+    <Create {...props}>
+      <SimpleForm>
+        <ReferenceInput source="order.id" reference="Order" label="orderId">
+          <SelectInput optionText={OrderTitle} />
+        </ReferenceInput>
+        <ReferenceInput source="part.id" reference="Part" label="partId">
+          <SelectInput optionText={PartTitle} />
+        </ReferenceInput>
+        <NumberInput label="price" source="price" />
+        <NumberInput step={1} label="quantity" source="quantity" />
+        <NumberInput label="total" source="total" />
+      </SimpleForm>
+    </Create>
+  );
+};

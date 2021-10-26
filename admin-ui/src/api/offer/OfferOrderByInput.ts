@@ -5,6 +5,7 @@ export type OfferOrderByInput = {
   createdAt?: SortOrder;
   customNo?: SortOrder;
   id?: SortOrder;
+  partIdId?: SortOrder;
   publishedAt?: SortOrder;
   status?: SortOrder;
   updatedAt?: SortOrder;

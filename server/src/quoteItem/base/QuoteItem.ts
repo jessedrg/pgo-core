@@ -11,6 +11,7 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { Part } from "../../part/base/Part";
+import { Provider } from "../../provider/base/Provider";
 import { EnumQuoteItemStatus } from "./EnumQuoteItemStatus";
 @ObjectType()
 class QuoteItem {
@@ -93,6 +94,15 @@ class QuoteItem {
     nullable: true,
   })
   productionDays!: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Provider,
+  })
+  @ValidateNested()
+  @Type(() => Provider)
+  @IsOptional()
+  providerId?: Provider | null;
 
   @ApiProperty({
     required: false,
