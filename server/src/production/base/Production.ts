@@ -9,7 +9,10 @@ import {
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { Order } from "../../order/base/Order";
+import { Part } from "../../part/base/Part";
 import { ProductionItem } from "../../productionItem/base/ProductionItem";
+import { Provider } from "../../provider/base/Provider";
 import { EnumProductionStatus } from "./EnumProductionStatus";
 @ObjectType()
 class Production {
@@ -42,21 +45,21 @@ class Production {
 
   @ApiProperty({
     required: false,
-    type: () => Production,
+    type: () => Order,
   })
   @ValidateNested()
-  @Type(() => Production)
+  @Type(() => Order)
   @IsOptional()
-  parentId?: Production | null;
+  orderId?: Order | null;
 
   @ApiProperty({
     required: false,
-    type: () => [Production],
+    type: () => Part,
   })
   @ValidateNested()
-  @Type(() => Production)
+  @Type(() => Part)
   @IsOptional()
-  production?: Array<Production>;
+  partId?: Part | null;
 
   @ApiProperty({
     required: false,
@@ -66,6 +69,15 @@ class Production {
   @Type(() => ProductionItem)
   @IsOptional()
   productionItemInProduction?: Array<ProductionItem>;
+
+  @ApiProperty({
+    required: false,
+    type: () => Provider,
+  })
+  @ValidateNested()
+  @Type(() => Provider)
+  @IsOptional()
+  providerId?: Provider | null;
 
   @ApiProperty({
     required: false,

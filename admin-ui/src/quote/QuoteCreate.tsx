@@ -11,6 +11,7 @@ import {
 } from "react-admin";
 
 import { AccountTitle } from "../account/AccountTitle";
+import { ProviderTitle } from "../provider/ProviderTitle";
 
 export const QuoteCreate = (props: CreateProps): React.ReactElement => {
   return (
@@ -24,6 +25,13 @@ export const QuoteCreate = (props: CreateProps): React.ReactElement => {
           <SelectInput optionText={AccountTitle} />
         </ReferenceInput>
         <DateTimeInput label="completedAt" source="completedAt" />
+        <ReferenceInput
+          source="provider.id"
+          reference="Provider"
+          label="providerId"
+        >
+          <SelectInput optionText={ProviderTitle} />
+        </ReferenceInput>
         <SelectArrayInput
           label="status"
           source="status"

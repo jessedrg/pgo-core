@@ -10,6 +10,7 @@ import {
 } from "class-validator";
 import { PartWhereUniqueInput } from "../../part/base/PartWhereUniqueInput";
 import { Type } from "class-transformer";
+import { ProviderWhereUniqueInput } from "../../provider/base/ProviderWhereUniqueInput";
 import { EnumQuoteItemStatus } from "./EnumQuoteItemStatus";
 @InputType()
 class QuoteItemUpdateInput {
@@ -79,6 +80,18 @@ class QuoteItemUpdateInput {
     nullable: true,
   })
   productionDays?: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProviderWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => ProviderWhereUniqueInput)
+  @IsOptional()
+  @Field(() => ProviderWhereUniqueInput, {
+    nullable: true,
+  })
+  providerId?: ProviderWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

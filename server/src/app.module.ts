@@ -9,6 +9,20 @@ import { QuoteModule } from "./quote/quote.module";
 import { QuoteItemModule } from "./quoteItem/quoteItem.module";
 import { ProductionModule } from "./production/production.module";
 import { ProductionItemModule } from "./productionItem/productionItem.module";
+import { MediaFileModule } from "./mediaFile/mediaFile.module";
+import { ProviderModule } from "./provider/provider.module";
+import { OrderModule } from "./order/order.module";
+import { OrganizationModule } from "./organization/organization.module";
+import { OrderItemModule } from "./orderItem/orderItem.module";
+import { AgentModule } from "./agent/agent.module";
+import { AddressModule } from "./address/address.module";
+import { ShipmentModule } from "./shipment/shipment.module";
+import { PaymentModule } from "./payment/payment.module";
+import { AccountPaymentMethodModule } from "./accountPaymentMethod/accountPaymentMethod.module";
+import { InviteModule } from "./invite/invite.module";
+import { SessionModule } from "./session/session.module";
+import { HolidayModule } from "./holiday/holiday.module";
+import { PartMessageModule } from "./partMessage/partMessage.module";
 import { ACLModule } from "./auth/acl.module";
 import { AuthModule } from "./auth/auth.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -31,6 +45,20 @@ import { GraphQLModule } from "@nestjs/graphql";
     QuoteItemModule,
     ProductionModule,
     ProductionItemModule,
+    MediaFileModule,
+    ProviderModule,
+    OrderModule,
+    OrganizationModule,
+    OrderItemModule,
+    AgentModule,
+    AddressModule,
+    ShipmentModule,
+    PaymentModule,
+    AccountPaymentMethodModule,
+    InviteModule,
+    SessionModule,
+    HolidayModule,
+    PartMessageModule,
     ACLModule,
     AuthModule,
     SecretsManagerModule,

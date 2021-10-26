@@ -5,6 +5,7 @@ import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { ProviderWhereUniqueInput } from "../../provider/base/ProviderWhereUniqueInput";
 @InputType()
 class QuoteWhereInput {
   @ApiProperty({
@@ -40,5 +41,17 @@ class QuoteWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProviderWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => ProviderWhereUniqueInput)
+  @IsOptional()
+  @Field(() => ProviderWhereUniqueInput, {
+    nullable: true,
+  })
+  providerId?: ProviderWhereUniqueInput;
 }
 export { QuoteWhereInput };

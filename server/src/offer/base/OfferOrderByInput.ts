@@ -50,6 +50,15 @@ class OfferOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  partIdId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["Asc", "Desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   publishedAt?: SortOrder;
 
   @ApiProperty({

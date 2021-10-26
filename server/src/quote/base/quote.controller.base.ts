@@ -66,6 +66,12 @@ export class QuoteControllerBase {
               connect: data.accountId,
             }
           : undefined,
+
+        providerId: data.providerId
+          ? {
+              connect: data.providerId,
+            }
+          : undefined,
       },
       select: {
         accountId: {
@@ -77,6 +83,13 @@ export class QuoteControllerBase {
         completedAt: true,
         createdAt: true,
         id: true,
+
+        providerId: {
+          select: {
+            id: true,
+          },
+        },
+
         status: true,
         updatedAt: true,
       },
@@ -125,6 +138,13 @@ export class QuoteControllerBase {
         completedAt: true,
         createdAt: true,
         id: true,
+
+        providerId: {
+          select: {
+            id: true,
+          },
+        },
+
         status: true,
         updatedAt: true,
       },
@@ -168,6 +188,13 @@ export class QuoteControllerBase {
         completedAt: true,
         createdAt: true,
         id: true,
+
+        providerId: {
+          select: {
+            id: true,
+          },
+        },
+
         status: true,
         updatedAt: true,
       },
@@ -229,6 +256,12 @@ export class QuoteControllerBase {
                 connect: data.accountId,
               }
             : undefined,
+
+          providerId: data.providerId
+            ? {
+                connect: data.providerId,
+              }
+            : undefined,
         },
         select: {
           accountId: {
@@ -240,6 +273,13 @@ export class QuoteControllerBase {
           completedAt: true,
           createdAt: true,
           id: true,
+
+          providerId: {
+            select: {
+              id: true,
+            },
+          },
+
           status: true,
           updatedAt: true,
         },
@@ -284,6 +324,13 @@ export class QuoteControllerBase {
           completedAt: true,
           createdAt: true,
           id: true,
+
+          providerId: {
+            select: {
+              id: true,
+            },
+          },
+
           status: true,
           updatedAt: true,
         },

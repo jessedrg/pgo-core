@@ -9,6 +9,7 @@ import {
 } from "react-admin";
 import Pagination from "../Components/Pagination";
 import { ACCOUNT_TITLE_FIELD } from "../account/AccountTitle";
+import { PROVIDER_TITLE_FIELD } from "../provider/ProviderTitle";
 
 export const QuoteList = (props: ListProps): React.ReactElement => {
   return (
@@ -30,6 +31,13 @@ export const QuoteList = (props: ListProps): React.ReactElement => {
         <TextField label="completedAt" source="completedAt" />
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
+        <ReferenceField
+          label="providerId"
+          source="provider.id"
+          reference="Provider"
+        >
+          <TextField source={PROVIDER_TITLE_FIELD} />
+        </ReferenceField>
         <TextField label="status" source="status" />
         <DateField source="updatedAt" label="Updated At" />
       </Datagrid>

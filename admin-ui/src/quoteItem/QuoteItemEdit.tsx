@@ -11,6 +11,7 @@ import {
 } from "react-admin";
 
 import { PartTitle } from "../part/PartTitle";
+import { ProviderTitle } from "../provider/ProviderTitle";
 
 export const QuoteItemEdit = (props: EditProps): React.ReactElement => {
   return (
@@ -24,6 +25,13 @@ export const QuoteItemEdit = (props: EditProps): React.ReactElement => {
         </ReferenceInput>
         <NumberInput label="prices" source="prices" />
         <NumberInput step={1} label="productionDays" source="productionDays" />
+        <ReferenceInput
+          source="provider.id"
+          reference="Provider"
+          label="providerId"
+        >
+          <SelectInput optionText={ProviderTitle} />
+        </ReferenceInput>
         <NumberInput step={1} label="quantities" source="quantities" />
         <SelectInput
           source="status"

@@ -5,6 +5,7 @@ import { ValidateNested, IsOptional, IsEnum } from "class-validator";
 import { Type } from "class-transformer";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { PartWhereUniqueInput } from "../../part/base/PartWhereUniqueInput";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { EnumOfferStatus } from "./EnumOfferStatus";
 @InputType()
@@ -42,6 +43,18 @@ class OfferWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PartWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => PartWhereUniqueInput)
+  @IsOptional()
+  @Field(() => PartWhereUniqueInput, {
+    nullable: true,
+  })
+  partId?: PartWhereUniqueInput;
 
   @ApiProperty({
     required: false,

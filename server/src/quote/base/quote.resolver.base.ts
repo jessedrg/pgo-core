@@ -15,6 +15,7 @@ import { QuoteFindManyArgs } from "./QuoteFindManyArgs";
 import { QuoteFindUniqueArgs } from "./QuoteFindUniqueArgs";
 import { Quote } from "./Quote";
 import { Account } from "../../account/base/Account";
+import { Provider } from "../../provider/base/Provider";
 import { QuoteService } from "../quote.service";
 
 @graphql.Resolver(() => Quote)
@@ -129,6 +130,12 @@ export class QuoteResolverBase {
               connect: args.data.accountId,
             }
           : undefined,
+
+        providerId: args.data.providerId
+          ? {
+              connect: args.data.providerId,
+            }
+          : undefined,
       },
     });
   }
@@ -174,6 +181,12 @@ export class QuoteResolverBase {
           accountId: args.data.accountId
             ? {
                 connect: args.data.accountId,
+              }
+            : undefined,
+
+          providerId: args.data.providerId
+            ? {
+                connect: args.data.providerId,
               }
             : undefined,
         },
@@ -227,6 +240,30 @@ export class QuoteResolverBase {
       resource: "Account",
     });
     const result = await this.service.getAccountId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return permission.filter(result);
+  }
+
+  @graphql.ResolveField(() => Provider, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "Quote",
+    action: "read",
+    possession: "any",
+  })
+  async providerId(
+    @graphql.Parent() parent: Quote,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Provider | null> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Provider",
+    });
+    const result = await this.service.getProviderId(parent.id);
 
     if (!result) {
       return null;

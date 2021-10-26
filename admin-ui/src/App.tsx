@@ -45,6 +45,62 @@ import { ProductionItemList } from "./productionItem/ProductionItemList";
 import { ProductionItemCreate } from "./productionItem/ProductionItemCreate";
 import { ProductionItemEdit } from "./productionItem/ProductionItemEdit";
 import { ProductionItemShow } from "./productionItem/ProductionItemShow";
+import { MediaFileList } from "./mediaFile/MediaFileList";
+import { MediaFileCreate } from "./mediaFile/MediaFileCreate";
+import { MediaFileEdit } from "./mediaFile/MediaFileEdit";
+import { MediaFileShow } from "./mediaFile/MediaFileShow";
+import { ProviderList } from "./provider/ProviderList";
+import { ProviderCreate } from "./provider/ProviderCreate";
+import { ProviderEdit } from "./provider/ProviderEdit";
+import { ProviderShow } from "./provider/ProviderShow";
+import { OrderList } from "./order/OrderList";
+import { OrderCreate } from "./order/OrderCreate";
+import { OrderEdit } from "./order/OrderEdit";
+import { OrderShow } from "./order/OrderShow";
+import { OrganizationList } from "./organization/OrganizationList";
+import { OrganizationCreate } from "./organization/OrganizationCreate";
+import { OrganizationEdit } from "./organization/OrganizationEdit";
+import { OrganizationShow } from "./organization/OrganizationShow";
+import { OrderItemList } from "./orderItem/OrderItemList";
+import { OrderItemCreate } from "./orderItem/OrderItemCreate";
+import { OrderItemEdit } from "./orderItem/OrderItemEdit";
+import { OrderItemShow } from "./orderItem/OrderItemShow";
+import { AgentList } from "./agent/AgentList";
+import { AgentCreate } from "./agent/AgentCreate";
+import { AgentEdit } from "./agent/AgentEdit";
+import { AgentShow } from "./agent/AgentShow";
+import { AddressList } from "./address/AddressList";
+import { AddressCreate } from "./address/AddressCreate";
+import { AddressEdit } from "./address/AddressEdit";
+import { AddressShow } from "./address/AddressShow";
+import { ShipmentList } from "./shipment/ShipmentList";
+import { ShipmentCreate } from "./shipment/ShipmentCreate";
+import { ShipmentEdit } from "./shipment/ShipmentEdit";
+import { ShipmentShow } from "./shipment/ShipmentShow";
+import { PaymentList } from "./payment/PaymentList";
+import { PaymentCreate } from "./payment/PaymentCreate";
+import { PaymentEdit } from "./payment/PaymentEdit";
+import { PaymentShow } from "./payment/PaymentShow";
+import { AccountPaymentMethodList } from "./accountPaymentMethod/AccountPaymentMethodList";
+import { AccountPaymentMethodCreate } from "./accountPaymentMethod/AccountPaymentMethodCreate";
+import { AccountPaymentMethodEdit } from "./accountPaymentMethod/AccountPaymentMethodEdit";
+import { AccountPaymentMethodShow } from "./accountPaymentMethod/AccountPaymentMethodShow";
+import { InviteList } from "./invite/InviteList";
+import { InviteCreate } from "./invite/InviteCreate";
+import { InviteEdit } from "./invite/InviteEdit";
+import { InviteShow } from "./invite/InviteShow";
+import { SessionList } from "./session/SessionList";
+import { SessionCreate } from "./session/SessionCreate";
+import { SessionEdit } from "./session/SessionEdit";
+import { SessionShow } from "./session/SessionShow";
+import { HolidayList } from "./holiday/HolidayList";
+import { HolidayCreate } from "./holiday/HolidayCreate";
+import { HolidayEdit } from "./holiday/HolidayEdit";
+import { HolidayShow } from "./holiday/HolidayShow";
+import { PartMessageList } from "./partMessage/PartMessageList";
+import { PartMessageCreate } from "./partMessage/PartMessageCreate";
+import { PartMessageEdit } from "./partMessage/PartMessageEdit";
+import { PartMessageShow } from "./partMessage/PartMessageShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -140,6 +196,104 @@ const App = (): React.ReactElement => {
           edit={ProductionItemEdit}
           create={ProductionItemCreate}
           show={ProductionItemShow}
+        />
+        <Resource
+          name="MediaFile"
+          list={MediaFileList}
+          edit={MediaFileEdit}
+          create={MediaFileCreate}
+          show={MediaFileShow}
+        />
+        <Resource
+          name="Provider"
+          list={ProviderList}
+          edit={ProviderEdit}
+          create={ProviderCreate}
+          show={ProviderShow}
+        />
+        <Resource
+          name="Order"
+          list={OrderList}
+          edit={OrderEdit}
+          create={OrderCreate}
+          show={OrderShow}
+        />
+        <Resource
+          name="Organization"
+          list={OrganizationList}
+          edit={OrganizationEdit}
+          create={OrganizationCreate}
+          show={OrganizationShow}
+        />
+        <Resource
+          name="OrderItem"
+          list={OrderItemList}
+          edit={OrderItemEdit}
+          create={OrderItemCreate}
+          show={OrderItemShow}
+        />
+        <Resource
+          name="Agent"
+          list={AgentList}
+          edit={AgentEdit}
+          create={AgentCreate}
+          show={AgentShow}
+        />
+        <Resource
+          name="Address"
+          list={AddressList}
+          edit={AddressEdit}
+          create={AddressCreate}
+          show={AddressShow}
+        />
+        <Resource
+          name="Shipment"
+          list={ShipmentList}
+          edit={ShipmentEdit}
+          create={ShipmentCreate}
+          show={ShipmentShow}
+        />
+        <Resource
+          name="Payment"
+          list={PaymentList}
+          edit={PaymentEdit}
+          create={PaymentCreate}
+          show={PaymentShow}
+        />
+        <Resource
+          name="AccountPaymentMethod"
+          list={AccountPaymentMethodList}
+          edit={AccountPaymentMethodEdit}
+          create={AccountPaymentMethodCreate}
+          show={AccountPaymentMethodShow}
+        />
+        <Resource
+          name="Invite"
+          list={InviteList}
+          edit={InviteEdit}
+          create={InviteCreate}
+          show={InviteShow}
+        />
+        <Resource
+          name="Session"
+          list={SessionList}
+          edit={SessionEdit}
+          create={SessionCreate}
+          show={SessionShow}
+        />
+        <Resource
+          name="Holiday"
+          list={HolidayList}
+          edit={HolidayEdit}
+          create={HolidayCreate}
+          show={HolidayShow}
+        />
+        <Resource
+          name="PartMessage"
+          list={PartMessageList}
+          edit={PartMessageEdit}
+          create={PartMessageCreate}
+          show={PartMessageShow}
         />
       </Admin>
     </div>

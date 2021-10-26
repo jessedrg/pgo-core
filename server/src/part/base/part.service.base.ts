@@ -1,10 +1,15 @@
 import { PrismaService } from "nestjs-prisma";
+
 import {
   Prisma,
   Part,
+  Offer,
   PartConfiguration,
+  OrderItem,
   ProductionItem,
+  PartMessage,
   PartOnShape,
+  Production,
   QuoteItem,
 } from "@prisma/client";
 
@@ -43,6 +48,17 @@ export class PartServiceBase {
     return this.prisma.part.delete(args);
   }
 
+  async findOffersInPart(
+    parentId: string,
+    args: Prisma.OfferFindManyArgs
+  ): Promise<Offer[]> {
+    return this.prisma.part
+      .findUnique({
+        where: { id: parentId },
+      })
+      .offersInPart(args);
+  }
+
   async findPart(
     parentId: string,
     args: Prisma.PartConfigurationFindManyArgs
@@ -52,6 +68,17 @@ export class PartServiceBase {
         where: { id: parentId },
       })
       .part(args);
+  }
+
+  async findPartInOrderItem(
+    parentId: string,
+    args: Prisma.OrderItemFindManyArgs
+  ): Promise<OrderItem[]> {
+    return this.prisma.part
+      .findUnique({
+        where: { id: parentId },
+      })
+      .partInOrderItem(args);
   }
 
   async findPartInProduction(
@@ -65,6 +92,17 @@ export class PartServiceBase {
       .partInProduction(args);
   }
 
+  async findPartMessagesInPart(
+    parentId: string,
+    args: Prisma.PartMessageFindManyArgs
+  ): Promise<PartMessage[]> {
+    return this.prisma.part
+      .findUnique({
+        where: { id: parentId },
+      })
+      .partMessagesInPart(args);
+  }
+
   async findPartOnShape(
     parentId: string,
     args: Prisma.PartOnShapeFindManyArgs
@@ -74,6 +112,17 @@ export class PartServiceBase {
         where: { id: parentId },
       })
       .partOnShape(args);
+  }
+
+  async findProductionsInParts(
+    parentId: string,
+    args: Prisma.ProductionFindManyArgs
+  ): Promise<Production[]> {
+    return this.prisma.part
+      .findUnique({
+        where: { id: parentId },
+      })
+      .productionsInParts(args);
   }
 
   async findQuoteItem(

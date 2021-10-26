@@ -4,7 +4,9 @@ import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested, IsEnum } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
-import { ProductionWhereUniqueInput } from "./ProductionWhereUniqueInput";
+import { OrderWhereUniqueInput } from "../../order/base/OrderWhereUniqueInput";
+import { PartWhereUniqueInput } from "../../part/base/PartWhereUniqueInput";
+import { ProviderWhereUniqueInput } from "../../provider/base/ProviderWhereUniqueInput";
 import { EnumProductionStatus } from "./EnumProductionStatus";
 @InputType()
 class ProductionWhereInput {
@@ -32,15 +34,39 @@ class ProductionWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => ProductionWhereUniqueInput,
+    type: () => OrderWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => ProductionWhereUniqueInput)
+  @Type(() => OrderWhereUniqueInput)
   @IsOptional()
-  @Field(() => ProductionWhereUniqueInput, {
+  @Field(() => OrderWhereUniqueInput, {
     nullable: true,
   })
-  parentId?: ProductionWhereUniqueInput;
+  orderId?: OrderWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PartWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => PartWhereUniqueInput)
+  @IsOptional()
+  @Field(() => PartWhereUniqueInput, {
+    nullable: true,
+  })
+  partId?: PartWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProviderWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => ProviderWhereUniqueInput)
+  @IsOptional()
+  @Field(() => ProviderWhereUniqueInput, {
+    nullable: true,
+  })
+  providerId?: ProviderWhereUniqueInput;
 
   @ApiProperty({
     required: false,

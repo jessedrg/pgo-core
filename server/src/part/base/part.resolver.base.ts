@@ -14,12 +14,20 @@ import { DeletePartArgs } from "./DeletePartArgs";
 import { PartFindManyArgs } from "./PartFindManyArgs";
 import { PartFindUniqueArgs } from "./PartFindUniqueArgs";
 import { Part } from "./Part";
+import { OfferFindManyArgs } from "../../offer/base/OfferFindManyArgs";
+import { Offer } from "../../offer/base/Offer";
 import { PartConfigurationFindManyArgs } from "../../partConfiguration/base/PartConfigurationFindManyArgs";
 import { PartConfiguration } from "../../partConfiguration/base/PartConfiguration";
+import { OrderItemFindManyArgs } from "../../orderItem/base/OrderItemFindManyArgs";
+import { OrderItem } from "../../orderItem/base/OrderItem";
 import { ProductionItemFindManyArgs } from "../../productionItem/base/ProductionItemFindManyArgs";
 import { ProductionItem } from "../../productionItem/base/ProductionItem";
+import { PartMessageFindManyArgs } from "../../partMessage/base/PartMessageFindManyArgs";
+import { PartMessage } from "../../partMessage/base/PartMessage";
 import { PartOnShapeFindManyArgs } from "../../partOnShape/base/PartOnShapeFindManyArgs";
 import { PartOnShape } from "../../partOnShape/base/PartOnShape";
+import { ProductionFindManyArgs } from "../../production/base/ProductionFindManyArgs";
+import { Production } from "../../production/base/Production";
 import { QuoteItemFindManyArgs } from "../../quoteItem/base/QuoteItemFindManyArgs";
 import { QuoteItem } from "../../quoteItem/base/QuoteItem";
 import { PartService } from "../part.service";
@@ -199,6 +207,32 @@ export class PartResolverBase {
     }
   }
 
+  @graphql.ResolveField(() => [Offer])
+  @nestAccessControl.UseRoles({
+    resource: "Part",
+    action: "read",
+    possession: "any",
+  })
+  async offersInPart(
+    @graphql.Parent() parent: Part,
+    @graphql.Args() args: OfferFindManyArgs,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Offer[]> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Offer",
+    });
+    const results = await this.service.findOffersInPart(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results.map((result) => permission.filter(result));
+  }
+
   @graphql.ResolveField(() => [PartConfiguration])
   @nestAccessControl.UseRoles({
     resource: "Part",
@@ -217,6 +251,32 @@ export class PartResolverBase {
       resource: "PartConfiguration",
     });
     const results = await this.service.findPart(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results.map((result) => permission.filter(result));
+  }
+
+  @graphql.ResolveField(() => [OrderItem])
+  @nestAccessControl.UseRoles({
+    resource: "Part",
+    action: "read",
+    possession: "any",
+  })
+  async partInOrderItem(
+    @graphql.Parent() parent: Part,
+    @graphql.Args() args: OrderItemFindManyArgs,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<OrderItem[]> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "OrderItem",
+    });
+    const results = await this.service.findPartInOrderItem(parent.id, args);
 
     if (!results) {
       return [];
@@ -251,6 +311,32 @@ export class PartResolverBase {
     return results.map((result) => permission.filter(result));
   }
 
+  @graphql.ResolveField(() => [PartMessage])
+  @nestAccessControl.UseRoles({
+    resource: "Part",
+    action: "read",
+    possession: "any",
+  })
+  async partMessagesInPart(
+    @graphql.Parent() parent: Part,
+    @graphql.Args() args: PartMessageFindManyArgs,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<PartMessage[]> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "PartMessage",
+    });
+    const results = await this.service.findPartMessagesInPart(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results.map((result) => permission.filter(result));
+  }
+
   @graphql.ResolveField(() => [PartOnShape])
   @nestAccessControl.UseRoles({
     resource: "Part",
@@ -269,6 +355,32 @@ export class PartResolverBase {
       resource: "PartOnShape",
     });
     const results = await this.service.findPartOnShape(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results.map((result) => permission.filter(result));
+  }
+
+  @graphql.ResolveField(() => [Production])
+  @nestAccessControl.UseRoles({
+    resource: "Part",
+    action: "read",
+    possession: "any",
+  })
+  async productionsInParts(
+    @graphql.Parent() parent: Part,
+    @graphql.Args() args: ProductionFindManyArgs,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Production[]> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Production",
+    });
+    const results = await this.service.findProductionsInParts(parent.id, args);
 
     if (!results) {
       return [];

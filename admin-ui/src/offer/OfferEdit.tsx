@@ -11,6 +11,7 @@ import {
 } from "react-admin";
 
 import { AccountTitle } from "../account/AccountTitle";
+import { PartTitle } from "../part/PartTitle";
 
 export const OfferEdit = (props: EditProps): React.ReactElement => {
   return (
@@ -24,6 +25,9 @@ export const OfferEdit = (props: EditProps): React.ReactElement => {
           <SelectInput optionText={AccountTitle} />
         </ReferenceInput>
         <TextInput label="customNo" multiline source="customNo" />
+        <ReferenceInput source="part.id" reference="Part" label="partId">
+          <SelectInput optionText={PartTitle} />
+        </ReferenceInput>
         <DateTimeInput label="publishedAt" source="publishedAt" />
         <SelectInput
           source="status"

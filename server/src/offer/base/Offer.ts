@@ -9,6 +9,7 @@ import {
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { Part } from "../../part/base/Part";
 import { EnumOfferStatus } from "./EnumOfferStatus";
 @ObjectType()
 class Offer {
@@ -47,6 +48,15 @@ class Offer {
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => Part,
+  })
+  @ValidateNested()
+  @Type(() => Part)
+  @IsOptional()
+  partId?: Part | null;
 
   @ApiProperty({
     required: false,

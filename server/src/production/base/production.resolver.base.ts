@@ -16,6 +16,9 @@ import { ProductionFindUniqueArgs } from "./ProductionFindUniqueArgs";
 import { Production } from "./Production";
 import { ProductionItemFindManyArgs } from "../../productionItem/base/ProductionItemFindManyArgs";
 import { ProductionItem } from "../../productionItem/base/ProductionItem";
+import { Order } from "../../order/base/Order";
+import { Part } from "../../part/base/Part";
+import { Provider } from "../../provider/base/Provider";
 import { ProductionService } from "../production.service";
 
 @graphql.Resolver(() => Production)
@@ -125,9 +128,21 @@ export class ProductionResolverBase {
       data: {
         ...args.data,
 
-        parentId: args.data.parentId
+        orderId: args.data.orderId
           ? {
-              connect: args.data.parentId,
+              connect: args.data.orderId,
+            }
+          : undefined,
+
+        partId: args.data.partId
+          ? {
+              connect: args.data.partId,
+            }
+          : undefined,
+
+        providerId: args.data.providerId
+          ? {
+              connect: args.data.providerId,
             }
           : undefined,
       },
@@ -172,9 +187,21 @@ export class ProductionResolverBase {
         data: {
           ...args.data,
 
-          parentId: args.data.parentId
+          orderId: args.data.orderId
             ? {
-                connect: args.data.parentId,
+                connect: args.data.orderId,
+              }
+            : undefined,
+
+          partId: args.data.partId
+            ? {
+                connect: args.data.partId,
+              }
+            : undefined,
+
+          providerId: args.data.providerId
+            ? {
+                connect: args.data.providerId,
               }
             : undefined,
         },
@@ -211,32 +238,6 @@ export class ProductionResolverBase {
     }
   }
 
-  @graphql.ResolveField(() => [Production])
-  @nestAccessControl.UseRoles({
-    resource: "Production",
-    action: "read",
-    possession: "any",
-  })
-  async production(
-    @graphql.Parent() parent: Production,
-    @graphql.Args() args: ProductionFindManyArgs,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Production[]> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Production",
-    });
-    const results = await this.service.findProduction(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results.map((result) => permission.filter(result));
-  }
-
   @graphql.ResolveField(() => [ProductionItem])
   @nestAccessControl.UseRoles({
     resource: "Production",
@@ -266,23 +267,71 @@ export class ProductionResolverBase {
     return results.map((result) => permission.filter(result));
   }
 
-  @graphql.ResolveField(() => Production, { nullable: true })
+  @graphql.ResolveField(() => Order, { nullable: true })
   @nestAccessControl.UseRoles({
     resource: "Production",
     action: "read",
     possession: "any",
   })
-  async parentId(
+  async orderId(
     @graphql.Parent() parent: Production,
     @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Production | null> {
+  ): Promise<Order | null> {
     const permission = this.rolesBuilder.permission({
       role: userRoles,
       action: "read",
       possession: "any",
-      resource: "Production",
+      resource: "Order",
     });
-    const result = await this.service.getParentId(parent.id);
+    const result = await this.service.getOrderId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return permission.filter(result);
+  }
+
+  @graphql.ResolveField(() => Part, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "Production",
+    action: "read",
+    possession: "any",
+  })
+  async partId(
+    @graphql.Parent() parent: Production,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Part | null> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Part",
+    });
+    const result = await this.service.getPartId(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return permission.filter(result);
+  }
+
+  @graphql.ResolveField(() => Provider, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "Production",
+    action: "read",
+    possession: "any",
+  })
+  async providerId(
+    @graphql.Parent() parent: Production,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Provider | null> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Provider",
+    });
+    const result = await this.service.getProviderId(parent.id);
 
     if (!result) {
       return null;

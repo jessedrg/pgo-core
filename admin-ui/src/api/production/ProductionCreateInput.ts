@@ -1,8 +1,12 @@
-import { ProductionWhereUniqueInput } from "./ProductionWhereUniqueInput";
+import { OrderWhereUniqueInput } from "../order/OrderWhereUniqueInput";
+import { PartWhereUniqueInput } from "../part/PartWhereUniqueInput";
+import { ProviderWhereUniqueInput } from "../provider/ProviderWhereUniqueInput";
 
 export type ProductionCreateInput = {
   discomformity?: boolean | null;
-  parentId?: ProductionWhereUniqueInput | null;
+  orderId?: OrderWhereUniqueInput | null;
+  partId?: PartWhereUniqueInput | null;
+  providerId?: ProviderWhereUniqueInput | null;
   status?:
     | "pending"
     | "processing"
