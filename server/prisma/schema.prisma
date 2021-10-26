@@ -1,0 +1,177 @@
+datasource postgres {
+  provider = "postgresql"
+  url      = env("POSTGRESQL_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  createdAt DateTime @default(now())
+  firstName String?
+  id        String   @id @default(cuid())
+  lastName  String?
+  password  String
+  roles     String[]
+  updatedAt DateTime @updatedAt
+  username  String   @unique
+}
+
+model Offer {
+  accountId   Account?         @relation(fields: [accountIdId], references: [id])
+  accountIdId String?
+  createdAt   DateTime         @default(now())
+  customNo    String?          @unique
+  id          String           @id @default(cuid())
+  publishedAt DateTime?
+  status      EnumOfferStatus?
+  updatedAt   DateTime         @updatedAt
+}
+
+model Account {
+  account       Offer[]
+  active        Boolean?
+  configuration Json?
+  createdAt     DateTime @default(now())
+  email         String   @unique
+  id            String   @id @default(cuid())
+  quote         Quote[]
+  updatedAt     DateTime @updatedAt
+}
+
+model Part {
+  createdAt         DateTime            @default(now())
+  id                String              @id @default(cuid())
+  part              PartConfiguration[]
+  partInProduction  ProductionItem[]
+  partOnShape       PartOnShape[]
+  parts             Int?
+  process           String?
+  quantities        Json?
+  quoteItem         QuoteItem[]
+  status            EnumPartStatus?
+  surface           Float?
+  updatedAt         DateTime            @updatedAt
+  visible           Boolean?
+  volume            Float?
+  volumeBoundingBox Float?
+  volumeChips       Float?
+  x                 Float?
+  y                 Float?
+  z                 Float?
+}
+
+model PartConfiguration {
+  colorFinish  String?
+  createdAt    DateTime @default(now())
+  finish       String?
+  hardness     String?
+  id           String   @id @default(cuid())
+  material     String?
+  materialType String?
+  partId       Part?    @relation(fields: [partIdId], references: [id])
+  partIdId     String?
+  tech         String?
+  tolerance    Float?
+  updatedAt    DateTime @updatedAt
+  weight       Float?
+}
+
+model PartOnShape {
+  createdAt DateTime @default(now())
+  did       String?
+  eid       String?
+  id        String   @id @default(cuid())
+  partId    Part?    @relation(fields: [partIdId], references: [id])
+  partIdId  String?
+  updatedAt DateTime @updatedAt
+  wid       String?
+}
+
+model Quote {
+  accountId   Account?          @relation(fields: [accountIdId], references: [id])
+  accountIdId String?
+  completedAt DateTime?
+  createdAt   DateTime          @default(now())
+  id          String            @id @default(cuid())
+  status      EnumQuoteStatus[]
+  updatedAt   DateTime          @updatedAt
+}
+
+model QuoteItem {
+  basePrices       Float?
+  constructionType String?
+  createdAt        DateTime             @default(now())
+  id               String               @id @default(cuid())
+  margins          Float?
+  partId           Part?                @relation(fields: [partIdId], references: [id])
+  partIdId         String?
+  prices           Float?
+  productionDays   Int?
+  quantities       Int?
+  status           EnumQuoteItemStatus?
+  updatedAt        DateTime             @updatedAt
+}
+
+model Production {
+  createdAt                  DateTime              @default(now())
+  discomformity              Boolean?
+  id                         String                @id @default(cuid())
+  parentId                   Production?           @relation(name: "parentId", fields: [parentIdId], references: [id])
+  parentIdId                 String?
+  production                 Production[]          @relation(name: "parentId")
+  productionItemInProduction ProductionItem[]
+  status                     EnumProductionStatus?
+  updatedAt                  DateTime              @updatedAt
+}
+
+model ProductionItem {
+  createdAt       DateTime    @default(now())
+  id              String      @id @default(cuid())
+  partId          Part?       @relation(fields: [partIdId], references: [id])
+  partIdId        String?
+  productionId    Production? @relation(fields: [productionIdId], references: [id])
+  productionIdId  String?
+  quantity        Int?
+  shippedQuantity Int?
+  updatedAt       DateTime    @updatedAt
+}
+
+enum EnumOfferStatus {
+  draft
+  pending
+  publish
+  rejected
+}
+
+enum EnumPartStatus {
+  draft
+  pending
+  rejected
+  publish
+}
+
+enum EnumQuoteStatus {
+  pending
+  completed
+  canceled
+  rejected
+}
+
+enum EnumQuoteItemStatus {
+  pending
+  completed
+  rejected
+  canceled
+}
+
+enum EnumProductionStatus {
+  pending
+  processing
+  shipped
+  quality
+  completed
+  canceled
+  rejected
+}

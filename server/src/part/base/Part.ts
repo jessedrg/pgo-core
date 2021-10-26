@@ -1,0 +1,217 @@
+import { ObjectType, Field } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
+
+import {
+  IsDate,
+  IsString,
+  ValidateNested,
+  IsOptional,
+  IsInt,
+  IsJSON,
+  IsEnum,
+  IsNumber,
+  IsBoolean,
+} from "class-validator";
+
+import { Type } from "class-transformer";
+import { PartConfiguration } from "../../partConfiguration/base/PartConfiguration";
+import { ProductionItem } from "../../productionItem/base/ProductionItem";
+import { PartOnShape } from "../../partOnShape/base/PartOnShape";
+import { GraphQLJSONObject } from "graphql-type-json";
+import { JsonValue } from "type-fest";
+import { QuoteItem } from "../../quoteItem/base/QuoteItem";
+import { EnumPartStatus } from "./EnumPartStatus";
+@ObjectType()
+class Part {
+  @ApiProperty({
+    required: true,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @Field(() => Date)
+  createdAt!: Date;
+
+  @ApiProperty({
+    required: true,
+    type: String,
+  })
+  @IsString()
+  @Field(() => String)
+  id!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => [PartConfiguration],
+  })
+  @ValidateNested()
+  @Type(() => PartConfiguration)
+  @IsOptional()
+  part?: Array<PartConfiguration>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ProductionItem],
+  })
+  @ValidateNested()
+  @Type(() => ProductionItem)
+  @IsOptional()
+  partInProduction?: Array<ProductionItem>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [PartOnShape],
+  })
+  @ValidateNested()
+  @Type(() => PartOnShape)
+  @IsOptional()
+  partOnShape?: Array<PartOnShape>;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsInt()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  parts!: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  process!: string | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsJSON()
+  @IsOptional()
+  @Field(() => GraphQLJSONObject, {
+    nullable: true,
+  })
+  quantities!: JsonValue | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [QuoteItem],
+  })
+  @ValidateNested()
+  @Type(() => QuoteItem)
+  @IsOptional()
+  quoteItem?: Array<QuoteItem>;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumPartStatus,
+  })
+  @IsEnum(EnumPartStatus)
+  @IsOptional()
+  @Field(() => EnumPartStatus, {
+    nullable: true,
+  })
+  status?: "draft" | "pending" | "rejected" | "publish" | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  surface!: number | null;
+
+  @ApiProperty({
+    required: true,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @Field(() => Date)
+  updatedAt!: Date;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  visible!: boolean | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  volume!: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  volumeBoundingBox!: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  volumeChips!: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  x!: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  y!: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  z!: number | null;
+}
+export { Part };
