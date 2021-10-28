@@ -15,7 +15,7 @@ import { PaymentWhereUniqueInput } from "./PaymentWhereUniqueInput";
 import { PaymentFindManyArgs } from "./PaymentFindManyArgs";
 import { PaymentUpdateInput } from "./PaymentUpdateInput";
 import { Payment } from "./Payment";
-@swagger.ApiBearerAuth()
+@swagger.ApiBasicAuth()
 export class PaymentControllerBase {
   constructor(
     protected readonly service: PaymentService,

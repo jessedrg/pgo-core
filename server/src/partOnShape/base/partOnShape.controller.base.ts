@@ -15,7 +15,7 @@ import { PartOnShapeWhereUniqueInput } from "./PartOnShapeWhereUniqueInput";
 import { PartOnShapeFindManyArgs } from "./PartOnShapeFindManyArgs";
 import { PartOnShapeUpdateInput } from "./PartOnShapeUpdateInput";
 import { PartOnShape } from "./PartOnShape";
-@swagger.ApiBearerAuth()
+@swagger.ApiBasicAuth()
 export class PartOnShapeControllerBase {
   constructor(
     protected readonly service: PartOnShapeService,

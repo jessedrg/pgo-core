@@ -17,7 +17,7 @@ import { MediaFileUpdateInput } from "./MediaFileUpdateInput";
 import { MediaFile } from "./MediaFile";
 import { ShipmentWhereInput } from "../../shipment/base/ShipmentWhereInput";
 import { Shipment } from "../../shipment/base/Shipment";
-@swagger.ApiBearerAuth()
+@swagger.ApiBasicAuth()
 export class MediaFileControllerBase {
   constructor(
     protected readonly service: MediaFileService,

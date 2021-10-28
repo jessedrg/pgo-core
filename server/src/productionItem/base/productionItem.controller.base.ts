@@ -15,7 +15,7 @@ import { ProductionItemWhereUniqueInput } from "./ProductionItemWhereUniqueInput
 import { ProductionItemFindManyArgs } from "./ProductionItemFindManyArgs";
 import { ProductionItemUpdateInput } from "./ProductionItemUpdateInput";
 import { ProductionItem } from "./ProductionItem";
-@swagger.ApiBearerAuth()
+@swagger.ApiBasicAuth()
 export class ProductionItemControllerBase {
   constructor(
     protected readonly service: ProductionItemService,

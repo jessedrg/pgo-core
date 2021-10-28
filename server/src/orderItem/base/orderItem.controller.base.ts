@@ -15,7 +15,7 @@ import { OrderItemWhereUniqueInput } from "./OrderItemWhereUniqueInput";
 import { OrderItemFindManyArgs } from "./OrderItemFindManyArgs";
 import { OrderItemUpdateInput } from "./OrderItemUpdateInput";
 import { OrderItem } from "./OrderItem";
-@swagger.ApiBearerAuth()
+@swagger.ApiBasicAuth()
 export class OrderItemControllerBase {
   constructor(
     protected readonly service: OrderItemService,

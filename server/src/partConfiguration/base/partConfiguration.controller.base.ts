@@ -15,7 +15,7 @@ import { PartConfigurationWhereUniqueInput } from "./PartConfigurationWhereUniqu
 import { PartConfigurationFindManyArgs } from "./PartConfigurationFindManyArgs";
 import { PartConfigurationUpdateInput } from "./PartConfigurationUpdateInput";
 import { PartConfiguration } from "./PartConfiguration";
-@swagger.ApiBearerAuth()
+@swagger.ApiBasicAuth()
 export class PartConfigurationControllerBase {
   constructor(
     protected readonly service: PartConfigurationService,

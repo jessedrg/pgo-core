@@ -23,6 +23,7 @@ import { InviteModule } from "./invite/invite.module";
 import { SessionModule } from "./session/session.module";
 import { HolidayModule } from "./holiday/holiday.module";
 import { PartMessageModule } from "./partMessage/partMessage.module";
+import { HealthModule } from "./health/health.module";
 import { ACLModule } from "./auth/acl.module";
 import { AuthModule } from "./auth/auth.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -59,6 +60,7 @@ import { GraphQLModule } from "@nestjs/graphql";
     SessionModule,
     HolidayModule,
     PartMessageModule,
+    HealthModule,
     ACLModule,
     AuthModule,
     SecretsManagerModule,

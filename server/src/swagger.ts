@@ -5,10 +5,10 @@ export const swaggerPath = "api";
 export const swaggerDocumentOptions = new DocumentBuilder()
   .setTitle("ProtoAndGoCore")
   .setDescription(
-    '\n\n## Congratulations! Your application is ready.\n  \nPlease note that all endpoints are secured with JWT Bearer authentication.\nBy default, your app comes with one user with the username "admin" and password "admin".\nLearn more in [our docs](https://docs.amplication.com)'
+    '\n\n## Congratulations! Your application is ready.\n  \nPlease note that all endpoints are secured with HTTP Basic authentication.\nBy default, your app comes with one user with the username "admin" and password "admin".\nLearn more in [our docs](https://docs.amplication.com)'
   )
-  .setVersion("91l6dn5u")
-  .addBearerAuth()
+  .setVersion("asises4u")
+  .addBasicAuth()
   .build();
 
 export const swaggerSetupOptions = {

@@ -101,7 +101,7 @@ import { PartMessageList } from "./partMessage/PartMessageList";
 import { PartMessageCreate } from "./partMessage/PartMessageCreate";
 import { PartMessageEdit } from "./partMessage/PartMessageEdit";
 import { PartMessageShow } from "./partMessage/PartMessageShow";
-import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
+import { httpAuthProvider } from "./auth-provider/ra-auth-http";
 
 const App = (): React.ReactElement => {
   const [dataProvider, setDataProvider] = useState<DataProvider | null>(null);
@@ -122,7 +122,7 @@ const App = (): React.ReactElement => {
       <Admin
         title={"ProtoAndGoCore"}
         dataProvider={dataProvider}
-        authProvider={jwtAuthProvider}
+        authProvider={httpAuthProvider}
         theme={theme}
         dashboard={Dashboard}
         loginPage={Login}

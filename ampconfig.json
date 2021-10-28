@@ -1,19 +1,19 @@
 {
-  "dataServiceGeneratorVersion": "0.10.0",
+  "dataServiceGeneratorVersion": "0.10.1",
   "appInfo": {
     "name": "ProtoAndGoCore",
     "description": "",
-    "version": "91l6dn5u",
+    "version": "asises4u",
     "id": "ckv7uajl59686061bs6j0y2m4uy",
     "url": "https://app.amplication.com/ckv7uajl59686061bs6j0y2m4uy",
     "settings": {
       "dbHost": "localhost",
       "dbName": "",
-      "dbPassword": "admin",
+      "dbPassword": "Candita18612@",
       "dbPort": 5432,
-      "dbUser": "admin",
+      "dbUser": "potsgres",
       "appId": "ckv7uajl59686061bs6j0y2m4uy",
-      "authProvider": "Jwt"
+      "authProvider": "Http"
     }
   }
 }

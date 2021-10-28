@@ -15,7 +15,7 @@ import { InviteWhereUniqueInput } from "./InviteWhereUniqueInput";
 import { InviteFindManyArgs } from "./InviteFindManyArgs";
 import { InviteUpdateInput } from "./InviteUpdateInput";
 import { Invite } from "./Invite";
-@swagger.ApiBearerAuth()
+@swagger.ApiBasicAuth()
 export class InviteControllerBase {
   constructor(
     protected readonly service: InviteService,

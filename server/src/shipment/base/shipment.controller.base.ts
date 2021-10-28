@@ -19,7 +19,7 @@ import { MediaFileWhereInput } from "../../mediaFile/base/MediaFileWhereInput";
 import { MediaFile } from "../../mediaFile/base/MediaFile";
 import { OrderWhereInput } from "../../order/base/OrderWhereInput";
 import { Order } from "../../order/base/Order";
-@swagger.ApiBearerAuth()
+@swagger.ApiBasicAuth()
 export class ShipmentControllerBase {
   constructor(
     protected readonly service: ShipmentService,

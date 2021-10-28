@@ -21,7 +21,7 @@ import { QuoteItemWhereInput } from "../../quoteItem/base/QuoteItemWhereInput";
 import { QuoteItem } from "../../quoteItem/base/QuoteItem";
 import { QuoteWhereInput } from "../../quote/base/QuoteWhereInput";
 import { Quote } from "../../quote/base/Quote";
-@swagger.ApiBearerAuth()
+@swagger.ApiBasicAuth()
 export class ProviderControllerBase {
   constructor(
     protected readonly service: ProviderService,

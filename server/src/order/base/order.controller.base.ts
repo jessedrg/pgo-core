@@ -21,7 +21,7 @@ import { PaymentWhereInput } from "../../payment/base/PaymentWhereInput";
 import { Payment } from "../../payment/base/Payment";
 import { ProductionWhereInput } from "../../production/base/ProductionWhereInput";
 import { Production } from "../../production/base/Production";
-@swagger.ApiBearerAuth()
+@swagger.ApiBasicAuth()
 export class OrderControllerBase {
   constructor(
     protected readonly service: OrderService,
