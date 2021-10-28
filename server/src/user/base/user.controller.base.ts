@@ -17,7 +17,7 @@ import { UserUpdateInput } from "./UserUpdateInput";
 import { User } from "./User";
 import { SessionWhereInput } from "../../session/base/SessionWhereInput";
 import { Session } from "../../session/base/Session";
-@swagger.ApiBearerAuth()
+@swagger.ApiBasicAuth()
 export class UserControllerBase {
   constructor(
     protected readonly service: UserService,

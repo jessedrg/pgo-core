@@ -15,7 +15,7 @@ import { SessionWhereUniqueInput } from "./SessionWhereUniqueInput";
 import { SessionFindManyArgs } from "./SessionFindManyArgs";
 import { SessionUpdateInput } from "./SessionUpdateInput";
 import { Session } from "./Session";
-@swagger.ApiBearerAuth()
+@swagger.ApiBasicAuth()
 export class SessionControllerBase {
   constructor(
     protected readonly service: SessionService,

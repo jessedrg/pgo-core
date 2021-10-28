@@ -17,7 +17,7 @@ import { AccountPaymentMethodUpdateInput } from "./AccountPaymentMethodUpdateInp
 import { AccountPaymentMethod } from "./AccountPaymentMethod";
 import { OrganizationWhereInput } from "../../organization/base/OrganizationWhereInput";
 import { Organization } from "../../organization/base/Organization";
-@swagger.ApiBearerAuth()
+@swagger.ApiBasicAuth()
 export class AccountPaymentMethodControllerBase {
   constructor(
     protected readonly service: AccountPaymentMethodService,

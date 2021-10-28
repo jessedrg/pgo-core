@@ -21,7 +21,7 @@ import { OrderWhereInput } from "../../order/base/OrderWhereInput";
 import { Order } from "../../order/base/Order";
 import { UserWhereInput } from "../../user/base/UserWhereInput";
 import { User } from "../../user/base/User";
-@swagger.ApiBearerAuth()
+@swagger.ApiBasicAuth()
 export class OrganizationControllerBase {
   constructor(
     protected readonly service: OrganizationService,

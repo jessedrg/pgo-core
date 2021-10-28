@@ -15,7 +15,7 @@ import { QuoteWhereUniqueInput } from "./QuoteWhereUniqueInput";
 import { QuoteFindManyArgs } from "./QuoteFindManyArgs";
 import { QuoteUpdateInput } from "./QuoteUpdateInput";
 import { Quote } from "./Quote";
-@swagger.ApiBearerAuth()
+@swagger.ApiBasicAuth()
 export class QuoteControllerBase {
   constructor(
     protected readonly service: QuoteService,

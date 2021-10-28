@@ -15,7 +15,7 @@ import { PartMessageWhereUniqueInput } from "./PartMessageWhereUniqueInput";
 import { PartMessageFindManyArgs } from "./PartMessageFindManyArgs";
 import { PartMessageUpdateInput } from "./PartMessageUpdateInput";
 import { PartMessage } from "./PartMessage";
-@swagger.ApiBearerAuth()
+@swagger.ApiBasicAuth()
 export class PartMessageControllerBase {
   constructor(
     protected readonly service: PartMessageService,

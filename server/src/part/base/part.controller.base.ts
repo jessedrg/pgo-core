@@ -31,7 +31,7 @@ import { ProductionWhereInput } from "../../production/base/ProductionWhereInput
 import { Production } from "../../production/base/Production";
 import { QuoteItemWhereInput } from "../../quoteItem/base/QuoteItemWhereInput";
 import { QuoteItem } from "../../quoteItem/base/QuoteItem";
-@swagger.ApiBearerAuth()
+@swagger.ApiBasicAuth()
 export class PartControllerBase {
   constructor(
     protected readonly service: PartService,

@@ -15,7 +15,7 @@ import { OfferWhereUniqueInput } from "./OfferWhereUniqueInput";
 import { OfferFindManyArgs } from "./OfferFindManyArgs";
 import { OfferUpdateInput } from "./OfferUpdateInput";
 import { Offer } from "./Offer";
-@swagger.ApiBearerAuth()
+@swagger.ApiBasicAuth()
 export class OfferControllerBase {
   constructor(
     protected readonly service: OfferService,

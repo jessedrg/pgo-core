@@ -17,7 +17,7 @@ import { ProductionUpdateInput } from "./ProductionUpdateInput";
 import { Production } from "./Production";
 import { ProductionItemWhereInput } from "../../productionItem/base/ProductionItemWhereInput";
 import { ProductionItem } from "../../productionItem/base/ProductionItem";
-@swagger.ApiBearerAuth()
+@swagger.ApiBasicAuth()
 export class ProductionControllerBase {
   constructor(
     protected readonly service: ProductionService,

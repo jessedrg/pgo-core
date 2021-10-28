@@ -15,7 +15,7 @@ import { AgentWhereUniqueInput } from "./AgentWhereUniqueInput";
 import { AgentFindManyArgs } from "./AgentFindManyArgs";
 import { AgentUpdateInput } from "./AgentUpdateInput";
 import { Agent } from "./Agent";
-@swagger.ApiBearerAuth()
+@swagger.ApiBasicAuth()
 export class AgentControllerBase {
   constructor(
     protected readonly service: AgentService,

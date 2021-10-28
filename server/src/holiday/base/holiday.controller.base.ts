@@ -17,7 +17,7 @@ import { HolidayUpdateInput } from "./HolidayUpdateInput";
 import { Holiday } from "./Holiday";
 import { ProviderWhereInput } from "../../provider/base/ProviderWhereInput";
 import { Provider } from "../../provider/base/Provider";
-@swagger.ApiBearerAuth()
+@swagger.ApiBasicAuth()
 export class HolidayControllerBase {
   constructor(
     protected readonly service: HolidayService,

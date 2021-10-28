@@ -33,7 +33,7 @@ import { QuoteWhereInput } from "../../quote/base/QuoteWhereInput";
 import { Quote } from "../../quote/base/Quote";
 import { UserWhereInput } from "../../user/base/UserWhereInput";
 import { User } from "../../user/base/User";
-@swagger.ApiBearerAuth()
+@swagger.ApiBasicAuth()
 export class AccountControllerBase {
   constructor(
     protected readonly service: AccountService,

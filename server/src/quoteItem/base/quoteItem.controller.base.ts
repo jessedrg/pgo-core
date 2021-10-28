@@ -15,7 +15,7 @@ import { QuoteItemWhereUniqueInput } from "./QuoteItemWhereUniqueInput";
 import { QuoteItemFindManyArgs } from "./QuoteItemFindManyArgs";
 import { QuoteItemUpdateInput } from "./QuoteItemUpdateInput";
 import { QuoteItem } from "./QuoteItem";
-@swagger.ApiBearerAuth()
+@swagger.ApiBasicAuth()
 export class QuoteItemControllerBase {
   constructor(
     protected readonly service: QuoteItemService,

@@ -17,7 +17,7 @@ import { AddressUpdateInput } from "./AddressUpdateInput";
 import { Address } from "./Address";
 import { OrganizationWhereInput } from "../../organization/base/OrganizationWhereInput";
 import { Organization } from "../../organization/base/Organization";
-@swagger.ApiBearerAuth()
+@swagger.ApiBasicAuth()
 export class AddressControllerBase {
   constructor(
     protected readonly service: AddressService,
