@@ -1,17 +1,17 @@
-import { AccountWhereUniqueInput } from "../account/AccountWhereUniqueInput";
 import { JsonValue } from "type-fest";
 import { OrganizationWhereUniqueInput } from "../organization/OrganizationWhereUniqueInput";
+import { PaymentWhereUniqueInput } from "../payment/PaymentWhereUniqueInput";
 import { ShipmentWhereUniqueInput } from "../shipment/ShipmentWhereUniqueInput";
 
 export type OrderCreateInput = {
-  acountId?: AccountWhereUniqueInput | null;
   billingAddress?: JsonValue | null;
   comment?: string | null;
   customNo?: string | null;
   estimatedDays?: number | null;
   fees?: JsonValue | null;
-  organizationId?: OrganizationWhereUniqueInput | null;
-  shipmentId?: ShipmentWhereUniqueInput | null;
+  organization?: OrganizationWhereUniqueInput | null;
+  payment?: PaymentWhereUniqueInput | null;
+  shipment?: ShipmentWhereUniqueInput | null;
   shippingaddress?: JsonValue | null;
   state?: Array<
     | "onHold"

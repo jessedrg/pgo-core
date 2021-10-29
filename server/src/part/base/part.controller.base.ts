@@ -15,20 +15,14 @@ import { PartWhereUniqueInput } from "./PartWhereUniqueInput";
 import { PartFindManyArgs } from "./PartFindManyArgs";
 import { PartUpdateInput } from "./PartUpdateInput";
 import { Part } from "./Part";
-import { OfferWhereInput } from "../../offer/base/OfferWhereInput";
-import { Offer } from "../../offer/base/Offer";
 import { PartConfigurationWhereInput } from "../../partConfiguration/base/PartConfigurationWhereInput";
 import { PartConfiguration } from "../../partConfiguration/base/PartConfiguration";
-import { OrderItemWhereInput } from "../../orderItem/base/OrderItemWhereInput";
-import { OrderItem } from "../../orderItem/base/OrderItem";
-import { ProductionItemWhereInput } from "../../productionItem/base/ProductionItemWhereInput";
-import { ProductionItem } from "../../productionItem/base/ProductionItem";
 import { PartMessageWhereInput } from "../../partMessage/base/PartMessageWhereInput";
 import { PartMessage } from "../../partMessage/base/PartMessage";
 import { PartOnShapeWhereInput } from "../../partOnShape/base/PartOnShapeWhereInput";
 import { PartOnShape } from "../../partOnShape/base/PartOnShape";
-import { ProductionWhereInput } from "../../production/base/ProductionWhereInput";
-import { Production } from "../../production/base/Production";
+import { ProductionItemWhereInput } from "../../productionItem/base/ProductionItemWhereInput";
+import { ProductionItem } from "../../productionItem/base/ProductionItem";
 import { QuoteItemWhereInput } from "../../quoteItem/base/QuoteItemWhereInput";
 import { QuoteItem } from "../../quoteItem/base/QuoteItem";
 @swagger.ApiBasicAuth()
@@ -74,13 +68,53 @@ export class PartControllerBase {
       );
     }
     return await this.service.create({
-      data: data,
+      data: {
+        ...data,
+
+        offer: data.offer
+          ? {
+              connect: data.offer,
+            }
+          : undefined,
+
+        partonshape: data.partonshape
+          ? {
+              connect: data.partonshape,
+            }
+          : undefined,
+
+        quote: data.quote
+          ? {
+              connect: data.quote,
+            }
+          : undefined,
+      },
       select: {
         createdAt: true,
         id: true,
+
+        offer: {
+          select: {
+            id: true,
+          },
+        },
+
+        partonshape: {
+          select: {
+            id: true,
+          },
+        },
+
         parts: true,
         process: true,
         quantities: true,
+
+        quote: {
+          select: {
+            id: true,
+          },
+        },
+
         status: true,
         surface: true,
         updatedAt: true,
@@ -130,9 +164,29 @@ export class PartControllerBase {
       select: {
         createdAt: true,
         id: true,
+
+        offer: {
+          select: {
+            id: true,
+          },
+        },
+
+        partonshape: {
+          select: {
+            id: true,
+          },
+        },
+
         parts: true,
         process: true,
         quantities: true,
+
+        quote: {
+          select: {
+            id: true,
+          },
+        },
+
         status: true,
         surface: true,
         updatedAt: true,
@@ -177,9 +231,29 @@ export class PartControllerBase {
       select: {
         createdAt: true,
         id: true,
+
+        offer: {
+          select: {
+            id: true,
+          },
+        },
+
+        partonshape: {
+          select: {
+            id: true,
+          },
+        },
+
         parts: true,
         process: true,
         quantities: true,
+
+        quote: {
+          select: {
+            id: true,
+          },
+        },
+
         status: true,
         surface: true,
         updatedAt: true,
@@ -241,13 +315,53 @@ export class PartControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          offer: data.offer
+            ? {
+                connect: data.offer,
+              }
+            : undefined,
+
+          partonshape: data.partonshape
+            ? {
+                connect: data.partonshape,
+              }
+            : undefined,
+
+          quote: data.quote
+            ? {
+                connect: data.quote,
+              }
+            : undefined,
+        },
         select: {
           createdAt: true,
           id: true,
+
+          offer: {
+            select: {
+              id: true,
+            },
+          },
+
+          partonshape: {
+            select: {
+              id: true,
+            },
+          },
+
           parts: true,
           process: true,
           quantities: true,
+
+          quote: {
+            select: {
+              id: true,
+            },
+          },
+
           status: true,
           surface: true,
           updatedAt: true,
@@ -293,9 +407,29 @@ export class PartControllerBase {
         select: {
           createdAt: true,
           id: true,
+
+          offer: {
+            select: {
+              id: true,
+            },
+          },
+
+          partonshape: {
+            select: {
+              id: true,
+            },
+          },
+
           parts: true,
           process: true,
           quantities: true,
+
+          quote: {
+            select: {
+              id: true,
+            },
+          },
+
           status: true,
           surface: true,
           updatedAt: true,
@@ -323,197 +457,7 @@ export class PartControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Get("/:id/offersInPart")
-  @nestAccessControl.UseRoles({
-    resource: "Part",
-    action: "read",
-    possession: "any",
-  })
-  @swagger.ApiQuery({
-    type: () => OfferWhereInput,
-    style: "deepObject",
-    explode: true,
-  })
-  async findManyOffersInPart(
-    @common.Req() request: Request,
-    @common.Param() params: PartWhereUniqueInput,
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<Offer[]> {
-    const query: OfferWhereInput = request.query;
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Offer",
-    });
-    const results = await this.service.findOffersInPart(params.id, {
-      where: query,
-      select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
-        createdAt: true,
-        customNo: true,
-        id: true,
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
-        publishedAt: true,
-        status: true,
-        updatedAt: true,
-      },
-    });
-    return results.map((result) => permission.filter(result));
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Post("/:id/offersInPart")
-  @nestAccessControl.UseRoles({
-    resource: "Part",
-    action: "update",
-    possession: "any",
-  })
-  async createOffersInPart(
-    @common.Param() params: PartWhereUniqueInput,
-    @common.Body() body: PartWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      offersInPart: {
-        connect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Part",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Part"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Patch("/:id/offersInPart")
-  @nestAccessControl.UseRoles({
-    resource: "Part",
-    action: "update",
-    possession: "any",
-  })
-  async updateOffersInPart(
-    @common.Param() params: PartWhereUniqueInput,
-    @common.Body() body: PartWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      offersInPart: {
-        set: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Part",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Part"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Delete("/:id/offersInPart")
-  @nestAccessControl.UseRoles({
-    resource: "Part",
-    action: "update",
-    possession: "any",
-  })
-  async deleteOffersInPart(
-    @common.Param() params: PartWhereUniqueInput,
-    @common.Body() body: PartWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      offersInPart: {
-        disconnect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Part",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Part"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Get("/:id/part")
+  @common.Get("/:id/partConfigurations")
   @nestAccessControl.UseRoles({
     resource: "Part",
     action: "read",
@@ -524,7 +468,7 @@ export class PartControllerBase {
     style: "deepObject",
     explode: true,
   })
-  async findManyPart(
+  async findManyPartConfigurations(
     @common.Req() request: Request,
     @common.Param() params: PartWhereUniqueInput,
     @nestAccessControl.UserRoles() userRoles: string[]
@@ -536,7 +480,7 @@ export class PartControllerBase {
       possession: "any",
       resource: "PartConfiguration",
     });
-    const results = await this.service.findPart(params.id, {
+    const results = await this.service.findPartConfigurations(params.id, {
       where: query,
       select: {
         colorFinish: true,
@@ -547,7 +491,7 @@ export class PartControllerBase {
         material: true,
         materialType: true,
 
-        partId: {
+        part: {
           select: {
             id: true,
           },
@@ -567,19 +511,19 @@ export class PartControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Post("/:id/part")
+  @common.Post("/:id/partConfigurations")
   @nestAccessControl.UseRoles({
     resource: "Part",
     action: "update",
     possession: "any",
   })
-  async createPart(
+  async createPartConfigurations(
     @common.Param() params: PartWhereUniqueInput,
     @common.Body() body: PartWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      part: {
+      partConfigurations: {
         connect: body,
       },
     };
@@ -612,19 +556,19 @@ export class PartControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Patch("/:id/part")
+  @common.Patch("/:id/partConfigurations")
   @nestAccessControl.UseRoles({
     resource: "Part",
     action: "update",
     possession: "any",
   })
-  async updatePart(
+  async updatePartConfigurations(
     @common.Param() params: PartWhereUniqueInput,
     @common.Body() body: PartWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      part: {
+      partConfigurations: {
         set: body,
       },
     };
@@ -657,19 +601,19 @@ export class PartControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Delete("/:id/part")
+  @common.Delete("/:id/partConfigurations")
   @nestAccessControl.UseRoles({
     resource: "Part",
     action: "update",
     possession: "any",
   })
-  async deletePart(
+  async deletePartConfigurations(
     @common.Param() params: PartWhereUniqueInput,
     @common.Body() body: PartWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      part: {
+      partConfigurations: {
         disconnect: body,
       },
     };
@@ -702,50 +646,56 @@ export class PartControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Get("/:id/partInOrderItem")
+  @common.Get("/:id/partMessages")
   @nestAccessControl.UseRoles({
     resource: "Part",
     action: "read",
     possession: "any",
   })
   @swagger.ApiQuery({
-    type: () => OrderItemWhereInput,
+    type: () => PartMessageWhereInput,
     style: "deepObject",
     explode: true,
   })
-  async findManyPartInOrderItem(
+  async findManyPartMessages(
     @common.Req() request: Request,
     @common.Param() params: PartWhereUniqueInput,
     @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<OrderItem[]> {
-    const query: OrderItemWhereInput = request.query;
+  ): Promise<PartMessage[]> {
+    const query: PartMessageWhereInput = request.query;
     const permission = this.rolesBuilder.permission({
       role: userRoles,
       action: "read",
       possession: "any",
-      resource: "OrderItem",
+      resource: "PartMessage",
     });
-    const results = await this.service.findPartInOrderItem(params.id, {
+    const results = await this.service.findPartMessages(params.id, {
       where: query,
       select: {
         createdAt: true,
         id: true,
+        message: true,
+        messageType: true,
 
-        orderId: {
+        part: {
           select: {
             id: true,
           },
         },
 
-        partId: {
+        reciever: {
           select: {
             id: true,
           },
         },
 
-        price: true,
-        quantity: true,
-        total: true,
+        sender: {
+          select: {
+            id: true,
+          },
+        },
+
+        type: true,
         updatedAt: true,
       },
     });
@@ -757,19 +707,19 @@ export class PartControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Post("/:id/partInOrderItem")
+  @common.Post("/:id/partMessages")
   @nestAccessControl.UseRoles({
     resource: "Part",
     action: "update",
     possession: "any",
   })
-  async createPartInOrderItem(
+  async createPartMessages(
     @common.Param() params: PartWhereUniqueInput,
     @common.Body() body: PartWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      partInOrderItem: {
+      partMessages: {
         connect: body,
       },
     };
@@ -802,19 +752,19 @@ export class PartControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Patch("/:id/partInOrderItem")
+  @common.Patch("/:id/partMessages")
   @nestAccessControl.UseRoles({
     resource: "Part",
     action: "update",
     possession: "any",
   })
-  async updatePartInOrderItem(
+  async updatePartMessages(
     @common.Param() params: PartWhereUniqueInput,
     @common.Body() body: PartWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      partInOrderItem: {
+      partMessages: {
         set: body,
       },
     };
@@ -847,19 +797,19 @@ export class PartControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Delete("/:id/partInOrderItem")
+  @common.Delete("/:id/partMessages")
   @nestAccessControl.UseRoles({
     resource: "Part",
     action: "update",
     possession: "any",
   })
-  async deletePartInOrderItem(
+  async deletePartMessages(
     @common.Param() params: PartWhereUniqueInput,
     @common.Body() body: PartWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      partInOrderItem: {
+      partMessages: {
         disconnect: body,
       },
     };
@@ -892,7 +842,191 @@ export class PartControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Get("/:id/partInProduction")
+  @common.Get("/:id/partOnShapes")
+  @nestAccessControl.UseRoles({
+    resource: "Part",
+    action: "read",
+    possession: "any",
+  })
+  @swagger.ApiQuery({
+    type: () => PartOnShapeWhereInput,
+    style: "deepObject",
+    explode: true,
+  })
+  async findManyPartOnShapes(
+    @common.Req() request: Request,
+    @common.Param() params: PartWhereUniqueInput,
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<PartOnShape[]> {
+    const query: PartOnShapeWhereInput = request.query;
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "PartOnShape",
+    });
+    const results = await this.service.findPartOnShapes(params.id, {
+      where: query,
+      select: {
+        createdAt: true,
+        did: true,
+        eid: true,
+        id: true,
+
+        part: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+        wid: true,
+      },
+    });
+    return results.map((result) => permission.filter(result));
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Post("/:id/partOnShapes")
+  @nestAccessControl.UseRoles({
+    resource: "Part",
+    action: "update",
+    possession: "any",
+  })
+  async createPartOnShapes(
+    @common.Param() params: PartWhereUniqueInput,
+    @common.Body() body: PartWhereUniqueInput[],
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<void> {
+    const data = {
+      partOnShapes: {
+        connect: body,
+      },
+    };
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "update",
+      possession: "any",
+      resource: "Part",
+    });
+    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
+    if (invalidAttributes.length) {
+      const roles = userRoles
+        .map((role: string) => JSON.stringify(role))
+        .join(",");
+      throw new common.ForbiddenException(
+        `Updating the relationship: ${
+          invalidAttributes[0]
+        } of ${"Part"} is forbidden for roles: ${roles}`
+      );
+    }
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Patch("/:id/partOnShapes")
+  @nestAccessControl.UseRoles({
+    resource: "Part",
+    action: "update",
+    possession: "any",
+  })
+  async updatePartOnShapes(
+    @common.Param() params: PartWhereUniqueInput,
+    @common.Body() body: PartWhereUniqueInput[],
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<void> {
+    const data = {
+      partOnShapes: {
+        set: body,
+      },
+    };
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "update",
+      possession: "any",
+      resource: "Part",
+    });
+    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
+    if (invalidAttributes.length) {
+      const roles = userRoles
+        .map((role: string) => JSON.stringify(role))
+        .join(",");
+      throw new common.ForbiddenException(
+        `Updating the relationship: ${
+          invalidAttributes[0]
+        } of ${"Part"} is forbidden for roles: ${roles}`
+      );
+    }
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Delete("/:id/partOnShapes")
+  @nestAccessControl.UseRoles({
+    resource: "Part",
+    action: "update",
+    possession: "any",
+  })
+  async deletePartOnShapes(
+    @common.Param() params: PartWhereUniqueInput,
+    @common.Body() body: PartWhereUniqueInput[],
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<void> {
+    const data = {
+      partOnShapes: {
+        disconnect: body,
+      },
+    };
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "update",
+      possession: "any",
+      resource: "Part",
+    });
+    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
+    if (invalidAttributes.length) {
+      const roles = userRoles
+        .map((role: string) => JSON.stringify(role))
+        .join(",");
+      throw new common.ForbiddenException(
+        `Updating the relationship: ${
+          invalidAttributes[0]
+        } of ${"Part"} is forbidden for roles: ${roles}`
+      );
+    }
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Get("/:id/productionItems")
   @nestAccessControl.UseRoles({
     resource: "Part",
     action: "read",
@@ -903,7 +1037,7 @@ export class PartControllerBase {
     style: "deepObject",
     explode: true,
   })
-  async findManyPartInProduction(
+  async findManyProductionItems(
     @common.Req() request: Request,
     @common.Param() params: PartWhereUniqueInput,
     @nestAccessControl.UserRoles() userRoles: string[]
@@ -915,19 +1049,13 @@ export class PartControllerBase {
       possession: "any",
       resource: "ProductionItem",
     });
-    const results = await this.service.findPartInProduction(params.id, {
+    const results = await this.service.findProductionItems(params.id, {
       where: query,
       select: {
         createdAt: true,
         id: true,
 
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
-        productionId: {
+        part: {
           select: {
             id: true,
           },
@@ -946,19 +1074,19 @@ export class PartControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Post("/:id/partInProduction")
+  @common.Post("/:id/productionItems")
   @nestAccessControl.UseRoles({
     resource: "Part",
     action: "update",
     possession: "any",
   })
-  async createPartInProduction(
+  async createProductionItems(
     @common.Param() params: PartWhereUniqueInput,
     @common.Body() body: PartWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      partInProduction: {
+      productionItems: {
         connect: body,
       },
     };
@@ -991,19 +1119,19 @@ export class PartControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Patch("/:id/partInProduction")
+  @common.Patch("/:id/productionItems")
   @nestAccessControl.UseRoles({
     resource: "Part",
     action: "update",
     possession: "any",
   })
-  async updatePartInProduction(
+  async updateProductionItems(
     @common.Param() params: PartWhereUniqueInput,
     @common.Body() body: PartWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      partInProduction: {
+      productionItems: {
         set: body,
       },
     };
@@ -1036,19 +1164,19 @@ export class PartControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Delete("/:id/partInProduction")
+  @common.Delete("/:id/productionItems")
   @nestAccessControl.UseRoles({
     resource: "Part",
     action: "update",
     possession: "any",
   })
-  async deletePartInProduction(
+  async deleteProductionItems(
     @common.Param() params: PartWhereUniqueInput,
     @common.Body() body: PartWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      partInProduction: {
+      productionItems: {
         disconnect: body,
       },
     };
@@ -1081,582 +1209,7 @@ export class PartControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Get("/:id/partMessagesInPart")
-  @nestAccessControl.UseRoles({
-    resource: "Part",
-    action: "read",
-    possession: "any",
-  })
-  @swagger.ApiQuery({
-    type: () => PartMessageWhereInput,
-    style: "deepObject",
-    explode: true,
-  })
-  async findManyPartMessagesInPart(
-    @common.Req() request: Request,
-    @common.Param() params: PartWhereUniqueInput,
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<PartMessage[]> {
-    const query: PartMessageWhereInput = request.query;
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "PartMessage",
-    });
-    const results = await this.service.findPartMessagesInPart(params.id, {
-      where: query,
-      select: {
-        createdAt: true,
-        id: true,
-        message: true,
-        messageType: true,
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
-        recieverId: {
-          select: {
-            id: true,
-          },
-        },
-
-        senderId: {
-          select: {
-            id: true,
-          },
-        },
-
-        type: true,
-        updatedAt: true,
-      },
-    });
-    return results.map((result) => permission.filter(result));
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Post("/:id/partMessagesInPart")
-  @nestAccessControl.UseRoles({
-    resource: "Part",
-    action: "update",
-    possession: "any",
-  })
-  async createPartMessagesInPart(
-    @common.Param() params: PartWhereUniqueInput,
-    @common.Body() body: PartWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      partMessagesInPart: {
-        connect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Part",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Part"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Patch("/:id/partMessagesInPart")
-  @nestAccessControl.UseRoles({
-    resource: "Part",
-    action: "update",
-    possession: "any",
-  })
-  async updatePartMessagesInPart(
-    @common.Param() params: PartWhereUniqueInput,
-    @common.Body() body: PartWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      partMessagesInPart: {
-        set: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Part",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Part"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Delete("/:id/partMessagesInPart")
-  @nestAccessControl.UseRoles({
-    resource: "Part",
-    action: "update",
-    possession: "any",
-  })
-  async deletePartMessagesInPart(
-    @common.Param() params: PartWhereUniqueInput,
-    @common.Body() body: PartWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      partMessagesInPart: {
-        disconnect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Part",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Part"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Get("/:id/partOnShape")
-  @nestAccessControl.UseRoles({
-    resource: "Part",
-    action: "read",
-    possession: "any",
-  })
-  @swagger.ApiQuery({
-    type: () => PartOnShapeWhereInput,
-    style: "deepObject",
-    explode: true,
-  })
-  async findManyPartOnShape(
-    @common.Req() request: Request,
-    @common.Param() params: PartWhereUniqueInput,
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<PartOnShape[]> {
-    const query: PartOnShapeWhereInput = request.query;
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "PartOnShape",
-    });
-    const results = await this.service.findPartOnShape(params.id, {
-      where: query,
-      select: {
-        createdAt: true,
-        did: true,
-        eid: true,
-        id: true,
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
-        updatedAt: true,
-        wid: true,
-      },
-    });
-    return results.map((result) => permission.filter(result));
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Post("/:id/partOnShape")
-  @nestAccessControl.UseRoles({
-    resource: "Part",
-    action: "update",
-    possession: "any",
-  })
-  async createPartOnShape(
-    @common.Param() params: PartWhereUniqueInput,
-    @common.Body() body: PartWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      partOnShape: {
-        connect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Part",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Part"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Patch("/:id/partOnShape")
-  @nestAccessControl.UseRoles({
-    resource: "Part",
-    action: "update",
-    possession: "any",
-  })
-  async updatePartOnShape(
-    @common.Param() params: PartWhereUniqueInput,
-    @common.Body() body: PartWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      partOnShape: {
-        set: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Part",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Part"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Delete("/:id/partOnShape")
-  @nestAccessControl.UseRoles({
-    resource: "Part",
-    action: "update",
-    possession: "any",
-  })
-  async deletePartOnShape(
-    @common.Param() params: PartWhereUniqueInput,
-    @common.Body() body: PartWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      partOnShape: {
-        disconnect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Part",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Part"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Get("/:id/productionsInParts")
-  @nestAccessControl.UseRoles({
-    resource: "Part",
-    action: "read",
-    possession: "any",
-  })
-  @swagger.ApiQuery({
-    type: () => ProductionWhereInput,
-    style: "deepObject",
-    explode: true,
-  })
-  async findManyProductionsInParts(
-    @common.Req() request: Request,
-    @common.Param() params: PartWhereUniqueInput,
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<Production[]> {
-    const query: ProductionWhereInput = request.query;
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Production",
-    });
-    const results = await this.service.findProductionsInParts(params.id, {
-      where: query,
-      select: {
-        createdAt: true,
-        discomformity: true,
-        id: true,
-
-        orderId: {
-          select: {
-            id: true,
-          },
-        },
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
-        providerId: {
-          select: {
-            id: true,
-          },
-        },
-
-        status: true,
-        updatedAt: true,
-      },
-    });
-    return results.map((result) => permission.filter(result));
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Post("/:id/productionsInParts")
-  @nestAccessControl.UseRoles({
-    resource: "Part",
-    action: "update",
-    possession: "any",
-  })
-  async createProductionsInParts(
-    @common.Param() params: PartWhereUniqueInput,
-    @common.Body() body: PartWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      productionsInParts: {
-        connect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Part",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Part"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Patch("/:id/productionsInParts")
-  @nestAccessControl.UseRoles({
-    resource: "Part",
-    action: "update",
-    possession: "any",
-  })
-  async updateProductionsInParts(
-    @common.Param() params: PartWhereUniqueInput,
-    @common.Body() body: PartWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      productionsInParts: {
-        set: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Part",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Part"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Delete("/:id/productionsInParts")
-  @nestAccessControl.UseRoles({
-    resource: "Part",
-    action: "update",
-    possession: "any",
-  })
-  async deleteProductionsInParts(
-    @common.Param() params: PartWhereUniqueInput,
-    @common.Body() body: PartWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      productionsInParts: {
-        disconnect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Part",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Part"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Get("/:id/quoteItem")
+  @common.Get("/:id/quoteItems")
   @nestAccessControl.UseRoles({
     resource: "Part",
     action: "read",
@@ -1667,7 +1220,7 @@ export class PartControllerBase {
     style: "deepObject",
     explode: true,
   })
-  async findManyQuoteItem(
+  async findManyQuoteItems(
     @common.Req() request: Request,
     @common.Param() params: PartWhereUniqueInput,
     @nestAccessControl.UserRoles() userRoles: string[]
@@ -1679,7 +1232,7 @@ export class PartControllerBase {
       possession: "any",
       resource: "QuoteItem",
     });
-    const results = await this.service.findQuoteItem(params.id, {
+    const results = await this.service.findQuoteItems(params.id, {
       where: query,
       select: {
         basePrices: true,
@@ -1688,7 +1241,7 @@ export class PartControllerBase {
         id: true,
         margins: true,
 
-        partId: {
+        part: {
           select: {
             id: true,
           },
@@ -1697,7 +1250,7 @@ export class PartControllerBase {
         prices: true,
         productionDays: true,
 
-        providerId: {
+        provider: {
           select: {
             id: true,
           },
@@ -1716,19 +1269,19 @@ export class PartControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Post("/:id/quoteItem")
+  @common.Post("/:id/quoteItems")
   @nestAccessControl.UseRoles({
     resource: "Part",
     action: "update",
     possession: "any",
   })
-  async createQuoteItem(
+  async createQuoteItems(
     @common.Param() params: PartWhereUniqueInput,
     @common.Body() body: PartWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      quoteItem: {
+      quoteItems: {
         connect: body,
       },
     };
@@ -1761,19 +1314,19 @@ export class PartControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Patch("/:id/quoteItem")
+  @common.Patch("/:id/quoteItems")
   @nestAccessControl.UseRoles({
     resource: "Part",
     action: "update",
     possession: "any",
   })
-  async updateQuoteItem(
+  async updateQuoteItems(
     @common.Param() params: PartWhereUniqueInput,
     @common.Body() body: PartWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      quoteItem: {
+      quoteItems: {
         set: body,
       },
     };
@@ -1806,19 +1359,19 @@ export class PartControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Delete("/:id/quoteItem")
+  @common.Delete("/:id/quoteItems")
   @nestAccessControl.UseRoles({
     resource: "Part",
     action: "update",
     possession: "any",
   })
-  async deleteQuoteItem(
+  async deleteQuoteItems(
     @common.Param() params: PartWhereUniqueInput,
     @common.Body() body: PartWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      quoteItem: {
+      quoteItems: {
         disconnect: body,
       },
     };

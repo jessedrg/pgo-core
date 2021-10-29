@@ -1,13 +1,5 @@
 import * as React from "react";
-import {
-  Create,
-  SimpleForm,
-  CreateProps,
-  TextInput,
-  ReferenceInput,
-  SelectInput,
-} from "react-admin";
-import { UserTitle } from "../user/UserTitle";
+import { Create, SimpleForm, CreateProps, TextInput } from "react-admin";
 
 export const SessionCreate = (props: CreateProps): React.ReactElement => {
   return (
@@ -15,9 +7,6 @@ export const SessionCreate = (props: CreateProps): React.ReactElement => {
       <SimpleForm>
         <TextInput label="authMethod" source="authMethod" />
         <TextInput label="sessionToken" source="sessionToken" />
-        <ReferenceInput source="user.id" reference="User" label="userId">
-          <SelectInput optionText={UserTitle} />
-        </ReferenceInput>
       </SimpleForm>
     </Create>
   );

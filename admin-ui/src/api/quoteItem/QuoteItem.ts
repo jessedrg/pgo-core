@@ -7,10 +7,10 @@ export type QuoteItem = {
   createdAt: Date;
   id: string;
   margins: number | null;
-  partId?: Part | null;
+  part?: Part | null;
   prices: number | null;
   productionDays: number | null;
-  providerId?: Provider | null;
+  provider?: Provider | null;
   quantities: number | null;
   status?: "pending" | "completed" | "rejected" | "canceled" | null;
   updatedAt: Date;

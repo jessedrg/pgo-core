@@ -1,12 +1,5 @@
 import { PrismaService } from "nestjs-prisma";
-import {
-  Prisma,
-  Organization,
-  AccountPaymentMethod,
-  Order,
-  User,
-  Address,
-} from "@prisma/client";
+import { Prisma, Organization, Order, User, Address } from "@prisma/client";
 
 export class OrganizationServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -43,18 +36,7 @@ export class OrganizationServiceBase {
     return this.prisma.organization.delete(args);
   }
 
-  async findAccountPaymentMethodInOrganization(
-    parentId: string,
-    args: Prisma.AccountPaymentMethodFindManyArgs
-  ): Promise<AccountPaymentMethod[]> {
-    return this.prisma.organization
-      .findUnique({
-        where: { id: parentId },
-      })
-      .accountPaymentMethodInOrganization(args);
-  }
-
-  async findOrganizationInOrder(
+  async findOrders(
     parentId: string,
     args: Prisma.OrderFindManyArgs
   ): Promise<Order[]> {
@@ -62,10 +44,10 @@ export class OrganizationServiceBase {
       .findUnique({
         where: { id: parentId },
       })
-      .organizationInOrder(args);
+      .orders(args);
   }
 
-  async findUsersInOrganization(
+  async findUsers(
     parentId: string,
     args: Prisma.UserFindManyArgs
   ): Promise<User[]> {
@@ -73,24 +55,14 @@ export class OrganizationServiceBase {
       .findUnique({
         where: { id: parentId },
       })
-      .usersInOrganization(args);
+      .users(args);
   }
 
-  async getContactAdressId(parentId: string): Promise<Address | null> {
+  async getAddress(parentId: string): Promise<Address | null> {
     return this.prisma.organization
       .findUnique({
         where: { id: parentId },
       })
-      .contactAdressId();
-  }
-
-  async getPaymenMethodId(
-    parentId: string
-  ): Promise<AccountPaymentMethod | null> {
-    return this.prisma.organization
-      .findUnique({
-        where: { id: parentId },
-      })
-      .paymenMethodId();
+      .address();
   }
 }

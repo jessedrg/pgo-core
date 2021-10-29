@@ -61,9 +61,9 @@ export class PartConfigurationControllerBase {
       data: {
         ...data,
 
-        partId: data.partId
+        part: data.part
           ? {
-              connect: data.partId,
+              connect: data.part,
             }
           : undefined,
       },
@@ -76,7 +76,7 @@ export class PartConfigurationControllerBase {
         material: true,
         materialType: true,
 
-        partId: {
+        part: {
           select: {
             id: true,
           },
@@ -131,7 +131,7 @@ export class PartConfigurationControllerBase {
         material: true,
         materialType: true,
 
-        partId: {
+        part: {
           select: {
             id: true,
           },
@@ -181,7 +181,7 @@ export class PartConfigurationControllerBase {
         material: true,
         materialType: true,
 
-        partId: {
+        part: {
           select: {
             id: true,
           },
@@ -245,9 +245,9 @@ export class PartConfigurationControllerBase {
         data: {
           ...data,
 
-          partId: data.partId
+          part: data.part
             ? {
-                connect: data.partId,
+                connect: data.part,
               }
             : undefined,
         },
@@ -260,7 +260,7 @@ export class PartConfigurationControllerBase {
           material: true,
           materialType: true,
 
-          partId: {
+          part: {
             select: {
               id: true,
             },
@@ -311,7 +311,7 @@ export class PartConfigurationControllerBase {
           material: true,
           materialType: true,
 
-          partId: {
+          part: {
             select: {
               id: true,
             },

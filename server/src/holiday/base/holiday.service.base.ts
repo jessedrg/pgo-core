@@ -36,14 +36,11 @@ export class HolidayServiceBase {
     return this.prisma.holiday.delete(args);
   }
 
-  async findProvidersInHolidays(
-    parentId: string,
-    args: Prisma.ProviderFindManyArgs
-  ): Promise<Provider[]> {
+  async getProvider(parentId: string): Promise<Provider | null> {
     return this.prisma.holiday
       .findUnique({
         where: { id: parentId },
       })
-      .providersInHolidays(args);
+      .provider();
   }
 }

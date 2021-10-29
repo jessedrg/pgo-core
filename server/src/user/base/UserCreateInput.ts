@@ -16,7 +16,7 @@ class UserCreateInput {
   @Field(() => AccountWhereUniqueInput, {
     nullable: true,
   })
-  accountId?: AccountWhereUniqueInput | null;
+  account?: AccountWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -50,7 +50,7 @@ class UserCreateInput {
   @Field(() => OrganizationWhereUniqueInput, {
     nullable: true,
   })
-  organizationId?: OrganizationWhereUniqueInput | null;
+  organization?: OrganizationWhereUniqueInput | null;
 
   @ApiProperty({
     required: true,

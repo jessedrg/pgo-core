@@ -15,8 +15,6 @@ import { HolidayWhereUniqueInput } from "./HolidayWhereUniqueInput";
 import { HolidayFindManyArgs } from "./HolidayFindManyArgs";
 import { HolidayUpdateInput } from "./HolidayUpdateInput";
 import { Holiday } from "./Holiday";
-import { ProviderWhereInput } from "../../provider/base/ProviderWhereInput";
-import { Provider } from "../../provider/base/Provider";
 @swagger.ApiBasicAuth()
 export class HolidayControllerBase {
   constructor(
@@ -60,11 +58,26 @@ export class HolidayControllerBase {
       );
     }
     return await this.service.create({
-      data: data,
+      data: {
+        ...data,
+
+        provider: data.provider
+          ? {
+              connect: data.provider,
+            }
+          : undefined,
+      },
       select: {
         createdAt: true,
         day: true,
         id: true,
+
+        provider: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -106,6 +119,13 @@ export class HolidayControllerBase {
         createdAt: true,
         day: true,
         id: true,
+
+        provider: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -142,6 +162,13 @@ export class HolidayControllerBase {
         createdAt: true,
         day: true,
         id: true,
+
+        provider: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -194,11 +221,26 @@ export class HolidayControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          provider: data.provider
+            ? {
+                connect: data.provider,
+              }
+            : undefined,
+        },
         select: {
           createdAt: true,
           day: true,
           id: true,
+
+          provider: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -236,6 +278,13 @@ export class HolidayControllerBase {
           createdAt: true,
           day: true,
           id: true,
+
+          provider: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -247,195 +296,5 @@ export class HolidayControllerBase {
       }
       throw error;
     }
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Get("/:id/providersInHolidays")
-  @nestAccessControl.UseRoles({
-    resource: "Holiday",
-    action: "read",
-    possession: "any",
-  })
-  @swagger.ApiQuery({
-    type: () => ProviderWhereInput,
-    style: "deepObject",
-    explode: true,
-  })
-  async findManyProvidersInHolidays(
-    @common.Req() request: Request,
-    @common.Param() params: HolidayWhereUniqueInput,
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<Provider[]> {
-    const query: ProviderWhereInput = request.query;
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Provider",
-    });
-    const results = await this.service.findProvidersInHolidays(params.id, {
-      where: query,
-      select: {
-        createdAt: true,
-        currency: true,
-        dateFormat: true,
-
-        holidaysId: {
-          select: {
-            id: true,
-          },
-        },
-
-        id: true,
-        name: true,
-        rating: true,
-        ratingData: true,
-        shippmentDates: true,
-        technologies: true,
-        typeson: true,
-        updatedAt: true,
-        workingDays: true,
-      },
-    });
-    return results.map((result) => permission.filter(result));
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Post("/:id/providersInHolidays")
-  @nestAccessControl.UseRoles({
-    resource: "Holiday",
-    action: "update",
-    possession: "any",
-  })
-  async createProvidersInHolidays(
-    @common.Param() params: HolidayWhereUniqueInput,
-    @common.Body() body: HolidayWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      providersInHolidays: {
-        connect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Holiday",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Holiday"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Patch("/:id/providersInHolidays")
-  @nestAccessControl.UseRoles({
-    resource: "Holiday",
-    action: "update",
-    possession: "any",
-  })
-  async updateProvidersInHolidays(
-    @common.Param() params: HolidayWhereUniqueInput,
-    @common.Body() body: HolidayWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      providersInHolidays: {
-        set: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Holiday",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Holiday"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Delete("/:id/providersInHolidays")
-  @nestAccessControl.UseRoles({
-    resource: "Holiday",
-    action: "update",
-    possession: "any",
-  })
-  async deleteProvidersInHolidays(
-    @common.Param() params: HolidayWhereUniqueInput,
-    @common.Body() body: HolidayWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      providersInHolidays: {
-        disconnect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Holiday",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Holiday"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
   }
 }

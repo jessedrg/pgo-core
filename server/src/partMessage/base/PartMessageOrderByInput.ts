@@ -50,7 +50,7 @@ class PartMessageOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  partIdId?: SortOrder;
+  partId?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -59,7 +59,7 @@ class PartMessageOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  recieverIdId?: SortOrder;
+  recieverId?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -68,7 +68,7 @@ class PartMessageOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  senderIdId?: SortOrder;
+  senderId?: SortOrder;
 
   @ApiProperty({
     required: false,

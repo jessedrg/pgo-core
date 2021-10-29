@@ -4,7 +4,6 @@ import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { OrderWhereUniqueInput } from "../../order/base/OrderWhereUniqueInput";
-import { PartWhereUniqueInput } from "../../part/base/PartWhereUniqueInput";
 import { FloatNullableFilter } from "../../util/FloatNullableFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 @InputType()
@@ -30,19 +29,7 @@ class OrderItemWhereInput {
   @Field(() => OrderWhereUniqueInput, {
     nullable: true,
   })
-  orderId?: OrderWhereUniqueInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => PartWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => PartWhereUniqueInput)
-  @IsOptional()
-  @Field(() => PartWhereUniqueInput, {
-    nullable: true,
-  })
-  partId?: PartWhereUniqueInput;
+  order?: OrderWhereUniqueInput;
 
   @ApiProperty({
     required: false,

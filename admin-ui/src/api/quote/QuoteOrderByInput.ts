@@ -1,11 +1,11 @@
 import { SortOrder } from "../../util/SortOrder";
 
 export type QuoteOrderByInput = {
-  accountIdId?: SortOrder;
+  accountId?: SortOrder;
   completedAt?: SortOrder;
   createdAt?: SortOrder;
   id?: SortOrder;
-  providerIdId?: SortOrder;
+  providerId?: SortOrder;
   status?: SortOrder;
   updatedAt?: SortOrder;
 };

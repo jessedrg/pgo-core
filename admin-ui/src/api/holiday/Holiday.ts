@@ -4,6 +4,6 @@ export type Holiday = {
   createdAt: Date;
   day: number | null;
   id: string;
-  providersInHolidays?: Array<Provider>;
+  provider?: Provider | null;
   updatedAt: Date;
 };

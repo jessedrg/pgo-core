@@ -124,9 +124,9 @@ export class PartConfigurationResolverBase {
       data: {
         ...args.data,
 
-        partId: args.data.partId
+        part: args.data.part
           ? {
-              connect: args.data.partId,
+              connect: args.data.part,
             }
           : undefined,
       },
@@ -171,9 +171,9 @@ export class PartConfigurationResolverBase {
         data: {
           ...args.data,
 
-          partId: args.data.partId
+          part: args.data.part
             ? {
-                connect: args.data.partId,
+                connect: args.data.part,
               }
             : undefined,
         },
@@ -216,7 +216,7 @@ export class PartConfigurationResolverBase {
     action: "read",
     possession: "any",
   })
-  async partId(
+  async part(
     @graphql.Parent() parent: PartConfiguration,
     @gqlUserRoles.UserRoles() userRoles: string[]
   ): Promise<Part | null> {
@@ -226,7 +226,7 @@ export class PartConfigurationResolverBase {
       possession: "any",
       resource: "Part",
     });
-    const result = await this.service.getPartId(parent.id);
+    const result = await this.service.getPart(parent.id);
 
     if (!result) {
       return null;

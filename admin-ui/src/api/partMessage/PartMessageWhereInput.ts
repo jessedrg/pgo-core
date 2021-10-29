@@ -7,8 +7,8 @@ export type PartMessageWhereInput = {
   id?: StringFilter;
   message?: StringNullableFilter;
   messageType?: StringNullableFilter;
-  partId?: PartWhereUniqueInput;
-  recieverId?: AccountWhereUniqueInput;
-  senderId?: AccountWhereUniqueInput;
+  part?: PartWhereUniqueInput;
+  reciever?: AccountWhereUniqueInput;
+  sender?: AccountWhereUniqueInput;
   type?: StringNullableFilter;
 };

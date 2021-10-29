@@ -14,9 +14,6 @@ import { DeleteAccountPaymentMethodArgs } from "./DeleteAccountPaymentMethodArgs
 import { AccountPaymentMethodFindManyArgs } from "./AccountPaymentMethodFindManyArgs";
 import { AccountPaymentMethodFindUniqueArgs } from "./AccountPaymentMethodFindUniqueArgs";
 import { AccountPaymentMethod } from "./AccountPaymentMethod";
-import { OrganizationFindManyArgs } from "../../organization/base/OrganizationFindManyArgs";
-import { Organization } from "../../organization/base/Organization";
-import { Account } from "../../account/base/Account";
 import { AccountPaymentMethodService } from "../accountPaymentMethod.service";
 
 @graphql.Resolver(() => AccountPaymentMethod)
@@ -123,21 +120,7 @@ export class AccountPaymentMethodResolverBase {
     // @ts-ignore
     return await this.service.create({
       ...args,
-      data: {
-        ...args.data,
-
-        accountId: args.data.accountId
-          ? {
-              connect: args.data.accountId,
-            }
-          : undefined,
-
-        organizationId: args.data.organizationId
-          ? {
-              connect: args.data.organizationId,
-            }
-          : undefined,
-      },
+      data: args.data,
     });
   }
 
@@ -176,21 +159,7 @@ export class AccountPaymentMethodResolverBase {
       // @ts-ignore
       return await this.service.update({
         ...args,
-        data: {
-          ...args.data,
-
-          accountId: args.data.accountId
-            ? {
-                connect: args.data.accountId,
-              }
-            : undefined,
-
-          organizationId: args.data.organizationId
-            ? {
-                connect: args.data.organizationId,
-              }
-            : undefined,
-        },
+        data: args.data,
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -222,82 +191,5 @@ export class AccountPaymentMethodResolverBase {
       }
       throw error;
     }
-  }
-
-  @graphql.ResolveField(() => [Organization])
-  @nestAccessControl.UseRoles({
-    resource: "AccountPaymentMethod",
-    action: "read",
-    possession: "any",
-  })
-  async organizationsInPaymentMethod(
-    @graphql.Parent() parent: AccountPaymentMethod,
-    @graphql.Args() args: OrganizationFindManyArgs,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Organization[]> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Organization",
-    });
-    const results = await this.service.findOrganizationsInPaymentMethod(
-      parent.id,
-      args
-    );
-
-    if (!results) {
-      return [];
-    }
-
-    return results.map((result) => permission.filter(result));
-  }
-
-  @graphql.ResolveField(() => Account, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "AccountPaymentMethod",
-    action: "read",
-    possession: "any",
-  })
-  async accountId(
-    @graphql.Parent() parent: AccountPaymentMethod,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Account | null> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Account",
-    });
-    const result = await this.service.getAccountId(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return permission.filter(result);
-  }
-
-  @graphql.ResolveField(() => Organization, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "AccountPaymentMethod",
-    action: "read",
-    possession: "any",
-  })
-  async organizationId(
-    @graphql.Parent() parent: AccountPaymentMethod,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Organization | null> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Organization",
-    });
-    const result = await this.service.getOrganizationId(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return permission.filter(result);
   }
 }

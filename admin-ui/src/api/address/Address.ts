@@ -8,7 +8,7 @@ export type Address = {
   id: string;
   lastName: string | null;
   locality: string | null;
-  organizationsInAdress?: Array<Organization>;
+  organizations?: Array<Organization>;
   phone: string | null;
   phonePrefix: string | null;
   postalCode: string | null;

@@ -3,8 +3,6 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsBoolean, IsOptional, ValidateNested, IsEnum } from "class-validator";
 import { OrderWhereUniqueInput } from "../../order/base/OrderWhereUniqueInput";
 import { Type } from "class-transformer";
-import { PartWhereUniqueInput } from "../../part/base/PartWhereUniqueInput";
-import { ProviderWhereUniqueInput } from "../../provider/base/ProviderWhereUniqueInput";
 import { EnumProductionStatus } from "./EnumProductionStatus";
 @InputType()
 class ProductionUpdateInput {
@@ -29,31 +27,7 @@ class ProductionUpdateInput {
   @Field(() => OrderWhereUniqueInput, {
     nullable: true,
   })
-  orderId?: OrderWhereUniqueInput | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => PartWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => PartWhereUniqueInput)
-  @IsOptional()
-  @Field(() => PartWhereUniqueInput, {
-    nullable: true,
-  })
-  partId?: PartWhereUniqueInput | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => ProviderWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => ProviderWhereUniqueInput)
-  @IsOptional()
-  @Field(() => ProviderWhereUniqueInput, {
-    nullable: true,
-  })
-  providerId?: ProviderWhereUniqueInput | null;
+  order?: OrderWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

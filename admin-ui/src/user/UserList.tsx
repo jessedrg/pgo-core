@@ -21,11 +21,7 @@ export const UserList = (props: ListProps): React.ReactElement => {
       pagination={<Pagination />}
     >
       <Datagrid rowClick="show">
-        <ReferenceField
-          label="accountId"
-          source="account.id"
-          reference="Account"
-        >
+        <ReferenceField label="account" source="account.id" reference="Account">
           <TextField source={ACCOUNT_TITLE_FIELD} />
         </ReferenceField>
         <DateField source="createdAt" label="Created At" />
@@ -33,7 +29,7 @@ export const UserList = (props: ListProps): React.ReactElement => {
         <TextField label="ID" source="id" />
         <TextField label="Last Name" source="lastName" />
         <ReferenceField
-          label="organizationId"
+          label="organization"
           source="organization.id"
           reference="Organization"
         >

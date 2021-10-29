@@ -14,7 +14,9 @@ import { DeleteOfferArgs } from "./DeleteOfferArgs";
 import { OfferFindManyArgs } from "./OfferFindManyArgs";
 import { OfferFindUniqueArgs } from "./OfferFindUniqueArgs";
 import { Offer } from "./Offer";
+import { AccountFindManyArgs } from "../../account/base/AccountFindManyArgs";
 import { Account } from "../../account/base/Account";
+import { PartFindManyArgs } from "../../part/base/PartFindManyArgs";
 import { Part } from "../../part/base/Part";
 import { OfferService } from "../offer.service";
 
@@ -122,21 +124,7 @@ export class OfferResolverBase {
     // @ts-ignore
     return await this.service.create({
       ...args,
-      data: {
-        ...args.data,
-
-        accountId: args.data.accountId
-          ? {
-              connect: args.data.accountId,
-            }
-          : undefined,
-
-        partId: args.data.partId
-          ? {
-              connect: args.data.partId,
-            }
-          : undefined,
-      },
+      data: args.data,
     });
   }
 
@@ -175,21 +163,7 @@ export class OfferResolverBase {
       // @ts-ignore
       return await this.service.update({
         ...args,
-        data: {
-          ...args.data,
-
-          accountId: args.data.accountId
-            ? {
-                connect: args.data.accountId,
-              }
-            : undefined,
-
-          partId: args.data.partId
-            ? {
-                connect: args.data.partId,
-              }
-            : undefined,
-        },
+        data: args.data,
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -223,51 +197,55 @@ export class OfferResolverBase {
     }
   }
 
-  @graphql.ResolveField(() => Account, { nullable: true })
+  @graphql.ResolveField(() => [Account])
   @nestAccessControl.UseRoles({
     resource: "Offer",
     action: "read",
     possession: "any",
   })
-  async accountId(
+  async account(
     @graphql.Parent() parent: Offer,
+    @graphql.Args() args: AccountFindManyArgs,
     @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Account | null> {
+  ): Promise<Account[]> {
     const permission = this.rolesBuilder.permission({
       role: userRoles,
       action: "read",
       possession: "any",
       resource: "Account",
     });
-    const result = await this.service.getAccountId(parent.id);
+    const results = await this.service.findAccount(parent.id, args);
 
-    if (!result) {
-      return null;
+    if (!results) {
+      return [];
     }
-    return permission.filter(result);
+
+    return results.map((result) => permission.filter(result));
   }
 
-  @graphql.ResolveField(() => Part, { nullable: true })
+  @graphql.ResolveField(() => [Part])
   @nestAccessControl.UseRoles({
     resource: "Offer",
     action: "read",
     possession: "any",
   })
-  async partId(
+  async parts(
     @graphql.Parent() parent: Offer,
+    @graphql.Args() args: PartFindManyArgs,
     @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Part | null> {
+  ): Promise<Part[]> {
     const permission = this.rolesBuilder.permission({
       role: userRoles,
       action: "read",
       possession: "any",
       resource: "Part",
     });
-    const result = await this.service.getPartId(parent.id);
+    const results = await this.service.findParts(parent.id, args);
 
-    if (!result) {
-      return null;
+    if (!results) {
+      return [];
     }
-    return permission.filter(result);
+
+    return results.map((result) => permission.filter(result));
   }
 }

@@ -61,15 +61,9 @@ export class ProductionItemControllerBase {
       data: {
         ...data,
 
-        partId: data.partId
+        part: data.part
           ? {
-              connect: data.partId,
-            }
-          : undefined,
-
-        productionId: data.productionId
-          ? {
-              connect: data.productionId,
+              connect: data.part,
             }
           : undefined,
       },
@@ -77,13 +71,7 @@ export class ProductionItemControllerBase {
         createdAt: true,
         id: true,
 
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
-        productionId: {
+        part: {
           select: {
             id: true,
           },
@@ -132,13 +120,7 @@ export class ProductionItemControllerBase {
         createdAt: true,
         id: true,
 
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
-        productionId: {
+        part: {
           select: {
             id: true,
           },
@@ -182,13 +164,7 @@ export class ProductionItemControllerBase {
         createdAt: true,
         id: true,
 
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
-        productionId: {
+        part: {
           select: {
             id: true,
           },
@@ -251,15 +227,9 @@ export class ProductionItemControllerBase {
         data: {
           ...data,
 
-          partId: data.partId
+          part: data.part
             ? {
-                connect: data.partId,
-              }
-            : undefined,
-
-          productionId: data.productionId
-            ? {
-                connect: data.productionId,
+                connect: data.part,
               }
             : undefined,
         },
@@ -267,13 +237,7 @@ export class ProductionItemControllerBase {
           createdAt: true,
           id: true,
 
-          partId: {
-            select: {
-              id: true,
-            },
-          },
-
-          productionId: {
+          part: {
             select: {
               id: true,
             },
@@ -318,13 +282,7 @@ export class ProductionItemControllerBase {
           createdAt: true,
           id: true,
 
-          partId: {
-            select: {
-              id: true,
-            },
-          },
-
-          productionId: {
+          part: {
             select: {
               id: true,
             },

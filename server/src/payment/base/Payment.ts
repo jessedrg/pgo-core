@@ -1,27 +1,18 @@
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { Account } from "../../account/base/Account";
 import {
-  ValidateNested,
-  IsOptional,
   IsDate,
   IsString,
+  ValidateNested,
+  IsOptional,
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
 import { Order } from "../../order/base/Order";
 import { EnumPaymentStatus } from "./EnumPaymentStatus";
+import { User } from "../../user/base/User";
 @ObjectType()
 class Payment {
-  @ApiProperty({
-    required: false,
-    type: () => Account,
-  })
-  @ValidateNested()
-  @Type(() => Account)
-  @IsOptional()
-  accountId?: Account | null;
-
   @ApiProperty({
     required: true,
   })
@@ -40,12 +31,12 @@ class Payment {
 
   @ApiProperty({
     required: false,
-    type: () => Order,
+    type: () => [Order],
   })
   @ValidateNested()
   @Type(() => Order)
   @IsOptional()
-  orderId?: Order | null;
+  orders?: Array<Order>;
 
   @ApiProperty({
     required: false,
@@ -87,5 +78,14 @@ class Payment {
   @Type(() => Date)
   @Field(() => Date)
   updatedAt!: Date;
+
+  @ApiProperty({
+    required: false,
+    type: () => User,
+  })
+  @ValidateNested()
+  @Type(() => User)
+  @IsOptional()
+  user?: User | null;
 }
 export { Payment };

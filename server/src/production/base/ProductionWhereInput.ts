@@ -5,8 +5,6 @@ import { Type } from "class-transformer";
 import { IsOptional, ValidateNested, IsEnum } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
 import { OrderWhereUniqueInput } from "../../order/base/OrderWhereUniqueInput";
-import { PartWhereUniqueInput } from "../../part/base/PartWhereUniqueInput";
-import { ProviderWhereUniqueInput } from "../../provider/base/ProviderWhereUniqueInput";
 import { EnumProductionStatus } from "./EnumProductionStatus";
 @InputType()
 class ProductionWhereInput {
@@ -42,31 +40,7 @@ class ProductionWhereInput {
   @Field(() => OrderWhereUniqueInput, {
     nullable: true,
   })
-  orderId?: OrderWhereUniqueInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => PartWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => PartWhereUniqueInput)
-  @IsOptional()
-  @Field(() => PartWhereUniqueInput, {
-    nullable: true,
-  })
-  partId?: PartWhereUniqueInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => ProviderWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => ProviderWhereUniqueInput)
-  @IsOptional()
-  @Field(() => ProviderWhereUniqueInput, {
-    nullable: true,
-  })
-  providerId?: ProviderWhereUniqueInput;
+  order?: OrderWhereUniqueInput;
 
   @ApiProperty({
     required: false,

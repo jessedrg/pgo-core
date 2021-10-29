@@ -36,7 +36,7 @@ export class AddressServiceBase {
     return this.prisma.address.delete(args);
   }
 
-  async findOrganizationsInAdress(
+  async findOrganizations(
     parentId: string,
     args: Prisma.OrganizationFindManyArgs
   ): Promise<Organization[]> {
@@ -44,6 +44,6 @@ export class AddressServiceBase {
       .findUnique({
         where: { id: parentId },
       })
-      .organizationsInAdress(args);
+      .organizations(args);
   }
 }

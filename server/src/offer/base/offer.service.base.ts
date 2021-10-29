@@ -36,19 +36,25 @@ export class OfferServiceBase {
     return this.prisma.offer.delete(args);
   }
 
-  async getAccountId(parentId: string): Promise<Account | null> {
+  async findAccount(
+    parentId: string,
+    args: Prisma.AccountFindManyArgs
+  ): Promise<Account[]> {
     return this.prisma.offer
       .findUnique({
         where: { id: parentId },
       })
-      .accountId();
+      .account(args);
   }
 
-  async getPartId(parentId: string): Promise<Part | null> {
+  async findParts(
+    parentId: string,
+    args: Prisma.PartFindManyArgs
+  ): Promise<Part[]> {
     return this.prisma.offer
       .findUnique({
         where: { id: parentId },
       })
-      .partId();
+      .parts(args);
   }
 }

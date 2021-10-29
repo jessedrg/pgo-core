@@ -15,12 +15,12 @@ import { EnumOfferStatus } from "./EnumOfferStatus";
 class Offer {
   @ApiProperty({
     required: false,
-    type: () => Account,
+    type: () => [Account],
   })
   @ValidateNested()
   @Type(() => Account)
   @IsOptional()
-  accountId?: Account | null;
+  account?: Array<Account>;
 
   @ApiProperty({
     required: true,
@@ -51,12 +51,12 @@ class Offer {
 
   @ApiProperty({
     required: false,
-    type: () => Part,
+    type: () => [Part],
   })
   @ValidateNested()
   @Type(() => Part)
   @IsOptional()
-  partId?: Part | null;
+  parts?: Array<Part>;
 
   @ApiProperty({
     required: false,

@@ -19,11 +19,7 @@ export const UserCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
-        <ReferenceInput
-          source="account.id"
-          reference="Account"
-          label="accountId"
-        >
+        <ReferenceInput source="account.id" reference="Account" label="account">
           <SelectInput optionText={AccountTitle} />
         </ReferenceInput>
         <TextInput label="First Name" source="firstName" />
@@ -31,7 +27,7 @@ export const UserCreate = (props: CreateProps): React.ReactElement => {
         <ReferenceInput
           source="organization.id"
           reference="Organization"
-          label="organizationId"
+          label="organization"
         >
           <SelectInput optionText={OrganizationTitle} />
         </ReferenceInput>

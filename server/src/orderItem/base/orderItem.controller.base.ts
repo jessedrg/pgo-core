@@ -61,15 +61,9 @@ export class OrderItemControllerBase {
       data: {
         ...data,
 
-        orderId: data.orderId
+        order: data.order
           ? {
-              connect: data.orderId,
-            }
-          : undefined,
-
-        partId: data.partId
-          ? {
-              connect: data.partId,
+              connect: data.order,
             }
           : undefined,
       },
@@ -77,13 +71,7 @@ export class OrderItemControllerBase {
         createdAt: true,
         id: true,
 
-        orderId: {
-          select: {
-            id: true,
-          },
-        },
-
-        partId: {
+        order: {
           select: {
             id: true,
           },
@@ -133,13 +121,7 @@ export class OrderItemControllerBase {
         createdAt: true,
         id: true,
 
-        orderId: {
-          select: {
-            id: true,
-          },
-        },
-
-        partId: {
+        order: {
           select: {
             id: true,
           },
@@ -184,13 +166,7 @@ export class OrderItemControllerBase {
         createdAt: true,
         id: true,
 
-        orderId: {
-          select: {
-            id: true,
-          },
-        },
-
-        partId: {
+        order: {
           select: {
             id: true,
           },
@@ -254,15 +230,9 @@ export class OrderItemControllerBase {
         data: {
           ...data,
 
-          orderId: data.orderId
+          order: data.order
             ? {
-                connect: data.orderId,
-              }
-            : undefined,
-
-          partId: data.partId
-            ? {
-                connect: data.partId,
+                connect: data.order,
               }
             : undefined,
         },
@@ -270,13 +240,7 @@ export class OrderItemControllerBase {
           createdAt: true,
           id: true,
 
-          orderId: {
-            select: {
-              id: true,
-            },
-          },
-
-          partId: {
+          order: {
             select: {
               id: true,
             },
@@ -322,13 +286,7 @@ export class OrderItemControllerBase {
           createdAt: true,
           id: true,
 
-          orderId: {
-            select: {
-              id: true,
-            },
-          },
-
-          partId: {
+          order: {
             select: {
               id: true,
             },

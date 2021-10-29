@@ -26,13 +26,13 @@ export const QuoteItemList = (props: ListProps): React.ReactElement => {
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
         <TextField label="margins" source="margins" />
-        <ReferenceField label="partId" source="part.id" reference="Part">
+        <ReferenceField label="part" source="part.id" reference="Part">
           <TextField source={PART_TITLE_FIELD} />
         </ReferenceField>
         <TextField label="prices" source="prices" />
         <TextField label="productionDays" source="productionDays" />
         <ReferenceField
-          label="providerId"
+          label="provider"
           source="provider.id"
           reference="Provider"
         >

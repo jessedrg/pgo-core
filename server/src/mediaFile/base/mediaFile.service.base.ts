@@ -1,5 +1,5 @@
 import { PrismaService } from "nestjs-prisma";
-import { Prisma, MediaFile, Shipment } from "@prisma/client";
+import { Prisma, MediaFile } from "@prisma/client";
 
 export class MediaFileServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -34,27 +34,5 @@ export class MediaFileServiceBase {
     args: Prisma.SelectSubset<T, Prisma.MediaFileDeleteArgs>
   ): Promise<MediaFile> {
     return this.prisma.mediaFile.delete(args);
-  }
-
-  async findLabeIsInShipment(
-    parentId: string,
-    args: Prisma.ShipmentFindManyArgs
-  ): Promise<Shipment[]> {
-    return this.prisma.mediaFile
-      .findUnique({
-        where: { id: parentId },
-      })
-      .labeIsInShipment(args);
-  }
-
-  async findMediaFilesInShipment(
-    parentId: string,
-    args: Prisma.ShipmentFindManyArgs
-  ): Promise<Shipment[]> {
-    return this.prisma.mediaFile
-      .findUnique({
-        where: { id: parentId },
-      })
-      .mediaFilesInShipment(args);
   }
 }

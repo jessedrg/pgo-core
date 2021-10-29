@@ -17,8 +17,6 @@ import { OrderUpdateInput } from "./OrderUpdateInput";
 import { Order } from "./Order";
 import { OrderItemWhereInput } from "../../orderItem/base/OrderItemWhereInput";
 import { OrderItem } from "../../orderItem/base/OrderItem";
-import { PaymentWhereInput } from "../../payment/base/PaymentWhereInput";
-import { Payment } from "../../payment/base/Payment";
 import { ProductionWhereInput } from "../../production/base/ProductionWhereInput";
 import { Production } from "../../production/base/Production";
 @swagger.ApiBasicAuth()
@@ -67,31 +65,25 @@ export class OrderControllerBase {
       data: {
         ...data,
 
-        acountId: data.acountId
+        organization: data.organization
           ? {
-              connect: data.acountId,
+              connect: data.organization,
             }
           : undefined,
 
-        organizationId: data.organizationId
+        payment: data.payment
           ? {
-              connect: data.organizationId,
+              connect: data.payment,
             }
           : undefined,
 
-        shipmentId: data.shipmentId
+        shipment: data.shipment
           ? {
-              connect: data.shipmentId,
+              connect: data.shipment,
             }
           : undefined,
       },
       select: {
-        acountId: {
-          select: {
-            id: true,
-          },
-        },
-
         billingAddress: true,
         comment: true,
         createdAt: true,
@@ -100,13 +92,19 @@ export class OrderControllerBase {
         fees: true,
         id: true,
 
-        organizationId: {
+        organization: {
           select: {
             id: true,
           },
         },
 
-        shipmentId: {
+        payment: {
+          select: {
+            id: true,
+          },
+        },
+
+        shipment: {
           select: {
             id: true,
           },
@@ -155,12 +153,6 @@ export class OrderControllerBase {
     const results = await this.service.findMany({
       ...args,
       select: {
-        acountId: {
-          select: {
-            id: true,
-          },
-        },
-
         billingAddress: true,
         comment: true,
         createdAt: true,
@@ -169,13 +161,19 @@ export class OrderControllerBase {
         fees: true,
         id: true,
 
-        organizationId: {
+        organization: {
           select: {
             id: true,
           },
         },
 
-        shipmentId: {
+        payment: {
+          select: {
+            id: true,
+          },
+        },
+
+        shipment: {
           select: {
             id: true,
           },
@@ -219,12 +217,6 @@ export class OrderControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
-        acountId: {
-          select: {
-            id: true,
-          },
-        },
-
         billingAddress: true,
         comment: true,
         createdAt: true,
@@ -233,13 +225,19 @@ export class OrderControllerBase {
         fees: true,
         id: true,
 
-        organizationId: {
+        organization: {
           select: {
             id: true,
           },
         },
 
-        shipmentId: {
+        payment: {
+          select: {
+            id: true,
+          },
+        },
+
+        shipment: {
           select: {
             id: true,
           },
@@ -305,31 +303,25 @@ export class OrderControllerBase {
         data: {
           ...data,
 
-          acountId: data.acountId
+          organization: data.organization
             ? {
-                connect: data.acountId,
+                connect: data.organization,
               }
             : undefined,
 
-          organizationId: data.organizationId
+          payment: data.payment
             ? {
-                connect: data.organizationId,
+                connect: data.payment,
               }
             : undefined,
 
-          shipmentId: data.shipmentId
+          shipment: data.shipment
             ? {
-                connect: data.shipmentId,
+                connect: data.shipment,
               }
             : undefined,
         },
         select: {
-          acountId: {
-            select: {
-              id: true,
-            },
-          },
-
           billingAddress: true,
           comment: true,
           createdAt: true,
@@ -338,13 +330,19 @@ export class OrderControllerBase {
           fees: true,
           id: true,
 
-          organizationId: {
+          organization: {
             select: {
               id: true,
             },
           },
 
-          shipmentId: {
+          payment: {
+            select: {
+              id: true,
+            },
+          },
+
+          shipment: {
             select: {
               id: true,
             },
@@ -389,12 +387,6 @@ export class OrderControllerBase {
       return await this.service.delete({
         where: params,
         select: {
-          acountId: {
-            select: {
-              id: true,
-            },
-          },
-
           billingAddress: true,
           comment: true,
           createdAt: true,
@@ -403,13 +395,19 @@ export class OrderControllerBase {
           fees: true,
           id: true,
 
-          organizationId: {
+          organization: {
             select: {
               id: true,
             },
           },
 
-          shipmentId: {
+          payment: {
+            select: {
+              id: true,
+            },
+          },
+
+          shipment: {
             select: {
               id: true,
             },
@@ -438,7 +436,7 @@ export class OrderControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Get("/:id/orderInOrderItem")
+  @common.Get("/:id/orderItems")
   @nestAccessControl.UseRoles({
     resource: "Order",
     action: "read",
@@ -449,7 +447,7 @@ export class OrderControllerBase {
     style: "deepObject",
     explode: true,
   })
-  async findManyOrderInOrderItem(
+  async findManyOrderItems(
     @common.Req() request: Request,
     @common.Param() params: OrderWhereUniqueInput,
     @nestAccessControl.UserRoles() userRoles: string[]
@@ -461,19 +459,13 @@ export class OrderControllerBase {
       possession: "any",
       resource: "OrderItem",
     });
-    const results = await this.service.findOrderInOrderItem(params.id, {
+    const results = await this.service.findOrderItems(params.id, {
       where: query,
       select: {
         createdAt: true,
         id: true,
 
-        orderId: {
-          select: {
-            id: true,
-          },
-        },
-
-        partId: {
+        order: {
           select: {
             id: true,
           },
@@ -493,19 +485,19 @@ export class OrderControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Post("/:id/orderInOrderItem")
+  @common.Post("/:id/orderItems")
   @nestAccessControl.UseRoles({
     resource: "Order",
     action: "update",
     possession: "any",
   })
-  async createOrderInOrderItem(
+  async createOrderItems(
     @common.Param() params: OrderWhereUniqueInput,
     @common.Body() body: OrderWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      orderInOrderItem: {
+      orderItems: {
         connect: body,
       },
     };
@@ -538,19 +530,19 @@ export class OrderControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Patch("/:id/orderInOrderItem")
+  @common.Patch("/:id/orderItems")
   @nestAccessControl.UseRoles({
     resource: "Order",
     action: "update",
     possession: "any",
   })
-  async updateOrderInOrderItem(
+  async updateOrderItems(
     @common.Param() params: OrderWhereUniqueInput,
     @common.Body() body: OrderWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      orderInOrderItem: {
+      orderItems: {
         set: body,
       },
     };
@@ -583,19 +575,19 @@ export class OrderControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Delete("/:id/orderInOrderItem")
+  @common.Delete("/:id/orderItems")
   @nestAccessControl.UseRoles({
     resource: "Order",
     action: "update",
     possession: "any",
   })
-  async deleteOrderInOrderItem(
+  async deleteOrderItems(
     @common.Param() params: OrderWhereUniqueInput,
     @common.Body() body: OrderWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      orderInOrderItem: {
+      orderItems: {
         disconnect: body,
       },
     };
@@ -628,197 +620,7 @@ export class OrderControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Get("/:id/orderInPayment")
-  @nestAccessControl.UseRoles({
-    resource: "Order",
-    action: "read",
-    possession: "any",
-  })
-  @swagger.ApiQuery({
-    type: () => PaymentWhereInput,
-    style: "deepObject",
-    explode: true,
-  })
-  async findManyOrderInPayment(
-    @common.Req() request: Request,
-    @common.Param() params: OrderWhereUniqueInput,
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<Payment[]> {
-    const query: PaymentWhereInput = request.query;
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Payment",
-    });
-    const results = await this.service.findOrderInPayment(params.id, {
-      where: query,
-      select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
-        createdAt: true,
-        id: true,
-
-        orderId: {
-          select: {
-            id: true,
-          },
-        },
-
-        status: true,
-        transactionId: true,
-        transactionUserId: true,
-        updatedAt: true,
-      },
-    });
-    return results.map((result) => permission.filter(result));
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Post("/:id/orderInPayment")
-  @nestAccessControl.UseRoles({
-    resource: "Order",
-    action: "update",
-    possession: "any",
-  })
-  async createOrderInPayment(
-    @common.Param() params: OrderWhereUniqueInput,
-    @common.Body() body: OrderWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      orderInPayment: {
-        connect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Order",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Order"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Patch("/:id/orderInPayment")
-  @nestAccessControl.UseRoles({
-    resource: "Order",
-    action: "update",
-    possession: "any",
-  })
-  async updateOrderInPayment(
-    @common.Param() params: OrderWhereUniqueInput,
-    @common.Body() body: OrderWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      orderInPayment: {
-        set: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Order",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Order"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Delete("/:id/orderInPayment")
-  @nestAccessControl.UseRoles({
-    resource: "Order",
-    action: "update",
-    possession: "any",
-  })
-  async deleteOrderInPayment(
-    @common.Param() params: OrderWhereUniqueInput,
-    @common.Body() body: OrderWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      orderInPayment: {
-        disconnect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Order",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Order"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Get("/:id/productionsInOrders")
+  @common.Get("/:id/productions")
   @nestAccessControl.UseRoles({
     resource: "Order",
     action: "read",
@@ -829,7 +631,7 @@ export class OrderControllerBase {
     style: "deepObject",
     explode: true,
   })
-  async findManyProductionsInOrders(
+  async findManyProductions(
     @common.Req() request: Request,
     @common.Param() params: OrderWhereUniqueInput,
     @nestAccessControl.UserRoles() userRoles: string[]
@@ -841,26 +643,14 @@ export class OrderControllerBase {
       possession: "any",
       resource: "Production",
     });
-    const results = await this.service.findProductionsInOrders(params.id, {
+    const results = await this.service.findProductions(params.id, {
       where: query,
       select: {
         createdAt: true,
         discomformity: true,
         id: true,
 
-        orderId: {
-          select: {
-            id: true,
-          },
-        },
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
-        providerId: {
+        order: {
           select: {
             id: true,
           },
@@ -878,19 +668,19 @@ export class OrderControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Post("/:id/productionsInOrders")
+  @common.Post("/:id/productions")
   @nestAccessControl.UseRoles({
     resource: "Order",
     action: "update",
     possession: "any",
   })
-  async createProductionsInOrders(
+  async createProductions(
     @common.Param() params: OrderWhereUniqueInput,
     @common.Body() body: OrderWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      productionsInOrders: {
+      productions: {
         connect: body,
       },
     };
@@ -923,19 +713,19 @@ export class OrderControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Patch("/:id/productionsInOrders")
+  @common.Patch("/:id/productions")
   @nestAccessControl.UseRoles({
     resource: "Order",
     action: "update",
     possession: "any",
   })
-  async updateProductionsInOrders(
+  async updateProductions(
     @common.Param() params: OrderWhereUniqueInput,
     @common.Body() body: OrderWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      productionsInOrders: {
+      productions: {
         set: body,
       },
     };
@@ -968,19 +758,19 @@ export class OrderControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Delete("/:id/productionsInOrders")
+  @common.Delete("/:id/productions")
   @nestAccessControl.UseRoles({
     resource: "Order",
     action: "update",
     possession: "any",
   })
-  async deleteProductionsInOrders(
+  async deleteProductions(
     @common.Param() params: OrderWhereUniqueInput,
     @common.Body() body: OrderWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      productionsInOrders: {
+      productions: {
         disconnect: body,
       },
     };

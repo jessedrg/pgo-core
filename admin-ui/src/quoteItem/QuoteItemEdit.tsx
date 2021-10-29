@@ -20,7 +20,7 @@ export const QuoteItemEdit = (props: EditProps): React.ReactElement => {
         <NumberInput label="basePrices" source="basePrices" />
         <TextInput label="constructionType" source="constructionType" />
         <NumberInput label="margins" source="margins" />
-        <ReferenceInput source="part.id" reference="Part" label="partId">
+        <ReferenceInput source="part.id" reference="Part" label="part">
           <SelectInput optionText={PartTitle} />
         </ReferenceInput>
         <NumberInput label="prices" source="prices" />
@@ -28,7 +28,7 @@ export const QuoteItemEdit = (props: EditProps): React.ReactElement => {
         <ReferenceInput
           source="provider.id"
           reference="Provider"
-          label="providerId"
+          label="provider"
         >
           <SelectInput optionText={ProviderTitle} />
         </ReferenceInput>

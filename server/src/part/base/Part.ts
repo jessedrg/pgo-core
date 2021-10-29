@@ -16,13 +16,12 @@ import {
 import { Type } from "class-transformer";
 import { Offer } from "../../offer/base/Offer";
 import { PartConfiguration } from "../../partConfiguration/base/PartConfiguration";
-import { OrderItem } from "../../orderItem/base/OrderItem";
-import { ProductionItem } from "../../productionItem/base/ProductionItem";
 import { PartMessage } from "../../partMessage/base/PartMessage";
 import { PartOnShape } from "../../partOnShape/base/PartOnShape";
-import { Production } from "../../production/base/Production";
+import { ProductionItem } from "../../productionItem/base/ProductionItem";
 import { GraphQLJSONObject } from "graphql-type-json";
 import { JsonValue } from "type-fest";
+import { Quote } from "../../quote/base/Quote";
 import { QuoteItem } from "../../quoteItem/base/QuoteItem";
 import { EnumPartStatus } from "./EnumPartStatus";
 @ObjectType()
@@ -45,12 +44,12 @@ class Part {
 
   @ApiProperty({
     required: false,
-    type: () => [Offer],
+    type: () => Offer,
   })
   @ValidateNested()
   @Type(() => Offer)
   @IsOptional()
-  offersInPart?: Array<Offer>;
+  offer?: Offer | null;
 
   @ApiProperty({
     required: false,
@@ -59,25 +58,7 @@ class Part {
   @ValidateNested()
   @Type(() => PartConfiguration)
   @IsOptional()
-  part?: Array<PartConfiguration>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [OrderItem],
-  })
-  @ValidateNested()
-  @Type(() => OrderItem)
-  @IsOptional()
-  partInOrderItem?: Array<OrderItem>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [ProductionItem],
-  })
-  @ValidateNested()
-  @Type(() => ProductionItem)
-  @IsOptional()
-  partInProduction?: Array<ProductionItem>;
+  partConfigurations?: Array<PartConfiguration>;
 
   @ApiProperty({
     required: false,
@@ -86,7 +67,16 @@ class Part {
   @ValidateNested()
   @Type(() => PartMessage)
   @IsOptional()
-  partMessagesInPart?: Array<PartMessage>;
+  partMessages?: Array<PartMessage>;
+
+  @ApiProperty({
+    required: false,
+    type: () => PartOnShape,
+  })
+  @ValidateNested()
+  @Type(() => PartOnShape)
+  @IsOptional()
+  partonshape?: PartOnShape | null;
 
   @ApiProperty({
     required: false,
@@ -95,7 +85,7 @@ class Part {
   @ValidateNested()
   @Type(() => PartOnShape)
   @IsOptional()
-  partOnShape?: Array<PartOnShape>;
+  partOnShapes?: Array<PartOnShape>;
 
   @ApiProperty({
     required: false,
@@ -121,12 +111,12 @@ class Part {
 
   @ApiProperty({
     required: false,
-    type: () => [Production],
+    type: () => [ProductionItem],
   })
   @ValidateNested()
-  @Type(() => Production)
+  @Type(() => ProductionItem)
   @IsOptional()
-  productionsInParts?: Array<Production>;
+  productionItems?: Array<ProductionItem>;
 
   @ApiProperty({
     required: false,
@@ -140,12 +130,21 @@ class Part {
 
   @ApiProperty({
     required: false,
+    type: () => Quote,
+  })
+  @ValidateNested()
+  @Type(() => Quote)
+  @IsOptional()
+  quote?: Quote | null;
+
+  @ApiProperty({
+    required: false,
     type: () => [QuoteItem],
   })
   @ValidateNested()
   @Type(() => QuoteItem)
   @IsOptional()
-  quoteItem?: Array<QuoteItem>;
+  quoteItems?: Array<QuoteItem>;
 
   @ApiProperty({
     required: false,

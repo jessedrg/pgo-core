@@ -27,7 +27,7 @@ export const PartConfigurationList = (props: ListProps): React.ReactElement => {
         <TextField label="ID" source="id" />
         <TextField label="material" source="material" />
         <TextField label="materialType" source="materialType" />
-        <ReferenceField label="partId" source="part.id" reference="Part">
+        <ReferenceField label="part" source="part.id" reference="Part">
           <TextField source={PART_TITLE_FIELD} />
         </ReferenceField>
         <TextField label="tech" source="tech" />

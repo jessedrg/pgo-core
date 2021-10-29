@@ -41,15 +41,6 @@ class ProviderOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  holidaysIdId?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["Asc", "Desc"],
-  })
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
   id?: SortOrder;
 
   @ApiProperty({

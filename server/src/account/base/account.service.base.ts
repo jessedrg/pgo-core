@@ -1,14 +1,8 @@
 import { PrismaService } from "nestjs-prisma";
-
 import {
   Prisma,
   Account,
   Offer,
-  Order,
-  Agent,
-  Payment,
-  AccountPaymentMethod,
-  Invite,
   PartMessage,
   Quote,
   User,
@@ -49,7 +43,7 @@ export class AccountServiceBase {
     return this.prisma.account.delete(args);
   }
 
-  async findAccount(
+  async findOffers(
     parentId: string,
     args: Prisma.OfferFindManyArgs
   ): Promise<Offer[]> {
@@ -57,65 +51,10 @@ export class AccountServiceBase {
       .findUnique({
         where: { id: parentId },
       })
-      .account(args);
+      .offers(args);
   }
 
-  async findAccountIdInOrder(
-    parentId: string,
-    args: Prisma.OrderFindManyArgs
-  ): Promise<Order[]> {
-    return this.prisma.account
-      .findUnique({
-        where: { id: parentId },
-      })
-      .accountIdInOrder(args);
-  }
-
-  async findAccountInAgent(
-    parentId: string,
-    args: Prisma.AgentFindManyArgs
-  ): Promise<Agent[]> {
-    return this.prisma.account
-      .findUnique({
-        where: { id: parentId },
-      })
-      .accountInAgent(args);
-  }
-
-  async findAccountInPayment(
-    parentId: string,
-    args: Prisma.PaymentFindManyArgs
-  ): Promise<Payment[]> {
-    return this.prisma.account
-      .findUnique({
-        where: { id: parentId },
-      })
-      .accountInPayment(args);
-  }
-
-  async findAccountPaymentMethodsInAccount(
-    parentId: string,
-    args: Prisma.AccountPaymentMethodFindManyArgs
-  ): Promise<AccountPaymentMethod[]> {
-    return this.prisma.account
-      .findUnique({
-        where: { id: parentId },
-      })
-      .accountPaymentMethodsInAccount(args);
-  }
-
-  async findInvitesInAccount(
-    parentId: string,
-    args: Prisma.InviteFindManyArgs
-  ): Promise<Invite[]> {
-    return this.prisma.account
-      .findUnique({
-        where: { id: parentId },
-      })
-      .invitesInAccount(args);
-  }
-
-  async findPartMessagesInReciever(
+  async findPartMessages(
     parentId: string,
     args: Prisma.PartMessageFindManyArgs
   ): Promise<PartMessage[]> {
@@ -123,10 +62,10 @@ export class AccountServiceBase {
       .findUnique({
         where: { id: parentId },
       })
-      .partMessagesInReciever(args);
+      .partMessages(args);
   }
 
-  async findPartMessagesInSender(
+  async findPartSender(
     parentId: string,
     args: Prisma.PartMessageFindManyArgs
   ): Promise<PartMessage[]> {
@@ -134,10 +73,10 @@ export class AccountServiceBase {
       .findUnique({
         where: { id: parentId },
       })
-      .partMessagesInSender(args);
+      .partSender(args);
   }
 
-  async findQuote(
+  async findQuotes(
     parentId: string,
     args: Prisma.QuoteFindManyArgs
   ): Promise<Quote[]> {
@@ -145,10 +84,10 @@ export class AccountServiceBase {
       .findUnique({
         where: { id: parentId },
       })
-      .quote(args);
+      .quotes(args);
   }
 
-  async findUsersInAccount(
+  async findUsers(
     parentId: string,
     args: Prisma.UserFindManyArgs
   ): Promise<User[]> {
@@ -156,6 +95,6 @@ export class AccountServiceBase {
       .findUnique({
         where: { id: parentId },
       })
-      .usersInAccount(args);
+      .users(args);
   }
 }

@@ -84,7 +84,7 @@ class PartConfigurationWhereInput {
   @Field(() => PartWhereUniqueInput, {
     nullable: true,
   })
-  partId?: PartWhereUniqueInput;
+  part?: PartWhereUniqueInput;
 
   @ApiProperty({
     required: false,

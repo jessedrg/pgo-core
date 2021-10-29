@@ -14,7 +14,6 @@ import { DeleteHolidayArgs } from "./DeleteHolidayArgs";
 import { HolidayFindManyArgs } from "./HolidayFindManyArgs";
 import { HolidayFindUniqueArgs } from "./HolidayFindUniqueArgs";
 import { Holiday } from "./Holiday";
-import { ProviderFindManyArgs } from "../../provider/base/ProviderFindManyArgs";
 import { Provider } from "../../provider/base/Provider";
 import { HolidayService } from "../holiday.service";
 
@@ -122,7 +121,15 @@ export class HolidayResolverBase {
     // @ts-ignore
     return await this.service.create({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        provider: args.data.provider
+          ? {
+              connect: args.data.provider,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -161,7 +168,15 @@ export class HolidayResolverBase {
       // @ts-ignore
       return await this.service.update({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          provider: args.data.provider
+            ? {
+                connect: args.data.provider,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -195,29 +210,27 @@ export class HolidayResolverBase {
     }
   }
 
-  @graphql.ResolveField(() => [Provider])
+  @graphql.ResolveField(() => Provider, { nullable: true })
   @nestAccessControl.UseRoles({
     resource: "Holiday",
     action: "read",
     possession: "any",
   })
-  async providersInHolidays(
+  async provider(
     @graphql.Parent() parent: Holiday,
-    @graphql.Args() args: ProviderFindManyArgs,
     @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Provider[]> {
+  ): Promise<Provider | null> {
     const permission = this.rolesBuilder.permission({
       role: userRoles,
       action: "read",
       possession: "any",
       resource: "Provider",
     });
-    const results = await this.service.findProvidersInHolidays(parent.id, args);
+    const result = await this.service.getProvider(parent.id);
 
-    if (!results) {
-      return [];
+    if (!result) {
+      return null;
     }
-
-    return results.map((result) => permission.filter(result));
+    return permission.filter(result);
   }
 }

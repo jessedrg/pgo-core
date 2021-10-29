@@ -15,7 +15,7 @@ export const PartOnShapeEdit = (props: EditProps): React.ReactElement => {
       <SimpleForm>
         <TextInput label="did" source="did" />
         <TextInput label="eid" source="eid" />
-        <ReferenceInput source="part.id" reference="Part" label="partId">
+        <ReferenceInput source="part.id" reference="Part" label="part">
           <SelectInput optionText={PartTitle} />
         </ReferenceInput>
         <TextInput label="wid" source="wid" />

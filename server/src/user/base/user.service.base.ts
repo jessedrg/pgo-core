@@ -1,5 +1,5 @@
 import { PrismaService } from "nestjs-prisma";
-import { Prisma, User, Session, Account, Organization } from "@prisma/client";
+import { Prisma, User, Payment, Account, Organization } from "@prisma/client";
 import { PasswordService } from "../../auth/password.service";
 import { transformStringFieldUpdateInput } from "../../prisma.util";
 
@@ -61,30 +61,30 @@ export class UserServiceBase {
     return this.prisma.user.delete(args);
   }
 
-  async findSessionsInUser(
+  async findPayments(
     parentId: string,
-    args: Prisma.SessionFindManyArgs
-  ): Promise<Session[]> {
+    args: Prisma.PaymentFindManyArgs
+  ): Promise<Payment[]> {
     return this.prisma.user
       .findUnique({
         where: { id: parentId },
       })
-      .sessionsInUser(args);
+      .payments(args);
   }
 
-  async getAccountId(parentId: string): Promise<Account | null> {
+  async getAccount(parentId: string): Promise<Account | null> {
     return this.prisma.user
       .findUnique({
         where: { id: parentId },
       })
-      .accountId();
+      .account();
   }
 
-  async getOrganizationId(parentId: string): Promise<Organization | null> {
+  async getOrganization(parentId: string): Promise<Organization | null> {
     return this.prisma.user
       .findUnique({
         where: { id: parentId },
       })
-      .organizationId();
+      .organization();
   }
 }

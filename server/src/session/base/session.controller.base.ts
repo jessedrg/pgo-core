@@ -58,27 +58,13 @@ export class SessionControllerBase {
       );
     }
     return await this.service.create({
-      data: {
-        ...data,
-
-        userId: data.userId
-          ? {
-              connect: data.userId,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
         authMethod: true,
         createdAt: true,
         id: true,
         sessionToken: true,
         updatedAt: true,
-
-        userId: {
-          select: {
-            id: true,
-          },
-        },
       },
     });
   }
@@ -121,12 +107,6 @@ export class SessionControllerBase {
         id: true,
         sessionToken: true,
         updatedAt: true,
-
-        userId: {
-          select: {
-            id: true,
-          },
-        },
       },
     });
     return results.map((result) => permission.filter(result));
@@ -164,12 +144,6 @@ export class SessionControllerBase {
         id: true,
         sessionToken: true,
         updatedAt: true,
-
-        userId: {
-          select: {
-            id: true,
-          },
-        },
       },
     });
     if (result === null) {
@@ -221,27 +195,13 @@ export class SessionControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: {
-          ...data,
-
-          userId: data.userId
-            ? {
-                connect: data.userId,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
           authMethod: true,
           createdAt: true,
           id: true,
           sessionToken: true,
           updatedAt: true,
-
-          userId: {
-            select: {
-              id: true,
-            },
-          },
         },
       });
     } catch (error) {
@@ -280,12 +240,6 @@ export class SessionControllerBase {
           id: true,
           sessionToken: true,
           updatedAt: true,
-
-          userId: {
-            select: {
-              id: true,
-            },
-          },
         },
       });
     } catch (error) {

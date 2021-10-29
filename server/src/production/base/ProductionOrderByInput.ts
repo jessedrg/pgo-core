@@ -41,25 +41,7 @@ class ProductionOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  orderIdId?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["Asc", "Desc"],
-  })
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  partIdId?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["Asc", "Desc"],
-  })
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  providerIdId?: SortOrder;
+  orderId?: SortOrder;
 
   @ApiProperty({
     required: false,

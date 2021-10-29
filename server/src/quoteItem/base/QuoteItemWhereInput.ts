@@ -65,7 +65,7 @@ class QuoteItemWhereInput {
   @Field(() => PartWhereUniqueInput, {
     nullable: true,
   })
-  partId?: PartWhereUniqueInput;
+  part?: PartWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -99,7 +99,7 @@ class QuoteItemWhereInput {
   @Field(() => ProviderWhereUniqueInput, {
     nullable: true,
   })
-  providerId?: ProviderWhereUniqueInput;
+  provider?: ProviderWhereUniqueInput;
 
   @ApiProperty({
     required: false,

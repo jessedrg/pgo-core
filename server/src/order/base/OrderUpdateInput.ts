@@ -1,35 +1,23 @@
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { AccountWhereUniqueInput } from "../../account/base/AccountWhereUniqueInput";
 import {
-  ValidateNested,
-  IsOptional,
   IsJSON,
+  IsOptional,
   IsString,
   IsInt,
+  ValidateNested,
   IsEnum,
   IsNumber,
 } from "class-validator";
-import { Type } from "class-transformer";
 import { GraphQLJSONObject } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { OrganizationWhereUniqueInput } from "../../organization/base/OrganizationWhereUniqueInput";
+import { Type } from "class-transformer";
+import { PaymentWhereUniqueInput } from "../../payment/base/PaymentWhereUniqueInput";
 import { ShipmentWhereUniqueInput } from "../../shipment/base/ShipmentWhereUniqueInput";
 import { EnumOrderState } from "./EnumOrderState";
 @InputType()
 class OrderUpdateInput {
-  @ApiProperty({
-    required: false,
-    type: () => AccountWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => AccountWhereUniqueInput)
-  @IsOptional()
-  @Field(() => AccountWhereUniqueInput, {
-    nullable: true,
-  })
-  acountId?: AccountWhereUniqueInput | null;
-
   @ApiProperty({
     required: false,
   })
@@ -93,7 +81,19 @@ class OrderUpdateInput {
   @Field(() => OrganizationWhereUniqueInput, {
     nullable: true,
   })
-  organizationId?: OrganizationWhereUniqueInput | null;
+  organization?: OrganizationWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentWhereUniqueInput)
+  @IsOptional()
+  @Field(() => PaymentWhereUniqueInput, {
+    nullable: true,
+  })
+  payment?: PaymentWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -105,7 +105,7 @@ class OrderUpdateInput {
   @Field(() => ShipmentWhereUniqueInput, {
     nullable: true,
   })
-  shipmentId?: ShipmentWhereUniqueInput | null;
+  shipment?: ShipmentWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

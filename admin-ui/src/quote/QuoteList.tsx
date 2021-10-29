@@ -21,18 +21,14 @@ export const QuoteList = (props: ListProps): React.ReactElement => {
       pagination={<Pagination />}
     >
       <Datagrid rowClick="show">
-        <ReferenceField
-          label="accountId"
-          source="account.id"
-          reference="Account"
-        >
+        <ReferenceField label="account" source="account.id" reference="Account">
           <TextField source={ACCOUNT_TITLE_FIELD} />
         </ReferenceField>
         <TextField label="completedAt" source="completedAt" />
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
         <ReferenceField
-          label="providerId"
+          label="provider"
           source="provider.id"
           reference="Provider"
         >

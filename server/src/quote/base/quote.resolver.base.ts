@@ -14,6 +14,8 @@ import { DeleteQuoteArgs } from "./DeleteQuoteArgs";
 import { QuoteFindManyArgs } from "./QuoteFindManyArgs";
 import { QuoteFindUniqueArgs } from "./QuoteFindUniqueArgs";
 import { Quote } from "./Quote";
+import { PartFindManyArgs } from "../../part/base/PartFindManyArgs";
+import { Part } from "../../part/base/Part";
 import { Account } from "../../account/base/Account";
 import { Provider } from "../../provider/base/Provider";
 import { QuoteService } from "../quote.service";
@@ -125,15 +127,15 @@ export class QuoteResolverBase {
       data: {
         ...args.data,
 
-        accountId: args.data.accountId
+        account: args.data.account
           ? {
-              connect: args.data.accountId,
+              connect: args.data.account,
             }
           : undefined,
 
-        providerId: args.data.providerId
+        provider: args.data.provider
           ? {
-              connect: args.data.providerId,
+              connect: args.data.provider,
             }
           : undefined,
       },
@@ -178,15 +180,15 @@ export class QuoteResolverBase {
         data: {
           ...args.data,
 
-          accountId: args.data.accountId
+          account: args.data.account
             ? {
-                connect: args.data.accountId,
+                connect: args.data.account,
               }
             : undefined,
 
-          providerId: args.data.providerId
+          provider: args.data.provider
             ? {
-                connect: args.data.providerId,
+                connect: args.data.provider,
               }
             : undefined,
         },
@@ -223,13 +225,39 @@ export class QuoteResolverBase {
     }
   }
 
+  @graphql.ResolveField(() => [Part])
+  @nestAccessControl.UseRoles({
+    resource: "Quote",
+    action: "read",
+    possession: "any",
+  })
+  async parts(
+    @graphql.Parent() parent: Quote,
+    @graphql.Args() args: PartFindManyArgs,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Part[]> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Part",
+    });
+    const results = await this.service.findParts(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results.map((result) => permission.filter(result));
+  }
+
   @graphql.ResolveField(() => Account, { nullable: true })
   @nestAccessControl.UseRoles({
     resource: "Quote",
     action: "read",
     possession: "any",
   })
-  async accountId(
+  async account(
     @graphql.Parent() parent: Quote,
     @gqlUserRoles.UserRoles() userRoles: string[]
   ): Promise<Account | null> {
@@ -239,7 +267,7 @@ export class QuoteResolverBase {
       possession: "any",
       resource: "Account",
     });
-    const result = await this.service.getAccountId(parent.id);
+    const result = await this.service.getAccount(parent.id);
 
     if (!result) {
       return null;
@@ -253,7 +281,7 @@ export class QuoteResolverBase {
     action: "read",
     possession: "any",
   })
-  async providerId(
+  async provider(
     @graphql.Parent() parent: Quote,
     @gqlUserRoles.UserRoles() userRoles: string[]
   ): Promise<Provider | null> {
@@ -263,7 +291,7 @@ export class QuoteResolverBase {
       possession: "any",
       resource: "Provider",
     });
-    const result = await this.service.getProviderId(parent.id);
+    const result = await this.service.getProvider(parent.id);
 
     if (!result) {
       return null;

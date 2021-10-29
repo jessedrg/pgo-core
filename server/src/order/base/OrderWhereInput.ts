@@ -1,29 +1,17 @@
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { AccountWhereUniqueInput } from "../../account/base/AccountWhereUniqueInput";
-import { ValidateNested, IsOptional } from "class-validator";
-import { Type } from "class-transformer";
 import { JsonNullableFilter } from "../../util/JsonNullableFilter";
+import { Type } from "class-transformer";
+import { IsOptional, ValidateNested } from "class-validator";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { OrganizationWhereUniqueInput } from "../../organization/base/OrganizationWhereUniqueInput";
+import { PaymentWhereUniqueInput } from "../../payment/base/PaymentWhereUniqueInput";
 import { ShipmentWhereUniqueInput } from "../../shipment/base/ShipmentWhereUniqueInput";
 import { FloatNullableFilter } from "../../util/FloatNullableFilter";
 @InputType()
 class OrderWhereInput {
-  @ApiProperty({
-    required: false,
-    type: () => AccountWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => AccountWhereUniqueInput)
-  @IsOptional()
-  @Field(() => AccountWhereUniqueInput, {
-    nullable: true,
-  })
-  acountId?: AccountWhereUniqueInput;
-
   @ApiProperty({
     required: false,
     type: JsonNullableFilter,
@@ -100,7 +88,19 @@ class OrderWhereInput {
   @Field(() => OrganizationWhereUniqueInput, {
     nullable: true,
   })
-  organizationId?: OrganizationWhereUniqueInput;
+  organization?: OrganizationWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => PaymentWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => PaymentWhereUniqueInput)
+  @IsOptional()
+  @Field(() => PaymentWhereUniqueInput, {
+    nullable: true,
+  })
+  payment?: PaymentWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -112,7 +112,7 @@ class OrderWhereInput {
   @Field(() => ShipmentWhereUniqueInput, {
     nullable: true,
   })
-  shipmentId?: ShipmentWhereUniqueInput;
+  shipment?: ShipmentWhereUniqueInput;
 
   @ApiProperty({
     required: false,

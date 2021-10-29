@@ -14,7 +14,6 @@ import { DeleteSessionArgs } from "./DeleteSessionArgs";
 import { SessionFindManyArgs } from "./SessionFindManyArgs";
 import { SessionFindUniqueArgs } from "./SessionFindUniqueArgs";
 import { Session } from "./Session";
-import { User } from "../../user/base/User";
 import { SessionService } from "../session.service";
 
 @graphql.Resolver(() => Session)
@@ -121,15 +120,7 @@ export class SessionResolverBase {
     // @ts-ignore
     return await this.service.create({
       ...args,
-      data: {
-        ...args.data,
-
-        userId: args.data.userId
-          ? {
-              connect: args.data.userId,
-            }
-          : undefined,
-      },
+      data: args.data,
     });
   }
 
@@ -168,15 +159,7 @@ export class SessionResolverBase {
       // @ts-ignore
       return await this.service.update({
         ...args,
-        data: {
-          ...args.data,
-
-          userId: args.data.userId
-            ? {
-                connect: args.data.userId,
-              }
-            : undefined,
-        },
+        data: args.data,
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -208,29 +191,5 @@ export class SessionResolverBase {
       }
       throw error;
     }
-  }
-
-  @graphql.ResolveField(() => User, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "Session",
-    action: "read",
-    possession: "any",
-  })
-  async userId(
-    @graphql.Parent() parent: Session,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<User | null> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "User",
-    });
-    const result = await this.service.getUserId(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return permission.filter(result);
   }
 }

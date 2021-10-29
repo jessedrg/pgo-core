@@ -21,7 +21,7 @@ export const PartConfigurationEdit = (props: EditProps): React.ReactElement => {
         <TextInput label="hardness" source="hardness" />
         <TextInput label="material" source="material" />
         <TextInput label="materialType" source="materialType" />
-        <ReferenceInput source="part.id" reference="Part" label="partId">
+        <ReferenceInput source="part.id" reference="Part" label="part">
           <SelectInput optionText={PartTitle} />
         </ReferenceInput>
         <TextInput label="tech" source="tech" />

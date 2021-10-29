@@ -6,9 +6,9 @@ export type PartMessage = {
   id: string;
   message: string | null;
   messageType: string | null;
-  partId?: Part | null;
-  recieverId?: Account | null;
-  senderId?: Account | null;
+  part?: Part | null;
+  reciever?: Account | null;
+  sender?: Account | null;
   type: string | null;
   updatedAt: Date;
 };

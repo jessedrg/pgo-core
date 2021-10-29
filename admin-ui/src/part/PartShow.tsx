@@ -6,17 +6,18 @@ import {
   ShowProps,
   DateField,
   TextField,
+  ReferenceField,
   BooleanField,
   ReferenceManyField,
   Datagrid,
-  ReferenceField,
 } from "react-admin";
 
-import { ACCOUNT_TITLE_FIELD } from "../account/AccountTitle";
 import { PART_TITLE_FIELD } from "./PartTitle";
-import { ORDER_TITLE_FIELD } from "../order/OrderTitle";
-import { PRODUCTION_TITLE_FIELD } from "../production/ProductionTitle";
+import { ACCOUNT_TITLE_FIELD } from "../account/AccountTitle";
 import { PROVIDER_TITLE_FIELD } from "../provider/ProviderTitle";
+import { OFFER_TITLE_FIELD } from "../offer/OfferTitle";
+import { PARTONSHAPE_TITLE_FIELD } from "../partOnShape/PartOnShapeTitle";
+import { QUOTE_TITLE_FIELD } from "../quote/QuoteTitle";
 
 export const PartShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -24,9 +25,22 @@ export const PartShow = (props: ShowProps): React.ReactElement => {
       <SimpleShowLayout>
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
+        <ReferenceField label="offer" source="offer.id" reference="Offer">
+          <TextField source={OFFER_TITLE_FIELD} />
+        </ReferenceField>
+        <ReferenceField
+          label="partonshape"
+          source="partonshape.id"
+          reference="PartOnShape"
+        >
+          <TextField source={PARTONSHAPE_TITLE_FIELD} />
+        </ReferenceField>
         <TextField label="parts" source="parts" />
         <TextField label="process" source="process" />
         <TextField label="quantities" source="quantities" />
+        <ReferenceField label="quote" source="quote.id" reference="Quote">
+          <TextField source={QUOTE_TITLE_FIELD} />
+        </ReferenceField>
         <TextField label="status" source="status" />
         <TextField label="surface" source="surface" />
         <DateField source="updatedAt" label="Updated At" />
@@ -37,26 +51,6 @@ export const PartShow = (props: ShowProps): React.ReactElement => {
         <TextField label="x" source="x" />
         <TextField label="y" source="y" />
         <TextField label="z" source="z" />
-        <ReferenceManyField reference="Offer" target="PartId" label="Offers">
-          <Datagrid rowClick="show">
-            <ReferenceField
-              label="accountId"
-              source="account.id"
-              reference="Account"
-            >
-              <TextField source={ACCOUNT_TITLE_FIELD} />
-            </ReferenceField>
-            <DateField source="createdAt" label="Created At" />
-            <TextField label="customNo" source="customNo" />
-            <TextField label="ID" source="id" />
-            <ReferenceField label="partId" source="part.id" reference="Part">
-              <TextField source={PART_TITLE_FIELD} />
-            </ReferenceField>
-            <TextField label="publishedAt" source="publishedAt" />
-            <TextField label="status" source="status" />
-            <DateField source="updatedAt" label="Updated At" />
-          </Datagrid>
-        </ReferenceManyField>
         <ReferenceManyField
           reference="PartConfiguration"
           target="PartId"
@@ -70,56 +64,13 @@ export const PartShow = (props: ShowProps): React.ReactElement => {
             <TextField label="ID" source="id" />
             <TextField label="material" source="material" />
             <TextField label="materialType" source="materialType" />
-            <ReferenceField label="partId" source="part.id" reference="Part">
+            <ReferenceField label="part" source="part.id" reference="Part">
               <TextField source={PART_TITLE_FIELD} />
             </ReferenceField>
             <TextField label="tech" source="tech" />
             <TextField label="tolerance" source="tolerance" />
             <DateField source="updatedAt" label="Updated At" />
             <TextField label="weight" source="weight" />
-          </Datagrid>
-        </ReferenceManyField>
-        <ReferenceManyField
-          reference="OrderItem"
-          target="PartId"
-          label="OrderItems"
-        >
-          <Datagrid rowClick="show">
-            <DateField source="createdAt" label="Created At" />
-            <TextField label="ID" source="id" />
-            <ReferenceField label="orderId" source="order.id" reference="Order">
-              <TextField source={ORDER_TITLE_FIELD} />
-            </ReferenceField>
-            <ReferenceField label="partId" source="part.id" reference="Part">
-              <TextField source={PART_TITLE_FIELD} />
-            </ReferenceField>
-            <TextField label="price" source="price" />
-            <TextField label="quantity" source="quantity" />
-            <TextField label="total" source="total" />
-            <DateField source="updatedAt" label="Updated At" />
-          </Datagrid>
-        </ReferenceManyField>
-        <ReferenceManyField
-          reference="ProductionItem"
-          target="PartId"
-          label="ProductionItems"
-        >
-          <Datagrid rowClick="show">
-            <DateField source="createdAt" label="Created At" />
-            <TextField label="ID" source="id" />
-            <ReferenceField label="partId" source="part.id" reference="Part">
-              <TextField source={PART_TITLE_FIELD} />
-            </ReferenceField>
-            <ReferenceField
-              label="productionId"
-              source="production.id"
-              reference="Production"
-            >
-              <TextField source={PRODUCTION_TITLE_FIELD} />
-            </ReferenceField>
-            <TextField label="quantity" source="quantity" />
-            <TextField label="shippedQuantity" source="shippedQuantity" />
-            <DateField source="updatedAt" label="Updated At" />
           </Datagrid>
         </ReferenceManyField>
         <ReferenceManyField
@@ -132,18 +83,18 @@ export const PartShow = (props: ShowProps): React.ReactElement => {
             <TextField label="ID" source="id" />
             <TextField label="message" source="message" />
             <TextField label="messageType" source="messageType" />
-            <ReferenceField label="partId" source="part.id" reference="Part">
+            <ReferenceField label="part" source="part.id" reference="Part">
               <TextField source={PART_TITLE_FIELD} />
             </ReferenceField>
             <ReferenceField
-              label="recieverId"
+              label="reciever"
               source="account.id"
               reference="Account"
             >
               <TextField source={ACCOUNT_TITLE_FIELD} />
             </ReferenceField>
             <ReferenceField
-              label="senderId"
+              label="sender"
               source="account.id"
               reference="Account"
             >
@@ -163,7 +114,7 @@ export const PartShow = (props: ShowProps): React.ReactElement => {
             <TextField label="did" source="did" />
             <TextField label="eid" source="eid" />
             <TextField label="ID" source="id" />
-            <ReferenceField label="partId" source="part.id" reference="Part">
+            <ReferenceField label="part" source="part.id" reference="Part">
               <TextField source={PART_TITLE_FIELD} />
             </ReferenceField>
             <DateField source="updatedAt" label="Updated At" />
@@ -171,28 +122,18 @@ export const PartShow = (props: ShowProps): React.ReactElement => {
           </Datagrid>
         </ReferenceManyField>
         <ReferenceManyField
-          reference="Production"
+          reference="ProductionItem"
           target="PartId"
-          label="Productions"
+          label="ProductionItems"
         >
           <Datagrid rowClick="show">
             <DateField source="createdAt" label="Created At" />
-            <BooleanField label="discomformity" source="discomformity" />
             <TextField label="ID" source="id" />
-            <ReferenceField label="orderId" source="order.id" reference="Order">
-              <TextField source={ORDER_TITLE_FIELD} />
-            </ReferenceField>
-            <ReferenceField label="partId" source="part.id" reference="Part">
+            <ReferenceField label="part" source="part.id" reference="Part">
               <TextField source={PART_TITLE_FIELD} />
             </ReferenceField>
-            <ReferenceField
-              label="providerId"
-              source="provider.id"
-              reference="Provider"
-            >
-              <TextField source={PROVIDER_TITLE_FIELD} />
-            </ReferenceField>
-            <TextField label="status" source="status" />
+            <TextField label="quantity" source="quantity" />
+            <TextField label="shippedQuantity" source="shippedQuantity" />
             <DateField source="updatedAt" label="Updated At" />
           </Datagrid>
         </ReferenceManyField>
@@ -207,13 +148,13 @@ export const PartShow = (props: ShowProps): React.ReactElement => {
             <DateField source="createdAt" label="Created At" />
             <TextField label="ID" source="id" />
             <TextField label="margins" source="margins" />
-            <ReferenceField label="partId" source="part.id" reference="Part">
+            <ReferenceField label="part" source="part.id" reference="Part">
               <TextField source={PART_TITLE_FIELD} />
             </ReferenceField>
             <TextField label="prices" source="prices" />
             <TextField label="productionDays" source="productionDays" />
             <ReferenceField
-              label="providerId"
+              label="provider"
               source="provider.id"
               reference="Provider"
             >

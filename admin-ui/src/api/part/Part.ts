@@ -1,27 +1,26 @@
 import { Offer } from "../offer/Offer";
 import { PartConfiguration } from "../partConfiguration/PartConfiguration";
-import { OrderItem } from "../orderItem/OrderItem";
-import { ProductionItem } from "../productionItem/ProductionItem";
 import { PartMessage } from "../partMessage/PartMessage";
 import { PartOnShape } from "../partOnShape/PartOnShape";
-import { Production } from "../production/Production";
+import { ProductionItem } from "../productionItem/ProductionItem";
 import { JsonValue } from "type-fest";
+import { Quote } from "../quote/Quote";
 import { QuoteItem } from "../quoteItem/QuoteItem";
 
 export type Part = {
   createdAt: Date;
   id: string;
-  offersInPart?: Array<Offer>;
-  part?: Array<PartConfiguration>;
-  partInOrderItem?: Array<OrderItem>;
-  partInProduction?: Array<ProductionItem>;
-  partMessagesInPart?: Array<PartMessage>;
-  partOnShape?: Array<PartOnShape>;
+  offer?: Offer | null;
+  partConfigurations?: Array<PartConfiguration>;
+  partMessages?: Array<PartMessage>;
+  partonshape?: PartOnShape | null;
+  partOnShapes?: Array<PartOnShape>;
   parts: number | null;
   process: string | null;
-  productionsInParts?: Array<Production>;
+  productionItems?: Array<ProductionItem>;
   quantities: JsonValue | null;
-  quoteItem?: Array<QuoteItem>;
+  quote?: Quote | null;
+  quoteItems?: Array<QuoteItem>;
   status?: "draft" | "pending" | "rejected" | "publish" | null;
   surface: number | null;
   updatedAt: Date;

@@ -1,10 +1,10 @@
 import { SortOrder } from "../../util/SortOrder";
 
 export type OrganizationOrderByInput = {
-  contactAdressIdId?: SortOrder;
+  addres?: SortOrder;
+  addressId?: SortOrder;
   createdAt?: SortOrder;
   id?: SortOrder;
   name?: SortOrder;
-  paymenMethodIdId?: SortOrder;
   updatedAt?: SortOrder;
 };

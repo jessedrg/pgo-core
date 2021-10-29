@@ -15,8 +15,6 @@ import { ShipmentWhereUniqueInput } from "./ShipmentWhereUniqueInput";
 import { ShipmentFindManyArgs } from "./ShipmentFindManyArgs";
 import { ShipmentUpdateInput } from "./ShipmentUpdateInput";
 import { Shipment } from "./Shipment";
-import { MediaFileWhereInput } from "../../mediaFile/base/MediaFileWhereInput";
-import { MediaFile } from "../../mediaFile/base/MediaFile";
 import { OrderWhereInput } from "../../order/base/OrderWhereInput";
 import { Order } from "../../order/base/Order";
 @swagger.ApiBasicAuth()
@@ -311,359 +309,7 @@ export class ShipmentControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Get("/:id/attachments")
-  @nestAccessControl.UseRoles({
-    resource: "Shipment",
-    action: "read",
-    possession: "any",
-  })
-  @swagger.ApiQuery({
-    type: () => MediaFileWhereInput,
-    style: "deepObject",
-    explode: true,
-  })
-  async findManyAttachments(
-    @common.Req() request: Request,
-    @common.Param() params: ShipmentWhereUniqueInput,
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<MediaFile[]> {
-    const query: MediaFileWhereInput = request.query;
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "MediaFile",
-    });
-    const results = await this.service.findAttachments(params.id, {
-      where: query,
-      select: {
-        createdAt: true,
-        id: true,
-        type: true,
-        updatedAt: true,
-        url: true,
-      },
-    });
-    return results.map((result) => permission.filter(result));
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Post("/:id/attachments")
-  @nestAccessControl.UseRoles({
-    resource: "Shipment",
-    action: "update",
-    possession: "any",
-  })
-  async createAttachments(
-    @common.Param() params: ShipmentWhereUniqueInput,
-    @common.Body() body: ShipmentWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      attachments: {
-        connect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Shipment",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Shipment"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Patch("/:id/attachments")
-  @nestAccessControl.UseRoles({
-    resource: "Shipment",
-    action: "update",
-    possession: "any",
-  })
-  async updateAttachments(
-    @common.Param() params: ShipmentWhereUniqueInput,
-    @common.Body() body: ShipmentWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      attachments: {
-        set: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Shipment",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Shipment"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Delete("/:id/attachments")
-  @nestAccessControl.UseRoles({
-    resource: "Shipment",
-    action: "update",
-    possession: "any",
-  })
-  async deleteAttachments(
-    @common.Param() params: ShipmentWhereUniqueInput,
-    @common.Body() body: ShipmentWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      attachments: {
-        disconnect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Shipment",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Shipment"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Get("/:id/labels")
-  @nestAccessControl.UseRoles({
-    resource: "Shipment",
-    action: "read",
-    possession: "any",
-  })
-  @swagger.ApiQuery({
-    type: () => MediaFileWhereInput,
-    style: "deepObject",
-    explode: true,
-  })
-  async findManyLabels(
-    @common.Req() request: Request,
-    @common.Param() params: ShipmentWhereUniqueInput,
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<MediaFile[]> {
-    const query: MediaFileWhereInput = request.query;
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "MediaFile",
-    });
-    const results = await this.service.findLabels(params.id, {
-      where: query,
-      select: {
-        createdAt: true,
-        id: true,
-        type: true,
-        updatedAt: true,
-        url: true,
-      },
-    });
-    return results.map((result) => permission.filter(result));
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Post("/:id/labels")
-  @nestAccessControl.UseRoles({
-    resource: "Shipment",
-    action: "update",
-    possession: "any",
-  })
-  async createLabels(
-    @common.Param() params: ShipmentWhereUniqueInput,
-    @common.Body() body: ShipmentWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      labels: {
-        connect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Shipment",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Shipment"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Patch("/:id/labels")
-  @nestAccessControl.UseRoles({
-    resource: "Shipment",
-    action: "update",
-    possession: "any",
-  })
-  async updateLabels(
-    @common.Param() params: ShipmentWhereUniqueInput,
-    @common.Body() body: ShipmentWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      labels: {
-        set: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Shipment",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Shipment"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Delete("/:id/labels")
-  @nestAccessControl.UseRoles({
-    resource: "Shipment",
-    action: "update",
-    possession: "any",
-  })
-  async deleteLabels(
-    @common.Param() params: ShipmentWhereUniqueInput,
-    @common.Body() body: ShipmentWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      labels: {
-        disconnect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Shipment",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Shipment"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Get("/:id/ordersInShipment")
+  @common.Get("/:id/orders")
   @nestAccessControl.UseRoles({
     resource: "Shipment",
     action: "read",
@@ -674,7 +320,7 @@ export class ShipmentControllerBase {
     style: "deepObject",
     explode: true,
   })
-  async findManyOrdersInShipment(
+  async findManyOrders(
     @common.Req() request: Request,
     @common.Param() params: ShipmentWhereUniqueInput,
     @nestAccessControl.UserRoles() userRoles: string[]
@@ -686,15 +332,9 @@ export class ShipmentControllerBase {
       possession: "any",
       resource: "Order",
     });
-    const results = await this.service.findOrdersInShipment(params.id, {
+    const results = await this.service.findOrders(params.id, {
       where: query,
       select: {
-        acountId: {
-          select: {
-            id: true,
-          },
-        },
-
         billingAddress: true,
         comment: true,
         createdAt: true,
@@ -703,13 +343,19 @@ export class ShipmentControllerBase {
         fees: true,
         id: true,
 
-        organizationId: {
+        organization: {
           select: {
             id: true,
           },
         },
 
-        shipmentId: {
+        payment: {
+          select: {
+            id: true,
+          },
+        },
+
+        shipment: {
           select: {
             id: true,
           },
@@ -731,19 +377,19 @@ export class ShipmentControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Post("/:id/ordersInShipment")
+  @common.Post("/:id/orders")
   @nestAccessControl.UseRoles({
     resource: "Shipment",
     action: "update",
     possession: "any",
   })
-  async createOrdersInShipment(
+  async createOrders(
     @common.Param() params: ShipmentWhereUniqueInput,
     @common.Body() body: ShipmentWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      ordersInShipment: {
+      orders: {
         connect: body,
       },
     };
@@ -776,19 +422,19 @@ export class ShipmentControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Patch("/:id/ordersInShipment")
+  @common.Patch("/:id/orders")
   @nestAccessControl.UseRoles({
     resource: "Shipment",
     action: "update",
     possession: "any",
   })
-  async updateOrdersInShipment(
+  async updateOrders(
     @common.Param() params: ShipmentWhereUniqueInput,
     @common.Body() body: ShipmentWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      ordersInShipment: {
+      orders: {
         set: body,
       },
     };
@@ -821,19 +467,19 @@ export class ShipmentControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Delete("/:id/ordersInShipment")
+  @common.Delete("/:id/orders")
   @nestAccessControl.UseRoles({
     resource: "Shipment",
     action: "update",
     possession: "any",
   })
-  async deleteOrdersInShipment(
+  async deleteOrders(
     @common.Param() params: ShipmentWhereUniqueInput,
     @common.Body() body: ShipmentWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      ordersInShipment: {
+      orders: {
         disconnect: body,
       },
     };

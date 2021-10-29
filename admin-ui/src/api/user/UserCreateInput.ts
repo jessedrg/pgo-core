@@ -2,10 +2,10 @@ import { AccountWhereUniqueInput } from "../account/AccountWhereUniqueInput";
 import { OrganizationWhereUniqueInput } from "../organization/OrganizationWhereUniqueInput";
 
 export type UserCreateInput = {
-  accountId?: AccountWhereUniqueInput | null;
+  account?: AccountWhereUniqueInput | null;
   firstName?: string | null;
   lastName?: string | null;
-  organizationId?: OrganizationWhereUniqueInput | null;
+  organization?: OrganizationWhereUniqueInput | null;
   password: string;
   roles: Array<string>;
   username: string;

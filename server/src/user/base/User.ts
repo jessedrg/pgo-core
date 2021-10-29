@@ -4,7 +4,7 @@ import { Account } from "../../account/base/Account";
 import { ValidateNested, IsOptional, IsDate, IsString } from "class-validator";
 import { Type } from "class-transformer";
 import { Organization } from "../../organization/base/Organization";
-import { Session } from "../../session/base/Session";
+import { Payment } from "../../payment/base/Payment";
 @ObjectType()
 class User {
   @ApiProperty({
@@ -14,7 +14,7 @@ class User {
   @ValidateNested()
   @Type(() => Account)
   @IsOptional()
-  accountId?: Account | null;
+  account?: Account | null;
 
   @ApiProperty({
     required: true,
@@ -61,7 +61,16 @@ class User {
   @ValidateNested()
   @Type(() => Organization)
   @IsOptional()
-  organizationId?: Organization | null;
+  organization?: Organization | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Payment],
+  })
+  @ValidateNested()
+  @Type(() => Payment)
+  @IsOptional()
+  payments?: Array<Payment>;
 
   @ApiProperty({
     required: true,
@@ -72,15 +81,6 @@ class User {
   })
   @Field(() => [String])
   roles!: Array<string>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Session],
-  })
-  @ValidateNested()
-  @Type(() => Session)
-  @IsOptional()
-  sessionsInUser?: Array<Session>;
 
   @ApiProperty({
     required: true,

@@ -15,6 +15,8 @@ import { QuoteWhereUniqueInput } from "./QuoteWhereUniqueInput";
 import { QuoteFindManyArgs } from "./QuoteFindManyArgs";
 import { QuoteUpdateInput } from "./QuoteUpdateInput";
 import { Quote } from "./Quote";
+import { PartWhereInput } from "../../part/base/PartWhereInput";
+import { Part } from "../../part/base/Part";
 @swagger.ApiBasicAuth()
 export class QuoteControllerBase {
   constructor(
@@ -61,20 +63,20 @@ export class QuoteControllerBase {
       data: {
         ...data,
 
-        accountId: data.accountId
+        account: data.account
           ? {
-              connect: data.accountId,
+              connect: data.account,
             }
           : undefined,
 
-        providerId: data.providerId
+        provider: data.provider
           ? {
-              connect: data.providerId,
+              connect: data.provider,
             }
           : undefined,
       },
       select: {
-        accountId: {
+        account: {
           select: {
             id: true,
           },
@@ -84,7 +86,7 @@ export class QuoteControllerBase {
         createdAt: true,
         id: true,
 
-        providerId: {
+        provider: {
           select: {
             id: true,
           },
@@ -129,7 +131,7 @@ export class QuoteControllerBase {
     const results = await this.service.findMany({
       ...args,
       select: {
-        accountId: {
+        account: {
           select: {
             id: true,
           },
@@ -139,7 +141,7 @@ export class QuoteControllerBase {
         createdAt: true,
         id: true,
 
-        providerId: {
+        provider: {
           select: {
             id: true,
           },
@@ -179,7 +181,7 @@ export class QuoteControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
-        accountId: {
+        account: {
           select: {
             id: true,
           },
@@ -189,7 +191,7 @@ export class QuoteControllerBase {
         createdAt: true,
         id: true,
 
-        providerId: {
+        provider: {
           select: {
             id: true,
           },
@@ -251,20 +253,20 @@ export class QuoteControllerBase {
         data: {
           ...data,
 
-          accountId: data.accountId
+          account: data.account
             ? {
-                connect: data.accountId,
+                connect: data.account,
               }
             : undefined,
 
-          providerId: data.providerId
+          provider: data.provider
             ? {
-                connect: data.providerId,
+                connect: data.provider,
               }
             : undefined,
         },
         select: {
-          accountId: {
+          account: {
             select: {
               id: true,
             },
@@ -274,7 +276,7 @@ export class QuoteControllerBase {
           createdAt: true,
           id: true,
 
-          providerId: {
+          provider: {
             select: {
               id: true,
             },
@@ -315,7 +317,7 @@ export class QuoteControllerBase {
       return await this.service.delete({
         where: params,
         select: {
-          accountId: {
+          account: {
             select: {
               id: true,
             },
@@ -325,7 +327,7 @@ export class QuoteControllerBase {
           createdAt: true,
           id: true,
 
-          providerId: {
+          provider: {
             select: {
               id: true,
             },
@@ -343,5 +345,211 @@ export class QuoteControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Get("/:id/parts")
+  @nestAccessControl.UseRoles({
+    resource: "Quote",
+    action: "read",
+    possession: "any",
+  })
+  @swagger.ApiQuery({
+    type: () => PartWhereInput,
+    style: "deepObject",
+    explode: true,
+  })
+  async findManyParts(
+    @common.Req() request: Request,
+    @common.Param() params: QuoteWhereUniqueInput,
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<Part[]> {
+    const query: PartWhereInput = request.query;
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Part",
+    });
+    const results = await this.service.findParts(params.id, {
+      where: query,
+      select: {
+        createdAt: true,
+        id: true,
+
+        offer: {
+          select: {
+            id: true,
+          },
+        },
+
+        partonshape: {
+          select: {
+            id: true,
+          },
+        },
+
+        parts: true,
+        process: true,
+        quantities: true,
+
+        quote: {
+          select: {
+            id: true,
+          },
+        },
+
+        status: true,
+        surface: true,
+        updatedAt: true,
+        visible: true,
+        volume: true,
+        volumeBoundingBox: true,
+        volumeChips: true,
+        x: true,
+        y: true,
+        z: true,
+      },
+    });
+    return results.map((result) => permission.filter(result));
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Post("/:id/parts")
+  @nestAccessControl.UseRoles({
+    resource: "Quote",
+    action: "update",
+    possession: "any",
+  })
+  async createParts(
+    @common.Param() params: QuoteWhereUniqueInput,
+    @common.Body() body: QuoteWhereUniqueInput[],
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<void> {
+    const data = {
+      parts: {
+        connect: body,
+      },
+    };
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "update",
+      possession: "any",
+      resource: "Quote",
+    });
+    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
+    if (invalidAttributes.length) {
+      const roles = userRoles
+        .map((role: string) => JSON.stringify(role))
+        .join(",");
+      throw new common.ForbiddenException(
+        `Updating the relationship: ${
+          invalidAttributes[0]
+        } of ${"Quote"} is forbidden for roles: ${roles}`
+      );
+    }
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Patch("/:id/parts")
+  @nestAccessControl.UseRoles({
+    resource: "Quote",
+    action: "update",
+    possession: "any",
+  })
+  async updateParts(
+    @common.Param() params: QuoteWhereUniqueInput,
+    @common.Body() body: QuoteWhereUniqueInput[],
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<void> {
+    const data = {
+      parts: {
+        set: body,
+      },
+    };
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "update",
+      possession: "any",
+      resource: "Quote",
+    });
+    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
+    if (invalidAttributes.length) {
+      const roles = userRoles
+        .map((role: string) => JSON.stringify(role))
+        .join(",");
+      throw new common.ForbiddenException(
+        `Updating the relationship: ${
+          invalidAttributes[0]
+        } of ${"Quote"} is forbidden for roles: ${roles}`
+      );
+    }
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Delete("/:id/parts")
+  @nestAccessControl.UseRoles({
+    resource: "Quote",
+    action: "update",
+    possession: "any",
+  })
+  async deleteParts(
+    @common.Param() params: QuoteWhereUniqueInput,
+    @common.Body() body: QuoteWhereUniqueInput[],
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<void> {
+    const data = {
+      parts: {
+        disconnect: body,
+      },
+    };
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "update",
+      possession: "any",
+      resource: "Quote",
+    });
+    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
+    if (invalidAttributes.length) {
+      const roles = userRoles
+        .map((role: string) => JSON.stringify(role))
+        .join(",");
+      throw new common.ForbiddenException(
+        `Updating the relationship: ${
+          invalidAttributes[0]
+        } of ${"Quote"} is forbidden for roles: ${roles}`
+      );
+    }
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

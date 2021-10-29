@@ -51,7 +51,7 @@ class PartMessage {
   @ValidateNested()
   @Type(() => Part)
   @IsOptional()
-  partId?: Part | null;
+  part?: Part | null;
 
   @ApiProperty({
     required: false,
@@ -60,7 +60,7 @@ class PartMessage {
   @ValidateNested()
   @Type(() => Account)
   @IsOptional()
-  recieverId?: Account | null;
+  reciever?: Account | null;
 
   @ApiProperty({
     required: false,
@@ -69,7 +69,7 @@ class PartMessage {
   @ValidateNested()
   @Type(() => Account)
   @IsOptional()
-  senderId?: Account | null;
+  sender?: Account | null;
 
   @ApiProperty({
     required: false,

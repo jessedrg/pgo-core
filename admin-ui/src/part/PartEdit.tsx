@@ -4,19 +4,37 @@ import {
   Edit,
   SimpleForm,
   EditProps,
+  ReferenceInput,
+  SelectInput,
   NumberInput,
   TextInput,
-  SelectInput,
   BooleanInput,
 } from "react-admin";
+
+import { OfferTitle } from "../offer/OfferTitle";
+import { PartOnShapeTitle } from "../partOnShape/PartOnShapeTitle";
+import { QuoteTitle } from "../quote/QuoteTitle";
 
 export const PartEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
+        <ReferenceInput source="offer.id" reference="Offer" label="offer">
+          <SelectInput optionText={OfferTitle} />
+        </ReferenceInput>
+        <ReferenceInput
+          source="partonshape.id"
+          reference="PartOnShape"
+          label="partonshape"
+        >
+          <SelectInput optionText={PartOnShapeTitle} />
+        </ReferenceInput>
         <NumberInput step={1} label="parts" source="parts" />
         <TextInput label="process" source="process" />
         <div />
+        <ReferenceInput source="quote.id" reference="Quote" label="quote">
+          <SelectInput optionText={QuoteTitle} />
+        </ReferenceInput>
         <SelectInput
           source="status"
           label="status"

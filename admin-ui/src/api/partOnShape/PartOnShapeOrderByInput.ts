@@ -5,7 +5,7 @@ export type PartOnShapeOrderByInput = {
   did?: SortOrder;
   eid?: SortOrder;
   id?: SortOrder;
-  partIdId?: SortOrder;
+  partId?: SortOrder;
   updatedAt?: SortOrder;
   wid?: SortOrder;
 };

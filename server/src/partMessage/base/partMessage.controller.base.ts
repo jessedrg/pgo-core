@@ -61,21 +61,21 @@ export class PartMessageControllerBase {
       data: {
         ...data,
 
-        partId: data.partId
+        part: data.part
           ? {
-              connect: data.partId,
+              connect: data.part,
             }
           : undefined,
 
-        recieverId: data.recieverId
+        reciever: data.reciever
           ? {
-              connect: data.recieverId,
+              connect: data.reciever,
             }
           : undefined,
 
-        senderId: data.senderId
+        sender: data.sender
           ? {
-              connect: data.senderId,
+              connect: data.sender,
             }
           : undefined,
       },
@@ -85,19 +85,19 @@ export class PartMessageControllerBase {
         message: true,
         messageType: true,
 
-        partId: {
+        part: {
           select: {
             id: true,
           },
         },
 
-        recieverId: {
+        reciever: {
           select: {
             id: true,
           },
         },
 
-        senderId: {
+        sender: {
           select: {
             id: true,
           },
@@ -147,19 +147,19 @@ export class PartMessageControllerBase {
         message: true,
         messageType: true,
 
-        partId: {
+        part: {
           select: {
             id: true,
           },
         },
 
-        recieverId: {
+        reciever: {
           select: {
             id: true,
           },
         },
 
-        senderId: {
+        sender: {
           select: {
             id: true,
           },
@@ -204,19 +204,19 @@ export class PartMessageControllerBase {
         message: true,
         messageType: true,
 
-        partId: {
+        part: {
           select: {
             id: true,
           },
         },
 
-        recieverId: {
+        reciever: {
           select: {
             id: true,
           },
         },
 
-        senderId: {
+        sender: {
           select: {
             id: true,
           },
@@ -278,21 +278,21 @@ export class PartMessageControllerBase {
         data: {
           ...data,
 
-          partId: data.partId
+          part: data.part
             ? {
-                connect: data.partId,
+                connect: data.part,
               }
             : undefined,
 
-          recieverId: data.recieverId
+          reciever: data.reciever
             ? {
-                connect: data.recieverId,
+                connect: data.reciever,
               }
             : undefined,
 
-          senderId: data.senderId
+          sender: data.sender
             ? {
-                connect: data.senderId,
+                connect: data.sender,
               }
             : undefined,
         },
@@ -302,19 +302,19 @@ export class PartMessageControllerBase {
           message: true,
           messageType: true,
 
-          partId: {
+          part: {
             select: {
               id: true,
             },
           },
 
-          recieverId: {
+          reciever: {
             select: {
               id: true,
             },
           },
 
-          senderId: {
+          sender: {
             select: {
               id: true,
             },
@@ -360,19 +360,19 @@ export class PartMessageControllerBase {
           message: true,
           messageType: true,
 
-          partId: {
+          part: {
             select: {
               id: true,
             },
           },
 
-          recieverId: {
+          reciever: {
             select: {
               id: true,
             },
           },
 
-          senderId: {
+          sender: {
             select: {
               id: true,
             },

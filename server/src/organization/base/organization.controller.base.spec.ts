@@ -11,12 +11,14 @@ import { OrganizationService } from "../organization.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  addres: "exampleAddres",
   createdAt: new Date(),
   id: "exampleId",
   name: "exampleName",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  addres: "exampleAddres",
   createdAt: new Date(),
   id: "exampleId",
   name: "exampleName",
@@ -24,6 +26,7 @@ const CREATE_RESULT = {
 };
 const FIND_MANY_RESULT = [
   {
+    addres: "exampleAddres",
     createdAt: new Date(),
     id: "exampleId",
     name: "exampleName",
@@ -31,6 +34,7 @@ const FIND_MANY_RESULT = [
   },
 ];
 const FIND_ONE_RESULT = {
+  addres: "exampleAddres",
   createdAt: new Date(),
   id: "exampleId",
   name: "exampleName",

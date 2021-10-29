@@ -25,21 +25,17 @@ export const PartMessageList = (props: ListProps): React.ReactElement => {
         <TextField label="ID" source="id" />
         <TextField label="message" source="message" />
         <TextField label="messageType" source="messageType" />
-        <ReferenceField label="partId" source="part.id" reference="Part">
+        <ReferenceField label="part" source="part.id" reference="Part">
           <TextField source={PART_TITLE_FIELD} />
         </ReferenceField>
         <ReferenceField
-          label="recieverId"
+          label="reciever"
           source="account.id"
           reference="Account"
         >
           <TextField source={ACCOUNT_TITLE_FIELD} />
         </ReferenceField>
-        <ReferenceField
-          label="senderId"
-          source="account.id"
-          reference="Account"
-        >
+        <ReferenceField label="sender" source="account.id" reference="Account">
           <TextField source={ACCOUNT_TITLE_FIELD} />
         </ReferenceField>
         <TextField label="type" source="type" />

@@ -36,19 +36,19 @@ export class QuoteItemServiceBase {
     return this.prisma.quoteItem.delete(args);
   }
 
-  async getPartId(parentId: string): Promise<Part | null> {
+  async getPart(parentId: string): Promise<Part | null> {
     return this.prisma.quoteItem
       .findUnique({
         where: { id: parentId },
       })
-      .partId();
+      .part();
   }
 
-  async getProviderId(parentId: string): Promise<Provider | null> {
+  async getProvider(parentId: string): Promise<Provider | null> {
     return this.prisma.quoteItem
       .findUnique({
         where: { id: parentId },
       })
-      .providerId();
+      .provider();
   }
 }

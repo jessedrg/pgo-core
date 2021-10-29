@@ -4,7 +4,6 @@ import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { PartWhereUniqueInput } from "../../part/base/PartWhereUniqueInput";
-import { ProductionWhereUniqueInput } from "../../production/base/ProductionWhereUniqueInput";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 @InputType()
 class ProductionItemWhereInput {
@@ -29,19 +28,7 @@ class ProductionItemWhereInput {
   @Field(() => PartWhereUniqueInput, {
     nullable: true,
   })
-  partId?: PartWhereUniqueInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => ProductionWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => ProductionWhereUniqueInput)
-  @IsOptional()
-  @Field(() => ProductionWhereUniqueInput, {
-    nullable: true,
-  })
-  productionId?: ProductionWhereUniqueInput;
+  part?: PartWhereUniqueInput;
 
   @ApiProperty({
     required: false,

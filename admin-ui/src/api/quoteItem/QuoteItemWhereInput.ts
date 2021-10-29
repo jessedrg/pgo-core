@@ -10,10 +10,10 @@ export type QuoteItemWhereInput = {
   constructionType?: StringNullableFilter;
   id?: StringFilter;
   margins?: FloatNullableFilter;
-  partId?: PartWhereUniqueInput;
+  part?: PartWhereUniqueInput;
   prices?: FloatNullableFilter;
   productionDays?: IntNullableFilter;
-  providerId?: ProviderWhereUniqueInput;
+  provider?: ProviderWhereUniqueInput;
   quantities?: IntNullableFilter;
   status?: "pending" | "completed" | "rejected" | "canceled";
 };

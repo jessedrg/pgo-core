@@ -201,7 +201,7 @@ export class AddressResolverBase {
     action: "read",
     possession: "any",
   })
-  async organizationsInAdress(
+  async organizations(
     @graphql.Parent() parent: Address,
     @graphql.Args() args: OrganizationFindManyArgs,
     @gqlUserRoles.UserRoles() userRoles: string[]
@@ -212,10 +212,7 @@ export class AddressResolverBase {
       possession: "any",
       resource: "Organization",
     });
-    const results = await this.service.findOrganizationsInAdress(
-      parent.id,
-      args
-    );
+    const results = await this.service.findOrganizations(parent.id, args);
 
     if (!results) {
       return [];

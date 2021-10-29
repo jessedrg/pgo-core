@@ -5,7 +5,8 @@ export type PartOnShape = {
   did: string | null;
   eid: string | null;
   id: string;
-  partId?: Part | null;
+  part?: Part | null;
+  parts?: Array<Part>;
   updatedAt: Date;
   wid: string | null;
 };

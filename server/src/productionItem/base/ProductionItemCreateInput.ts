@@ -3,7 +3,6 @@ import { ApiProperty } from "@nestjs/swagger";
 import { PartWhereUniqueInput } from "../../part/base/PartWhereUniqueInput";
 import { ValidateNested, IsOptional, IsInt } from "class-validator";
 import { Type } from "class-transformer";
-import { ProductionWhereUniqueInput } from "../../production/base/ProductionWhereUniqueInput";
 @InputType()
 class ProductionItemCreateInput {
   @ApiProperty({
@@ -16,19 +15,7 @@ class ProductionItemCreateInput {
   @Field(() => PartWhereUniqueInput, {
     nullable: true,
   })
-  partId?: PartWhereUniqueInput | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => ProductionWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => ProductionWhereUniqueInput)
-  @IsOptional()
-  @Field(() => ProductionWhereUniqueInput, {
-    nullable: true,
-  })
-  productionId?: ProductionWhereUniqueInput | null;
+  part?: PartWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

@@ -14,8 +14,6 @@ import { DeleteOrganizationArgs } from "./DeleteOrganizationArgs";
 import { OrganizationFindManyArgs } from "./OrganizationFindManyArgs";
 import { OrganizationFindUniqueArgs } from "./OrganizationFindUniqueArgs";
 import { Organization } from "./Organization";
-import { AccountPaymentMethodFindManyArgs } from "../../accountPaymentMethod/base/AccountPaymentMethodFindManyArgs";
-import { AccountPaymentMethod } from "../../accountPaymentMethod/base/AccountPaymentMethod";
 import { OrderFindManyArgs } from "../../order/base/OrderFindManyArgs";
 import { Order } from "../../order/base/Order";
 import { UserFindManyArgs } from "../../user/base/UserFindManyArgs";
@@ -130,15 +128,9 @@ export class OrganizationResolverBase {
       data: {
         ...args.data,
 
-        contactAdressId: args.data.contactAdressId
+        address: args.data.address
           ? {
-              connect: args.data.contactAdressId,
-            }
-          : undefined,
-
-        paymenMethodId: args.data.paymenMethodId
-          ? {
-              connect: args.data.paymenMethodId,
+              connect: args.data.address,
             }
           : undefined,
       },
@@ -183,15 +175,9 @@ export class OrganizationResolverBase {
         data: {
           ...args.data,
 
-          contactAdressId: args.data.contactAdressId
+          address: args.data.address
             ? {
-                connect: args.data.contactAdressId,
-              }
-            : undefined,
-
-          paymenMethodId: args.data.paymenMethodId
-            ? {
-                connect: args.data.paymenMethodId,
+                connect: args.data.address,
               }
             : undefined,
         },
@@ -228,42 +214,13 @@ export class OrganizationResolverBase {
     }
   }
 
-  @graphql.ResolveField(() => [AccountPaymentMethod])
-  @nestAccessControl.UseRoles({
-    resource: "Organization",
-    action: "read",
-    possession: "any",
-  })
-  async accountPaymentMethodInOrganization(
-    @graphql.Parent() parent: Organization,
-    @graphql.Args() args: AccountPaymentMethodFindManyArgs,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<AccountPaymentMethod[]> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "AccountPaymentMethod",
-    });
-    const results = await this.service.findAccountPaymentMethodInOrganization(
-      parent.id,
-      args
-    );
-
-    if (!results) {
-      return [];
-    }
-
-    return results.map((result) => permission.filter(result));
-  }
-
   @graphql.ResolveField(() => [Order])
   @nestAccessControl.UseRoles({
     resource: "Organization",
     action: "read",
     possession: "any",
   })
-  async organizationInOrder(
+  async orders(
     @graphql.Parent() parent: Organization,
     @graphql.Args() args: OrderFindManyArgs,
     @gqlUserRoles.UserRoles() userRoles: string[]
@@ -274,7 +231,7 @@ export class OrganizationResolverBase {
       possession: "any",
       resource: "Order",
     });
-    const results = await this.service.findOrganizationInOrder(parent.id, args);
+    const results = await this.service.findOrders(parent.id, args);
 
     if (!results) {
       return [];
@@ -289,7 +246,7 @@ export class OrganizationResolverBase {
     action: "read",
     possession: "any",
   })
-  async usersInOrganization(
+  async users(
     @graphql.Parent() parent: Organization,
     @graphql.Args() args: UserFindManyArgs,
     @gqlUserRoles.UserRoles() userRoles: string[]
@@ -300,7 +257,7 @@ export class OrganizationResolverBase {
       possession: "any",
       resource: "User",
     });
-    const results = await this.service.findUsersInOrganization(parent.id, args);
+    const results = await this.service.findUsers(parent.id, args);
 
     if (!results) {
       return [];
@@ -315,7 +272,7 @@ export class OrganizationResolverBase {
     action: "read",
     possession: "any",
   })
-  async contactAdressId(
+  async address(
     @graphql.Parent() parent: Organization,
     @gqlUserRoles.UserRoles() userRoles: string[]
   ): Promise<Address | null> {
@@ -325,31 +282,7 @@ export class OrganizationResolverBase {
       possession: "any",
       resource: "Address",
     });
-    const result = await this.service.getContactAdressId(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return permission.filter(result);
-  }
-
-  @graphql.ResolveField(() => AccountPaymentMethod, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "Organization",
-    action: "read",
-    possession: "any",
-  })
-  async paymenMethodId(
-    @graphql.Parent() parent: Organization,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<AccountPaymentMethod | null> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "AccountPaymentMethod",
-    });
-    const result = await this.service.getPaymenMethodId(parent.id);
+    const result = await this.service.getAddress(parent.id);
 
     if (!result) {
       return null;

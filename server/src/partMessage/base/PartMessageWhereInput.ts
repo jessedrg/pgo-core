@@ -51,7 +51,7 @@ class PartMessageWhereInput {
   @Field(() => PartWhereUniqueInput, {
     nullable: true,
   })
-  partId?: PartWhereUniqueInput;
+  part?: PartWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -63,7 +63,7 @@ class PartMessageWhereInput {
   @Field(() => AccountWhereUniqueInput, {
     nullable: true,
   })
-  recieverId?: AccountWhereUniqueInput;
+  reciever?: AccountWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -75,7 +75,7 @@ class PartMessageWhereInput {
   @Field(() => AccountWhereUniqueInput, {
     nullable: true,
   })
-  senderId?: AccountWhereUniqueInput;
+  sender?: AccountWhereUniqueInput;
 
   @ApiProperty({
     required: false,

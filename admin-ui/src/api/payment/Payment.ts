@@ -1,13 +1,13 @@
-import { Account } from "../account/Account";
 import { Order } from "../order/Order";
+import { User } from "../user/User";
 
 export type Payment = {
-  accountId?: Account | null;
   createdAt: Date;
   id: string;
-  orderId?: Order | null;
+  orders?: Array<Order>;
   status?: "pending" | "completed" | "rejected" | null;
   transactionId: string | null;
   transactionUserId: string | null;
   updatedAt: Date;
+  user?: User | null;
 };

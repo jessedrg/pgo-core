@@ -83,7 +83,7 @@ class Address {
   @ValidateNested()
   @Type(() => Organization)
   @IsOptional()
-  organizationsInAdress?: Array<Organization>;
+  organizations?: Array<Organization>;
 
   @ApiProperty({
     required: false,

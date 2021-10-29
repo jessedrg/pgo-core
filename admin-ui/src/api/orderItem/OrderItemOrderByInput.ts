@@ -3,8 +3,7 @@ import { SortOrder } from "../../util/SortOrder";
 export type OrderItemOrderByInput = {
   createdAt?: SortOrder;
   id?: SortOrder;
-  orderIdId?: SortOrder;
-  partIdId?: SortOrder;
+  orderId?: SortOrder;
   price?: SortOrder;
   quantity?: SortOrder;
   total?: SortOrder;
