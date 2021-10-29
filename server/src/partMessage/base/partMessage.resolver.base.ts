@@ -14,8 +14,6 @@ import { DeletePartMessageArgs } from "./DeletePartMessageArgs";
 import { PartMessageFindManyArgs } from "./PartMessageFindManyArgs";
 import { PartMessageFindUniqueArgs } from "./PartMessageFindUniqueArgs";
 import { PartMessage } from "./PartMessage";
-import { Part } from "../../part/base/Part";
-import { Account } from "../../account/base/Account";
 import { PartMessageService } from "../partMessage.service";
 
 @graphql.Resolver(() => PartMessage)
@@ -122,27 +120,7 @@ export class PartMessageResolverBase {
     // @ts-ignore
     return await this.service.create({
       ...args,
-      data: {
-        ...args.data,
-
-        partId: args.data.partId
-          ? {
-              connect: args.data.partId,
-            }
-          : undefined,
-
-        recieverId: args.data.recieverId
-          ? {
-              connect: args.data.recieverId,
-            }
-          : undefined,
-
-        senderId: args.data.senderId
-          ? {
-              connect: args.data.senderId,
-            }
-          : undefined,
-      },
+      data: args.data,
     });
   }
 
@@ -181,27 +159,7 @@ export class PartMessageResolverBase {
       // @ts-ignore
       return await this.service.update({
         ...args,
-        data: {
-          ...args.data,
-
-          partId: args.data.partId
-            ? {
-                connect: args.data.partId,
-              }
-            : undefined,
-
-          recieverId: args.data.recieverId
-            ? {
-                connect: args.data.recieverId,
-              }
-            : undefined,
-
-          senderId: args.data.senderId
-            ? {
-                connect: args.data.senderId,
-              }
-            : undefined,
-        },
+        data: args.data,
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -233,77 +191,5 @@ export class PartMessageResolverBase {
       }
       throw error;
     }
-  }
-
-  @graphql.ResolveField(() => Part, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "PartMessage",
-    action: "read",
-    possession: "any",
-  })
-  async partId(
-    @graphql.Parent() parent: PartMessage,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Part | null> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Part",
-    });
-    const result = await this.service.getPartId(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return permission.filter(result);
-  }
-
-  @graphql.ResolveField(() => Account, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "PartMessage",
-    action: "read",
-    possession: "any",
-  })
-  async recieverId(
-    @graphql.Parent() parent: PartMessage,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Account | null> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Account",
-    });
-    const result = await this.service.getRecieverId(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return permission.filter(result);
-  }
-
-  @graphql.ResolveField(() => Account, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "PartMessage",
-    action: "read",
-    possession: "any",
-  })
-  async senderId(
-    @graphql.Parent() parent: PartMessage,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Account | null> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Account",
-    });
-    const result = await this.service.getSenderId(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return permission.filter(result);
   }
 }

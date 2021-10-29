@@ -1,50 +1,22 @@
 import * as React from "react";
-
 import {
   Edit,
   SimpleForm,
   EditProps,
-  ReferenceInput,
-  SelectInput,
   TextInput,
   NumberInput,
   SelectArrayInput,
 } from "react-admin";
 
-import { AccountTitle } from "../account/AccountTitle";
-import { OrganizationTitle } from "../organization/OrganizationTitle";
-import { ShipmentTitle } from "../shipment/ShipmentTitle";
-
 export const OrderEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <ReferenceInput
-          source="account.id"
-          reference="Account"
-          label="accountId"
-        >
-          <SelectInput optionText={AccountTitle} />
-        </ReferenceInput>
         <div />
         <TextInput label="comment" source="comment" />
         <TextInput label="customNo" source="customNo" />
         <NumberInput step={1} label="estimatedDays" source="estimatedDays" />
         <div />
-        <ReferenceInput
-          source="organization.id"
-          reference="Organization"
-          label="organizationId"
-        >
-          <SelectInput optionText={OrganizationTitle} />
-        </ReferenceInput>
-        <ReferenceInput
-          source="shipment.id"
-          reference="Shipment"
-          label="shipmentId"
-        >
-          <SelectInput optionText={ShipmentTitle} />
-        </ReferenceInput>
         <div />
         <SelectArrayInput
           label="state"

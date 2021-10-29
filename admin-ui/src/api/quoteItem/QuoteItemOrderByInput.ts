@@ -6,10 +6,8 @@ export type QuoteItemOrderByInput = {
   createdAt?: SortOrder;
   id?: SortOrder;
   margins?: SortOrder;
-  partIdId?: SortOrder;
   prices?: SortOrder;
   productionDays?: SortOrder;
-  providerIdId?: SortOrder;
   quantities?: SortOrder;
   status?: SortOrder;
   updatedAt?: SortOrder;

@@ -1,5 +1,5 @@
 import { PrismaService } from "nestjs-prisma";
-import { Prisma, PartMessage, Part, Account } from "@prisma/client";
+import { Prisma, PartMessage } from "@prisma/client";
 
 export class PartMessageServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -34,29 +34,5 @@ export class PartMessageServiceBase {
     args: Prisma.SelectSubset<T, Prisma.PartMessageDeleteArgs>
   ): Promise<PartMessage> {
     return this.prisma.partMessage.delete(args);
-  }
-
-  async getPartId(parentId: string): Promise<Part | null> {
-    return this.prisma.partMessage
-      .findUnique({
-        where: { id: parentId },
-      })
-      .partId();
-  }
-
-  async getRecieverId(parentId: string): Promise<Account | null> {
-    return this.prisma.partMessage
-      .findUnique({
-        where: { id: parentId },
-      })
-      .recieverId();
-  }
-
-  async getSenderId(parentId: string): Promise<Account | null> {
-    return this.prisma.partMessage
-      .findUnique({
-        where: { id: parentId },
-      })
-      .senderId();
   }
 }

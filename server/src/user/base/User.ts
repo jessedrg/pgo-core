@@ -1,21 +1,9 @@
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { Account } from "../../account/base/Account";
-import { ValidateNested, IsOptional, IsDate, IsString } from "class-validator";
+import { IsDate, IsString, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { Organization } from "../../organization/base/Organization";
-import { Session } from "../../session/base/Session";
 @ObjectType()
 class User {
-  @ApiProperty({
-    required: false,
-    type: () => Account,
-  })
-  @ValidateNested()
-  @Type(() => Account)
-  @IsOptional()
-  accountId?: Account | null;
-
   @ApiProperty({
     required: true,
   })
@@ -55,15 +43,6 @@ class User {
   lastName!: string | null;
 
   @ApiProperty({
-    required: false,
-    type: () => Organization,
-  })
-  @ValidateNested()
-  @Type(() => Organization)
-  @IsOptional()
-  organizationId?: Organization | null;
-
-  @ApiProperty({
     required: true,
     type: [String],
   })
@@ -72,15 +51,6 @@ class User {
   })
   @Field(() => [String])
   roles!: Array<string>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Session],
-  })
-  @ValidateNested()
-  @Type(() => Session)
-  @IsOptional()
-  sessionsInUser?: Array<Session>;
 
   @ApiProperty({
     required: true,

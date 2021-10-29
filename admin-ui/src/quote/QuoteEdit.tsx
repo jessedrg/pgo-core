@@ -1,37 +1,17 @@
 import * as React from "react";
-
 import {
   Edit,
   SimpleForm,
   EditProps,
-  ReferenceInput,
-  SelectInput,
   DateTimeInput,
   SelectArrayInput,
 } from "react-admin";
-
-import { AccountTitle } from "../account/AccountTitle";
-import { ProviderTitle } from "../provider/ProviderTitle";
 
 export const QuoteEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <ReferenceInput
-          source="account.id"
-          reference="Account"
-          label="accountId"
-        >
-          <SelectInput optionText={AccountTitle} />
-        </ReferenceInput>
         <DateTimeInput label="completedAt" source="completedAt" />
-        <ReferenceInput
-          source="provider.id"
-          reference="Provider"
-          label="providerId"
-        >
-          <SelectInput optionText={ProviderTitle} />
-        </ReferenceInput>
         <SelectArrayInput
           label="status"
           source="status"

@@ -14,15 +14,6 @@ class QuoteOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  accountIdId?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["Asc", "Desc"],
-  })
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
   completedAt?: SortOrder;
 
   @ApiProperty({
@@ -42,15 +33,6 @@ class QuoteOrderByInput {
     nullable: true,
   })
   id?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["Asc", "Desc"],
-  })
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  providerIdId?: SortOrder;
 
   @ApiProperty({
     required: false,

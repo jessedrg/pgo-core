@@ -15,8 +15,6 @@ import { ProductionWhereUniqueInput } from "./ProductionWhereUniqueInput";
 import { ProductionFindManyArgs } from "./ProductionFindManyArgs";
 import { ProductionUpdateInput } from "./ProductionUpdateInput";
 import { Production } from "./Production";
-import { ProductionItemWhereInput } from "../../productionItem/base/ProductionItemWhereInput";
-import { ProductionItem } from "../../productionItem/base/ProductionItem";
 @swagger.ApiBasicAuth()
 export class ProductionControllerBase {
   constructor(
@@ -60,50 +58,11 @@ export class ProductionControllerBase {
       );
     }
     return await this.service.create({
-      data: {
-        ...data,
-
-        orderId: data.orderId
-          ? {
-              connect: data.orderId,
-            }
-          : undefined,
-
-        partId: data.partId
-          ? {
-              connect: data.partId,
-            }
-          : undefined,
-
-        providerId: data.providerId
-          ? {
-              connect: data.providerId,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
         createdAt: true,
         discomformity: true,
         id: true,
-
-        orderId: {
-          select: {
-            id: true,
-          },
-        },
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
-        providerId: {
-          select: {
-            id: true,
-          },
-        },
-
         status: true,
         updatedAt: true,
       },
@@ -146,25 +105,6 @@ export class ProductionControllerBase {
         createdAt: true,
         discomformity: true,
         id: true,
-
-        orderId: {
-          select: {
-            id: true,
-          },
-        },
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
-        providerId: {
-          select: {
-            id: true,
-          },
-        },
-
         status: true,
         updatedAt: true,
       },
@@ -202,25 +142,6 @@ export class ProductionControllerBase {
         createdAt: true,
         discomformity: true,
         id: true,
-
-        orderId: {
-          select: {
-            id: true,
-          },
-        },
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
-        providerId: {
-          select: {
-            id: true,
-          },
-        },
-
         status: true,
         updatedAt: true,
       },
@@ -274,50 +195,11 @@ export class ProductionControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: {
-          ...data,
-
-          orderId: data.orderId
-            ? {
-                connect: data.orderId,
-              }
-            : undefined,
-
-          partId: data.partId
-            ? {
-                connect: data.partId,
-              }
-            : undefined,
-
-          providerId: data.providerId
-            ? {
-                connect: data.providerId,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
           createdAt: true,
           discomformity: true,
           id: true,
-
-          orderId: {
-            select: {
-              id: true,
-            },
-          },
-
-          partId: {
-            select: {
-              id: true,
-            },
-          },
-
-          providerId: {
-            select: {
-              id: true,
-            },
-          },
-
           status: true,
           updatedAt: true,
         },
@@ -356,25 +238,6 @@ export class ProductionControllerBase {
           createdAt: true,
           discomformity: true,
           id: true,
-
-          orderId: {
-            select: {
-              id: true,
-            },
-          },
-
-          partId: {
-            select: {
-              id: true,
-            },
-          },
-
-          providerId: {
-            select: {
-              id: true,
-            },
-          },
-
           status: true,
           updatedAt: true,
         },
@@ -387,197 +250,5 @@ export class ProductionControllerBase {
       }
       throw error;
     }
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Get("/:id/productionItemInProduction")
-  @nestAccessControl.UseRoles({
-    resource: "Production",
-    action: "read",
-    possession: "any",
-  })
-  @swagger.ApiQuery({
-    type: () => ProductionItemWhereInput,
-    style: "deepObject",
-    explode: true,
-  })
-  async findManyProductionItemInProduction(
-    @common.Req() request: Request,
-    @common.Param() params: ProductionWhereUniqueInput,
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<ProductionItem[]> {
-    const query: ProductionItemWhereInput = request.query;
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "ProductionItem",
-    });
-    const results = await this.service.findProductionItemInProduction(
-      params.id,
-      {
-        where: query,
-        select: {
-          createdAt: true,
-          id: true,
-
-          partId: {
-            select: {
-              id: true,
-            },
-          },
-
-          productionId: {
-            select: {
-              id: true,
-            },
-          },
-
-          quantity: true,
-          shippedQuantity: true,
-          updatedAt: true,
-        },
-      }
-    );
-    return results.map((result) => permission.filter(result));
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Post("/:id/productionItemInProduction")
-  @nestAccessControl.UseRoles({
-    resource: "Production",
-    action: "update",
-    possession: "any",
-  })
-  async createProductionItemInProduction(
-    @common.Param() params: ProductionWhereUniqueInput,
-    @common.Body() body: ProductionWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      productionItemInProduction: {
-        connect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Production",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Production"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Patch("/:id/productionItemInProduction")
-  @nestAccessControl.UseRoles({
-    resource: "Production",
-    action: "update",
-    possession: "any",
-  })
-  async updateProductionItemInProduction(
-    @common.Param() params: ProductionWhereUniqueInput,
-    @common.Body() body: ProductionWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      productionItemInProduction: {
-        set: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Production",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Production"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Delete("/:id/productionItemInProduction")
-  @nestAccessControl.UseRoles({
-    resource: "Production",
-    action: "update",
-    possession: "any",
-  })
-  async deleteProductionItemInProduction(
-    @common.Param() params: ProductionWhereUniqueInput,
-    @common.Body() body: ProductionWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      productionItemInProduction: {
-        disconnect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Production",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Production"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
   }
 }

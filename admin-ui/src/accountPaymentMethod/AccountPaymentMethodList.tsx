@@ -1,15 +1,6 @@
 import * as React from "react";
-import {
-  List,
-  Datagrid,
-  ListProps,
-  ReferenceField,
-  TextField,
-  DateField,
-} from "react-admin";
+import { List, Datagrid, ListProps, DateField, TextField } from "react-admin";
 import Pagination from "../Components/Pagination";
-import { ACCOUNT_TITLE_FIELD } from "../account/AccountTitle";
-import { ORGANIZATION_TITLE_FIELD } from "../organization/OrganizationTitle";
 
 export const AccountPaymentMethodList = (
   props: ListProps
@@ -23,23 +14,9 @@ export const AccountPaymentMethodList = (
       pagination={<Pagination />}
     >
       <Datagrid rowClick="show">
-        <ReferenceField
-          label="accountId"
-          source="account.id"
-          reference="Account"
-        >
-          <TextField source={ACCOUNT_TITLE_FIELD} />
-        </ReferenceField>
         <DateField source="createdAt" label="Created At" />
         <TextField label="data" source="data" />
         <TextField label="ID" source="id" />
-        <ReferenceField
-          label="organizationId"
-          source="organization.id"
-          reference="Organization"
-        >
-          <TextField source={ORGANIZATION_TITLE_FIELD} />
-        </ReferenceField>
         <TextField label="type" source="type" />
         <DateField source="updatedAt" label="Updated At" />
       </Datagrid>

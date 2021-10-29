@@ -1,5 +1,5 @@
 import { PrismaService } from "nestjs-prisma";
-import { Prisma, PartOnShape, Part } from "@prisma/client";
+import { Prisma, PartOnShape } from "@prisma/client";
 
 export class PartOnShapeServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -34,13 +34,5 @@ export class PartOnShapeServiceBase {
     args: Prisma.SelectSubset<T, Prisma.PartOnShapeDeleteArgs>
   ): Promise<PartOnShape> {
     return this.prisma.partOnShape.delete(args);
-  }
-
-  async getPartId(parentId: string): Promise<Part | null> {
-    return this.prisma.partOnShape
-      .findUnique({
-        where: { id: parentId },
-      })
-      .partId();
   }
 }

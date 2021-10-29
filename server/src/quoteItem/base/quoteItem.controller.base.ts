@@ -58,43 +58,15 @@ export class QuoteItemControllerBase {
       );
     }
     return await this.service.create({
-      data: {
-        ...data,
-
-        partId: data.partId
-          ? {
-              connect: data.partId,
-            }
-          : undefined,
-
-        providerId: data.providerId
-          ? {
-              connect: data.providerId,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
         basePrices: true,
         constructionType: true,
         createdAt: true,
         id: true,
         margins: true,
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
         prices: true,
         productionDays: true,
-
-        providerId: {
-          select: {
-            id: true,
-          },
-        },
-
         quantities: true,
         status: true,
         updatedAt: true,
@@ -140,22 +112,8 @@ export class QuoteItemControllerBase {
         createdAt: true,
         id: true,
         margins: true,
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
         prices: true,
         productionDays: true,
-
-        providerId: {
-          select: {
-            id: true,
-          },
-        },
-
         quantities: true,
         status: true,
         updatedAt: true,
@@ -196,22 +154,8 @@ export class QuoteItemControllerBase {
         createdAt: true,
         id: true,
         margins: true,
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
         prices: true,
         productionDays: true,
-
-        providerId: {
-          select: {
-            id: true,
-          },
-        },
-
         quantities: true,
         status: true,
         updatedAt: true,
@@ -266,43 +210,15 @@ export class QuoteItemControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: {
-          ...data,
-
-          partId: data.partId
-            ? {
-                connect: data.partId,
-              }
-            : undefined,
-
-          providerId: data.providerId
-            ? {
-                connect: data.providerId,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
           basePrices: true,
           constructionType: true,
           createdAt: true,
           id: true,
           margins: true,
-
-          partId: {
-            select: {
-              id: true,
-            },
-          },
-
           prices: true,
           productionDays: true,
-
-          providerId: {
-            select: {
-              id: true,
-            },
-          },
-
           quantities: true,
           status: true,
           updatedAt: true,
@@ -344,22 +260,8 @@ export class QuoteItemControllerBase {
           createdAt: true,
           id: true,
           margins: true,
-
-          partId: {
-            select: {
-              id: true,
-            },
-          },
-
           prices: true,
           productionDays: true,
-
-          providerId: {
-            select: {
-              id: true,
-            },
-          },
-
           quantities: true,
           status: true,
           updatedAt: true,

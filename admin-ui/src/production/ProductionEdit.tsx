@@ -4,31 +4,14 @@ import {
   SimpleForm,
   EditProps,
   BooleanInput,
-  ReferenceInput,
   SelectInput,
 } from "react-admin";
-import { OrderTitle } from "../order/OrderTitle";
-import { PartTitle } from "../part/PartTitle";
-import { ProviderTitle } from "../provider/ProviderTitle";
 
 export const ProductionEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
         <BooleanInput label="discomformity" source="discomformity" />
-        <ReferenceInput source="order.id" reference="Order" label="orderId">
-          <SelectInput optionText={OrderTitle} />
-        </ReferenceInput>
-        <ReferenceInput source="part.id" reference="Part" label="partId">
-          <SelectInput optionText={PartTitle} />
-        </ReferenceInput>
-        <ReferenceInput
-          source="provider.id"
-          reference="Provider"
-          label="providerId"
-        >
-          <SelectInput optionText={ProviderTitle} />
-        </ReferenceInput>
         <SelectInput
           source="status"
           label="status"

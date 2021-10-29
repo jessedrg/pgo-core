@@ -14,8 +14,6 @@ import { DeleteOrderItemArgs } from "./DeleteOrderItemArgs";
 import { OrderItemFindManyArgs } from "./OrderItemFindManyArgs";
 import { OrderItemFindUniqueArgs } from "./OrderItemFindUniqueArgs";
 import { OrderItem } from "./OrderItem";
-import { Order } from "../../order/base/Order";
-import { Part } from "../../part/base/Part";
 import { OrderItemService } from "../orderItem.service";
 
 @graphql.Resolver(() => OrderItem)
@@ -122,21 +120,7 @@ export class OrderItemResolverBase {
     // @ts-ignore
     return await this.service.create({
       ...args,
-      data: {
-        ...args.data,
-
-        orderId: args.data.orderId
-          ? {
-              connect: args.data.orderId,
-            }
-          : undefined,
-
-        partId: args.data.partId
-          ? {
-              connect: args.data.partId,
-            }
-          : undefined,
-      },
+      data: args.data,
     });
   }
 
@@ -175,21 +159,7 @@ export class OrderItemResolverBase {
       // @ts-ignore
       return await this.service.update({
         ...args,
-        data: {
-          ...args.data,
-
-          orderId: args.data.orderId
-            ? {
-                connect: args.data.orderId,
-              }
-            : undefined,
-
-          partId: args.data.partId
-            ? {
-                connect: args.data.partId,
-              }
-            : undefined,
-        },
+        data: args.data,
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -221,53 +191,5 @@ export class OrderItemResolverBase {
       }
       throw error;
     }
-  }
-
-  @graphql.ResolveField(() => Order, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "OrderItem",
-    action: "read",
-    possession: "any",
-  })
-  async orderId(
-    @graphql.Parent() parent: OrderItem,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Order | null> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Order",
-    });
-    const result = await this.service.getOrderId(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return permission.filter(result);
-  }
-
-  @graphql.ResolveField(() => Part, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "OrderItem",
-    action: "read",
-    possession: "any",
-  })
-  async partId(
-    @graphql.Parent() parent: OrderItem,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Part | null> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Part",
-    });
-    const result = await this.service.getPartId(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return permission.filter(result);
   }
 }

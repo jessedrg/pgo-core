@@ -2,9 +2,8 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
-import { IsOptional, ValidateNested } from "class-validator";
+import { IsOptional } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
-import { PartWhereUniqueInput } from "../../part/base/PartWhereUniqueInput";
 import { FloatNullableFilter } from "../../util/FloatNullableFilter";
 @InputType()
 class PartConfigurationWhereInput {
@@ -73,18 +72,6 @@ class PartConfigurationWhereInput {
     nullable: true,
   })
   materialType?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => PartWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => PartWhereUniqueInput)
-  @IsOptional()
-  @Field(() => PartWhereUniqueInput, {
-    nullable: true,
-  })
-  partId?: PartWhereUniqueInput;
 
   @ApiProperty({
     required: false,

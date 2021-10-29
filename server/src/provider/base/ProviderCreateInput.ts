@@ -1,15 +1,6 @@
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import {
-  IsString,
-  IsOptional,
-  ValidateNested,
-  IsNumber,
-  IsJSON,
-  IsInt,
-} from "class-validator";
-import { HolidayWhereUniqueInput } from "../../holiday/base/HolidayWhereUniqueInput";
-import { Type } from "class-transformer";
+import { IsString, IsOptional, IsNumber, IsJSON, IsInt } from "class-validator";
 import { GraphQLJSONObject } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 @InputType()
@@ -35,18 +26,6 @@ class ProviderCreateInput {
     nullable: true,
   })
   dateFormat?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => HolidayWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => HolidayWhereUniqueInput)
-  @IsOptional()
-  @Field(() => HolidayWhereUniqueInput, {
-    nullable: true,
-  })
-  holidaysId?: HolidayWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

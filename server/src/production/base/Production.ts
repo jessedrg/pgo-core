@@ -5,14 +5,9 @@ import {
   IsBoolean,
   IsOptional,
   IsString,
-  ValidateNested,
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { Order } from "../../order/base/Order";
-import { Part } from "../../part/base/Part";
-import { ProductionItem } from "../../productionItem/base/ProductionItem";
-import { Provider } from "../../provider/base/Provider";
 import { EnumProductionStatus } from "./EnumProductionStatus";
 @ObjectType()
 class Production {
@@ -42,42 +37,6 @@ class Production {
   @IsString()
   @Field(() => String)
   id!: string;
-
-  @ApiProperty({
-    required: false,
-    type: () => Order,
-  })
-  @ValidateNested()
-  @Type(() => Order)
-  @IsOptional()
-  orderId?: Order | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => Part,
-  })
-  @ValidateNested()
-  @Type(() => Part)
-  @IsOptional()
-  partId?: Part | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => [ProductionItem],
-  })
-  @ValidateNested()
-  @Type(() => ProductionItem)
-  @IsOptional()
-  productionItemInProduction?: Array<ProductionItem>;
-
-  @ApiProperty({
-    required: false,
-    type: () => Provider,
-  })
-  @ValidateNested()
-  @Type(() => Provider)
-  @IsOptional()
-  providerId?: Provider | null;
 
   @ApiProperty({
     required: false,

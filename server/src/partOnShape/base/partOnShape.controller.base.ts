@@ -58,27 +58,12 @@ export class PartOnShapeControllerBase {
       );
     }
     return await this.service.create({
-      data: {
-        ...data,
-
-        partId: data.partId
-          ? {
-              connect: data.partId,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
         createdAt: true,
         did: true,
         eid: true,
         id: true,
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
         wid: true,
       },
@@ -122,13 +107,6 @@ export class PartOnShapeControllerBase {
         did: true,
         eid: true,
         id: true,
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
         wid: true,
       },
@@ -167,13 +145,6 @@ export class PartOnShapeControllerBase {
         did: true,
         eid: true,
         id: true,
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
         wid: true,
       },
@@ -227,27 +198,12 @@ export class PartOnShapeControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: {
-          ...data,
-
-          partId: data.partId
-            ? {
-                connect: data.partId,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
           createdAt: true,
           did: true,
           eid: true,
           id: true,
-
-          partId: {
-            select: {
-              id: true,
-            },
-          },
-
           updatedAt: true,
           wid: true,
         },
@@ -287,13 +243,6 @@ export class PartOnShapeControllerBase {
           did: true,
           eid: true,
           id: true,
-
-          partId: {
-            select: {
-              id: true,
-            },
-          },
-
           updatedAt: true,
           wid: true,
         },

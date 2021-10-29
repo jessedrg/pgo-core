@@ -1,8 +1,6 @@
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, ValidateNested } from "class-validator";
-import { PartWhereUniqueInput } from "../../part/base/PartWhereUniqueInput";
-import { Type } from "class-transformer";
+import { IsString, IsOptional } from "class-validator";
 @InputType()
 class PartOnShapeCreateInput {
   @ApiProperty({
@@ -26,18 +24,6 @@ class PartOnShapeCreateInput {
     nullable: true,
   })
   eid?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => PartWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => PartWhereUniqueInput)
-  @IsOptional()
-  @Field(() => PartWhereUniqueInput, {
-    nullable: true,
-  })
-  partId?: PartWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

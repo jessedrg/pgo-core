@@ -1,14 +1,7 @@
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import {
-  IsString,
-  IsOptional,
-  IsDate,
-  ValidateNested,
-  IsNumber,
-} from "class-validator";
+import { IsString, IsOptional, IsDate, IsNumber } from "class-validator";
 import { Type } from "class-transformer";
-import { Part } from "../../part/base/Part";
 @ObjectType()
 class PartConfiguration {
   @ApiProperty({
@@ -81,15 +74,6 @@ class PartConfiguration {
     nullable: true,
   })
   materialType!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => Part,
-  })
-  @ValidateNested()
-  @Type(() => Part)
-  @IsOptional()
-  partId?: Part | null;
 
   @ApiProperty({
     required: false,

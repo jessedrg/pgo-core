@@ -14,8 +14,6 @@ import { DeleteMediaFileArgs } from "./DeleteMediaFileArgs";
 import { MediaFileFindManyArgs } from "./MediaFileFindManyArgs";
 import { MediaFileFindUniqueArgs } from "./MediaFileFindUniqueArgs";
 import { MediaFile } from "./MediaFile";
-import { ShipmentFindManyArgs } from "../../shipment/base/ShipmentFindManyArgs";
-import { Shipment } from "../../shipment/base/Shipment";
 import { MediaFileService } from "../mediaFile.service";
 
 @graphql.Resolver(() => MediaFile)
@@ -193,60 +191,5 @@ export class MediaFileResolverBase {
       }
       throw error;
     }
-  }
-
-  @graphql.ResolveField(() => [Shipment])
-  @nestAccessControl.UseRoles({
-    resource: "MediaFile",
-    action: "read",
-    possession: "any",
-  })
-  async labeIsInShipment(
-    @graphql.Parent() parent: MediaFile,
-    @graphql.Args() args: ShipmentFindManyArgs,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Shipment[]> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Shipment",
-    });
-    const results = await this.service.findLabeIsInShipment(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results.map((result) => permission.filter(result));
-  }
-
-  @graphql.ResolveField(() => [Shipment])
-  @nestAccessControl.UseRoles({
-    resource: "MediaFile",
-    action: "read",
-    possession: "any",
-  })
-  async mediaFilesInShipment(
-    @graphql.Parent() parent: MediaFile,
-    @graphql.Args() args: ShipmentFindManyArgs,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Shipment[]> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Shipment",
-    });
-    const results = await this.service.findMediaFilesInShipment(
-      parent.id,
-      args
-    );
-
-    if (!results) {
-      return [];
-    }
-
-    return results.map((result) => permission.filter(result));
   }
 }

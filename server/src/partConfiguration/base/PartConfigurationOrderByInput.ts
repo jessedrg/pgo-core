@@ -77,15 +77,6 @@ class PartConfigurationOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  partIdId?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["Asc", "Desc"],
-  })
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
   tech?: SortOrder;
 
   @ApiProperty({

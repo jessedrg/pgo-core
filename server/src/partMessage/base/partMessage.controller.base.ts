@@ -58,51 +58,12 @@ export class PartMessageControllerBase {
       );
     }
     return await this.service.create({
-      data: {
-        ...data,
-
-        partId: data.partId
-          ? {
-              connect: data.partId,
-            }
-          : undefined,
-
-        recieverId: data.recieverId
-          ? {
-              connect: data.recieverId,
-            }
-          : undefined,
-
-        senderId: data.senderId
-          ? {
-              connect: data.senderId,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
         createdAt: true,
         id: true,
         message: true,
         messageType: true,
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
-        recieverId: {
-          select: {
-            id: true,
-          },
-        },
-
-        senderId: {
-          select: {
-            id: true,
-          },
-        },
-
         type: true,
         updatedAt: true,
       },
@@ -146,25 +107,6 @@ export class PartMessageControllerBase {
         id: true,
         message: true,
         messageType: true,
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
-        recieverId: {
-          select: {
-            id: true,
-          },
-        },
-
-        senderId: {
-          select: {
-            id: true,
-          },
-        },
-
         type: true,
         updatedAt: true,
       },
@@ -203,25 +145,6 @@ export class PartMessageControllerBase {
         id: true,
         message: true,
         messageType: true,
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
-        recieverId: {
-          select: {
-            id: true,
-          },
-        },
-
-        senderId: {
-          select: {
-            id: true,
-          },
-        },
-
         type: true,
         updatedAt: true,
       },
@@ -275,51 +198,12 @@ export class PartMessageControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: {
-          ...data,
-
-          partId: data.partId
-            ? {
-                connect: data.partId,
-              }
-            : undefined,
-
-          recieverId: data.recieverId
-            ? {
-                connect: data.recieverId,
-              }
-            : undefined,
-
-          senderId: data.senderId
-            ? {
-                connect: data.senderId,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
           createdAt: true,
           id: true,
           message: true,
           messageType: true,
-
-          partId: {
-            select: {
-              id: true,
-            },
-          },
-
-          recieverId: {
-            select: {
-              id: true,
-            },
-          },
-
-          senderId: {
-            select: {
-              id: true,
-            },
-          },
-
           type: true,
           updatedAt: true,
         },
@@ -359,25 +243,6 @@ export class PartMessageControllerBase {
           id: true,
           message: true,
           messageType: true,
-
-          partId: {
-            select: {
-              id: true,
-            },
-          },
-
-          recieverId: {
-            select: {
-              id: true,
-            },
-          },
-
-          senderId: {
-            select: {
-              id: true,
-            },
-          },
-
           type: true,
           updatedAt: true,
         },

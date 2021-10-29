@@ -14,15 +14,6 @@ class OfferOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  accountIdId?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["Asc", "Desc"],
-  })
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
   createdAt?: SortOrder;
 
   @ApiProperty({
@@ -42,15 +33,6 @@ class OfferOrderByInput {
     nullable: true,
   })
   id?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["Asc", "Desc"],
-  })
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  partIdId?: SortOrder;
 
   @ApiProperty({
     required: false,

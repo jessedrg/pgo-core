@@ -14,13 +14,6 @@ import { DeleteProviderArgs } from "./DeleteProviderArgs";
 import { ProviderFindManyArgs } from "./ProviderFindManyArgs";
 import { ProviderFindUniqueArgs } from "./ProviderFindUniqueArgs";
 import { Provider } from "./Provider";
-import { ProductionFindManyArgs } from "../../production/base/ProductionFindManyArgs";
-import { Production } from "../../production/base/Production";
-import { QuoteItemFindManyArgs } from "../../quoteItem/base/QuoteItemFindManyArgs";
-import { QuoteItem } from "../../quoteItem/base/QuoteItem";
-import { QuoteFindManyArgs } from "../../quote/base/QuoteFindManyArgs";
-import { Quote } from "../../quote/base/Quote";
-import { Holiday } from "../../holiday/base/Holiday";
 import { ProviderService } from "../provider.service";
 
 @graphql.Resolver(() => Provider)
@@ -127,15 +120,7 @@ export class ProviderResolverBase {
     // @ts-ignore
     return await this.service.create({
       ...args,
-      data: {
-        ...args.data,
-
-        holidaysId: args.data.holidaysId
-          ? {
-              connect: args.data.holidaysId,
-            }
-          : undefined,
-      },
+      data: args.data,
     });
   }
 
@@ -174,15 +159,7 @@ export class ProviderResolverBase {
       // @ts-ignore
       return await this.service.update({
         ...args,
-        data: {
-          ...args.data,
-
-          holidaysId: args.data.holidaysId
-            ? {
-                connect: args.data.holidaysId,
-              }
-            : undefined,
-        },
+        data: args.data,
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -214,113 +191,5 @@ export class ProviderResolverBase {
       }
       throw error;
     }
-  }
-
-  @graphql.ResolveField(() => [Production])
-  @nestAccessControl.UseRoles({
-    resource: "Provider",
-    action: "read",
-    possession: "any",
-  })
-  async productionsInProviders(
-    @graphql.Parent() parent: Provider,
-    @graphql.Args() args: ProductionFindManyArgs,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Production[]> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Production",
-    });
-    const results = await this.service.findProductionsInProviders(
-      parent.id,
-      args
-    );
-
-    if (!results) {
-      return [];
-    }
-
-    return results.map((result) => permission.filter(result));
-  }
-
-  @graphql.ResolveField(() => [QuoteItem])
-  @nestAccessControl.UseRoles({
-    resource: "Provider",
-    action: "read",
-    possession: "any",
-  })
-  async quoteItemsInProviders(
-    @graphql.Parent() parent: Provider,
-    @graphql.Args() args: QuoteItemFindManyArgs,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<QuoteItem[]> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "QuoteItem",
-    });
-    const results = await this.service.findQuoteItemsInProviders(
-      parent.id,
-      args
-    );
-
-    if (!results) {
-      return [];
-    }
-
-    return results.map((result) => permission.filter(result));
-  }
-
-  @graphql.ResolveField(() => [Quote])
-  @nestAccessControl.UseRoles({
-    resource: "Provider",
-    action: "read",
-    possession: "any",
-  })
-  async quotesInProviders(
-    @graphql.Parent() parent: Provider,
-    @graphql.Args() args: QuoteFindManyArgs,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Quote[]> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Quote",
-    });
-    const results = await this.service.findQuotesInProviders(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results.map((result) => permission.filter(result));
-  }
-
-  @graphql.ResolveField(() => Holiday, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "Provider",
-    action: "read",
-    possession: "any",
-  })
-  async holidaysId(
-    @graphql.Parent() parent: Provider,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Holiday | null> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Holiday",
-    });
-    const result = await this.service.getHolidaysId(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return permission.filter(result);
   }
 }

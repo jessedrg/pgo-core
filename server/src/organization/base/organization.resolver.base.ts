@@ -14,13 +14,6 @@ import { DeleteOrganizationArgs } from "./DeleteOrganizationArgs";
 import { OrganizationFindManyArgs } from "./OrganizationFindManyArgs";
 import { OrganizationFindUniqueArgs } from "./OrganizationFindUniqueArgs";
 import { Organization } from "./Organization";
-import { AccountPaymentMethodFindManyArgs } from "../../accountPaymentMethod/base/AccountPaymentMethodFindManyArgs";
-import { AccountPaymentMethod } from "../../accountPaymentMethod/base/AccountPaymentMethod";
-import { OrderFindManyArgs } from "../../order/base/OrderFindManyArgs";
-import { Order } from "../../order/base/Order";
-import { UserFindManyArgs } from "../../user/base/UserFindManyArgs";
-import { User } from "../../user/base/User";
-import { Address } from "../../address/base/Address";
 import { OrganizationService } from "../organization.service";
 
 @graphql.Resolver(() => Organization)
@@ -127,21 +120,7 @@ export class OrganizationResolverBase {
     // @ts-ignore
     return await this.service.create({
       ...args,
-      data: {
-        ...args.data,
-
-        contactAdressId: args.data.contactAdressId
-          ? {
-              connect: args.data.contactAdressId,
-            }
-          : undefined,
-
-        paymenMethodId: args.data.paymenMethodId
-          ? {
-              connect: args.data.paymenMethodId,
-            }
-          : undefined,
-      },
+      data: args.data,
     });
   }
 
@@ -180,21 +159,7 @@ export class OrganizationResolverBase {
       // @ts-ignore
       return await this.service.update({
         ...args,
-        data: {
-          ...args.data,
-
-          contactAdressId: args.data.contactAdressId
-            ? {
-                connect: args.data.contactAdressId,
-              }
-            : undefined,
-
-          paymenMethodId: args.data.paymenMethodId
-            ? {
-                connect: args.data.paymenMethodId,
-              }
-            : undefined,
-        },
+        data: args.data,
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -226,134 +191,5 @@ export class OrganizationResolverBase {
       }
       throw error;
     }
-  }
-
-  @graphql.ResolveField(() => [AccountPaymentMethod])
-  @nestAccessControl.UseRoles({
-    resource: "Organization",
-    action: "read",
-    possession: "any",
-  })
-  async accountPaymentMethodInOrganization(
-    @graphql.Parent() parent: Organization,
-    @graphql.Args() args: AccountPaymentMethodFindManyArgs,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<AccountPaymentMethod[]> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "AccountPaymentMethod",
-    });
-    const results = await this.service.findAccountPaymentMethodInOrganization(
-      parent.id,
-      args
-    );
-
-    if (!results) {
-      return [];
-    }
-
-    return results.map((result) => permission.filter(result));
-  }
-
-  @graphql.ResolveField(() => [Order])
-  @nestAccessControl.UseRoles({
-    resource: "Organization",
-    action: "read",
-    possession: "any",
-  })
-  async organizationInOrder(
-    @graphql.Parent() parent: Organization,
-    @graphql.Args() args: OrderFindManyArgs,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Order[]> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Order",
-    });
-    const results = await this.service.findOrganizationInOrder(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results.map((result) => permission.filter(result));
-  }
-
-  @graphql.ResolveField(() => [User])
-  @nestAccessControl.UseRoles({
-    resource: "Organization",
-    action: "read",
-    possession: "any",
-  })
-  async usersInOrganization(
-    @graphql.Parent() parent: Organization,
-    @graphql.Args() args: UserFindManyArgs,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<User[]> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "User",
-    });
-    const results = await this.service.findUsersInOrganization(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results.map((result) => permission.filter(result));
-  }
-
-  @graphql.ResolveField(() => Address, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "Organization",
-    action: "read",
-    possession: "any",
-  })
-  async contactAdressId(
-    @graphql.Parent() parent: Organization,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Address | null> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Address",
-    });
-    const result = await this.service.getContactAdressId(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return permission.filter(result);
-  }
-
-  @graphql.ResolveField(() => AccountPaymentMethod, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "Organization",
-    action: "read",
-    possession: "any",
-  })
-  async paymenMethodId(
-    @graphql.Parent() parent: Organization,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<AccountPaymentMethod | null> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "AccountPaymentMethod",
-    });
-    const result = await this.service.getPaymenMethodId(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return permission.filter(result);
   }
 }

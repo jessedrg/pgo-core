@@ -15,8 +15,6 @@ import { UserWhereUniqueInput } from "./UserWhereUniqueInput";
 import { UserFindManyArgs } from "./UserFindManyArgs";
 import { UserUpdateInput } from "./UserUpdateInput";
 import { User } from "./User";
-import { SessionWhereInput } from "../../session/base/SessionWhereInput";
-import { Session } from "../../session/base/Session";
 @swagger.ApiBasicAuth()
 export class UserControllerBase {
   constructor(
@@ -60,39 +58,12 @@ export class UserControllerBase {
       );
     }
     return await this.service.create({
-      data: {
-        ...data,
-
-        accountId: data.accountId
-          ? {
-              connect: data.accountId,
-            }
-          : undefined,
-
-        organizationId: data.organizationId
-          ? {
-              connect: data.organizationId,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
         firstName: true,
         id: true,
         lastName: true,
-
-        organizationId: {
-          select: {
-            id: true,
-          },
-        },
-
         roles: true,
         updatedAt: true,
         username: true,
@@ -133,23 +104,10 @@ export class UserControllerBase {
     const results = await this.service.findMany({
       ...args,
       select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
         firstName: true,
         id: true,
         lastName: true,
-
-        organizationId: {
-          select: {
-            id: true,
-          },
-        },
-
         roles: true,
         updatedAt: true,
         username: true,
@@ -185,23 +143,10 @@ export class UserControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
         firstName: true,
         id: true,
         lastName: true,
-
-        organizationId: {
-          select: {
-            id: true,
-          },
-        },
-
         roles: true,
         updatedAt: true,
         username: true,
@@ -256,39 +201,12 @@ export class UserControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: {
-          ...data,
-
-          accountId: data.accountId
-            ? {
-                connect: data.accountId,
-              }
-            : undefined,
-
-          organizationId: data.organizationId
-            ? {
-                connect: data.organizationId,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
-          accountId: {
-            select: {
-              id: true,
-            },
-          },
-
           createdAt: true,
           firstName: true,
           id: true,
           lastName: true,
-
-          organizationId: {
-            select: {
-              id: true,
-            },
-          },
-
           roles: true,
           updatedAt: true,
           username: true,
@@ -325,23 +243,10 @@ export class UserControllerBase {
       return await this.service.delete({
         where: params,
         select: {
-          accountId: {
-            select: {
-              id: true,
-            },
-          },
-
           createdAt: true,
           firstName: true,
           id: true,
           lastName: true,
-
-          organizationId: {
-            select: {
-              id: true,
-            },
-          },
-
           roles: true,
           updatedAt: true,
           username: true,
@@ -355,187 +260,5 @@ export class UserControllerBase {
       }
       throw error;
     }
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Get("/:id/sessionsInUser")
-  @nestAccessControl.UseRoles({
-    resource: "User",
-    action: "read",
-    possession: "any",
-  })
-  @swagger.ApiQuery({
-    type: () => SessionWhereInput,
-    style: "deepObject",
-    explode: true,
-  })
-  async findManySessionsInUser(
-    @common.Req() request: Request,
-    @common.Param() params: UserWhereUniqueInput,
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<Session[]> {
-    const query: SessionWhereInput = request.query;
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Session",
-    });
-    const results = await this.service.findSessionsInUser(params.id, {
-      where: query,
-      select: {
-        authMethod: true,
-        createdAt: true,
-        id: true,
-        sessionToken: true,
-        updatedAt: true,
-
-        userId: {
-          select: {
-            id: true,
-          },
-        },
-      },
-    });
-    return results.map((result) => permission.filter(result));
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Post("/:id/sessionsInUser")
-  @nestAccessControl.UseRoles({
-    resource: "User",
-    action: "update",
-    possession: "any",
-  })
-  async createSessionsInUser(
-    @common.Param() params: UserWhereUniqueInput,
-    @common.Body() body: UserWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      sessionsInUser: {
-        connect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "User",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"User"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Patch("/:id/sessionsInUser")
-  @nestAccessControl.UseRoles({
-    resource: "User",
-    action: "update",
-    possession: "any",
-  })
-  async updateSessionsInUser(
-    @common.Param() params: UserWhereUniqueInput,
-    @common.Body() body: UserWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      sessionsInUser: {
-        set: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "User",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"User"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Delete("/:id/sessionsInUser")
-  @nestAccessControl.UseRoles({
-    resource: "User",
-    action: "update",
-    possession: "any",
-  })
-  async deleteSessionsInUser(
-    @common.Param() params: UserWhereUniqueInput,
-    @common.Body() body: UserWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      sessionsInUser: {
-        disconnect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "User",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"User"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
   }
 }

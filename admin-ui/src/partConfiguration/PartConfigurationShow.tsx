@@ -5,9 +5,7 @@ import {
   ShowProps,
   TextField,
   DateField,
-  ReferenceField,
 } from "react-admin";
-import { PART_TITLE_FIELD } from "../part/PartTitle";
 
 export const PartConfigurationShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -20,9 +18,6 @@ export const PartConfigurationShow = (props: ShowProps): React.ReactElement => {
         <TextField label="ID" source="id" />
         <TextField label="material" source="material" />
         <TextField label="materialType" source="materialType" />
-        <ReferenceField label="partId" source="part.id" reference="Part">
-          <TextField source={PART_TITLE_FIELD} />
-        </ReferenceField>
         <TextField label="tech" source="tech" />
         <TextField label="tolerance" source="tolerance" />
         <DateField source="updatedAt" label="Updated At" />

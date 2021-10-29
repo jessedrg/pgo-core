@@ -1,8 +1,7 @@
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsString, IsOptional, ValidateNested } from "class-validator";
+import { IsDate, IsString, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { Part } from "../../part/base/Part";
 @ObjectType()
 class PartOnShape {
   @ApiProperty({
@@ -42,15 +41,6 @@ class PartOnShape {
   @IsString()
   @Field(() => String)
   id!: string;
-
-  @ApiProperty({
-    required: false,
-    type: () => Part,
-  })
-  @ValidateNested()
-  @Type(() => Part)
-  @IsOptional()
-  partId?: Part | null;
 
   @ApiProperty({
     required: true,

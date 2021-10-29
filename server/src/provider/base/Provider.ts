@@ -4,16 +4,11 @@ import {
   IsDate,
   IsString,
   IsOptional,
-  ValidateNested,
   IsNumber,
   IsJSON,
   IsInt,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { Holiday } from "../../holiday/base/Holiday";
-import { Production } from "../../production/base/Production";
-import { QuoteItem } from "../../quoteItem/base/QuoteItem";
-import { Quote } from "../../quote/base/Quote";
 import { GraphQLJSONObject } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 @ObjectType()
@@ -49,15 +44,6 @@ class Provider {
   dateFormat!: string | null;
 
   @ApiProperty({
-    required: false,
-    type: () => Holiday,
-  })
-  @ValidateNested()
-  @Type(() => Holiday)
-  @IsOptional()
-  holidaysId?: Holiday | null;
-
-  @ApiProperty({
     required: true,
     type: String,
   })
@@ -75,33 +61,6 @@ class Provider {
     nullable: true,
   })
   name!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Production],
-  })
-  @ValidateNested()
-  @Type(() => Production)
-  @IsOptional()
-  productionsInProviders?: Array<Production>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [QuoteItem],
-  })
-  @ValidateNested()
-  @Type(() => QuoteItem)
-  @IsOptional()
-  quoteItemsInProviders?: Array<QuoteItem>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Quote],
-  })
-  @ValidateNested()
-  @Type(() => Quote)
-  @IsOptional()
-  quotesInProviders?: Array<Quote>;
 
   @ApiProperty({
     required: false,

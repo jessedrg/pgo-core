@@ -1,5 +1,5 @@
 import { PrismaService } from "nestjs-prisma";
-import { Prisma, Shipment, MediaFile, Order } from "@prisma/client";
+import { Prisma, Shipment } from "@prisma/client";
 
 export class ShipmentServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -34,38 +34,5 @@ export class ShipmentServiceBase {
     args: Prisma.SelectSubset<T, Prisma.ShipmentDeleteArgs>
   ): Promise<Shipment> {
     return this.prisma.shipment.delete(args);
-  }
-
-  async findAttachments(
-    parentId: string,
-    args: Prisma.MediaFileFindManyArgs
-  ): Promise<MediaFile[]> {
-    return this.prisma.shipment
-      .findUnique({
-        where: { id: parentId },
-      })
-      .attachments(args);
-  }
-
-  async findLabels(
-    parentId: string,
-    args: Prisma.MediaFileFindManyArgs
-  ): Promise<MediaFile[]> {
-    return this.prisma.shipment
-      .findUnique({
-        where: { id: parentId },
-      })
-      .labels(args);
-  }
-
-  async findOrdersInShipment(
-    parentId: string,
-    args: Prisma.OrderFindManyArgs
-  ): Promise<Order[]> {
-    return this.prisma.shipment
-      .findUnique({
-        where: { id: parentId },
-      })
-      .ordersInShipment(args);
   }
 }

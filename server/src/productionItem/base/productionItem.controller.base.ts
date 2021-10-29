@@ -58,37 +58,10 @@ export class ProductionItemControllerBase {
       );
     }
     return await this.service.create({
-      data: {
-        ...data,
-
-        partId: data.partId
-          ? {
-              connect: data.partId,
-            }
-          : undefined,
-
-        productionId: data.productionId
-          ? {
-              connect: data.productionId,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
         createdAt: true,
         id: true,
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
-        productionId: {
-          select: {
-            id: true,
-          },
-        },
-
         quantity: true,
         shippedQuantity: true,
         updatedAt: true,
@@ -131,19 +104,6 @@ export class ProductionItemControllerBase {
       select: {
         createdAt: true,
         id: true,
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
-        productionId: {
-          select: {
-            id: true,
-          },
-        },
-
         quantity: true,
         shippedQuantity: true,
         updatedAt: true,
@@ -181,19 +141,6 @@ export class ProductionItemControllerBase {
       select: {
         createdAt: true,
         id: true,
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
-        productionId: {
-          select: {
-            id: true,
-          },
-        },
-
         quantity: true,
         shippedQuantity: true,
         updatedAt: true,
@@ -248,37 +195,10 @@ export class ProductionItemControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: {
-          ...data,
-
-          partId: data.partId
-            ? {
-                connect: data.partId,
-              }
-            : undefined,
-
-          productionId: data.productionId
-            ? {
-                connect: data.productionId,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
           createdAt: true,
           id: true,
-
-          partId: {
-            select: {
-              id: true,
-            },
-          },
-
-          productionId: {
-            select: {
-              id: true,
-            },
-          },
-
           quantity: true,
           shippedQuantity: true,
           updatedAt: true,
@@ -317,19 +237,6 @@ export class ProductionItemControllerBase {
         select: {
           createdAt: true,
           id: true,
-
-          partId: {
-            select: {
-              id: true,
-            },
-          },
-
-          productionId: {
-            select: {
-              id: true,
-            },
-          },
-
           quantity: true,
           shippedQuantity: true,
           updatedAt: true,

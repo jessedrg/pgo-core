@@ -58,22 +58,8 @@ export class AgentControllerBase {
       );
     }
     return await this.service.create({
-      data: {
-        ...data,
-
-        accountId: data.accountId
-          ? {
-              connect: data.accountId,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
         id: true,
         updatedAt: true,
@@ -115,12 +101,6 @@ export class AgentControllerBase {
     const results = await this.service.findMany({
       ...args,
       select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
         id: true,
         updatedAt: true,
@@ -157,12 +137,6 @@ export class AgentControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
         id: true,
         updatedAt: true,
@@ -218,22 +192,8 @@ export class AgentControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: {
-          ...data,
-
-          accountId: data.accountId
-            ? {
-                connect: data.accountId,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
-          accountId: {
-            select: {
-              id: true,
-            },
-          },
-
           createdAt: true,
           id: true,
           updatedAt: true,
@@ -271,12 +231,6 @@ export class AgentControllerBase {
       return await this.service.delete({
         where: params,
         select: {
-          accountId: {
-            select: {
-              id: true,
-            },
-          },
-
           createdAt: true,
           id: true,
           updatedAt: true,

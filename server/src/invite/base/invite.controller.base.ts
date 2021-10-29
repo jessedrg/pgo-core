@@ -58,22 +58,8 @@ export class InviteControllerBase {
       );
     }
     return await this.service.create({
-      data: {
-        ...data,
-
-        accountId: data.accountId
-          ? {
-              connect: data.accountId,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
         active: true,
         createdAt: true,
         email: true,
@@ -117,12 +103,6 @@ export class InviteControllerBase {
     const results = await this.service.findMany({
       ...args,
       select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
         active: true,
         createdAt: true,
         email: true,
@@ -161,12 +141,6 @@ export class InviteControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
         active: true,
         createdAt: true,
         email: true,
@@ -224,22 +198,8 @@ export class InviteControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: {
-          ...data,
-
-          accountId: data.accountId
-            ? {
-                connect: data.accountId,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
-          accountId: {
-            select: {
-              id: true,
-            },
-          },
-
           active: true,
           createdAt: true,
           email: true,
@@ -279,12 +239,6 @@ export class InviteControllerBase {
       return await this.service.delete({
         where: params,
         select: {
-          accountId: {
-            select: {
-              id: true,
-            },
-          },
-
           active: true,
           createdAt: true,
           email: true,

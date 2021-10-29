@@ -1,9 +1,7 @@
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsString, IsOptional, ValidateNested } from "class-validator";
+import { IsDate, IsString, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { Part } from "../../part/base/Part";
-import { Account } from "../../account/base/Account";
 @ObjectType()
 class PartMessage {
   @ApiProperty({
@@ -43,33 +41,6 @@ class PartMessage {
     nullable: true,
   })
   messageType!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => Part,
-  })
-  @ValidateNested()
-  @Type(() => Part)
-  @IsOptional()
-  partId?: Part | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => Account,
-  })
-  @ValidateNested()
-  @Type(() => Account)
-  @IsOptional()
-  recieverId?: Account | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => Account,
-  })
-  @ValidateNested()
-  @Type(() => Account)
-  @IsOptional()
-  senderId?: Account | null;
 
   @ApiProperty({
     required: false,

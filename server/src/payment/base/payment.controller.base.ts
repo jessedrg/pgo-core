@@ -58,37 +58,10 @@ export class PaymentControllerBase {
       );
     }
     return await this.service.create({
-      data: {
-        ...data,
-
-        accountId: data.accountId
-          ? {
-              connect: data.accountId,
-            }
-          : undefined,
-
-        orderId: data.orderId
-          ? {
-              connect: data.orderId,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
         id: true,
-
-        orderId: {
-          select: {
-            id: true,
-          },
-        },
-
         status: true,
         transactionId: true,
         transactionUserId: true,
@@ -130,21 +103,8 @@ export class PaymentControllerBase {
     const results = await this.service.findMany({
       ...args,
       select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
         id: true,
-
-        orderId: {
-          select: {
-            id: true,
-          },
-        },
-
         status: true,
         transactionId: true,
         transactionUserId: true,
@@ -181,21 +141,8 @@ export class PaymentControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
         id: true,
-
-        orderId: {
-          select: {
-            id: true,
-          },
-        },
-
         status: true,
         transactionId: true,
         transactionUserId: true,
@@ -251,37 +198,10 @@ export class PaymentControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: {
-          ...data,
-
-          accountId: data.accountId
-            ? {
-                connect: data.accountId,
-              }
-            : undefined,
-
-          orderId: data.orderId
-            ? {
-                connect: data.orderId,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
-          accountId: {
-            select: {
-              id: true,
-            },
-          },
-
           createdAt: true,
           id: true,
-
-          orderId: {
-            select: {
-              id: true,
-            },
-          },
-
           status: true,
           transactionId: true,
           transactionUserId: true,
@@ -319,21 +239,8 @@ export class PaymentControllerBase {
       return await this.service.delete({
         where: params,
         select: {
-          accountId: {
-            select: {
-              id: true,
-            },
-          },
-
           createdAt: true,
           id: true,
-
-          orderId: {
-            select: {
-              id: true,
-            },
-          },
-
           status: true,
           transactionId: true,
           transactionUserId: true,

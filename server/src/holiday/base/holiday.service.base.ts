@@ -1,5 +1,5 @@
 import { PrismaService } from "nestjs-prisma";
-import { Prisma, Holiday, Provider } from "@prisma/client";
+import { Prisma, Holiday } from "@prisma/client";
 
 export class HolidayServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -34,16 +34,5 @@ export class HolidayServiceBase {
     args: Prisma.SelectSubset<T, Prisma.HolidayDeleteArgs>
   ): Promise<Holiday> {
     return this.prisma.holiday.delete(args);
-  }
-
-  async findProvidersInHolidays(
-    parentId: string,
-    args: Prisma.ProviderFindManyArgs
-  ): Promise<Provider[]> {
-    return this.prisma.holiday
-      .findUnique({
-        where: { id: parentId },
-      })
-      .providersInHolidays(args);
   }
 }

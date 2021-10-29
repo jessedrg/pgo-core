@@ -58,38 +58,11 @@ export class QuoteControllerBase {
       );
     }
     return await this.service.create({
-      data: {
-        ...data,
-
-        accountId: data.accountId
-          ? {
-              connect: data.accountId,
-            }
-          : undefined,
-
-        providerId: data.providerId
-          ? {
-              connect: data.providerId,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
         completedAt: true,
         createdAt: true,
         id: true,
-
-        providerId: {
-          select: {
-            id: true,
-          },
-        },
-
         status: true,
         updatedAt: true,
       },
@@ -129,22 +102,9 @@ export class QuoteControllerBase {
     const results = await this.service.findMany({
       ...args,
       select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
         completedAt: true,
         createdAt: true,
         id: true,
-
-        providerId: {
-          select: {
-            id: true,
-          },
-        },
-
         status: true,
         updatedAt: true,
       },
@@ -179,22 +139,9 @@ export class QuoteControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
         completedAt: true,
         createdAt: true,
         id: true,
-
-        providerId: {
-          select: {
-            id: true,
-          },
-        },
-
         status: true,
         updatedAt: true,
       },
@@ -248,38 +195,11 @@ export class QuoteControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: {
-          ...data,
-
-          accountId: data.accountId
-            ? {
-                connect: data.accountId,
-              }
-            : undefined,
-
-          providerId: data.providerId
-            ? {
-                connect: data.providerId,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
-          accountId: {
-            select: {
-              id: true,
-            },
-          },
-
           completedAt: true,
           createdAt: true,
           id: true,
-
-          providerId: {
-            select: {
-              id: true,
-            },
-          },
-
           status: true,
           updatedAt: true,
         },
@@ -315,22 +235,9 @@ export class QuoteControllerBase {
       return await this.service.delete({
         where: params,
         select: {
-          accountId: {
-            select: {
-              id: true,
-            },
-          },
-
           completedAt: true,
           createdAt: true,
           id: true,
-
-          providerId: {
-            select: {
-              id: true,
-            },
-          },
-
           status: true,
           updatedAt: true,
         },

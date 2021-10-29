@@ -1,12 +1,5 @@
 import { PrismaService } from "nestjs-prisma";
-import {
-  Prisma,
-  Provider,
-  Production,
-  QuoteItem,
-  Quote,
-  Holiday,
-} from "@prisma/client";
+import { Prisma, Provider } from "@prisma/client";
 
 export class ProviderServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -41,46 +34,5 @@ export class ProviderServiceBase {
     args: Prisma.SelectSubset<T, Prisma.ProviderDeleteArgs>
   ): Promise<Provider> {
     return this.prisma.provider.delete(args);
-  }
-
-  async findProductionsInProviders(
-    parentId: string,
-    args: Prisma.ProductionFindManyArgs
-  ): Promise<Production[]> {
-    return this.prisma.provider
-      .findUnique({
-        where: { id: parentId },
-      })
-      .productionsInProviders(args);
-  }
-
-  async findQuoteItemsInProviders(
-    parentId: string,
-    args: Prisma.QuoteItemFindManyArgs
-  ): Promise<QuoteItem[]> {
-    return this.prisma.provider
-      .findUnique({
-        where: { id: parentId },
-      })
-      .quoteItemsInProviders(args);
-  }
-
-  async findQuotesInProviders(
-    parentId: string,
-    args: Prisma.QuoteFindManyArgs
-  ): Promise<Quote[]> {
-    return this.prisma.provider
-      .findUnique({
-        where: { id: parentId },
-      })
-      .quotesInProviders(args);
-  }
-
-  async getHolidaysId(parentId: string): Promise<Holiday | null> {
-    return this.prisma.provider
-      .findUnique({
-        where: { id: parentId },
-      })
-      .holidaysId();
   }
 }

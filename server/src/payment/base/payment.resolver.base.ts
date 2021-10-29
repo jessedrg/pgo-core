@@ -14,8 +14,6 @@ import { DeletePaymentArgs } from "./DeletePaymentArgs";
 import { PaymentFindManyArgs } from "./PaymentFindManyArgs";
 import { PaymentFindUniqueArgs } from "./PaymentFindUniqueArgs";
 import { Payment } from "./Payment";
-import { Account } from "../../account/base/Account";
-import { Order } from "../../order/base/Order";
 import { PaymentService } from "../payment.service";
 
 @graphql.Resolver(() => Payment)
@@ -122,21 +120,7 @@ export class PaymentResolverBase {
     // @ts-ignore
     return await this.service.create({
       ...args,
-      data: {
-        ...args.data,
-
-        accountId: args.data.accountId
-          ? {
-              connect: args.data.accountId,
-            }
-          : undefined,
-
-        orderId: args.data.orderId
-          ? {
-              connect: args.data.orderId,
-            }
-          : undefined,
-      },
+      data: args.data,
     });
   }
 
@@ -175,21 +159,7 @@ export class PaymentResolverBase {
       // @ts-ignore
       return await this.service.update({
         ...args,
-        data: {
-          ...args.data,
-
-          accountId: args.data.accountId
-            ? {
-                connect: args.data.accountId,
-              }
-            : undefined,
-
-          orderId: args.data.orderId
-            ? {
-                connect: args.data.orderId,
-              }
-            : undefined,
-        },
+        data: args.data,
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -221,53 +191,5 @@ export class PaymentResolverBase {
       }
       throw error;
     }
-  }
-
-  @graphql.ResolveField(() => Account, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "Payment",
-    action: "read",
-    possession: "any",
-  })
-  async accountId(
-    @graphql.Parent() parent: Payment,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Account | null> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Account",
-    });
-    const result = await this.service.getAccountId(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return permission.filter(result);
-  }
-
-  @graphql.ResolveField(() => Order, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "Payment",
-    action: "read",
-    possession: "any",
-  })
-  async orderId(
-    @graphql.Parent() parent: Payment,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Order | null> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Order",
-    });
-    const result = await this.service.getOrderId(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return permission.filter(result);
   }
 }

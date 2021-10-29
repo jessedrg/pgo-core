@@ -1,16 +1,6 @@
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import {
-  IsNumber,
-  IsOptional,
-  IsString,
-  ValidateNested,
-  IsInt,
-  IsEnum,
-} from "class-validator";
-import { PartWhereUniqueInput } from "../../part/base/PartWhereUniqueInput";
-import { Type } from "class-transformer";
-import { ProviderWhereUniqueInput } from "../../provider/base/ProviderWhereUniqueInput";
+import { IsNumber, IsOptional, IsString, IsInt, IsEnum } from "class-validator";
 import { EnumQuoteItemStatus } from "./EnumQuoteItemStatus";
 @InputType()
 class QuoteItemCreateInput {
@@ -49,18 +39,6 @@ class QuoteItemCreateInput {
 
   @ApiProperty({
     required: false,
-    type: () => PartWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => PartWhereUniqueInput)
-  @IsOptional()
-  @Field(() => PartWhereUniqueInput, {
-    nullable: true,
-  })
-  partId?: PartWhereUniqueInput | null;
-
-  @ApiProperty({
-    required: false,
     type: Number,
   })
   @IsNumber()
@@ -80,18 +58,6 @@ class QuoteItemCreateInput {
     nullable: true,
   })
   productionDays?: number | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => ProviderWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => ProviderWhereUniqueInput)
-  @IsOptional()
-  @Field(() => ProviderWhereUniqueInput, {
-    nullable: true,
-  })
-  providerId?: ProviderWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

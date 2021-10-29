@@ -5,10 +5,7 @@ import {
   ShowProps,
   DateField,
   TextField,
-  ReferenceField,
 } from "react-admin";
-import { ORDER_TITLE_FIELD } from "../order/OrderTitle";
-import { PART_TITLE_FIELD } from "../part/PartTitle";
 
 export const OrderItemShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -16,12 +13,6 @@ export const OrderItemShow = (props: ShowProps): React.ReactElement => {
       <SimpleShowLayout>
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
-        <ReferenceField label="orderId" source="order.id" reference="Order">
-          <TextField source={ORDER_TITLE_FIELD} />
-        </ReferenceField>
-        <ReferenceField label="partId" source="part.id" reference="Part">
-          <TextField source={PART_TITLE_FIELD} />
-        </ReferenceField>
         <TextField label="price" source="price" />
         <TextField label="quantity" source="quantity" />
         <TextField label="total" source="total" />

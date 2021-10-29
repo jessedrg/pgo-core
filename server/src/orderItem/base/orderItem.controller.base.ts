@@ -58,37 +58,10 @@ export class OrderItemControllerBase {
       );
     }
     return await this.service.create({
-      data: {
-        ...data,
-
-        orderId: data.orderId
-          ? {
-              connect: data.orderId,
-            }
-          : undefined,
-
-        partId: data.partId
-          ? {
-              connect: data.partId,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
         createdAt: true,
         id: true,
-
-        orderId: {
-          select: {
-            id: true,
-          },
-        },
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
         price: true,
         quantity: true,
         total: true,
@@ -132,19 +105,6 @@ export class OrderItemControllerBase {
       select: {
         createdAt: true,
         id: true,
-
-        orderId: {
-          select: {
-            id: true,
-          },
-        },
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
         price: true,
         quantity: true,
         total: true,
@@ -183,19 +143,6 @@ export class OrderItemControllerBase {
       select: {
         createdAt: true,
         id: true,
-
-        orderId: {
-          select: {
-            id: true,
-          },
-        },
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
         price: true,
         quantity: true,
         total: true,
@@ -251,37 +198,10 @@ export class OrderItemControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: {
-          ...data,
-
-          orderId: data.orderId
-            ? {
-                connect: data.orderId,
-              }
-            : undefined,
-
-          partId: data.partId
-            ? {
-                connect: data.partId,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
           createdAt: true,
           id: true,
-
-          orderId: {
-            select: {
-              id: true,
-            },
-          },
-
-          partId: {
-            select: {
-              id: true,
-            },
-          },
-
           price: true,
           quantity: true,
           total: true,
@@ -321,19 +241,6 @@ export class OrderItemControllerBase {
         select: {
           createdAt: true,
           id: true,
-
-          orderId: {
-            select: {
-              id: true,
-            },
-          },
-
-          partId: {
-            select: {
-              id: true,
-            },
-          },
-
           price: true,
           quantity: true,
           total: true,

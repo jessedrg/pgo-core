@@ -1,8 +1,4 @@
-import { MediaFile } from "../mediaFile/MediaFile";
-import { Order } from "../order/Order";
-
 export type Shipment = {
-  attachments?: Array<MediaFile>;
   courier: string | null;
   createdAt: Date;
   declaredValues: number | null;
@@ -10,8 +6,6 @@ export type Shipment = {
   deliveredAt: Date | null;
   estimatedAt: Date | null;
   id: string;
-  labels?: Array<MediaFile>;
-  ordersInShipment?: Array<Order>;
   partial: boolean | null;
   realtedId: string | null;
   relatedType: string | null;

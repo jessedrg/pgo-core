@@ -1,17 +1,13 @@
 import * as React from "react";
-
 import {
   List,
   Datagrid,
   ListProps,
-  ReferenceField,
-  TextField,
   BooleanField,
   DateField,
+  TextField,
 } from "react-admin";
-
 import Pagination from "../Components/Pagination";
-import { ACCOUNT_TITLE_FIELD } from "../account/AccountTitle";
 
 export const InviteList = (props: ListProps): React.ReactElement => {
   return (
@@ -23,13 +19,6 @@ export const InviteList = (props: ListProps): React.ReactElement => {
       pagination={<Pagination />}
     >
       <Datagrid rowClick="show">
-        <ReferenceField
-          label="accountId"
-          source="account.id"
-          reference="Account"
-        >
-          <TextField source={ACCOUNT_TITLE_FIELD} />
-        </ReferenceField>
         <BooleanField label="active" source="active" />
         <DateField source="createdAt" label="Created At" />
         <TextField label="email" source="email" />

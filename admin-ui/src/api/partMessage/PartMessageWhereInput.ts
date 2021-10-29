@@ -1,14 +1,9 @@
 import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { PartWhereUniqueInput } from "../part/PartWhereUniqueInput";
-import { AccountWhereUniqueInput } from "../account/AccountWhereUniqueInput";
 
 export type PartMessageWhereInput = {
   id?: StringFilter;
   message?: StringNullableFilter;
   messageType?: StringNullableFilter;
-  partId?: PartWhereUniqueInput;
-  recieverId?: AccountWhereUniqueInput;
-  senderId?: AccountWhereUniqueInput;
   type?: StringNullableFilter;
 };

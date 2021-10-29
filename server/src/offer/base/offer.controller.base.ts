@@ -58,38 +58,11 @@ export class OfferControllerBase {
       );
     }
     return await this.service.create({
-      data: {
-        ...data,
-
-        accountId: data.accountId
-          ? {
-              connect: data.accountId,
-            }
-          : undefined,
-
-        partId: data.partId
-          ? {
-              connect: data.partId,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
         customNo: true,
         id: true,
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
         publishedAt: true,
         status: true,
         updatedAt: true,
@@ -130,22 +103,9 @@ export class OfferControllerBase {
     const results = await this.service.findMany({
       ...args,
       select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
         customNo: true,
         id: true,
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
         publishedAt: true,
         status: true,
         updatedAt: true,
@@ -181,22 +141,9 @@ export class OfferControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
         customNo: true,
         id: true,
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
         publishedAt: true,
         status: true,
         updatedAt: true,
@@ -251,38 +198,11 @@ export class OfferControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: {
-          ...data,
-
-          accountId: data.accountId
-            ? {
-                connect: data.accountId,
-              }
-            : undefined,
-
-          partId: data.partId
-            ? {
-                connect: data.partId,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
-          accountId: {
-            select: {
-              id: true,
-            },
-          },
-
           createdAt: true,
           customNo: true,
           id: true,
-
-          partId: {
-            select: {
-              id: true,
-            },
-          },
-
           publishedAt: true,
           status: true,
           updatedAt: true,
@@ -319,22 +239,9 @@ export class OfferControllerBase {
       return await this.service.delete({
         where: params,
         select: {
-          accountId: {
-            select: {
-              id: true,
-            },
-          },
-
           createdAt: true,
           customNo: true,
           id: true,
-
-          partId: {
-            select: {
-              id: true,
-            },
-          },
-
           publishedAt: true,
           status: true,
           updatedAt: true,

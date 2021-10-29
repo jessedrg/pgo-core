@@ -1,15 +1,6 @@
 import * as React from "react";
-import {
-  List,
-  Datagrid,
-  ListProps,
-  DateField,
-  TextField,
-  ReferenceField,
-} from "react-admin";
+import { List, Datagrid, ListProps, DateField, TextField } from "react-admin";
 import Pagination from "../Components/Pagination";
-import { PART_TITLE_FIELD } from "../part/PartTitle";
-import { ACCOUNT_TITLE_FIELD } from "../account/AccountTitle";
 
 export const PartMessageList = (props: ListProps): React.ReactElement => {
   return (
@@ -25,23 +16,6 @@ export const PartMessageList = (props: ListProps): React.ReactElement => {
         <TextField label="ID" source="id" />
         <TextField label="message" source="message" />
         <TextField label="messageType" source="messageType" />
-        <ReferenceField label="partId" source="part.id" reference="Part">
-          <TextField source={PART_TITLE_FIELD} />
-        </ReferenceField>
-        <ReferenceField
-          label="recieverId"
-          source="account.id"
-          reference="Account"
-        >
-          <TextField source={ACCOUNT_TITLE_FIELD} />
-        </ReferenceField>
-        <ReferenceField
-          label="senderId"
-          source="account.id"
-          reference="Account"
-        >
-          <TextField source={ACCOUNT_TITLE_FIELD} />
-        </ReferenceField>
         <TextField label="type" source="type" />
         <DateField source="updatedAt" label="Updated At" />
       </Datagrid>

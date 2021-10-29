@@ -1,29 +1,17 @@
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { MediaFile } from "../../mediaFile/base/MediaFile";
 import {
-  ValidateNested,
-  IsOptional,
   IsString,
+  IsOptional,
   IsDate,
   IsNumber,
   IsBoolean,
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { Order } from "../../order/base/Order";
 import { EnumShipmentStatus } from "./EnumShipmentStatus";
 @ObjectType()
 class Shipment {
-  @ApiProperty({
-    required: false,
-    type: () => [MediaFile],
-  })
-  @ValidateNested()
-  @Type(() => MediaFile)
-  @IsOptional()
-  attachments?: Array<MediaFile>;
-
   @ApiProperty({
     required: false,
     type: String,
@@ -94,24 +82,6 @@ class Shipment {
   @IsString()
   @Field(() => String)
   id!: string;
-
-  @ApiProperty({
-    required: false,
-    type: () => [MediaFile],
-  })
-  @ValidateNested()
-  @Type(() => MediaFile)
-  @IsOptional()
-  labels?: Array<MediaFile>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Order],
-  })
-  @ValidateNested()
-  @Type(() => Order)
-  @IsOptional()
-  ordersInShipment?: Array<Order>;
 
   @ApiProperty({
     required: false,

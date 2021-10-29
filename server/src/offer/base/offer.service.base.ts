@@ -1,5 +1,5 @@
 import { PrismaService } from "nestjs-prisma";
-import { Prisma, Offer, Account, Part } from "@prisma/client";
+import { Prisma, Offer } from "@prisma/client";
 
 export class OfferServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -34,21 +34,5 @@ export class OfferServiceBase {
     args: Prisma.SelectSubset<T, Prisma.OfferDeleteArgs>
   ): Promise<Offer> {
     return this.prisma.offer.delete(args);
-  }
-
-  async getAccountId(parentId: string): Promise<Account | null> {
-    return this.prisma.offer
-      .findUnique({
-        where: { id: parentId },
-      })
-      .accountId();
-  }
-
-  async getPartId(parentId: string): Promise<Part | null> {
-    return this.prisma.offer
-      .findUnique({
-        where: { id: parentId },
-      })
-      .partId();
   }
 }

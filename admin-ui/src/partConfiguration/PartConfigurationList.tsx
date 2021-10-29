@@ -1,14 +1,6 @@
 import * as React from "react";
-import {
-  List,
-  Datagrid,
-  ListProps,
-  TextField,
-  DateField,
-  ReferenceField,
-} from "react-admin";
+import { List, Datagrid, ListProps, TextField, DateField } from "react-admin";
 import Pagination from "../Components/Pagination";
-import { PART_TITLE_FIELD } from "../part/PartTitle";
 
 export const PartConfigurationList = (props: ListProps): React.ReactElement => {
   return (
@@ -27,9 +19,6 @@ export const PartConfigurationList = (props: ListProps): React.ReactElement => {
         <TextField label="ID" source="id" />
         <TextField label="material" source="material" />
         <TextField label="materialType" source="materialType" />
-        <ReferenceField label="partId" source="part.id" reference="Part">
-          <TextField source={PART_TITLE_FIELD} />
-        </ReferenceField>
         <TextField label="tech" source="tech" />
         <TextField label="tolerance" source="tolerance" />
         <DateField source="updatedAt" label="Updated At" />

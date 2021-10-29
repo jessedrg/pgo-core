@@ -14,8 +14,6 @@ import { DeleteHolidayArgs } from "./DeleteHolidayArgs";
 import { HolidayFindManyArgs } from "./HolidayFindManyArgs";
 import { HolidayFindUniqueArgs } from "./HolidayFindUniqueArgs";
 import { Holiday } from "./Holiday";
-import { ProviderFindManyArgs } from "../../provider/base/ProviderFindManyArgs";
-import { Provider } from "../../provider/base/Provider";
 import { HolidayService } from "../holiday.service";
 
 @graphql.Resolver(() => Holiday)
@@ -193,31 +191,5 @@ export class HolidayResolverBase {
       }
       throw error;
     }
-  }
-
-  @graphql.ResolveField(() => [Provider])
-  @nestAccessControl.UseRoles({
-    resource: "Holiday",
-    action: "read",
-    possession: "any",
-  })
-  async providersInHolidays(
-    @graphql.Parent() parent: Holiday,
-    @graphql.Args() args: ProviderFindManyArgs,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Provider[]> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Provider",
-    });
-    const results = await this.service.findProvidersInHolidays(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results.map((result) => permission.filter(result));
   }
 }

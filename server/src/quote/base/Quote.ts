@@ -1,27 +1,10 @@
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { Account } from "../../account/base/Account";
-import {
-  ValidateNested,
-  IsOptional,
-  IsDate,
-  IsString,
-  IsEnum,
-} from "class-validator";
+import { IsDate, IsOptional, IsString, IsEnum } from "class-validator";
 import { Type } from "class-transformer";
-import { Provider } from "../../provider/base/Provider";
 import { EnumQuoteStatus } from "./EnumQuoteStatus";
 @ObjectType()
 class Quote {
-  @ApiProperty({
-    required: false,
-    type: () => Account,
-  })
-  @ValidateNested()
-  @Type(() => Account)
-  @IsOptional()
-  accountId?: Account | null;
-
   @ApiProperty({
     required: false,
   })
@@ -48,15 +31,6 @@ class Quote {
   @IsString()
   @Field(() => String)
   id!: string;
-
-  @ApiProperty({
-    required: false,
-    type: () => Provider,
-  })
-  @ValidateNested()
-  @Type(() => Provider)
-  @IsOptional()
-  providerId?: Provider | null;
 
   @ApiProperty({
     required: false,

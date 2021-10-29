@@ -1,5 +1,3 @@
-import { Organization } from "../organization/Organization";
-
 export type Address = {
   company: string | null;
   country: string | null;
@@ -8,7 +6,6 @@ export type Address = {
   id: string;
   lastName: string | null;
   locality: string | null;
-  organizationsInAdress?: Array<Organization>;
   phone: string | null;
   phonePrefix: string | null;
   postalCode: string | null;

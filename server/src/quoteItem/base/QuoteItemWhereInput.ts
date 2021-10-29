@@ -2,12 +2,10 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { FloatNullableFilter } from "../../util/FloatNullableFilter";
 import { Type } from "class-transformer";
-import { IsOptional, ValidateNested, IsEnum } from "class-validator";
+import { IsOptional, IsEnum } from "class-validator";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
-import { PartWhereUniqueInput } from "../../part/base/PartWhereUniqueInput";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
-import { ProviderWhereUniqueInput } from "../../provider/base/ProviderWhereUniqueInput";
 import { EnumQuoteItemStatus } from "./EnumQuoteItemStatus";
 @InputType()
 class QuoteItemWhereInput {
@@ -57,18 +55,6 @@ class QuoteItemWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => PartWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => PartWhereUniqueInput)
-  @IsOptional()
-  @Field(() => PartWhereUniqueInput, {
-    nullable: true,
-  })
-  partId?: PartWhereUniqueInput;
-
-  @ApiProperty({
-    required: false,
     type: FloatNullableFilter,
   })
   @Type(() => FloatNullableFilter)
@@ -88,18 +74,6 @@ class QuoteItemWhereInput {
     nullable: true,
   })
   productionDays?: IntNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => ProviderWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => ProviderWhereUniqueInput)
-  @IsOptional()
-  @Field(() => ProviderWhereUniqueInput, {
-    nullable: true,
-  })
-  providerId?: ProviderWhereUniqueInput;
 
   @ApiProperty({
     required: false,

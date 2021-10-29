@@ -1,25 +1,11 @@
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { AccountWhereUniqueInput } from "../../account/base/AccountWhereUniqueInput";
-import { ValidateNested, IsOptional } from "class-validator";
-import { Type } from "class-transformer";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { Type } from "class-transformer";
+import { IsOptional } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
-import { ProviderWhereUniqueInput } from "../../provider/base/ProviderWhereUniqueInput";
 @InputType()
 class QuoteWhereInput {
-  @ApiProperty({
-    required: false,
-    type: () => AccountWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => AccountWhereUniqueInput)
-  @IsOptional()
-  @Field(() => AccountWhereUniqueInput, {
-    nullable: true,
-  })
-  accountId?: AccountWhereUniqueInput;
-
   @ApiProperty({
     required: false,
     type: DateTimeNullableFilter,
@@ -41,17 +27,5 @@ class QuoteWhereInput {
     nullable: true,
   })
   id?: StringFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => ProviderWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => ProviderWhereUniqueInput)
-  @IsOptional()
-  @Field(() => ProviderWhereUniqueInput, {
-    nullable: true,
-  })
-  providerId?: ProviderWhereUniqueInput;
 }
 export { QuoteWhereInput };

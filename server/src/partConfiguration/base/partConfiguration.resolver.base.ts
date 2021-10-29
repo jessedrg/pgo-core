@@ -14,7 +14,6 @@ import { DeletePartConfigurationArgs } from "./DeletePartConfigurationArgs";
 import { PartConfigurationFindManyArgs } from "./PartConfigurationFindManyArgs";
 import { PartConfigurationFindUniqueArgs } from "./PartConfigurationFindUniqueArgs";
 import { PartConfiguration } from "./PartConfiguration";
-import { Part } from "../../part/base/Part";
 import { PartConfigurationService } from "../partConfiguration.service";
 
 @graphql.Resolver(() => PartConfiguration)
@@ -121,15 +120,7 @@ export class PartConfigurationResolverBase {
     // @ts-ignore
     return await this.service.create({
       ...args,
-      data: {
-        ...args.data,
-
-        partId: args.data.partId
-          ? {
-              connect: args.data.partId,
-            }
-          : undefined,
-      },
+      data: args.data,
     });
   }
 
@@ -168,15 +159,7 @@ export class PartConfigurationResolverBase {
       // @ts-ignore
       return await this.service.update({
         ...args,
-        data: {
-          ...args.data,
-
-          partId: args.data.partId
-            ? {
-                connect: args.data.partId,
-              }
-            : undefined,
-        },
+        data: args.data,
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -208,29 +191,5 @@ export class PartConfigurationResolverBase {
       }
       throw error;
     }
-  }
-
-  @graphql.ResolveField(() => Part, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "PartConfiguration",
-    action: "read",
-    possession: "any",
-  })
-  async partId(
-    @graphql.Parent() parent: PartConfiguration,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Part | null> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Part",
-    });
-    const result = await this.service.getPartId(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return permission.filter(result);
   }
 }

@@ -1,29 +1,14 @@
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { AccountWhereUniqueInput } from "../../account/base/AccountWhereUniqueInput";
-import { ValidateNested, IsOptional } from "class-validator";
-import { Type } from "class-transformer";
 import { JsonNullableFilter } from "../../util/JsonNullableFilter";
+import { Type } from "class-transformer";
+import { IsOptional } from "class-validator";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
-import { OrganizationWhereUniqueInput } from "../../organization/base/OrganizationWhereUniqueInput";
-import { ShipmentWhereUniqueInput } from "../../shipment/base/ShipmentWhereUniqueInput";
 import { FloatNullableFilter } from "../../util/FloatNullableFilter";
 @InputType()
 class OrderWhereInput {
-  @ApiProperty({
-    required: false,
-    type: () => AccountWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => AccountWhereUniqueInput)
-  @IsOptional()
-  @Field(() => AccountWhereUniqueInput, {
-    nullable: true,
-  })
-  acountId?: AccountWhereUniqueInput;
-
   @ApiProperty({
     required: false,
     type: JsonNullableFilter,
@@ -89,30 +74,6 @@ class OrderWhereInput {
     nullable: true,
   })
   id?: StringFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => OrganizationWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => OrganizationWhereUniqueInput)
-  @IsOptional()
-  @Field(() => OrganizationWhereUniqueInput, {
-    nullable: true,
-  })
-  organizationId?: OrganizationWhereUniqueInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => ShipmentWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => ShipmentWhereUniqueInput)
-  @IsOptional()
-  @Field(() => ShipmentWhereUniqueInput, {
-    nullable: true,
-  })
-  shipmentId?: ShipmentWhereUniqueInput;
 
   @ApiProperty({
     required: false,

@@ -1,5 +1,5 @@
 import { PrismaService } from "nestjs-prisma";
-import { Prisma, PartConfiguration, Part } from "@prisma/client";
+import { Prisma, PartConfiguration } from "@prisma/client";
 
 export class PartConfigurationServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -34,13 +34,5 @@ export class PartConfigurationServiceBase {
     args: Prisma.SelectSubset<T, Prisma.PartConfigurationDeleteArgs>
   ): Promise<PartConfiguration> {
     return this.prisma.partConfiguration.delete(args);
-  }
-
-  async getPartId(parentId: string): Promise<Part | null> {
-    return this.prisma.partConfiguration
-      .findUnique({
-        where: { id: parentId },
-      })
-      .partId();
   }
 }

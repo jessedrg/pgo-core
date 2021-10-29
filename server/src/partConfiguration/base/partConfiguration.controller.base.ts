@@ -58,15 +58,7 @@ export class PartConfigurationControllerBase {
       );
     }
     return await this.service.create({
-      data: {
-        ...data,
-
-        partId: data.partId
-          ? {
-              connect: data.partId,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
         colorFinish: true,
         createdAt: true,
@@ -75,13 +67,6 @@ export class PartConfigurationControllerBase {
         id: true,
         material: true,
         materialType: true,
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
         tech: true,
         tolerance: true,
         updatedAt: true,
@@ -130,13 +115,6 @@ export class PartConfigurationControllerBase {
         id: true,
         material: true,
         materialType: true,
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
         tech: true,
         tolerance: true,
         updatedAt: true,
@@ -180,13 +158,6 @@ export class PartConfigurationControllerBase {
         id: true,
         material: true,
         materialType: true,
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
         tech: true,
         tolerance: true,
         updatedAt: true,
@@ -242,15 +213,7 @@ export class PartConfigurationControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: {
-          ...data,
-
-          partId: data.partId
-            ? {
-                connect: data.partId,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
           colorFinish: true,
           createdAt: true,
@@ -259,13 +222,6 @@ export class PartConfigurationControllerBase {
           id: true,
           material: true,
           materialType: true,
-
-          partId: {
-            select: {
-              id: true,
-            },
-          },
-
           tech: true,
           tolerance: true,
           updatedAt: true,
@@ -310,13 +266,6 @@ export class PartConfigurationControllerBase {
           id: true,
           material: true,
           materialType: true,
-
-          partId: {
-            select: {
-              id: true,
-            },
-          },
-
           tech: true,
           tolerance: true,
           updatedAt: true,

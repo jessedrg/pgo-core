@@ -1,15 +1,7 @@
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import {
-  IsDate,
-  IsString,
-  ValidateNested,
-  IsOptional,
-  IsInt,
-} from "class-validator";
+import { IsDate, IsString, IsInt, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { Part } from "../../part/base/Part";
-import { Production } from "../../production/base/Production";
 @ObjectType()
 class ProductionItem {
   @ApiProperty({
@@ -27,24 +19,6 @@ class ProductionItem {
   @IsString()
   @Field(() => String)
   id!: string;
-
-  @ApiProperty({
-    required: false,
-    type: () => Part,
-  })
-  @ValidateNested()
-  @Type(() => Part)
-  @IsOptional()
-  partId?: Part | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => Production,
-  })
-  @ValidateNested()
-  @Type(() => Production)
-  @IsOptional()
-  productionId?: Production | null;
 
   @ApiProperty({
     required: false,
