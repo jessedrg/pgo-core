@@ -15,6 +15,8 @@ import { PaymentWhereUniqueInput } from "./PaymentWhereUniqueInput";
 import { PaymentFindManyArgs } from "./PaymentFindManyArgs";
 import { PaymentUpdateInput } from "./PaymentUpdateInput";
 import { Payment } from "./Payment";
+import { OrderWhereInput } from "../../order/base/OrderWhereInput";
+import { Order } from "../../order/base/Order";
 @swagger.ApiBasicAuth()
 export class PaymentControllerBase {
   constructor(
@@ -61,38 +63,25 @@ export class PaymentControllerBase {
       data: {
         ...data,
 
-        accountId: data.accountId
+        user: data.user
           ? {
-              connect: data.accountId,
-            }
-          : undefined,
-
-        orderId: data.orderId
-          ? {
-              connect: data.orderId,
+              connect: data.user,
             }
           : undefined,
       },
       select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
         id: true,
-
-        orderId: {
-          select: {
-            id: true,
-          },
-        },
-
         status: true,
         transactionId: true,
         transactionUserId: true,
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -130,25 +119,18 @@ export class PaymentControllerBase {
     const results = await this.service.findMany({
       ...args,
       select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
         id: true,
-
-        orderId: {
-          select: {
-            id: true,
-          },
-        },
-
         status: true,
         transactionId: true,
         transactionUserId: true,
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
     return results.map((result) => permission.filter(result));
@@ -181,25 +163,18 @@ export class PaymentControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
         id: true,
-
-        orderId: {
-          select: {
-            id: true,
-          },
-        },
-
         status: true,
         transactionId: true,
         transactionUserId: true,
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
     if (result === null) {
@@ -254,38 +229,25 @@ export class PaymentControllerBase {
         data: {
           ...data,
 
-          accountId: data.accountId
+          user: data.user
             ? {
-                connect: data.accountId,
-              }
-            : undefined,
-
-          orderId: data.orderId
-            ? {
-                connect: data.orderId,
+                connect: data.user,
               }
             : undefined,
         },
         select: {
-          accountId: {
-            select: {
-              id: true,
-            },
-          },
-
           createdAt: true,
           id: true,
-
-          orderId: {
-            select: {
-              id: true,
-            },
-          },
-
           status: true,
           transactionId: true,
           transactionUserId: true,
           updatedAt: true,
+
+          user: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {
@@ -319,25 +281,18 @@ export class PaymentControllerBase {
       return await this.service.delete({
         where: params,
         select: {
-          accountId: {
-            select: {
-              id: true,
-            },
-          },
-
           createdAt: true,
           id: true,
-
-          orderId: {
-            select: {
-              id: true,
-            },
-          },
-
           status: true,
           transactionId: true,
           transactionUserId: true,
           updatedAt: true,
+
+          user: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {
@@ -348,5 +303,208 @@ export class PaymentControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Get("/:id/orders")
+  @nestAccessControl.UseRoles({
+    resource: "Payment",
+    action: "read",
+    possession: "any",
+  })
+  @swagger.ApiQuery({
+    type: () => OrderWhereInput,
+    style: "deepObject",
+    explode: true,
+  })
+  async findManyOrders(
+    @common.Req() request: Request,
+    @common.Param() params: PaymentWhereUniqueInput,
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<Order[]> {
+    const query: OrderWhereInput = request.query;
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Order",
+    });
+    const results = await this.service.findOrders(params.id, {
+      where: query,
+      select: {
+        billingAddress: true,
+        comment: true,
+        createdAt: true,
+        customNo: true,
+        estimatedDays: true,
+        fees: true,
+        id: true,
+
+        organization: {
+          select: {
+            id: true,
+          },
+        },
+
+        payment: {
+          select: {
+            id: true,
+          },
+        },
+
+        shipment: {
+          select: {
+            id: true,
+          },
+        },
+
+        shippingaddress: true,
+        state: true,
+        subtotal: true,
+        taxes: true,
+        total: true,
+        updatedAt: true,
+      },
+    });
+    return results.map((result) => permission.filter(result));
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Post("/:id/orders")
+  @nestAccessControl.UseRoles({
+    resource: "Payment",
+    action: "update",
+    possession: "any",
+  })
+  async createOrders(
+    @common.Param() params: PaymentWhereUniqueInput,
+    @common.Body() body: PaymentWhereUniqueInput[],
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<void> {
+    const data = {
+      orders: {
+        connect: body,
+      },
+    };
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "update",
+      possession: "any",
+      resource: "Payment",
+    });
+    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
+    if (invalidAttributes.length) {
+      const roles = userRoles
+        .map((role: string) => JSON.stringify(role))
+        .join(",");
+      throw new common.ForbiddenException(
+        `Updating the relationship: ${
+          invalidAttributes[0]
+        } of ${"Payment"} is forbidden for roles: ${roles}`
+      );
+    }
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Patch("/:id/orders")
+  @nestAccessControl.UseRoles({
+    resource: "Payment",
+    action: "update",
+    possession: "any",
+  })
+  async updateOrders(
+    @common.Param() params: PaymentWhereUniqueInput,
+    @common.Body() body: PaymentWhereUniqueInput[],
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<void> {
+    const data = {
+      orders: {
+        set: body,
+      },
+    };
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "update",
+      possession: "any",
+      resource: "Payment",
+    });
+    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
+    if (invalidAttributes.length) {
+      const roles = userRoles
+        .map((role: string) => JSON.stringify(role))
+        .join(",");
+      throw new common.ForbiddenException(
+        `Updating the relationship: ${
+          invalidAttributes[0]
+        } of ${"Payment"} is forbidden for roles: ${roles}`
+      );
+    }
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Delete("/:id/orders")
+  @nestAccessControl.UseRoles({
+    resource: "Payment",
+    action: "update",
+    possession: "any",
+  })
+  async deleteOrders(
+    @common.Param() params: PaymentWhereUniqueInput,
+    @common.Body() body: PaymentWhereUniqueInput[],
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<void> {
+    const data = {
+      orders: {
+        disconnect: body,
+      },
+    };
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "update",
+      possession: "any",
+      resource: "Payment",
+    });
+    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
+    if (invalidAttributes.length) {
+      const roles = userRoles
+        .map((role: string) => JSON.stringify(role))
+        .join(",");
+      throw new common.ForbiddenException(
+        `Updating the relationship: ${
+          invalidAttributes[0]
+        } of ${"Payment"} is forbidden for roles: ${roles}`
+      );
+    }
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

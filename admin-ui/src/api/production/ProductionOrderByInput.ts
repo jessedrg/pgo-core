@@ -4,9 +4,7 @@ export type ProductionOrderByInput = {
   createdAt?: SortOrder;
   discomformity?: SortOrder;
   id?: SortOrder;
-  orderIdId?: SortOrder;
-  partIdId?: SortOrder;
-  providerIdId?: SortOrder;
+  orderId?: SortOrder;
   status?: SortOrder;
   updatedAt?: SortOrder;
 };

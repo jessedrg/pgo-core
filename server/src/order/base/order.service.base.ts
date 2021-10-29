@@ -1,13 +1,11 @@
 import { PrismaService } from "nestjs-prisma";
-
 import {
   Prisma,
   Order,
   OrderItem,
-  Payment,
   Production,
-  Account,
   Organization,
+  Payment,
   Shipment,
 } from "@prisma/client";
 
@@ -46,7 +44,7 @@ export class OrderServiceBase {
     return this.prisma.order.delete(args);
   }
 
-  async findOrderInOrderItem(
+  async findOrderItems(
     parentId: string,
     args: Prisma.OrderItemFindManyArgs
   ): Promise<OrderItem[]> {
@@ -54,21 +52,10 @@ export class OrderServiceBase {
       .findUnique({
         where: { id: parentId },
       })
-      .orderInOrderItem(args);
+      .orderItems(args);
   }
 
-  async findOrderInPayment(
-    parentId: string,
-    args: Prisma.PaymentFindManyArgs
-  ): Promise<Payment[]> {
-    return this.prisma.order
-      .findUnique({
-        where: { id: parentId },
-      })
-      .orderInPayment(args);
-  }
-
-  async findProductionsInOrders(
+  async findProductions(
     parentId: string,
     args: Prisma.ProductionFindManyArgs
   ): Promise<Production[]> {
@@ -76,30 +63,30 @@ export class OrderServiceBase {
       .findUnique({
         where: { id: parentId },
       })
-      .productionsInOrders(args);
+      .productions(args);
   }
 
-  async getAcountId(parentId: string): Promise<Account | null> {
+  async getOrganization(parentId: string): Promise<Organization | null> {
     return this.prisma.order
       .findUnique({
         where: { id: parentId },
       })
-      .acountId();
+      .organization();
   }
 
-  async getOrganizationId(parentId: string): Promise<Organization | null> {
+  async getPayment(parentId: string): Promise<Payment | null> {
     return this.prisma.order
       .findUnique({
         where: { id: parentId },
       })
-      .organizationId();
+      .payment();
   }
 
-  async getShipmentId(parentId: string): Promise<Shipment | null> {
+  async getShipment(parentId: string): Promise<Shipment | null> {
     return this.prisma.order
       .findUnique({
         where: { id: parentId },
       })
-      .shipmentId();
+      .shipment();
   }
 }

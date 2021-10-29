@@ -14,8 +14,8 @@ import { DeleteUserArgs } from "./DeleteUserArgs";
 import { UserFindManyArgs } from "./UserFindManyArgs";
 import { UserFindUniqueArgs } from "./UserFindUniqueArgs";
 import { User } from "./User";
-import { SessionFindManyArgs } from "../../session/base/SessionFindManyArgs";
-import { Session } from "../../session/base/Session";
+import { PaymentFindManyArgs } from "../../payment/base/PaymentFindManyArgs";
+import { Payment } from "../../payment/base/Payment";
 import { Account } from "../../account/base/Account";
 import { Organization } from "../../organization/base/Organization";
 import { UserService } from "../user.service";
@@ -127,15 +127,15 @@ export class UserResolverBase {
       data: {
         ...args.data,
 
-        accountId: args.data.accountId
+        account: args.data.account
           ? {
-              connect: args.data.accountId,
+              connect: args.data.account,
             }
           : undefined,
 
-        organizationId: args.data.organizationId
+        organization: args.data.organization
           ? {
-              connect: args.data.organizationId,
+              connect: args.data.organization,
             }
           : undefined,
       },
@@ -180,15 +180,15 @@ export class UserResolverBase {
         data: {
           ...args.data,
 
-          accountId: args.data.accountId
+          account: args.data.account
             ? {
-                connect: args.data.accountId,
+                connect: args.data.account,
               }
             : undefined,
 
-          organizationId: args.data.organizationId
+          organization: args.data.organization
             ? {
-                connect: args.data.organizationId,
+                connect: args.data.organization,
               }
             : undefined,
         },
@@ -223,24 +223,24 @@ export class UserResolverBase {
     }
   }
 
-  @graphql.ResolveField(() => [Session])
+  @graphql.ResolveField(() => [Payment])
   @nestAccessControl.UseRoles({
     resource: "User",
     action: "read",
     possession: "any",
   })
-  async sessionsInUser(
+  async payments(
     @graphql.Parent() parent: User,
-    @graphql.Args() args: SessionFindManyArgs,
+    @graphql.Args() args: PaymentFindManyArgs,
     @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Session[]> {
+  ): Promise<Payment[]> {
     const permission = this.rolesBuilder.permission({
       role: userRoles,
       action: "read",
       possession: "any",
-      resource: "Session",
+      resource: "Payment",
     });
-    const results = await this.service.findSessionsInUser(parent.id, args);
+    const results = await this.service.findPayments(parent.id, args);
 
     if (!results) {
       return [];
@@ -255,7 +255,7 @@ export class UserResolverBase {
     action: "read",
     possession: "any",
   })
-  async accountId(
+  async account(
     @graphql.Parent() parent: User,
     @gqlUserRoles.UserRoles() userRoles: string[]
   ): Promise<Account | null> {
@@ -265,7 +265,7 @@ export class UserResolverBase {
       possession: "any",
       resource: "Account",
     });
-    const result = await this.service.getAccountId(parent.id);
+    const result = await this.service.getAccount(parent.id);
 
     if (!result) {
       return null;
@@ -279,7 +279,7 @@ export class UserResolverBase {
     action: "read",
     possession: "any",
   })
-  async organizationId(
+  async organization(
     @graphql.Parent() parent: User,
     @gqlUserRoles.UserRoles() userRoles: string[]
   ): Promise<Organization | null> {
@@ -289,7 +289,7 @@ export class UserResolverBase {
       possession: "any",
       resource: "Organization",
     });
-    const result = await this.service.getOrganizationId(parent.id);
+    const result = await this.service.getOrganization(parent.id);
 
     if (!result) {
       return null;

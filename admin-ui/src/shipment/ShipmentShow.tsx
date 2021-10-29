@@ -12,8 +12,8 @@ import {
   ReferenceField,
 } from "react-admin";
 
-import { ACCOUNT_TITLE_FIELD } from "../account/AccountTitle";
 import { ORGANIZATION_TITLE_FIELD } from "../organization/OrganizationTitle";
+import { PAYMENT_TITLE_FIELD } from "../payment/PaymentTitle";
 import { SHIPMENT_TITLE_FIELD } from "./ShipmentTitle";
 
 export const ShipmentShow = (props: ShowProps): React.ReactElement => {
@@ -41,13 +41,6 @@ export const ShipmentShow = (props: ShowProps): React.ReactElement => {
           label="Orders"
         >
           <Datagrid rowClick="show">
-            <ReferenceField
-              label="accountId"
-              source="account.id"
-              reference="Account"
-            >
-              <TextField source={ACCOUNT_TITLE_FIELD} />
-            </ReferenceField>
             <TextField label="billingAddress" source="billingAddress" />
             <TextField label="comment" source="comment" />
             <DateField source="createdAt" label="Created At" />
@@ -56,14 +49,21 @@ export const ShipmentShow = (props: ShowProps): React.ReactElement => {
             <TextField label="fees" source="fees" />
             <TextField label="ID" source="id" />
             <ReferenceField
-              label="organizationId"
+              label="organization"
               source="organization.id"
               reference="Organization"
             >
               <TextField source={ORGANIZATION_TITLE_FIELD} />
             </ReferenceField>
             <ReferenceField
-              label="shipmentId"
+              label="payment"
+              source="payment.id"
+              reference="Payment"
+            >
+              <TextField source={PAYMENT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="shipment"
               source="shipment.id"
               reference="Shipment"
             >

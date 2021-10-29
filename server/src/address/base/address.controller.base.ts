@@ -314,7 +314,7 @@ export class AddressControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Get("/:id/organizationsInAdress")
+  @common.Get("/:id/organizations")
   @nestAccessControl.UseRoles({
     resource: "Address",
     action: "read",
@@ -325,7 +325,7 @@ export class AddressControllerBase {
     style: "deepObject",
     explode: true,
   })
-  async findManyOrganizationsInAdress(
+  async findManyOrganizations(
     @common.Req() request: Request,
     @common.Param() params: AddressWhereUniqueInput,
     @nestAccessControl.UserRoles() userRoles: string[]
@@ -337,10 +337,12 @@ export class AddressControllerBase {
       possession: "any",
       resource: "Organization",
     });
-    const results = await this.service.findOrganizationsInAdress(params.id, {
+    const results = await this.service.findOrganizations(params.id, {
       where: query,
       select: {
-        contactAdressId: {
+        addres: true,
+
+        address: {
           select: {
             id: true,
           },
@@ -349,13 +351,6 @@ export class AddressControllerBase {
         createdAt: true,
         id: true,
         name: true,
-
-        paymenMethodId: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
       },
     });
@@ -367,19 +362,19 @@ export class AddressControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Post("/:id/organizationsInAdress")
+  @common.Post("/:id/organizations")
   @nestAccessControl.UseRoles({
     resource: "Address",
     action: "update",
     possession: "any",
   })
-  async createOrganizationsInAdress(
+  async createOrganizations(
     @common.Param() params: AddressWhereUniqueInput,
     @common.Body() body: AddressWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      organizationsInAdress: {
+      organizations: {
         connect: body,
       },
     };
@@ -412,19 +407,19 @@ export class AddressControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Patch("/:id/organizationsInAdress")
+  @common.Patch("/:id/organizations")
   @nestAccessControl.UseRoles({
     resource: "Address",
     action: "update",
     possession: "any",
   })
-  async updateOrganizationsInAdress(
+  async updateOrganizations(
     @common.Param() params: AddressWhereUniqueInput,
     @common.Body() body: AddressWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      organizationsInAdress: {
+      organizations: {
         set: body,
       },
     };
@@ -457,19 +452,19 @@ export class AddressControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Delete("/:id/organizationsInAdress")
+  @common.Delete("/:id/organizations")
   @nestAccessControl.UseRoles({
     resource: "Address",
     action: "update",
     possession: "any",
   })
-  async deleteOrganizationsInAdress(
+  async deleteOrganizations(
     @common.Param() params: AddressWhereUniqueInput,
     @common.Body() body: AddressWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      organizationsInAdress: {
+      organizations: {
         disconnect: body,
       },
     };

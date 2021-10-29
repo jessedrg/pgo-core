@@ -15,8 +15,8 @@ import { UserWhereUniqueInput } from "./UserWhereUniqueInput";
 import { UserFindManyArgs } from "./UserFindManyArgs";
 import { UserUpdateInput } from "./UserUpdateInput";
 import { User } from "./User";
-import { SessionWhereInput } from "../../session/base/SessionWhereInput";
-import { Session } from "../../session/base/Session";
+import { PaymentWhereInput } from "../../payment/base/PaymentWhereInput";
+import { Payment } from "../../payment/base/Payment";
 @swagger.ApiBasicAuth()
 export class UserControllerBase {
   constructor(
@@ -63,20 +63,20 @@ export class UserControllerBase {
       data: {
         ...data,
 
-        accountId: data.accountId
+        account: data.account
           ? {
-              connect: data.accountId,
+              connect: data.account,
             }
           : undefined,
 
-        organizationId: data.organizationId
+        organization: data.organization
           ? {
-              connect: data.organizationId,
+              connect: data.organization,
             }
           : undefined,
       },
       select: {
-        accountId: {
+        account: {
           select: {
             id: true,
           },
@@ -87,7 +87,7 @@ export class UserControllerBase {
         id: true,
         lastName: true,
 
-        organizationId: {
+        organization: {
           select: {
             id: true,
           },
@@ -133,7 +133,7 @@ export class UserControllerBase {
     const results = await this.service.findMany({
       ...args,
       select: {
-        accountId: {
+        account: {
           select: {
             id: true,
           },
@@ -144,7 +144,7 @@ export class UserControllerBase {
         id: true,
         lastName: true,
 
-        organizationId: {
+        organization: {
           select: {
             id: true,
           },
@@ -185,7 +185,7 @@ export class UserControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
-        accountId: {
+        account: {
           select: {
             id: true,
           },
@@ -196,7 +196,7 @@ export class UserControllerBase {
         id: true,
         lastName: true,
 
-        organizationId: {
+        organization: {
           select: {
             id: true,
           },
@@ -259,20 +259,20 @@ export class UserControllerBase {
         data: {
           ...data,
 
-          accountId: data.accountId
+          account: data.account
             ? {
-                connect: data.accountId,
+                connect: data.account,
               }
             : undefined,
 
-          organizationId: data.organizationId
+          organization: data.organization
             ? {
-                connect: data.organizationId,
+                connect: data.organization,
               }
             : undefined,
         },
         select: {
-          accountId: {
+          account: {
             select: {
               id: true,
             },
@@ -283,7 +283,7 @@ export class UserControllerBase {
           id: true,
           lastName: true,
 
-          organizationId: {
+          organization: {
             select: {
               id: true,
             },
@@ -325,7 +325,7 @@ export class UserControllerBase {
       return await this.service.delete({
         where: params,
         select: {
-          accountId: {
+          account: {
             select: {
               id: true,
             },
@@ -336,7 +336,7 @@ export class UserControllerBase {
           id: true,
           lastName: true,
 
-          organizationId: {
+          organization: {
             select: {
               id: true,
             },
@@ -362,39 +362,40 @@ export class UserControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Get("/:id/sessionsInUser")
+  @common.Get("/:id/payments")
   @nestAccessControl.UseRoles({
     resource: "User",
     action: "read",
     possession: "any",
   })
   @swagger.ApiQuery({
-    type: () => SessionWhereInput,
+    type: () => PaymentWhereInput,
     style: "deepObject",
     explode: true,
   })
-  async findManySessionsInUser(
+  async findManyPayments(
     @common.Req() request: Request,
     @common.Param() params: UserWhereUniqueInput,
     @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<Session[]> {
-    const query: SessionWhereInput = request.query;
+  ): Promise<Payment[]> {
+    const query: PaymentWhereInput = request.query;
     const permission = this.rolesBuilder.permission({
       role: userRoles,
       action: "read",
       possession: "any",
-      resource: "Session",
+      resource: "Payment",
     });
-    const results = await this.service.findSessionsInUser(params.id, {
+    const results = await this.service.findPayments(params.id, {
       where: query,
       select: {
-        authMethod: true,
         createdAt: true,
         id: true,
-        sessionToken: true,
+        status: true,
+        transactionId: true,
+        transactionUserId: true,
         updatedAt: true,
 
-        userId: {
+        user: {
           select: {
             id: true,
           },
@@ -409,19 +410,19 @@ export class UserControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Post("/:id/sessionsInUser")
+  @common.Post("/:id/payments")
   @nestAccessControl.UseRoles({
     resource: "User",
     action: "update",
     possession: "any",
   })
-  async createSessionsInUser(
+  async createPayments(
     @common.Param() params: UserWhereUniqueInput,
     @common.Body() body: UserWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      sessionsInUser: {
+      payments: {
         connect: body,
       },
     };
@@ -454,19 +455,19 @@ export class UserControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Patch("/:id/sessionsInUser")
+  @common.Patch("/:id/payments")
   @nestAccessControl.UseRoles({
     resource: "User",
     action: "update",
     possession: "any",
   })
-  async updateSessionsInUser(
+  async updatePayments(
     @common.Param() params: UserWhereUniqueInput,
     @common.Body() body: UserWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      sessionsInUser: {
+      payments: {
         set: body,
       },
     };
@@ -499,19 +500,19 @@ export class UserControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Delete("/:id/sessionsInUser")
+  @common.Delete("/:id/payments")
   @nestAccessControl.UseRoles({
     resource: "User",
     action: "update",
     possession: "any",
   })
-  async deleteSessionsInUser(
+  async deletePayments(
     @common.Param() params: UserWhereUniqueInput,
     @common.Body() body: UserWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      sessionsInUser: {
+      payments: {
         disconnect: body,
       },
     };

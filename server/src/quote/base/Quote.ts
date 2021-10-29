@@ -9,6 +9,7 @@ import {
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { Part } from "../../part/base/Part";
 import { Provider } from "../../provider/base/Provider";
 import { EnumQuoteStatus } from "./EnumQuoteStatus";
 @ObjectType()
@@ -20,7 +21,7 @@ class Quote {
   @ValidateNested()
   @Type(() => Account)
   @IsOptional()
-  accountId?: Account | null;
+  account?: Account | null;
 
   @ApiProperty({
     required: false,
@@ -51,12 +52,21 @@ class Quote {
 
   @ApiProperty({
     required: false,
+    type: () => [Part],
+  })
+  @ValidateNested()
+  @Type(() => Part)
+  @IsOptional()
+  parts?: Array<Part>;
+
+  @ApiProperty({
+    required: false,
     type: () => Provider,
   })
   @ValidateNested()
   @Type(() => Provider)
   @IsOptional()
-  providerId?: Provider | null;
+  provider?: Provider | null;
 
   @ApiProperty({
     required: false,

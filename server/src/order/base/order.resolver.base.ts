@@ -16,12 +16,10 @@ import { OrderFindUniqueArgs } from "./OrderFindUniqueArgs";
 import { Order } from "./Order";
 import { OrderItemFindManyArgs } from "../../orderItem/base/OrderItemFindManyArgs";
 import { OrderItem } from "../../orderItem/base/OrderItem";
-import { PaymentFindManyArgs } from "../../payment/base/PaymentFindManyArgs";
-import { Payment } from "../../payment/base/Payment";
 import { ProductionFindManyArgs } from "../../production/base/ProductionFindManyArgs";
 import { Production } from "../../production/base/Production";
-import { Account } from "../../account/base/Account";
 import { Organization } from "../../organization/base/Organization";
+import { Payment } from "../../payment/base/Payment";
 import { Shipment } from "../../shipment/base/Shipment";
 import { OrderService } from "../order.service";
 
@@ -132,21 +130,21 @@ export class OrderResolverBase {
       data: {
         ...args.data,
 
-        acountId: args.data.acountId
+        organization: args.data.organization
           ? {
-              connect: args.data.acountId,
+              connect: args.data.organization,
             }
           : undefined,
 
-        organizationId: args.data.organizationId
+        payment: args.data.payment
           ? {
-              connect: args.data.organizationId,
+              connect: args.data.payment,
             }
           : undefined,
 
-        shipmentId: args.data.shipmentId
+        shipment: args.data.shipment
           ? {
-              connect: args.data.shipmentId,
+              connect: args.data.shipment,
             }
           : undefined,
       },
@@ -191,21 +189,21 @@ export class OrderResolverBase {
         data: {
           ...args.data,
 
-          acountId: args.data.acountId
+          organization: args.data.organization
             ? {
-                connect: args.data.acountId,
+                connect: args.data.organization,
               }
             : undefined,
 
-          organizationId: args.data.organizationId
+          payment: args.data.payment
             ? {
-                connect: args.data.organizationId,
+                connect: args.data.payment,
               }
             : undefined,
 
-          shipmentId: args.data.shipmentId
+          shipment: args.data.shipment
             ? {
-                connect: args.data.shipmentId,
+                connect: args.data.shipment,
               }
             : undefined,
         },
@@ -248,7 +246,7 @@ export class OrderResolverBase {
     action: "read",
     possession: "any",
   })
-  async orderInOrderItem(
+  async orderItems(
     @graphql.Parent() parent: Order,
     @graphql.Args() args: OrderItemFindManyArgs,
     @gqlUserRoles.UserRoles() userRoles: string[]
@@ -259,33 +257,7 @@ export class OrderResolverBase {
       possession: "any",
       resource: "OrderItem",
     });
-    const results = await this.service.findOrderInOrderItem(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results.map((result) => permission.filter(result));
-  }
-
-  @graphql.ResolveField(() => [Payment])
-  @nestAccessControl.UseRoles({
-    resource: "Order",
-    action: "read",
-    possession: "any",
-  })
-  async orderInPayment(
-    @graphql.Parent() parent: Order,
-    @graphql.Args() args: PaymentFindManyArgs,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Payment[]> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Payment",
-    });
-    const results = await this.service.findOrderInPayment(parent.id, args);
+    const results = await this.service.findOrderItems(parent.id, args);
 
     if (!results) {
       return [];
@@ -300,7 +272,7 @@ export class OrderResolverBase {
     action: "read",
     possession: "any",
   })
-  async productionsInOrders(
+  async productions(
     @graphql.Parent() parent: Order,
     @graphql.Args() args: ProductionFindManyArgs,
     @gqlUserRoles.UserRoles() userRoles: string[]
@@ -311,7 +283,7 @@ export class OrderResolverBase {
       possession: "any",
       resource: "Production",
     });
-    const results = await this.service.findProductionsInOrders(parent.id, args);
+    const results = await this.service.findProductions(parent.id, args);
 
     if (!results) {
       return [];
@@ -320,37 +292,13 @@ export class OrderResolverBase {
     return results.map((result) => permission.filter(result));
   }
 
-  @graphql.ResolveField(() => Account, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "Order",
-    action: "read",
-    possession: "any",
-  })
-  async acountId(
-    @graphql.Parent() parent: Order,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Account | null> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Account",
-    });
-    const result = await this.service.getAcountId(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return permission.filter(result);
-  }
-
   @graphql.ResolveField(() => Organization, { nullable: true })
   @nestAccessControl.UseRoles({
     resource: "Order",
     action: "read",
     possession: "any",
   })
-  async organizationId(
+  async organization(
     @graphql.Parent() parent: Order,
     @gqlUserRoles.UserRoles() userRoles: string[]
   ): Promise<Organization | null> {
@@ -360,7 +308,31 @@ export class OrderResolverBase {
       possession: "any",
       resource: "Organization",
     });
-    const result = await this.service.getOrganizationId(parent.id);
+    const result = await this.service.getOrganization(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return permission.filter(result);
+  }
+
+  @graphql.ResolveField(() => Payment, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "Order",
+    action: "read",
+    possession: "any",
+  })
+  async payment(
+    @graphql.Parent() parent: Order,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Payment | null> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Payment",
+    });
+    const result = await this.service.getPayment(parent.id);
 
     if (!result) {
       return null;
@@ -374,7 +346,7 @@ export class OrderResolverBase {
     action: "read",
     possession: "any",
   })
-  async shipmentId(
+  async shipment(
     @graphql.Parent() parent: Order,
     @gqlUserRoles.UserRoles() userRoles: string[]
   ): Promise<Shipment | null> {
@@ -384,7 +356,7 @@ export class OrderResolverBase {
       possession: "any",
       resource: "Shipment",
     });
-    const result = await this.service.getShipmentId(parent.id);
+    const result = await this.service.getShipment(parent.id);
 
     if (!result) {
       return null;

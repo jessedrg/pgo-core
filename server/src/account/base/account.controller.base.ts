@@ -17,16 +17,6 @@ import { AccountUpdateInput } from "./AccountUpdateInput";
 import { Account } from "./Account";
 import { OfferWhereInput } from "../../offer/base/OfferWhereInput";
 import { Offer } from "../../offer/base/Offer";
-import { OrderWhereInput } from "../../order/base/OrderWhereInput";
-import { Order } from "../../order/base/Order";
-import { AgentWhereInput } from "../../agent/base/AgentWhereInput";
-import { Agent } from "../../agent/base/Agent";
-import { PaymentWhereInput } from "../../payment/base/PaymentWhereInput";
-import { Payment } from "../../payment/base/Payment";
-import { AccountPaymentMethodWhereInput } from "../../accountPaymentMethod/base/AccountPaymentMethodWhereInput";
-import { AccountPaymentMethod } from "../../accountPaymentMethod/base/AccountPaymentMethod";
-import { InviteWhereInput } from "../../invite/base/InviteWhereInput";
-import { Invite } from "../../invite/base/Invite";
 import { PartMessageWhereInput } from "../../partMessage/base/PartMessageWhereInput";
 import { PartMessage } from "../../partMessage/base/PartMessage";
 import { QuoteWhereInput } from "../../quote/base/QuoteWhereInput";
@@ -280,7 +270,7 @@ export class AccountControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Get("/:id/account")
+  @common.Get("/:id/offers")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "read",
@@ -291,7 +281,7 @@ export class AccountControllerBase {
     style: "deepObject",
     explode: true,
   })
-  async findManyAccount(
+  async findManyOffers(
     @common.Req() request: Request,
     @common.Param() params: AccountWhereUniqueInput,
     @nestAccessControl.UserRoles() userRoles: string[]
@@ -303,25 +293,12 @@ export class AccountControllerBase {
       possession: "any",
       resource: "Offer",
     });
-    const results = await this.service.findAccount(params.id, {
+    const results = await this.service.findOffers(params.id, {
       where: query,
       select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
         customNo: true,
         id: true,
-
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
         publishedAt: true,
         status: true,
         updatedAt: true,
@@ -335,19 +312,19 @@ export class AccountControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Post("/:id/account")
+  @common.Post("/:id/offers")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async createAccount(
+  async createOffers(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: AccountWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      account: {
+      offers: {
         connect: body,
       },
     };
@@ -380,19 +357,19 @@ export class AccountControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Patch("/:id/account")
+  @common.Patch("/:id/offers")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async updateAccount(
+  async updateOffers(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: AccountWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      account: {
+      offers: {
         set: body,
       },
     };
@@ -425,19 +402,19 @@ export class AccountControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Delete("/:id/account")
+  @common.Delete("/:id/offers")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async deleteAccount(
+  async deleteOffers(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: AccountWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      account: {
+      offers: {
         disconnect: body,
       },
     };
@@ -470,956 +447,7 @@ export class AccountControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Get("/:id/accountIdInOrder")
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "read",
-    possession: "any",
-  })
-  @swagger.ApiQuery({
-    type: () => OrderWhereInput,
-    style: "deepObject",
-    explode: true,
-  })
-  async findManyAccountIdInOrder(
-    @common.Req() request: Request,
-    @common.Param() params: AccountWhereUniqueInput,
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<Order[]> {
-    const query: OrderWhereInput = request.query;
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Order",
-    });
-    const results = await this.service.findAccountIdInOrder(params.id, {
-      where: query,
-      select: {
-        acountId: {
-          select: {
-            id: true,
-          },
-        },
-
-        billingAddress: true,
-        comment: true,
-        createdAt: true,
-        customNo: true,
-        estimatedDays: true,
-        fees: true,
-        id: true,
-
-        organizationId: {
-          select: {
-            id: true,
-          },
-        },
-
-        shipmentId: {
-          select: {
-            id: true,
-          },
-        },
-
-        shippingaddress: true,
-        state: true,
-        subtotal: true,
-        taxes: true,
-        total: true,
-        updatedAt: true,
-      },
-    });
-    return results.map((result) => permission.filter(result));
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Post("/:id/accountIdInOrder")
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "update",
-    possession: "any",
-  })
-  async createAccountIdInOrder(
-    @common.Param() params: AccountWhereUniqueInput,
-    @common.Body() body: AccountWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      accountIdInOrder: {
-        connect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Account",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Account"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Patch("/:id/accountIdInOrder")
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "update",
-    possession: "any",
-  })
-  async updateAccountIdInOrder(
-    @common.Param() params: AccountWhereUniqueInput,
-    @common.Body() body: AccountWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      accountIdInOrder: {
-        set: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Account",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Account"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Delete("/:id/accountIdInOrder")
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "update",
-    possession: "any",
-  })
-  async deleteAccountIdInOrder(
-    @common.Param() params: AccountWhereUniqueInput,
-    @common.Body() body: AccountWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      accountIdInOrder: {
-        disconnect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Account",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Account"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Get("/:id/accountInAgent")
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "read",
-    possession: "any",
-  })
-  @swagger.ApiQuery({
-    type: () => AgentWhereInput,
-    style: "deepObject",
-    explode: true,
-  })
-  async findManyAccountInAgent(
-    @common.Req() request: Request,
-    @common.Param() params: AccountWhereUniqueInput,
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<Agent[]> {
-    const query: AgentWhereInput = request.query;
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Agent",
-    });
-    const results = await this.service.findAccountInAgent(params.id, {
-      where: query,
-      select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
-        createdAt: true,
-        id: true,
-        updatedAt: true,
-        zones: true,
-      },
-    });
-    return results.map((result) => permission.filter(result));
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Post("/:id/accountInAgent")
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "update",
-    possession: "any",
-  })
-  async createAccountInAgent(
-    @common.Param() params: AccountWhereUniqueInput,
-    @common.Body() body: AccountWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      accountInAgent: {
-        connect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Account",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Account"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Patch("/:id/accountInAgent")
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "update",
-    possession: "any",
-  })
-  async updateAccountInAgent(
-    @common.Param() params: AccountWhereUniqueInput,
-    @common.Body() body: AccountWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      accountInAgent: {
-        set: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Account",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Account"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Delete("/:id/accountInAgent")
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "update",
-    possession: "any",
-  })
-  async deleteAccountInAgent(
-    @common.Param() params: AccountWhereUniqueInput,
-    @common.Body() body: AccountWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      accountInAgent: {
-        disconnect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Account",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Account"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Get("/:id/accountInPayment")
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "read",
-    possession: "any",
-  })
-  @swagger.ApiQuery({
-    type: () => PaymentWhereInput,
-    style: "deepObject",
-    explode: true,
-  })
-  async findManyAccountInPayment(
-    @common.Req() request: Request,
-    @common.Param() params: AccountWhereUniqueInput,
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<Payment[]> {
-    const query: PaymentWhereInput = request.query;
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Payment",
-    });
-    const results = await this.service.findAccountInPayment(params.id, {
-      where: query,
-      select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
-        createdAt: true,
-        id: true,
-
-        orderId: {
-          select: {
-            id: true,
-          },
-        },
-
-        status: true,
-        transactionId: true,
-        transactionUserId: true,
-        updatedAt: true,
-      },
-    });
-    return results.map((result) => permission.filter(result));
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Post("/:id/accountInPayment")
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "update",
-    possession: "any",
-  })
-  async createAccountInPayment(
-    @common.Param() params: AccountWhereUniqueInput,
-    @common.Body() body: AccountWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      accountInPayment: {
-        connect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Account",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Account"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Patch("/:id/accountInPayment")
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "update",
-    possession: "any",
-  })
-  async updateAccountInPayment(
-    @common.Param() params: AccountWhereUniqueInput,
-    @common.Body() body: AccountWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      accountInPayment: {
-        set: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Account",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Account"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Delete("/:id/accountInPayment")
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "update",
-    possession: "any",
-  })
-  async deleteAccountInPayment(
-    @common.Param() params: AccountWhereUniqueInput,
-    @common.Body() body: AccountWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      accountInPayment: {
-        disconnect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Account",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Account"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Get("/:id/accountPaymentMethodsInAccount")
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "read",
-    possession: "any",
-  })
-  @swagger.ApiQuery({
-    type: () => AccountPaymentMethodWhereInput,
-    style: "deepObject",
-    explode: true,
-  })
-  async findManyAccountPaymentMethodsInAccount(
-    @common.Req() request: Request,
-    @common.Param() params: AccountWhereUniqueInput,
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<AccountPaymentMethod[]> {
-    const query: AccountPaymentMethodWhereInput = request.query;
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "AccountPaymentMethod",
-    });
-    const results = await this.service.findAccountPaymentMethodsInAccount(
-      params.id,
-      {
-        where: query,
-        select: {
-          accountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          createdAt: true,
-          data: true,
-          id: true,
-
-          organizationId: {
-            select: {
-              id: true,
-            },
-          },
-
-          type: true,
-          updatedAt: true,
-        },
-      }
-    );
-    return results.map((result) => permission.filter(result));
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Post("/:id/accountPaymentMethodsInAccount")
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "update",
-    possession: "any",
-  })
-  async createAccountPaymentMethodsInAccount(
-    @common.Param() params: AccountWhereUniqueInput,
-    @common.Body() body: AccountWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      accountPaymentMethodsInAccount: {
-        connect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Account",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Account"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Patch("/:id/accountPaymentMethodsInAccount")
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "update",
-    possession: "any",
-  })
-  async updateAccountPaymentMethodsInAccount(
-    @common.Param() params: AccountWhereUniqueInput,
-    @common.Body() body: AccountWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      accountPaymentMethodsInAccount: {
-        set: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Account",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Account"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Delete("/:id/accountPaymentMethodsInAccount")
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "update",
-    possession: "any",
-  })
-  async deleteAccountPaymentMethodsInAccount(
-    @common.Param() params: AccountWhereUniqueInput,
-    @common.Body() body: AccountWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      accountPaymentMethodsInAccount: {
-        disconnect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Account",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Account"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Get("/:id/invitesInAccount")
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "read",
-    possession: "any",
-  })
-  @swagger.ApiQuery({
-    type: () => InviteWhereInput,
-    style: "deepObject",
-    explode: true,
-  })
-  async findManyInvitesInAccount(
-    @common.Req() request: Request,
-    @common.Param() params: AccountWhereUniqueInput,
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<Invite[]> {
-    const query: InviteWhereInput = request.query;
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Invite",
-    });
-    const results = await this.service.findInvitesInAccount(params.id, {
-      where: query,
-      select: {
-        accountId: {
-          select: {
-            id: true,
-          },
-        },
-
-        active: true,
-        createdAt: true,
-        email: true,
-        expiresAt: true,
-        id: true,
-        updatedAt: true,
-      },
-    });
-    return results.map((result) => permission.filter(result));
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Post("/:id/invitesInAccount")
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "update",
-    possession: "any",
-  })
-  async createInvitesInAccount(
-    @common.Param() params: AccountWhereUniqueInput,
-    @common.Body() body: AccountWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      invitesInAccount: {
-        connect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Account",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Account"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Patch("/:id/invitesInAccount")
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "update",
-    possession: "any",
-  })
-  async updateInvitesInAccount(
-    @common.Param() params: AccountWhereUniqueInput,
-    @common.Body() body: AccountWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      invitesInAccount: {
-        set: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Account",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Account"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Delete("/:id/invitesInAccount")
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "update",
-    possession: "any",
-  })
-  async deleteInvitesInAccount(
-    @common.Param() params: AccountWhereUniqueInput,
-    @common.Body() body: AccountWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      invitesInAccount: {
-        disconnect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Account",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Account"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Get("/:id/partMessagesInReciever")
+  @common.Get("/:id/partMessages")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "read",
@@ -1430,7 +458,7 @@ export class AccountControllerBase {
     style: "deepObject",
     explode: true,
   })
-  async findManyPartMessagesInReciever(
+  async findManyPartMessages(
     @common.Req() request: Request,
     @common.Param() params: AccountWhereUniqueInput,
     @nestAccessControl.UserRoles() userRoles: string[]
@@ -1442,7 +470,7 @@ export class AccountControllerBase {
       possession: "any",
       resource: "PartMessage",
     });
-    const results = await this.service.findPartMessagesInReciever(params.id, {
+    const results = await this.service.findPartMessages(params.id, {
       where: query,
       select: {
         createdAt: true,
@@ -1450,19 +478,19 @@ export class AccountControllerBase {
         message: true,
         messageType: true,
 
-        partId: {
+        part: {
           select: {
             id: true,
           },
         },
 
-        recieverId: {
+        reciever: {
           select: {
             id: true,
           },
         },
 
-        senderId: {
+        sender: {
           select: {
             id: true,
           },
@@ -1480,19 +508,19 @@ export class AccountControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Post("/:id/partMessagesInReciever")
+  @common.Post("/:id/partMessages")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async createPartMessagesInReciever(
+  async createPartMessages(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: AccountWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      partMessagesInReciever: {
+      partMessages: {
         connect: body,
       },
     };
@@ -1525,19 +553,19 @@ export class AccountControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Patch("/:id/partMessagesInReciever")
+  @common.Patch("/:id/partMessages")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async updatePartMessagesInReciever(
+  async updatePartMessages(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: AccountWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      partMessagesInReciever: {
+      partMessages: {
         set: body,
       },
     };
@@ -1570,19 +598,19 @@ export class AccountControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Delete("/:id/partMessagesInReciever")
+  @common.Delete("/:id/partMessages")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async deletePartMessagesInReciever(
+  async deletePartMessages(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: AccountWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      partMessagesInReciever: {
+      partMessages: {
         disconnect: body,
       },
     };
@@ -1615,7 +643,7 @@ export class AccountControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Get("/:id/partMessagesInSender")
+  @common.Get("/:id/partSender")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "read",
@@ -1626,7 +654,7 @@ export class AccountControllerBase {
     style: "deepObject",
     explode: true,
   })
-  async findManyPartMessagesInSender(
+  async findManyPartSender(
     @common.Req() request: Request,
     @common.Param() params: AccountWhereUniqueInput,
     @nestAccessControl.UserRoles() userRoles: string[]
@@ -1638,7 +666,7 @@ export class AccountControllerBase {
       possession: "any",
       resource: "PartMessage",
     });
-    const results = await this.service.findPartMessagesInSender(params.id, {
+    const results = await this.service.findPartSender(params.id, {
       where: query,
       select: {
         createdAt: true,
@@ -1646,19 +674,19 @@ export class AccountControllerBase {
         message: true,
         messageType: true,
 
-        partId: {
+        part: {
           select: {
             id: true,
           },
         },
 
-        recieverId: {
+        reciever: {
           select: {
             id: true,
           },
         },
 
-        senderId: {
+        sender: {
           select: {
             id: true,
           },
@@ -1676,19 +704,19 @@ export class AccountControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Post("/:id/partMessagesInSender")
+  @common.Post("/:id/partSender")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async createPartMessagesInSender(
+  async createPartSender(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: AccountWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      partMessagesInSender: {
+      partSender: {
         connect: body,
       },
     };
@@ -1721,19 +749,19 @@ export class AccountControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Patch("/:id/partMessagesInSender")
+  @common.Patch("/:id/partSender")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async updatePartMessagesInSender(
+  async updatePartSender(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: AccountWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      partMessagesInSender: {
+      partSender: {
         set: body,
       },
     };
@@ -1766,19 +794,19 @@ export class AccountControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Delete("/:id/partMessagesInSender")
+  @common.Delete("/:id/partSender")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async deletePartMessagesInSender(
+  async deletePartSender(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: AccountWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      partMessagesInSender: {
+      partSender: {
         disconnect: body,
       },
     };
@@ -1811,7 +839,7 @@ export class AccountControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Get("/:id/quote")
+  @common.Get("/:id/quotes")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "read",
@@ -1822,7 +850,7 @@ export class AccountControllerBase {
     style: "deepObject",
     explode: true,
   })
-  async findManyQuote(
+  async findManyQuotes(
     @common.Req() request: Request,
     @common.Param() params: AccountWhereUniqueInput,
     @nestAccessControl.UserRoles() userRoles: string[]
@@ -1834,10 +862,10 @@ export class AccountControllerBase {
       possession: "any",
       resource: "Quote",
     });
-    const results = await this.service.findQuote(params.id, {
+    const results = await this.service.findQuotes(params.id, {
       where: query,
       select: {
-        accountId: {
+        account: {
           select: {
             id: true,
           },
@@ -1847,7 +875,7 @@ export class AccountControllerBase {
         createdAt: true,
         id: true,
 
-        providerId: {
+        provider: {
           select: {
             id: true,
           },
@@ -1865,19 +893,19 @@ export class AccountControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Post("/:id/quote")
+  @common.Post("/:id/quotes")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async createQuote(
+  async createQuotes(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: AccountWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      quote: {
+      quotes: {
         connect: body,
       },
     };
@@ -1910,19 +938,19 @@ export class AccountControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Patch("/:id/quote")
+  @common.Patch("/:id/quotes")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async updateQuote(
+  async updateQuotes(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: AccountWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      quote: {
+      quotes: {
         set: body,
       },
     };
@@ -1955,19 +983,19 @@ export class AccountControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Delete("/:id/quote")
+  @common.Delete("/:id/quotes")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async deleteQuote(
+  async deleteQuotes(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: AccountWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      quote: {
+      quotes: {
         disconnect: body,
       },
     };
@@ -2000,7 +1028,7 @@ export class AccountControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Get("/:id/usersInAccount")
+  @common.Get("/:id/users")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "read",
@@ -2011,7 +1039,7 @@ export class AccountControllerBase {
     style: "deepObject",
     explode: true,
   })
-  async findManyUsersInAccount(
+  async findManyUsers(
     @common.Req() request: Request,
     @common.Param() params: AccountWhereUniqueInput,
     @nestAccessControl.UserRoles() userRoles: string[]
@@ -2023,10 +1051,10 @@ export class AccountControllerBase {
       possession: "any",
       resource: "User",
     });
-    const results = await this.service.findUsersInAccount(params.id, {
+    const results = await this.service.findUsers(params.id, {
       where: query,
       select: {
-        accountId: {
+        account: {
           select: {
             id: true,
           },
@@ -2037,7 +1065,7 @@ export class AccountControllerBase {
         id: true,
         lastName: true,
 
-        organizationId: {
+        organization: {
           select: {
             id: true,
           },
@@ -2056,19 +1084,19 @@ export class AccountControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Post("/:id/usersInAccount")
+  @common.Post("/:id/users")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async createUsersInAccount(
+  async createUsers(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: AccountWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      usersInAccount: {
+      users: {
         connect: body,
       },
     };
@@ -2101,19 +1129,19 @@ export class AccountControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Patch("/:id/usersInAccount")
+  @common.Patch("/:id/users")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async updateUsersInAccount(
+  async updateUsers(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: AccountWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      usersInAccount: {
+      users: {
         set: body,
       },
     };
@@ -2146,19 +1174,19 @@ export class AccountControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Delete("/:id/usersInAccount")
+  @common.Delete("/:id/users")
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "update",
     possession: "any",
   })
-  async deleteUsersInAccount(
+  async deleteUsers(
     @common.Param() params: AccountWhereUniqueInput,
     @common.Body() body: AccountWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      usersInAccount: {
+      users: {
         disconnect: body,
       },
     };

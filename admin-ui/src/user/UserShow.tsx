@@ -19,11 +19,7 @@ export const UserShow = (props: ShowProps): React.ReactElement => {
   return (
     <Show {...props}>
       <SimpleShowLayout>
-        <ReferenceField
-          label="accountId"
-          source="account.id"
-          reference="Account"
-        >
+        <ReferenceField label="account" source="account.id" reference="Account">
           <TextField source={ACCOUNT_TITLE_FIELD} />
         </ReferenceField>
         <DateField source="createdAt" label="Created At" />
@@ -31,7 +27,7 @@ export const UserShow = (props: ShowProps): React.ReactElement => {
         <TextField label="ID" source="id" />
         <TextField label="Last Name" source="lastName" />
         <ReferenceField
-          label="organizationId"
+          label="organization"
           source="organization.id"
           reference="Organization"
         >
@@ -41,17 +37,18 @@ export const UserShow = (props: ShowProps): React.ReactElement => {
         <DateField source="updatedAt" label="Updated At" />
         <TextField label="Username" source="username" />
         <ReferenceManyField
-          reference="Session"
+          reference="Payment"
           target="UserId"
-          label="Sessions"
+          label="Payments"
         >
           <Datagrid rowClick="show">
-            <TextField label="authMethod" source="authMethod" />
             <DateField source="createdAt" label="Created At" />
             <TextField label="ID" source="id" />
-            <TextField label="sessionToken" source="sessionToken" />
+            <TextField label="status" source="status" />
+            <TextField label="transactionId" source="transactionId" />
+            <TextField label="transactionUserId" source="transactionUserId" />
             <DateField source="updatedAt" label="Updated At" />
-            <ReferenceField label="userId" source="user.id" reference="User">
+            <ReferenceField label="user" source="user.id" reference="User">
               <TextField source={USER_TITLE_FIELD} />
             </ReferenceField>
           </Datagrid>

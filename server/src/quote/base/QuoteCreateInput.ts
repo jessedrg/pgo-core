@@ -17,7 +17,7 @@ class QuoteCreateInput {
   @Field(() => AccountWhereUniqueInput, {
     nullable: true,
   })
-  accountId?: AccountWhereUniqueInput | null;
+  account?: AccountWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -40,7 +40,7 @@ class QuoteCreateInput {
   @Field(() => ProviderWhereUniqueInput, {
     nullable: true,
   })
-  providerId?: ProviderWhereUniqueInput | null;
+  provider?: ProviderWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

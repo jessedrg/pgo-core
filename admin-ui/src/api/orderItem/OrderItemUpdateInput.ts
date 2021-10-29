@@ -1,9 +1,7 @@
 import { OrderWhereUniqueInput } from "../order/OrderWhereUniqueInput";
-import { PartWhereUniqueInput } from "../part/PartWhereUniqueInput";
 
 export type OrderItemUpdateInput = {
-  orderId?: OrderWhereUniqueInput | null;
-  partId?: PartWhereUniqueInput | null;
+  order?: OrderWhereUniqueInput | null;
   price?: number | null;
   quantity?: number | null;
   total?: number | null;

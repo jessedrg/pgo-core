@@ -125,15 +125,15 @@ export class QuoteItemResolverBase {
       data: {
         ...args.data,
 
-        partId: args.data.partId
+        part: args.data.part
           ? {
-              connect: args.data.partId,
+              connect: args.data.part,
             }
           : undefined,
 
-        providerId: args.data.providerId
+        provider: args.data.provider
           ? {
-              connect: args.data.providerId,
+              connect: args.data.provider,
             }
           : undefined,
       },
@@ -178,15 +178,15 @@ export class QuoteItemResolverBase {
         data: {
           ...args.data,
 
-          partId: args.data.partId
+          part: args.data.part
             ? {
-                connect: args.data.partId,
+                connect: args.data.part,
               }
             : undefined,
 
-          providerId: args.data.providerId
+          provider: args.data.provider
             ? {
-                connect: args.data.providerId,
+                connect: args.data.provider,
               }
             : undefined,
         },
@@ -229,7 +229,7 @@ export class QuoteItemResolverBase {
     action: "read",
     possession: "any",
   })
-  async partId(
+  async part(
     @graphql.Parent() parent: QuoteItem,
     @gqlUserRoles.UserRoles() userRoles: string[]
   ): Promise<Part | null> {
@@ -239,7 +239,7 @@ export class QuoteItemResolverBase {
       possession: "any",
       resource: "Part",
     });
-    const result = await this.service.getPartId(parent.id);
+    const result = await this.service.getPart(parent.id);
 
     if (!result) {
       return null;
@@ -253,7 +253,7 @@ export class QuoteItemResolverBase {
     action: "read",
     possession: "any",
   })
-  async providerId(
+  async provider(
     @graphql.Parent() parent: QuoteItem,
     @gqlUserRoles.UserRoles() userRoles: string[]
   ): Promise<Provider | null> {
@@ -263,7 +263,7 @@ export class QuoteItemResolverBase {
       possession: "any",
       resource: "Provider",
     });
-    const result = await this.service.getProviderId(parent.id);
+    const result = await this.service.getProvider(parent.id);
 
     if (!result) {
       return null;

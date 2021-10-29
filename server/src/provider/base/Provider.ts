@@ -11,7 +11,6 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { Holiday } from "../../holiday/base/Holiday";
-import { Production } from "../../production/base/Production";
 import { QuoteItem } from "../../quoteItem/base/QuoteItem";
 import { Quote } from "../../quote/base/Quote";
 import { GraphQLJSONObject } from "graphql-type-json";
@@ -50,12 +49,12 @@ class Provider {
 
   @ApiProperty({
     required: false,
-    type: () => Holiday,
+    type: () => [Holiday],
   })
   @ValidateNested()
   @Type(() => Holiday)
   @IsOptional()
-  holidaysId?: Holiday | null;
+  holidays?: Array<Holiday>;
 
   @ApiProperty({
     required: true,
@@ -78,21 +77,12 @@ class Provider {
 
   @ApiProperty({
     required: false,
-    type: () => [Production],
-  })
-  @ValidateNested()
-  @Type(() => Production)
-  @IsOptional()
-  productionsInProviders?: Array<Production>;
-
-  @ApiProperty({
-    required: false,
     type: () => [QuoteItem],
   })
   @ValidateNested()
   @Type(() => QuoteItem)
   @IsOptional()
-  quoteItemsInProviders?: Array<QuoteItem>;
+  quoteItems?: Array<QuoteItem>;
 
   @ApiProperty({
     required: false,
@@ -101,7 +91,7 @@ class Provider {
   @ValidateNested()
   @Type(() => Quote)
   @IsOptional()
-  quotesInProviders?: Array<Quote>;
+  quotes?: Array<Quote>;
 
   @ApiProperty({
     required: false,

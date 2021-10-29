@@ -61,15 +61,15 @@ export class QuoteItemControllerBase {
       data: {
         ...data,
 
-        partId: data.partId
+        part: data.part
           ? {
-              connect: data.partId,
+              connect: data.part,
             }
           : undefined,
 
-        providerId: data.providerId
+        provider: data.provider
           ? {
-              connect: data.providerId,
+              connect: data.provider,
             }
           : undefined,
       },
@@ -80,7 +80,7 @@ export class QuoteItemControllerBase {
         id: true,
         margins: true,
 
-        partId: {
+        part: {
           select: {
             id: true,
           },
@@ -89,7 +89,7 @@ export class QuoteItemControllerBase {
         prices: true,
         productionDays: true,
 
-        providerId: {
+        provider: {
           select: {
             id: true,
           },
@@ -141,7 +141,7 @@ export class QuoteItemControllerBase {
         id: true,
         margins: true,
 
-        partId: {
+        part: {
           select: {
             id: true,
           },
@@ -150,7 +150,7 @@ export class QuoteItemControllerBase {
         prices: true,
         productionDays: true,
 
-        providerId: {
+        provider: {
           select: {
             id: true,
           },
@@ -197,7 +197,7 @@ export class QuoteItemControllerBase {
         id: true,
         margins: true,
 
-        partId: {
+        part: {
           select: {
             id: true,
           },
@@ -206,7 +206,7 @@ export class QuoteItemControllerBase {
         prices: true,
         productionDays: true,
 
-        providerId: {
+        provider: {
           select: {
             id: true,
           },
@@ -269,15 +269,15 @@ export class QuoteItemControllerBase {
         data: {
           ...data,
 
-          partId: data.partId
+          part: data.part
             ? {
-                connect: data.partId,
+                connect: data.part,
               }
             : undefined,
 
-          providerId: data.providerId
+          provider: data.provider
             ? {
-                connect: data.providerId,
+                connect: data.provider,
               }
             : undefined,
         },
@@ -288,7 +288,7 @@ export class QuoteItemControllerBase {
           id: true,
           margins: true,
 
-          partId: {
+          part: {
             select: {
               id: true,
             },
@@ -297,7 +297,7 @@ export class QuoteItemControllerBase {
           prices: true,
           productionDays: true,
 
-          providerId: {
+          provider: {
             select: {
               id: true,
             },
@@ -345,7 +345,7 @@ export class QuoteItemControllerBase {
           id: true,
           margins: true,
 
-          partId: {
+          part: {
             select: {
               id: true,
             },
@@ -354,7 +354,7 @@ export class QuoteItemControllerBase {
           prices: true,
           productionDays: true,
 
-          providerId: {
+          provider: {
             select: {
               id: true,
             },

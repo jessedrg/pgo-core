@@ -1,5 +1,5 @@
 import { PrismaService } from "nestjs-prisma";
-import { Prisma, Agent, Account } from "@prisma/client";
+import { Prisma, Agent } from "@prisma/client";
 
 export class AgentServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -34,13 +34,5 @@ export class AgentServiceBase {
     args: Prisma.SelectSubset<T, Prisma.AgentDeleteArgs>
   ): Promise<Agent> {
     return this.prisma.agent.delete(args);
-  }
-
-  async getAccountId(parentId: string): Promise<Account | null> {
-    return this.prisma.agent
-      .findUnique({
-        where: { id: parentId },
-      })
-      .accountId();
   }
 }

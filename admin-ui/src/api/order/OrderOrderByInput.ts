@@ -1,7 +1,6 @@
 import { SortOrder } from "../../util/SortOrder";
 
 export type OrderOrderByInput = {
-  acountIdId?: SortOrder;
   billingAddress?: SortOrder;
   comment?: SortOrder;
   createdAt?: SortOrder;
@@ -9,8 +8,9 @@ export type OrderOrderByInput = {
   estimatedDays?: SortOrder;
   fees?: SortOrder;
   id?: SortOrder;
-  organizationIdId?: SortOrder;
-  shipmentIdId?: SortOrder;
+  organizationId?: SortOrder;
+  paymentId?: SortOrder;
+  shipmentId?: SortOrder;
   shippingaddress?: SortOrder;
   state?: SortOrder;
   subtotal?: SortOrder;

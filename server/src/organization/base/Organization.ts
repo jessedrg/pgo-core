@@ -1,21 +1,22 @@
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { AccountPaymentMethod } from "../../accountPaymentMethod/base/AccountPaymentMethod";
-import { ValidateNested, IsOptional, IsDate, IsString } from "class-validator";
-import { Type } from "class-transformer";
+import { IsString, IsOptional, ValidateNested, IsDate } from "class-validator";
 import { Address } from "../../address/base/Address";
+import { Type } from "class-transformer";
 import { Order } from "../../order/base/Order";
 import { User } from "../../user/base/User";
 @ObjectType()
 class Organization {
   @ApiProperty({
     required: false,
-    type: () => [AccountPaymentMethod],
+    type: String,
   })
-  @ValidateNested()
-  @Type(() => AccountPaymentMethod)
+  @IsString()
   @IsOptional()
-  accountPaymentMethodInOrganization?: Array<AccountPaymentMethod>;
+  @Field(() => String, {
+    nullable: true,
+  })
+  addres!: string | null;
 
   @ApiProperty({
     required: false,
@@ -24,7 +25,7 @@ class Organization {
   @ValidateNested()
   @Type(() => Address)
   @IsOptional()
-  contactAdressId?: Address | null;
+  address?: Address | null;
 
   @ApiProperty({
     required: true,
@@ -60,16 +61,7 @@ class Organization {
   @ValidateNested()
   @Type(() => Order)
   @IsOptional()
-  organizationInOrder?: Array<Order>;
-
-  @ApiProperty({
-    required: false,
-    type: () => AccountPaymentMethod,
-  })
-  @ValidateNested()
-  @Type(() => AccountPaymentMethod)
-  @IsOptional()
-  paymenMethodId?: AccountPaymentMethod | null;
+  orders?: Array<Order>;
 
   @ApiProperty({
     required: true,
@@ -86,6 +78,6 @@ class Organization {
   @ValidateNested()
   @Type(() => User)
   @IsOptional()
-  usersInOrganization?: Array<User>;
+  users?: Array<User>;
 }
 export { Organization };

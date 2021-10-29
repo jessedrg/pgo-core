@@ -6,17 +6,14 @@ import {
   ShowProps,
   DateField,
   TextField,
-  ReferenceField,
   ReferenceManyField,
   Datagrid,
-  BooleanField,
+  ReferenceField,
 } from "react-admin";
 
-import { ORDER_TITLE_FIELD } from "../order/OrderTitle";
-import { PART_TITLE_FIELD } from "../part/PartTitle";
 import { PROVIDER_TITLE_FIELD } from "./ProviderTitle";
+import { PART_TITLE_FIELD } from "../part/PartTitle";
 import { ACCOUNT_TITLE_FIELD } from "../account/AccountTitle";
-import { HOLIDAY_TITLE_FIELD } from "../holiday/HolidayTitle";
 
 export const ProviderShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -25,13 +22,6 @@ export const ProviderShow = (props: ShowProps): React.ReactElement => {
         <DateField source="createdAt" label="Created At" />
         <TextField label="currency" source="currency" />
         <TextField label="dateFormat" source="dateFormat" />
-        <ReferenceField
-          label="holidaysId"
-          source="holiday.id"
-          reference="Holiday"
-        >
-          <TextField source={HOLIDAY_TITLE_FIELD} />
-        </ReferenceField>
         <TextField label="ID" source="id" />
         <TextField label="name" source="name" />
         <TextField label="rating" source="rating" />
@@ -42,28 +32,21 @@ export const ProviderShow = (props: ShowProps): React.ReactElement => {
         <DateField source="updatedAt" label="Updated At" />
         <TextField label="workingDays" source="workingDays" />
         <ReferenceManyField
-          reference="Production"
+          reference="Holiday"
           target="ProviderId"
-          label="Productions"
+          label="Holidays"
         >
           <Datagrid rowClick="show">
             <DateField source="createdAt" label="Created At" />
-            <BooleanField label="discomformity" source="discomformity" />
+            <TextField label="day" source="day" />
             <TextField label="ID" source="id" />
-            <ReferenceField label="orderId" source="order.id" reference="Order">
-              <TextField source={ORDER_TITLE_FIELD} />
-            </ReferenceField>
-            <ReferenceField label="partId" source="part.id" reference="Part">
-              <TextField source={PART_TITLE_FIELD} />
-            </ReferenceField>
             <ReferenceField
-              label="providerId"
+              label="Providers"
               source="provider.id"
               reference="Provider"
             >
               <TextField source={PROVIDER_TITLE_FIELD} />
             </ReferenceField>
-            <TextField label="status" source="status" />
             <DateField source="updatedAt" label="Updated At" />
           </Datagrid>
         </ReferenceManyField>
@@ -78,13 +61,13 @@ export const ProviderShow = (props: ShowProps): React.ReactElement => {
             <DateField source="createdAt" label="Created At" />
             <TextField label="ID" source="id" />
             <TextField label="margins" source="margins" />
-            <ReferenceField label="partId" source="part.id" reference="Part">
+            <ReferenceField label="part" source="part.id" reference="Part">
               <TextField source={PART_TITLE_FIELD} />
             </ReferenceField>
             <TextField label="prices" source="prices" />
             <TextField label="productionDays" source="productionDays" />
             <ReferenceField
-              label="providerId"
+              label="provider"
               source="provider.id"
               reference="Provider"
             >
@@ -102,7 +85,7 @@ export const ProviderShow = (props: ShowProps): React.ReactElement => {
         >
           <Datagrid rowClick="show">
             <ReferenceField
-              label="accountId"
+              label="account"
               source="account.id"
               reference="Account"
             >
@@ -112,7 +95,7 @@ export const ProviderShow = (props: ShowProps): React.ReactElement => {
             <DateField source="createdAt" label="Created At" />
             <TextField label="ID" source="id" />
             <ReferenceField
-              label="providerId"
+              label="provider"
               source="provider.id"
               reference="Provider"
             >

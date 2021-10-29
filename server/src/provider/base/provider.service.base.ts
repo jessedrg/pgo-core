@@ -1,12 +1,5 @@
 import { PrismaService } from "nestjs-prisma";
-import {
-  Prisma,
-  Provider,
-  Production,
-  QuoteItem,
-  Quote,
-  Holiday,
-} from "@prisma/client";
+import { Prisma, Provider, Holiday, QuoteItem, Quote } from "@prisma/client";
 
 export class ProviderServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -43,18 +36,18 @@ export class ProviderServiceBase {
     return this.prisma.provider.delete(args);
   }
 
-  async findProductionsInProviders(
+  async findHolidays(
     parentId: string,
-    args: Prisma.ProductionFindManyArgs
-  ): Promise<Production[]> {
+    args: Prisma.HolidayFindManyArgs
+  ): Promise<Holiday[]> {
     return this.prisma.provider
       .findUnique({
         where: { id: parentId },
       })
-      .productionsInProviders(args);
+      .holidays(args);
   }
 
-  async findQuoteItemsInProviders(
+  async findQuoteItems(
     parentId: string,
     args: Prisma.QuoteItemFindManyArgs
   ): Promise<QuoteItem[]> {
@@ -62,10 +55,10 @@ export class ProviderServiceBase {
       .findUnique({
         where: { id: parentId },
       })
-      .quoteItemsInProviders(args);
+      .quoteItems(args);
   }
 
-  async findQuotesInProviders(
+  async findQuotes(
     parentId: string,
     args: Prisma.QuoteFindManyArgs
   ): Promise<Quote[]> {
@@ -73,14 +66,6 @@ export class ProviderServiceBase {
       .findUnique({
         where: { id: parentId },
       })
-      .quotesInProviders(args);
-  }
-
-  async getHolidaysId(parentId: string): Promise<Holiday | null> {
-    return this.prisma.provider
-      .findUnique({
-        where: { id: parentId },
-      })
-      .holidaysId();
+      .quotes(args);
   }
 }

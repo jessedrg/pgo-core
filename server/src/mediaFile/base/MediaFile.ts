@@ -1,8 +1,7 @@
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsString, ValidateNested, IsOptional } from "class-validator";
+import { IsDate, IsString, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { Shipment } from "../../shipment/base/Shipment";
 @ObjectType()
 class MediaFile {
   @ApiProperty({
@@ -20,24 +19,6 @@ class MediaFile {
   @IsString()
   @Field(() => String)
   id!: string;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Shipment],
-  })
-  @ValidateNested()
-  @Type(() => Shipment)
-  @IsOptional()
-  labeIsInShipment?: Array<Shipment>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Shipment],
-  })
-  @ValidateNested()
-  @Type(() => Shipment)
-  @IsOptional()
-  mediaFilesInShipment?: Array<Shipment>;
 
   @ApiProperty({
     required: false,

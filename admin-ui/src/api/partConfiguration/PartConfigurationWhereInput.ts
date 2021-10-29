@@ -10,7 +10,7 @@ export type PartConfigurationWhereInput = {
   id?: StringFilter;
   material?: StringNullableFilter;
   materialType?: StringNullableFilter;
-  partId?: PartWhereUniqueInput;
+  part?: PartWhereUniqueInput;
   tech?: StringNullableFilter;
   tolerance?: FloatNullableFilter;
   weight?: FloatNullableFilter;

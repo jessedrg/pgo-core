@@ -15,8 +15,6 @@ import { OrganizationWhereUniqueInput } from "./OrganizationWhereUniqueInput";
 import { OrganizationFindManyArgs } from "./OrganizationFindManyArgs";
 import { OrganizationUpdateInput } from "./OrganizationUpdateInput";
 import { Organization } from "./Organization";
-import { AccountPaymentMethodWhereInput } from "../../accountPaymentMethod/base/AccountPaymentMethodWhereInput";
-import { AccountPaymentMethod } from "../../accountPaymentMethod/base/AccountPaymentMethod";
 import { OrderWhereInput } from "../../order/base/OrderWhereInput";
 import { Order } from "../../order/base/Order";
 import { UserWhereInput } from "../../user/base/UserWhereInput";
@@ -67,20 +65,16 @@ export class OrganizationControllerBase {
       data: {
         ...data,
 
-        contactAdressId: data.contactAdressId
+        address: data.address
           ? {
-              connect: data.contactAdressId,
-            }
-          : undefined,
-
-        paymenMethodId: data.paymenMethodId
-          ? {
-              connect: data.paymenMethodId,
+              connect: data.address,
             }
           : undefined,
       },
       select: {
-        contactAdressId: {
+        addres: true,
+
+        address: {
           select: {
             id: true,
           },
@@ -89,13 +83,6 @@ export class OrganizationControllerBase {
         createdAt: true,
         id: true,
         name: true,
-
-        paymenMethodId: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
       },
     });
@@ -134,7 +121,9 @@ export class OrganizationControllerBase {
     const results = await this.service.findMany({
       ...args,
       select: {
-        contactAdressId: {
+        addres: true,
+
+        address: {
           select: {
             id: true,
           },
@@ -143,13 +132,6 @@ export class OrganizationControllerBase {
         createdAt: true,
         id: true,
         name: true,
-
-        paymenMethodId: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
       },
     });
@@ -183,7 +165,9 @@ export class OrganizationControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
-        contactAdressId: {
+        addres: true,
+
+        address: {
           select: {
             id: true,
           },
@@ -192,13 +176,6 @@ export class OrganizationControllerBase {
         createdAt: true,
         id: true,
         name: true,
-
-        paymenMethodId: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
       },
     });
@@ -254,20 +231,16 @@ export class OrganizationControllerBase {
         data: {
           ...data,
 
-          contactAdressId: data.contactAdressId
+          address: data.address
             ? {
-                connect: data.contactAdressId,
-              }
-            : undefined,
-
-          paymenMethodId: data.paymenMethodId
-            ? {
-                connect: data.paymenMethodId,
+                connect: data.address,
               }
             : undefined,
         },
         select: {
-          contactAdressId: {
+          addres: true,
+
+          address: {
             select: {
               id: true,
             },
@@ -276,13 +249,6 @@ export class OrganizationControllerBase {
           createdAt: true,
           id: true,
           name: true,
-
-          paymenMethodId: {
-            select: {
-              id: true,
-            },
-          },
-
           updatedAt: true,
         },
       });
@@ -317,7 +283,9 @@ export class OrganizationControllerBase {
       return await this.service.delete({
         where: params,
         select: {
-          contactAdressId: {
+          addres: true,
+
+          address: {
             select: {
               id: true,
             },
@@ -326,13 +294,6 @@ export class OrganizationControllerBase {
           createdAt: true,
           id: true,
           name: true,
-
-          paymenMethodId: {
-            select: {
-              id: true,
-            },
-          },
-
           updatedAt: true,
         },
       });
@@ -351,199 +312,7 @@ export class OrganizationControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Get("/:id/accountPaymentMethodInOrganization")
-  @nestAccessControl.UseRoles({
-    resource: "Organization",
-    action: "read",
-    possession: "any",
-  })
-  @swagger.ApiQuery({
-    type: () => AccountPaymentMethodWhereInput,
-    style: "deepObject",
-    explode: true,
-  })
-  async findManyAccountPaymentMethodInOrganization(
-    @common.Req() request: Request,
-    @common.Param() params: OrganizationWhereUniqueInput,
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<AccountPaymentMethod[]> {
-    const query: AccountPaymentMethodWhereInput = request.query;
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "AccountPaymentMethod",
-    });
-    const results = await this.service.findAccountPaymentMethodInOrganization(
-      params.id,
-      {
-        where: query,
-        select: {
-          accountId: {
-            select: {
-              id: true,
-            },
-          },
-
-          createdAt: true,
-          data: true,
-          id: true,
-
-          organizationId: {
-            select: {
-              id: true,
-            },
-          },
-
-          type: true,
-          updatedAt: true,
-        },
-      }
-    );
-    return results.map((result) => permission.filter(result));
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Post("/:id/accountPaymentMethodInOrganization")
-  @nestAccessControl.UseRoles({
-    resource: "Organization",
-    action: "update",
-    possession: "any",
-  })
-  async createAccountPaymentMethodInOrganization(
-    @common.Param() params: OrganizationWhereUniqueInput,
-    @common.Body() body: OrganizationWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      accountPaymentMethodInOrganization: {
-        connect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Organization",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Organization"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Patch("/:id/accountPaymentMethodInOrganization")
-  @nestAccessControl.UseRoles({
-    resource: "Organization",
-    action: "update",
-    possession: "any",
-  })
-  async updateAccountPaymentMethodInOrganization(
-    @common.Param() params: OrganizationWhereUniqueInput,
-    @common.Body() body: OrganizationWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      accountPaymentMethodInOrganization: {
-        set: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Organization",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Organization"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Delete("/:id/accountPaymentMethodInOrganization")
-  @nestAccessControl.UseRoles({
-    resource: "Organization",
-    action: "update",
-    possession: "any",
-  })
-  async deleteAccountPaymentMethodInOrganization(
-    @common.Param() params: OrganizationWhereUniqueInput,
-    @common.Body() body: OrganizationWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      accountPaymentMethodInOrganization: {
-        disconnect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Organization",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Organization"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Get("/:id/organizationInOrder")
+  @common.Get("/:id/orders")
   @nestAccessControl.UseRoles({
     resource: "Organization",
     action: "read",
@@ -554,7 +323,7 @@ export class OrganizationControllerBase {
     style: "deepObject",
     explode: true,
   })
-  async findManyOrganizationInOrder(
+  async findManyOrders(
     @common.Req() request: Request,
     @common.Param() params: OrganizationWhereUniqueInput,
     @nestAccessControl.UserRoles() userRoles: string[]
@@ -566,15 +335,9 @@ export class OrganizationControllerBase {
       possession: "any",
       resource: "Order",
     });
-    const results = await this.service.findOrganizationInOrder(params.id, {
+    const results = await this.service.findOrders(params.id, {
       where: query,
       select: {
-        acountId: {
-          select: {
-            id: true,
-          },
-        },
-
         billingAddress: true,
         comment: true,
         createdAt: true,
@@ -583,13 +346,19 @@ export class OrganizationControllerBase {
         fees: true,
         id: true,
 
-        organizationId: {
+        organization: {
           select: {
             id: true,
           },
         },
 
-        shipmentId: {
+        payment: {
+          select: {
+            id: true,
+          },
+        },
+
+        shipment: {
           select: {
             id: true,
           },
@@ -611,19 +380,19 @@ export class OrganizationControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Post("/:id/organizationInOrder")
+  @common.Post("/:id/orders")
   @nestAccessControl.UseRoles({
     resource: "Organization",
     action: "update",
     possession: "any",
   })
-  async createOrganizationInOrder(
+  async createOrders(
     @common.Param() params: OrganizationWhereUniqueInput,
     @common.Body() body: OrganizationWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      organizationInOrder: {
+      orders: {
         connect: body,
       },
     };
@@ -656,19 +425,19 @@ export class OrganizationControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Patch("/:id/organizationInOrder")
+  @common.Patch("/:id/orders")
   @nestAccessControl.UseRoles({
     resource: "Organization",
     action: "update",
     possession: "any",
   })
-  async updateOrganizationInOrder(
+  async updateOrders(
     @common.Param() params: OrganizationWhereUniqueInput,
     @common.Body() body: OrganizationWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      organizationInOrder: {
+      orders: {
         set: body,
       },
     };
@@ -701,19 +470,19 @@ export class OrganizationControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Delete("/:id/organizationInOrder")
+  @common.Delete("/:id/orders")
   @nestAccessControl.UseRoles({
     resource: "Organization",
     action: "update",
     possession: "any",
   })
-  async deleteOrganizationInOrder(
+  async deleteOrders(
     @common.Param() params: OrganizationWhereUniqueInput,
     @common.Body() body: OrganizationWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      organizationInOrder: {
+      orders: {
         disconnect: body,
       },
     };
@@ -746,7 +515,7 @@ export class OrganizationControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Get("/:id/usersInOrganization")
+  @common.Get("/:id/users")
   @nestAccessControl.UseRoles({
     resource: "Organization",
     action: "read",
@@ -757,7 +526,7 @@ export class OrganizationControllerBase {
     style: "deepObject",
     explode: true,
   })
-  async findManyUsersInOrganization(
+  async findManyUsers(
     @common.Req() request: Request,
     @common.Param() params: OrganizationWhereUniqueInput,
     @nestAccessControl.UserRoles() userRoles: string[]
@@ -769,10 +538,10 @@ export class OrganizationControllerBase {
       possession: "any",
       resource: "User",
     });
-    const results = await this.service.findUsersInOrganization(params.id, {
+    const results = await this.service.findUsers(params.id, {
       where: query,
       select: {
-        accountId: {
+        account: {
           select: {
             id: true,
           },
@@ -783,7 +552,7 @@ export class OrganizationControllerBase {
         id: true,
         lastName: true,
 
-        organizationId: {
+        organization: {
           select: {
             id: true,
           },
@@ -802,19 +571,19 @@ export class OrganizationControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Post("/:id/usersInOrganization")
+  @common.Post("/:id/users")
   @nestAccessControl.UseRoles({
     resource: "Organization",
     action: "update",
     possession: "any",
   })
-  async createUsersInOrganization(
+  async createUsers(
     @common.Param() params: OrganizationWhereUniqueInput,
     @common.Body() body: OrganizationWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      usersInOrganization: {
+      users: {
         connect: body,
       },
     };
@@ -847,19 +616,19 @@ export class OrganizationControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Patch("/:id/usersInOrganization")
+  @common.Patch("/:id/users")
   @nestAccessControl.UseRoles({
     resource: "Organization",
     action: "update",
     possession: "any",
   })
-  async updateUsersInOrganization(
+  async updateUsers(
     @common.Param() params: OrganizationWhereUniqueInput,
     @common.Body() body: OrganizationWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      usersInOrganization: {
+      users: {
         set: body,
       },
     };
@@ -892,19 +661,19 @@ export class OrganizationControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Delete("/:id/usersInOrganization")
+  @common.Delete("/:id/users")
   @nestAccessControl.UseRoles({
     resource: "Organization",
     action: "update",
     possession: "any",
   })
-  async deleteUsersInOrganization(
+  async deleteUsers(
     @common.Param() params: OrganizationWhereUniqueInput,
     @common.Body() body: OrganizationWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      usersInOrganization: {
+      users: {
         disconnect: body,
       },
     };

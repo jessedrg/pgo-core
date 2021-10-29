@@ -14,11 +14,7 @@ import { DeleteProductionArgs } from "./DeleteProductionArgs";
 import { ProductionFindManyArgs } from "./ProductionFindManyArgs";
 import { ProductionFindUniqueArgs } from "./ProductionFindUniqueArgs";
 import { Production } from "./Production";
-import { ProductionItemFindManyArgs } from "../../productionItem/base/ProductionItemFindManyArgs";
-import { ProductionItem } from "../../productionItem/base/ProductionItem";
 import { Order } from "../../order/base/Order";
-import { Part } from "../../part/base/Part";
-import { Provider } from "../../provider/base/Provider";
 import { ProductionService } from "../production.service";
 
 @graphql.Resolver(() => Production)
@@ -128,21 +124,9 @@ export class ProductionResolverBase {
       data: {
         ...args.data,
 
-        orderId: args.data.orderId
+        order: args.data.order
           ? {
-              connect: args.data.orderId,
-            }
-          : undefined,
-
-        partId: args.data.partId
-          ? {
-              connect: args.data.partId,
-            }
-          : undefined,
-
-        providerId: args.data.providerId
-          ? {
-              connect: args.data.providerId,
+              connect: args.data.order,
             }
           : undefined,
       },
@@ -187,21 +171,9 @@ export class ProductionResolverBase {
         data: {
           ...args.data,
 
-          orderId: args.data.orderId
+          order: args.data.order
             ? {
-                connect: args.data.orderId,
-              }
-            : undefined,
-
-          partId: args.data.partId
-            ? {
-                connect: args.data.partId,
-              }
-            : undefined,
-
-          providerId: args.data.providerId
-            ? {
-                connect: args.data.providerId,
+                connect: args.data.order,
               }
             : undefined,
         },
@@ -238,42 +210,13 @@ export class ProductionResolverBase {
     }
   }
 
-  @graphql.ResolveField(() => [ProductionItem])
-  @nestAccessControl.UseRoles({
-    resource: "Production",
-    action: "read",
-    possession: "any",
-  })
-  async productionItemInProduction(
-    @graphql.Parent() parent: Production,
-    @graphql.Args() args: ProductionItemFindManyArgs,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<ProductionItem[]> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "ProductionItem",
-    });
-    const results = await this.service.findProductionItemInProduction(
-      parent.id,
-      args
-    );
-
-    if (!results) {
-      return [];
-    }
-
-    return results.map((result) => permission.filter(result));
-  }
-
   @graphql.ResolveField(() => Order, { nullable: true })
   @nestAccessControl.UseRoles({
     resource: "Production",
     action: "read",
     possession: "any",
   })
-  async orderId(
+  async order(
     @graphql.Parent() parent: Production,
     @gqlUserRoles.UserRoles() userRoles: string[]
   ): Promise<Order | null> {
@@ -283,55 +226,7 @@ export class ProductionResolverBase {
       possession: "any",
       resource: "Order",
     });
-    const result = await this.service.getOrderId(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return permission.filter(result);
-  }
-
-  @graphql.ResolveField(() => Part, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "Production",
-    action: "read",
-    possession: "any",
-  })
-  async partId(
-    @graphql.Parent() parent: Production,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Part | null> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Part",
-    });
-    const result = await this.service.getPartId(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return permission.filter(result);
-  }
-
-  @graphql.ResolveField(() => Provider, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "Production",
-    action: "read",
-    possession: "any",
-  })
-  async providerId(
-    @graphql.Parent() parent: Production,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Provider | null> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Provider",
-    });
-    const result = await this.service.getProviderId(parent.id);
+    const result = await this.service.getOrder(parent.id);
 
     if (!result) {
       return null;

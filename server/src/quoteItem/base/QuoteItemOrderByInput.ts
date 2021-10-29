@@ -59,7 +59,7 @@ class QuoteItemOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  partIdId?: SortOrder;
+  partId?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -86,7 +86,7 @@ class QuoteItemOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  providerIdId?: SortOrder;
+  providerId?: SortOrder;
 
   @ApiProperty({
     required: false,

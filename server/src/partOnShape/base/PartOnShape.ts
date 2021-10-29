@@ -50,7 +50,16 @@ class PartOnShape {
   @ValidateNested()
   @Type(() => Part)
   @IsOptional()
-  partId?: Part | null;
+  part?: Part | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Part],
+  })
+  @ValidateNested()
+  @Type(() => Part)
+  @IsOptional()
+  parts?: Array<Part>;
 
   @ApiProperty({
     required: true,

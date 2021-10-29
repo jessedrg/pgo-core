@@ -41,6 +41,15 @@ class HolidayOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  providerId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["Asc", "Desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   updatedAt?: SortOrder;
 }
 

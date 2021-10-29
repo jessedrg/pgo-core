@@ -1,5 +1,5 @@
 import { PrismaService } from "nestjs-prisma";
-import { Prisma, Invite, Account } from "@prisma/client";
+import { Prisma, Invite } from "@prisma/client";
 
 export class InviteServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -34,13 +34,5 @@ export class InviteServiceBase {
     args: Prisma.SelectSubset<T, Prisma.InviteDeleteArgs>
   ): Promise<Invite> {
     return this.prisma.invite.delete(args);
-  }
-
-  async getAccountId(parentId: string): Promise<Account | null> {
-    return this.prisma.invite
-      .findUnique({
-        where: { id: parentId },
-      })
-      .accountId();
   }
 }

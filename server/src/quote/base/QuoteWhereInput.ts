@@ -18,7 +18,7 @@ class QuoteWhereInput {
   @Field(() => AccountWhereUniqueInput, {
     nullable: true,
   })
-  accountId?: AccountWhereUniqueInput;
+  account?: AccountWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -52,6 +52,6 @@ class QuoteWhereInput {
   @Field(() => ProviderWhereUniqueInput, {
     nullable: true,
   })
-  providerId?: ProviderWhereUniqueInput;
+  provider?: ProviderWhereUniqueInput;
 }
 export { QuoteWhereInput };

@@ -1,25 +1,9 @@
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { Account } from "../../account/base/Account";
-import {
-  ValidateNested,
-  IsOptional,
-  IsBoolean,
-  IsDate,
-  IsString,
-} from "class-validator";
+import { IsBoolean, IsOptional, IsDate, IsString } from "class-validator";
 import { Type } from "class-transformer";
 @ObjectType()
 class Invite {
-  @ApiProperty({
-    required: false,
-    type: () => Account,
-  })
-  @ValidateNested()
-  @Type(() => Account)
-  @IsOptional()
-  accountId?: Account | null;
-
   @ApiProperty({
     required: false,
     type: Boolean,

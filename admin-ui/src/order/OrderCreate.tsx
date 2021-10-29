@@ -4,28 +4,21 @@ import {
   Create,
   SimpleForm,
   CreateProps,
-  ReferenceInput,
-  SelectInput,
   TextInput,
   NumberInput,
+  ReferenceInput,
+  SelectInput,
   SelectArrayInput,
 } from "react-admin";
 
-import { AccountTitle } from "../account/AccountTitle";
 import { OrganizationTitle } from "../organization/OrganizationTitle";
+import { PaymentTitle } from "../payment/PaymentTitle";
 import { ShipmentTitle } from "../shipment/ShipmentTitle";
 
 export const OrderCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
-        <ReferenceInput
-          source="account.id"
-          reference="Account"
-          label="accountId"
-        >
-          <SelectInput optionText={AccountTitle} />
-        </ReferenceInput>
         <div />
         <TextInput label="comment" source="comment" />
         <TextInput label="customNo" source="customNo" />
@@ -34,14 +27,17 @@ export const OrderCreate = (props: CreateProps): React.ReactElement => {
         <ReferenceInput
           source="organization.id"
           reference="Organization"
-          label="organizationId"
+          label="organization"
         >
           <SelectInput optionText={OrganizationTitle} />
+        </ReferenceInput>
+        <ReferenceInput source="payment.id" reference="Payment" label="payment">
+          <SelectInput optionText={PaymentTitle} />
         </ReferenceInput>
         <ReferenceInput
           source="shipment.id"
           reference="Shipment"
-          label="shipmentId"
+          label="shipment"
         >
           <SelectInput optionText={ShipmentTitle} />
         </ReferenceInput>

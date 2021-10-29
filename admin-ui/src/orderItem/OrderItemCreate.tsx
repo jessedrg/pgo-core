@@ -8,17 +8,13 @@ import {
   NumberInput,
 } from "react-admin";
 import { OrderTitle } from "../order/OrderTitle";
-import { PartTitle } from "../part/PartTitle";
 
 export const OrderItemCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
-        <ReferenceInput source="order.id" reference="Order" label="orderId">
+        <ReferenceInput source="order.id" reference="Order" label="order">
           <SelectInput optionText={OrderTitle} />
-        </ReferenceInput>
-        <ReferenceInput source="part.id" reference="Part" label="partId">
-          <SelectInput optionText={PartTitle} />
         </ReferenceInput>
         <NumberInput label="price" source="price" />
         <NumberInput step={1} label="quantity" source="quantity" />

@@ -4,10 +4,10 @@ import { StringFilter } from "../../util/StringFilter";
 import { OrganizationWhereUniqueInput } from "../organization/OrganizationWhereUniqueInput";
 
 export type UserWhereInput = {
-  accountId?: AccountWhereUniqueInput;
+  account?: AccountWhereUniqueInput;
   firstName?: StringNullableFilter;
   id?: StringFilter;
   lastName?: StringNullableFilter;
-  organizationId?: OrganizationWhereUniqueInput;
+  organization?: OrganizationWhereUniqueInput;
   username?: StringFilter;
 };

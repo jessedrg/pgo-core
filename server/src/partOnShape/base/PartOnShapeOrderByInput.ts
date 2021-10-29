@@ -50,7 +50,7 @@ class PartOnShapeOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  partIdId?: SortOrder;
+  partId?: SortOrder;
 
   @ApiProperty({
     required: false,

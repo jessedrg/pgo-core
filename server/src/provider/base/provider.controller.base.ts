@@ -15,8 +15,8 @@ import { ProviderWhereUniqueInput } from "./ProviderWhereUniqueInput";
 import { ProviderFindManyArgs } from "./ProviderFindManyArgs";
 import { ProviderUpdateInput } from "./ProviderUpdateInput";
 import { Provider } from "./Provider";
-import { ProductionWhereInput } from "../../production/base/ProductionWhereInput";
-import { Production } from "../../production/base/Production";
+import { HolidayWhereInput } from "../../holiday/base/HolidayWhereInput";
+import { Holiday } from "../../holiday/base/Holiday";
 import { QuoteItemWhereInput } from "../../quoteItem/base/QuoteItemWhereInput";
 import { QuoteItem } from "../../quoteItem/base/QuoteItem";
 import { QuoteWhereInput } from "../../quote/base/QuoteWhereInput";
@@ -64,26 +64,11 @@ export class ProviderControllerBase {
       );
     }
     return await this.service.create({
-      data: {
-        ...data,
-
-        holidaysId: data.holidaysId
-          ? {
-              connect: data.holidaysId,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
         createdAt: true,
         currency: true,
         dateFormat: true,
-
-        holidaysId: {
-          select: {
-            id: true,
-          },
-        },
-
         id: true,
         name: true,
         rating: true,
@@ -133,13 +118,6 @@ export class ProviderControllerBase {
         createdAt: true,
         currency: true,
         dateFormat: true,
-
-        holidaysId: {
-          select: {
-            id: true,
-          },
-        },
-
         id: true,
         name: true,
         rating: true,
@@ -184,13 +162,6 @@ export class ProviderControllerBase {
         createdAt: true,
         currency: true,
         dateFormat: true,
-
-        holidaysId: {
-          select: {
-            id: true,
-          },
-        },
-
         id: true,
         name: true,
         rating: true,
@@ -251,26 +222,11 @@ export class ProviderControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: {
-          ...data,
-
-          holidaysId: data.holidaysId
-            ? {
-                connect: data.holidaysId,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
           createdAt: true,
           currency: true,
           dateFormat: true,
-
-          holidaysId: {
-            select: {
-              id: true,
-            },
-          },
-
           id: true,
           name: true,
           rating: true,
@@ -316,13 +272,6 @@ export class ProviderControllerBase {
           createdAt: true,
           currency: true,
           dateFormat: true,
-
-          holidaysId: {
-            select: {
-              id: true,
-            },
-          },
-
           id: true,
           name: true,
           rating: true,
@@ -349,55 +298,42 @@ export class ProviderControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Get("/:id/productionsInProviders")
+  @common.Get("/:id/holidays")
   @nestAccessControl.UseRoles({
     resource: "Provider",
     action: "read",
     possession: "any",
   })
   @swagger.ApiQuery({
-    type: () => ProductionWhereInput,
+    type: () => HolidayWhereInput,
     style: "deepObject",
     explode: true,
   })
-  async findManyProductionsInProviders(
+  async findManyHolidays(
     @common.Req() request: Request,
     @common.Param() params: ProviderWhereUniqueInput,
     @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<Production[]> {
-    const query: ProductionWhereInput = request.query;
+  ): Promise<Holiday[]> {
+    const query: HolidayWhereInput = request.query;
     const permission = this.rolesBuilder.permission({
       role: userRoles,
       action: "read",
       possession: "any",
-      resource: "Production",
+      resource: "Holiday",
     });
-    const results = await this.service.findProductionsInProviders(params.id, {
+    const results = await this.service.findHolidays(params.id, {
       where: query,
       select: {
         createdAt: true,
-        discomformity: true,
+        day: true,
         id: true,
 
-        orderId: {
+        provider: {
           select: {
             id: true,
           },
         },
 
-        partId: {
-          select: {
-            id: true,
-          },
-        },
-
-        providerId: {
-          select: {
-            id: true,
-          },
-        },
-
-        status: true,
         updatedAt: true,
       },
     });
@@ -409,19 +345,19 @@ export class ProviderControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Post("/:id/productionsInProviders")
+  @common.Post("/:id/holidays")
   @nestAccessControl.UseRoles({
     resource: "Provider",
     action: "update",
     possession: "any",
   })
-  async createProductionsInProviders(
+  async createHolidays(
     @common.Param() params: ProviderWhereUniqueInput,
     @common.Body() body: ProviderWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      productionsInProviders: {
+      holidays: {
         connect: body,
       },
     };
@@ -454,19 +390,19 @@ export class ProviderControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Patch("/:id/productionsInProviders")
+  @common.Patch("/:id/holidays")
   @nestAccessControl.UseRoles({
     resource: "Provider",
     action: "update",
     possession: "any",
   })
-  async updateProductionsInProviders(
+  async updateHolidays(
     @common.Param() params: ProviderWhereUniqueInput,
     @common.Body() body: ProviderWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      productionsInProviders: {
+      holidays: {
         set: body,
       },
     };
@@ -499,19 +435,19 @@ export class ProviderControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Delete("/:id/productionsInProviders")
+  @common.Delete("/:id/holidays")
   @nestAccessControl.UseRoles({
     resource: "Provider",
     action: "update",
     possession: "any",
   })
-  async deleteProductionsInProviders(
+  async deleteHolidays(
     @common.Param() params: ProviderWhereUniqueInput,
     @common.Body() body: ProviderWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      productionsInProviders: {
+      holidays: {
         disconnect: body,
       },
     };
@@ -544,7 +480,7 @@ export class ProviderControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Get("/:id/quoteItemsInProviders")
+  @common.Get("/:id/quoteItems")
   @nestAccessControl.UseRoles({
     resource: "Provider",
     action: "read",
@@ -555,7 +491,7 @@ export class ProviderControllerBase {
     style: "deepObject",
     explode: true,
   })
-  async findManyQuoteItemsInProviders(
+  async findManyQuoteItems(
     @common.Req() request: Request,
     @common.Param() params: ProviderWhereUniqueInput,
     @nestAccessControl.UserRoles() userRoles: string[]
@@ -567,7 +503,7 @@ export class ProviderControllerBase {
       possession: "any",
       resource: "QuoteItem",
     });
-    const results = await this.service.findQuoteItemsInProviders(params.id, {
+    const results = await this.service.findQuoteItems(params.id, {
       where: query,
       select: {
         basePrices: true,
@@ -576,7 +512,7 @@ export class ProviderControllerBase {
         id: true,
         margins: true,
 
-        partId: {
+        part: {
           select: {
             id: true,
           },
@@ -585,7 +521,7 @@ export class ProviderControllerBase {
         prices: true,
         productionDays: true,
 
-        providerId: {
+        provider: {
           select: {
             id: true,
           },
@@ -604,19 +540,19 @@ export class ProviderControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Post("/:id/quoteItemsInProviders")
+  @common.Post("/:id/quoteItems")
   @nestAccessControl.UseRoles({
     resource: "Provider",
     action: "update",
     possession: "any",
   })
-  async createQuoteItemsInProviders(
+  async createQuoteItems(
     @common.Param() params: ProviderWhereUniqueInput,
     @common.Body() body: ProviderWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      quoteItemsInProviders: {
+      quoteItems: {
         connect: body,
       },
     };
@@ -649,19 +585,19 @@ export class ProviderControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Patch("/:id/quoteItemsInProviders")
+  @common.Patch("/:id/quoteItems")
   @nestAccessControl.UseRoles({
     resource: "Provider",
     action: "update",
     possession: "any",
   })
-  async updateQuoteItemsInProviders(
+  async updateQuoteItems(
     @common.Param() params: ProviderWhereUniqueInput,
     @common.Body() body: ProviderWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      quoteItemsInProviders: {
+      quoteItems: {
         set: body,
       },
     };
@@ -694,19 +630,19 @@ export class ProviderControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Delete("/:id/quoteItemsInProviders")
+  @common.Delete("/:id/quoteItems")
   @nestAccessControl.UseRoles({
     resource: "Provider",
     action: "update",
     possession: "any",
   })
-  async deleteQuoteItemsInProviders(
+  async deleteQuoteItems(
     @common.Param() params: ProviderWhereUniqueInput,
     @common.Body() body: ProviderWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      quoteItemsInProviders: {
+      quoteItems: {
         disconnect: body,
       },
     };
@@ -739,7 +675,7 @@ export class ProviderControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Get("/:id/quotesInProviders")
+  @common.Get("/:id/quotes")
   @nestAccessControl.UseRoles({
     resource: "Provider",
     action: "read",
@@ -750,7 +686,7 @@ export class ProviderControllerBase {
     style: "deepObject",
     explode: true,
   })
-  async findManyQuotesInProviders(
+  async findManyQuotes(
     @common.Req() request: Request,
     @common.Param() params: ProviderWhereUniqueInput,
     @nestAccessControl.UserRoles() userRoles: string[]
@@ -762,10 +698,10 @@ export class ProviderControllerBase {
       possession: "any",
       resource: "Quote",
     });
-    const results = await this.service.findQuotesInProviders(params.id, {
+    const results = await this.service.findQuotes(params.id, {
       where: query,
       select: {
-        accountId: {
+        account: {
           select: {
             id: true,
           },
@@ -775,7 +711,7 @@ export class ProviderControllerBase {
         createdAt: true,
         id: true,
 
-        providerId: {
+        provider: {
           select: {
             id: true,
           },
@@ -793,19 +729,19 @@ export class ProviderControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Post("/:id/quotesInProviders")
+  @common.Post("/:id/quotes")
   @nestAccessControl.UseRoles({
     resource: "Provider",
     action: "update",
     possession: "any",
   })
-  async createQuotesInProviders(
+  async createQuotes(
     @common.Param() params: ProviderWhereUniqueInput,
     @common.Body() body: ProviderWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      quotesInProviders: {
+      quotes: {
         connect: body,
       },
     };
@@ -838,19 +774,19 @@ export class ProviderControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Patch("/:id/quotesInProviders")
+  @common.Patch("/:id/quotes")
   @nestAccessControl.UseRoles({
     resource: "Provider",
     action: "update",
     possession: "any",
   })
-  async updateQuotesInProviders(
+  async updateQuotes(
     @common.Param() params: ProviderWhereUniqueInput,
     @common.Body() body: ProviderWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      quotesInProviders: {
+      quotes: {
         set: body,
       },
     };
@@ -883,19 +819,19 @@ export class ProviderControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Delete("/:id/quotesInProviders")
+  @common.Delete("/:id/quotes")
   @nestAccessControl.UseRoles({
     resource: "Provider",
     action: "update",
     possession: "any",
   })
-  async deleteQuotesInProviders(
+  async deleteQuotes(
     @common.Param() params: ProviderWhereUniqueInput,
     @common.Body() body: ProviderWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      quotesInProviders: {
+      quotes: {
         disconnect: body,
       },
     };

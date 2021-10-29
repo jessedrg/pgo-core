@@ -1,10 +1,8 @@
-import { AccountWhereUniqueInput } from "../account/AccountWhereUniqueInput";
-import { OrderWhereUniqueInput } from "../order/OrderWhereUniqueInput";
+import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
 
 export type PaymentUpdateInput = {
-  accountId?: AccountWhereUniqueInput | null;
-  orderId?: OrderWhereUniqueInput | null;
   status?: "pending" | "completed" | "rejected" | null;
   transactionId?: string | null;
   transactionUserId?: string | null;
+  user?: UserWhereUniqueInput | null;
 };

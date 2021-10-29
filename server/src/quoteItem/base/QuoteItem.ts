@@ -71,7 +71,7 @@ class QuoteItem {
   @ValidateNested()
   @Type(() => Part)
   @IsOptional()
-  partId?: Part | null;
+  part?: Part | null;
 
   @ApiProperty({
     required: false,
@@ -102,7 +102,7 @@ class QuoteItem {
   @ValidateNested()
   @Type(() => Provider)
   @IsOptional()
-  providerId?: Provider | null;
+  provider?: Provider | null;
 
   @ApiProperty({
     required: false,

@@ -24,7 +24,7 @@ export const PartOnShapeList = (props: ListProps): React.ReactElement => {
         <TextField label="did" source="did" />
         <TextField label="eid" source="eid" />
         <TextField label="ID" source="id" />
-        <ReferenceField label="partId" source="part.id" reference="Part">
+        <ReferenceField label="part" source="part.id" reference="Part">
           <TextField source={PART_TITLE_FIELD} />
         </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />

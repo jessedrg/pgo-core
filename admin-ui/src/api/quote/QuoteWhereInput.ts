@@ -4,8 +4,8 @@ import { StringFilter } from "../../util/StringFilter";
 import { ProviderWhereUniqueInput } from "../provider/ProviderWhereUniqueInput";
 
 export type QuoteWhereInput = {
-  accountId?: AccountWhereUniqueInput;
+  account?: AccountWhereUniqueInput;
   completedAt?: DateTimeNullableFilter;
   id?: StringFilter;
-  providerId?: ProviderWhereUniqueInput;
+  provider?: ProviderWhereUniqueInput;
 };

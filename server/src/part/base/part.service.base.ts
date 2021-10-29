@@ -3,14 +3,13 @@ import { PrismaService } from "nestjs-prisma";
 import {
   Prisma,
   Part,
-  Offer,
   PartConfiguration,
-  OrderItem,
-  ProductionItem,
   PartMessage,
   PartOnShape,
-  Production,
+  ProductionItem,
   QuoteItem,
+  Offer,
+  Quote,
 } from "@prisma/client";
 
 export class PartServiceBase {
@@ -48,18 +47,7 @@ export class PartServiceBase {
     return this.prisma.part.delete(args);
   }
 
-  async findOffersInPart(
-    parentId: string,
-    args: Prisma.OfferFindManyArgs
-  ): Promise<Offer[]> {
-    return this.prisma.part
-      .findUnique({
-        where: { id: parentId },
-      })
-      .offersInPart(args);
-  }
-
-  async findPart(
+  async findPartConfigurations(
     parentId: string,
     args: Prisma.PartConfigurationFindManyArgs
   ): Promise<PartConfiguration[]> {
@@ -67,32 +55,10 @@ export class PartServiceBase {
       .findUnique({
         where: { id: parentId },
       })
-      .part(args);
+      .partConfigurations(args);
   }
 
-  async findPartInOrderItem(
-    parentId: string,
-    args: Prisma.OrderItemFindManyArgs
-  ): Promise<OrderItem[]> {
-    return this.prisma.part
-      .findUnique({
-        where: { id: parentId },
-      })
-      .partInOrderItem(args);
-  }
-
-  async findPartInProduction(
-    parentId: string,
-    args: Prisma.ProductionItemFindManyArgs
-  ): Promise<ProductionItem[]> {
-    return this.prisma.part
-      .findUnique({
-        where: { id: parentId },
-      })
-      .partInProduction(args);
-  }
-
-  async findPartMessagesInPart(
+  async findPartMessages(
     parentId: string,
     args: Prisma.PartMessageFindManyArgs
   ): Promise<PartMessage[]> {
@@ -100,10 +66,10 @@ export class PartServiceBase {
       .findUnique({
         where: { id: parentId },
       })
-      .partMessagesInPart(args);
+      .partMessages(args);
   }
 
-  async findPartOnShape(
+  async findPartOnShapes(
     parentId: string,
     args: Prisma.PartOnShapeFindManyArgs
   ): Promise<PartOnShape[]> {
@@ -111,21 +77,21 @@ export class PartServiceBase {
       .findUnique({
         where: { id: parentId },
       })
-      .partOnShape(args);
+      .partOnShapes(args);
   }
 
-  async findProductionsInParts(
+  async findProductionItems(
     parentId: string,
-    args: Prisma.ProductionFindManyArgs
-  ): Promise<Production[]> {
+    args: Prisma.ProductionItemFindManyArgs
+  ): Promise<ProductionItem[]> {
     return this.prisma.part
       .findUnique({
         where: { id: parentId },
       })
-      .productionsInParts(args);
+      .productionItems(args);
   }
 
-  async findQuoteItem(
+  async findQuoteItems(
     parentId: string,
     args: Prisma.QuoteItemFindManyArgs
   ): Promise<QuoteItem[]> {
@@ -133,6 +99,30 @@ export class PartServiceBase {
       .findUnique({
         where: { id: parentId },
       })
-      .quoteItem(args);
+      .quoteItems(args);
+  }
+
+  async getOffer(parentId: string): Promise<Offer | null> {
+    return this.prisma.part
+      .findUnique({
+        where: { id: parentId },
+      })
+      .offer();
+  }
+
+  async getPartonshape(parentId: string): Promise<PartOnShape | null> {
+    return this.prisma.part
+      .findUnique({
+        where: { id: parentId },
+      })
+      .partonshape();
+  }
+
+  async getQuote(parentId: string): Promise<Quote | null> {
+    return this.prisma.part
+      .findUnique({
+        where: { id: parentId },
+      })
+      .quote();
   }
 }

@@ -1,27 +1,13 @@
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { AccountWhereUniqueInput } from "../../account/base/AccountWhereUniqueInput";
-import { ValidateNested, IsOptional, IsEnum } from "class-validator";
-import { Type } from "class-transformer";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { Type } from "class-transformer";
+import { IsOptional, IsEnum } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
-import { PartWhereUniqueInput } from "../../part/base/PartWhereUniqueInput";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { EnumOfferStatus } from "./EnumOfferStatus";
 @InputType()
 class OfferWhereInput {
-  @ApiProperty({
-    required: false,
-    type: () => AccountWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => AccountWhereUniqueInput)
-  @IsOptional()
-  @Field(() => AccountWhereUniqueInput, {
-    nullable: true,
-  })
-  accountId?: AccountWhereUniqueInput;
-
   @ApiProperty({
     required: false,
     type: StringNullableFilter,
@@ -43,18 +29,6 @@ class OfferWhereInput {
     nullable: true,
   })
   id?: StringFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => PartWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => PartWhereUniqueInput)
-  @IsOptional()
-  @Field(() => PartWhereUniqueInput, {
-    nullable: true,
-  })
-  partId?: PartWhereUniqueInput;
 
   @ApiProperty({
     required: false,

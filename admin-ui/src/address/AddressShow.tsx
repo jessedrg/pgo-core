@@ -12,7 +12,6 @@ import {
 } from "react-admin";
 
 import { ADDRESS_TITLE_FIELD } from "./AddressTitle";
-import { ACCOUNTPAYMENTMETHOD_TITLE_FIELD } from "../accountPaymentMethod/AccountPaymentMethodTitle";
 
 export const AddressShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -40,8 +39,9 @@ export const AddressShow = (props: ShowProps): React.ReactElement => {
           label="Organizations"
         >
           <Datagrid rowClick="show">
+            <TextField label="addres" source="addres" />
             <ReferenceField
-              label="contactAdressId"
+              label="address"
               source="address.id"
               reference="Address"
             >
@@ -50,13 +50,6 @@ export const AddressShow = (props: ShowProps): React.ReactElement => {
             <DateField source="createdAt" label="Created At" />
             <TextField label="ID" source="id" />
             <TextField label="name" source="name" />
-            <ReferenceField
-              label="paymenMethodId"
-              source="accountpaymentmethod.id"
-              reference="AccountPaymentMethod"
-            >
-              <TextField source={ACCOUNTPAYMENTMETHOD_TITLE_FIELD} />
-            </ReferenceField>
             <DateField source="updatedAt" label="Updated At" />
           </Datagrid>
         </ReferenceManyField>

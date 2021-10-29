@@ -10,7 +10,6 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { Order } from "../../order/base/Order";
-import { Part } from "../../part/base/Part";
 @ObjectType()
 class OrderItem {
   @ApiProperty({
@@ -36,16 +35,7 @@ class OrderItem {
   @ValidateNested()
   @Type(() => Order)
   @IsOptional()
-  orderId?: Order | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => Part,
-  })
-  @ValidateNested()
-  @Type(() => Part)
-  @IsOptional()
-  partId?: Part | null;
+  order?: Order | null;
 
   @ApiProperty({
     required: false,

@@ -36,27 +36,27 @@ export class PartMessageServiceBase {
     return this.prisma.partMessage.delete(args);
   }
 
-  async getPartId(parentId: string): Promise<Part | null> {
+  async getPart(parentId: string): Promise<Part | null> {
     return this.prisma.partMessage
       .findUnique({
         where: { id: parentId },
       })
-      .partId();
+      .part();
   }
 
-  async getRecieverId(parentId: string): Promise<Account | null> {
+  async getReciever(parentId: string): Promise<Account | null> {
     return this.prisma.partMessage
       .findUnique({
         where: { id: parentId },
       })
-      .recieverId();
+      .reciever();
   }
 
-  async getSenderId(parentId: string): Promise<Account | null> {
+  async getSender(parentId: string): Promise<Account | null> {
     return this.prisma.partMessage
       .findUnique({
         where: { id: parentId },
       })
-      .senderId();
+      .sender();
   }
 }

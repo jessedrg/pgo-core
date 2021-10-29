@@ -1,8 +1,6 @@
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, ValidateNested } from "class-validator";
-import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
-import { Type } from "class-transformer";
+import { IsString, IsOptional } from "class-validator";
 @InputType()
 class SessionUpdateInput {
   @ApiProperty({
@@ -26,17 +24,5 @@ class SessionUpdateInput {
     nullable: true,
   })
   sessionToken?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => UserWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => UserWhereUniqueInput)
-  @IsOptional()
-  @Field(() => UserWhereUniqueInput, {
-    nullable: true,
-  })
-  userId?: UserWhereUniqueInput | null;
 }
 export { SessionUpdateInput };

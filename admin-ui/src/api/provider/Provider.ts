@@ -1,5 +1,4 @@
 import { Holiday } from "../holiday/Holiday";
-import { Production } from "../production/Production";
 import { QuoteItem } from "../quoteItem/QuoteItem";
 import { Quote } from "../quote/Quote";
 import { JsonValue } from "type-fest";
@@ -8,12 +7,11 @@ export type Provider = {
   createdAt: Date;
   currency: string | null;
   dateFormat: string | null;
-  holidaysId?: Holiday | null;
+  holidays?: Array<Holiday>;
   id: string;
   name: string | null;
-  productionsInProviders?: Array<Production>;
-  quoteItemsInProviders?: Array<QuoteItem>;
-  quotesInProviders?: Array<Quote>;
+  quoteItems?: Array<QuoteItem>;
+  quotes?: Array<Quote>;
   rating: number | null;
   ratingData: JsonValue | null;
   shippmentDates: number | null;

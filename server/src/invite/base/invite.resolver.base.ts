@@ -14,7 +14,6 @@ import { DeleteInviteArgs } from "./DeleteInviteArgs";
 import { InviteFindManyArgs } from "./InviteFindManyArgs";
 import { InviteFindUniqueArgs } from "./InviteFindUniqueArgs";
 import { Invite } from "./Invite";
-import { Account } from "../../account/base/Account";
 import { InviteService } from "../invite.service";
 
 @graphql.Resolver(() => Invite)
@@ -121,15 +120,7 @@ export class InviteResolverBase {
     // @ts-ignore
     return await this.service.create({
       ...args,
-      data: {
-        ...args.data,
-
-        accountId: args.data.accountId
-          ? {
-              connect: args.data.accountId,
-            }
-          : undefined,
-      },
+      data: args.data,
     });
   }
 
@@ -168,15 +159,7 @@ export class InviteResolverBase {
       // @ts-ignore
       return await this.service.update({
         ...args,
-        data: {
-          ...args.data,
-
-          accountId: args.data.accountId
-            ? {
-                connect: args.data.accountId,
-              }
-            : undefined,
-        },
+        data: args.data,
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -208,29 +191,5 @@ export class InviteResolverBase {
       }
       throw error;
     }
-  }
-
-  @graphql.ResolveField(() => Account, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "Invite",
-    action: "read",
-    possession: "any",
-  })
-  async accountId(
-    @graphql.Parent() parent: Invite,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Account | null> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Account",
-    });
-    const result = await this.service.getAccountId(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return permission.filter(result);
   }
 }

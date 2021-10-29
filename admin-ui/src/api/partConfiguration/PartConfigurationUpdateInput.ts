@@ -6,7 +6,7 @@ export type PartConfigurationUpdateInput = {
   hardness?: string | null;
   material?: string | null;
   materialType?: string | null;
-  partId?: PartWhereUniqueInput | null;
+  part?: PartWhereUniqueInput | null;
   tech?: string | null;
   tolerance?: number | null;
   weight?: number | null;

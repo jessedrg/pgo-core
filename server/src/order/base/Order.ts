@@ -1,38 +1,28 @@
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { Account } from "../../account/base/Account";
 
 import {
-  ValidateNested,
-  IsOptional,
   IsJSON,
+  IsOptional,
   IsString,
   IsDate,
   IsInt,
+  ValidateNested,
   IsEnum,
   IsNumber,
 } from "class-validator";
 
-import { Type } from "class-transformer";
 import { GraphQLJSONObject } from "graphql-type-json";
 import { JsonValue } from "type-fest";
+import { Type } from "class-transformer";
 import { OrderItem } from "../../orderItem/base/OrderItem";
-import { Payment } from "../../payment/base/Payment";
 import { Organization } from "../../organization/base/Organization";
+import { Payment } from "../../payment/base/Payment";
 import { Production } from "../../production/base/Production";
 import { Shipment } from "../../shipment/base/Shipment";
 import { EnumOrderState } from "./EnumOrderState";
 @ObjectType()
 class Order {
-  @ApiProperty({
-    required: false,
-    type: () => Account,
-  })
-  @ValidateNested()
-  @Type(() => Account)
-  @IsOptional()
-  acountId?: Account | null;
-
   @ApiProperty({
     required: false,
   })
@@ -109,16 +99,7 @@ class Order {
   @ValidateNested()
   @Type(() => OrderItem)
   @IsOptional()
-  orderInOrderItem?: Array<OrderItem>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Payment],
-  })
-  @ValidateNested()
-  @Type(() => Payment)
-  @IsOptional()
-  orderInPayment?: Array<Payment>;
+  orderItems?: Array<OrderItem>;
 
   @ApiProperty({
     required: false,
@@ -127,7 +108,16 @@ class Order {
   @ValidateNested()
   @Type(() => Organization)
   @IsOptional()
-  organizationId?: Organization | null;
+  organization?: Organization | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Payment,
+  })
+  @ValidateNested()
+  @Type(() => Payment)
+  @IsOptional()
+  payment?: Payment | null;
 
   @ApiProperty({
     required: false,
@@ -136,7 +126,7 @@ class Order {
   @ValidateNested()
   @Type(() => Production)
   @IsOptional()
-  productionsInOrders?: Array<Production>;
+  productions?: Array<Production>;
 
   @ApiProperty({
     required: false,
@@ -145,7 +135,7 @@ class Order {
   @ValidateNested()
   @Type(() => Shipment)
   @IsOptional()
-  shipmentId?: Shipment | null;
+  shipment?: Shipment | null;
 
   @ApiProperty({
     required: false,

@@ -15,7 +15,6 @@ import { ProductionItemFindManyArgs } from "./ProductionItemFindManyArgs";
 import { ProductionItemFindUniqueArgs } from "./ProductionItemFindUniqueArgs";
 import { ProductionItem } from "./ProductionItem";
 import { Part } from "../../part/base/Part";
-import { Production } from "../../production/base/Production";
 import { ProductionItemService } from "../productionItem.service";
 
 @graphql.Resolver(() => ProductionItem)
@@ -125,15 +124,9 @@ export class ProductionItemResolverBase {
       data: {
         ...args.data,
 
-        partId: args.data.partId
+        part: args.data.part
           ? {
-              connect: args.data.partId,
-            }
-          : undefined,
-
-        productionId: args.data.productionId
-          ? {
-              connect: args.data.productionId,
+              connect: args.data.part,
             }
           : undefined,
       },
@@ -178,15 +171,9 @@ export class ProductionItemResolverBase {
         data: {
           ...args.data,
 
-          partId: args.data.partId
+          part: args.data.part
             ? {
-                connect: args.data.partId,
-              }
-            : undefined,
-
-          productionId: args.data.productionId
-            ? {
-                connect: args.data.productionId,
+                connect: args.data.part,
               }
             : undefined,
         },
@@ -229,7 +216,7 @@ export class ProductionItemResolverBase {
     action: "read",
     possession: "any",
   })
-  async partId(
+  async part(
     @graphql.Parent() parent: ProductionItem,
     @gqlUserRoles.UserRoles() userRoles: string[]
   ): Promise<Part | null> {
@@ -239,31 +226,7 @@ export class ProductionItemResolverBase {
       possession: "any",
       resource: "Part",
     });
-    const result = await this.service.getPartId(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return permission.filter(result);
-  }
-
-  @graphql.ResolveField(() => Production, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "ProductionItem",
-    action: "read",
-    possession: "any",
-  })
-  async productionId(
-    @graphql.Parent() parent: ProductionItem,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Production | null> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Production",
-    });
-    const result = await this.service.getProductionId(parent.id);
+    const result = await this.service.getPart(parent.id);
 
     if (!result) {
       return null;

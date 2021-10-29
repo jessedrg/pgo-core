@@ -125,21 +125,21 @@ export class PartMessageResolverBase {
       data: {
         ...args.data,
 
-        partId: args.data.partId
+        part: args.data.part
           ? {
-              connect: args.data.partId,
+              connect: args.data.part,
             }
           : undefined,
 
-        recieverId: args.data.recieverId
+        reciever: args.data.reciever
           ? {
-              connect: args.data.recieverId,
+              connect: args.data.reciever,
             }
           : undefined,
 
-        senderId: args.data.senderId
+        sender: args.data.sender
           ? {
-              connect: args.data.senderId,
+              connect: args.data.sender,
             }
           : undefined,
       },
@@ -184,21 +184,21 @@ export class PartMessageResolverBase {
         data: {
           ...args.data,
 
-          partId: args.data.partId
+          part: args.data.part
             ? {
-                connect: args.data.partId,
+                connect: args.data.part,
               }
             : undefined,
 
-          recieverId: args.data.recieverId
+          reciever: args.data.reciever
             ? {
-                connect: args.data.recieverId,
+                connect: args.data.reciever,
               }
             : undefined,
 
-          senderId: args.data.senderId
+          sender: args.data.sender
             ? {
-                connect: args.data.senderId,
+                connect: args.data.sender,
               }
             : undefined,
         },
@@ -241,7 +241,7 @@ export class PartMessageResolverBase {
     action: "read",
     possession: "any",
   })
-  async partId(
+  async part(
     @graphql.Parent() parent: PartMessage,
     @gqlUserRoles.UserRoles() userRoles: string[]
   ): Promise<Part | null> {
@@ -251,7 +251,7 @@ export class PartMessageResolverBase {
       possession: "any",
       resource: "Part",
     });
-    const result = await this.service.getPartId(parent.id);
+    const result = await this.service.getPart(parent.id);
 
     if (!result) {
       return null;
@@ -265,7 +265,7 @@ export class PartMessageResolverBase {
     action: "read",
     possession: "any",
   })
-  async recieverId(
+  async reciever(
     @graphql.Parent() parent: PartMessage,
     @gqlUserRoles.UserRoles() userRoles: string[]
   ): Promise<Account | null> {
@@ -275,7 +275,7 @@ export class PartMessageResolverBase {
       possession: "any",
       resource: "Account",
     });
-    const result = await this.service.getRecieverId(parent.id);
+    const result = await this.service.getReciever(parent.id);
 
     if (!result) {
       return null;
@@ -289,7 +289,7 @@ export class PartMessageResolverBase {
     action: "read",
     possession: "any",
   })
-  async senderId(
+  async sender(
     @graphql.Parent() parent: PartMessage,
     @gqlUserRoles.UserRoles() userRoles: string[]
   ): Promise<Account | null> {
@@ -299,7 +299,7 @@ export class PartMessageResolverBase {
       possession: "any",
       resource: "Account",
     });
-    const result = await this.service.getSenderId(parent.id);
+    const result = await this.service.getSender(parent.id);
 
     if (!result) {
       return null;

@@ -1,16 +1,16 @@
 import { Account } from "../account/Account";
 import { Organization } from "../organization/Organization";
-import { Session } from "../session/Session";
+import { Payment } from "../payment/Payment";
 
 export type User = {
-  accountId?: Account | null;
+  account?: Account | null;
   createdAt: Date;
   firstName: string | null;
   id: string;
   lastName: string | null;
-  organizationId?: Organization | null;
+  organization?: Organization | null;
+  payments?: Array<Payment>;
   roles: Array<string>;
-  sessionsInUser?: Array<Session>;
   updatedAt: Date;
   username: string;
 };

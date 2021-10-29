@@ -36,11 +36,22 @@ export class PartOnShapeServiceBase {
     return this.prisma.partOnShape.delete(args);
   }
 
-  async getPartId(parentId: string): Promise<Part | null> {
+  async findParts(
+    parentId: string,
+    args: Prisma.PartFindManyArgs
+  ): Promise<Part[]> {
     return this.prisma.partOnShape
       .findUnique({
         where: { id: parentId },
       })
-      .partId();
+      .parts(args);
+  }
+
+  async getPart(parentId: string): Promise<Part | null> {
+    return this.prisma.partOnShape
+      .findUnique({
+        where: { id: parentId },
+      })
+      .part();
   }
 }

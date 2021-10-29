@@ -9,7 +9,6 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { Part } from "../../part/base/Part";
-import { Production } from "../../production/base/Production";
 @ObjectType()
 class ProductionItem {
   @ApiProperty({
@@ -35,16 +34,7 @@ class ProductionItem {
   @ValidateNested()
   @Type(() => Part)
   @IsOptional()
-  partId?: Part | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => Production,
-  })
-  @ValidateNested()
-  @Type(() => Production)
-  @IsOptional()
-  productionId?: Production | null;
+  part?: Part | null;
 
   @ApiProperty({
     required: false,

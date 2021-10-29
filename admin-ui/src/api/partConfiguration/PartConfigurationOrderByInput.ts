@@ -8,7 +8,7 @@ export type PartConfigurationOrderByInput = {
   id?: SortOrder;
   material?: SortOrder;
   materialType?: SortOrder;
-  partIdId?: SortOrder;
+  partId?: SortOrder;
   tech?: SortOrder;
   tolerance?: SortOrder;
   updatedAt?: SortOrder;

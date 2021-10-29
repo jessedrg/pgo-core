@@ -1,5 +1,5 @@
 import { PrismaService } from "nestjs-prisma";
-import { Prisma, Quote, Account, Provider } from "@prisma/client";
+import { Prisma, Quote, Part, Account, Provider } from "@prisma/client";
 
 export class QuoteServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -36,19 +36,30 @@ export class QuoteServiceBase {
     return this.prisma.quote.delete(args);
   }
 
-  async getAccountId(parentId: string): Promise<Account | null> {
+  async findParts(
+    parentId: string,
+    args: Prisma.PartFindManyArgs
+  ): Promise<Part[]> {
     return this.prisma.quote
       .findUnique({
         where: { id: parentId },
       })
-      .accountId();
+      .parts(args);
   }
 
-  async getProviderId(parentId: string): Promise<Provider | null> {
+  async getAccount(parentId: string): Promise<Account | null> {
     return this.prisma.quote
       .findUnique({
         where: { id: parentId },
       })
-      .providerId();
+      .account();
+  }
+
+  async getProvider(parentId: string): Promise<Provider | null> {
+    return this.prisma.quote
+      .findUnique({
+        where: { id: parentId },
+      })
+      .provider();
   }
 }

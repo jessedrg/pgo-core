@@ -16,16 +16,6 @@ import { AccountFindUniqueArgs } from "./AccountFindUniqueArgs";
 import { Account } from "./Account";
 import { OfferFindManyArgs } from "../../offer/base/OfferFindManyArgs";
 import { Offer } from "../../offer/base/Offer";
-import { OrderFindManyArgs } from "../../order/base/OrderFindManyArgs";
-import { Order } from "../../order/base/Order";
-import { AgentFindManyArgs } from "../../agent/base/AgentFindManyArgs";
-import { Agent } from "../../agent/base/Agent";
-import { PaymentFindManyArgs } from "../../payment/base/PaymentFindManyArgs";
-import { Payment } from "../../payment/base/Payment";
-import { AccountPaymentMethodFindManyArgs } from "../../accountPaymentMethod/base/AccountPaymentMethodFindManyArgs";
-import { AccountPaymentMethod } from "../../accountPaymentMethod/base/AccountPaymentMethod";
-import { InviteFindManyArgs } from "../../invite/base/InviteFindManyArgs";
-import { Invite } from "../../invite/base/Invite";
 import { PartMessageFindManyArgs } from "../../partMessage/base/PartMessageFindManyArgs";
 import { PartMessage } from "../../partMessage/base/PartMessage";
 import { QuoteFindManyArgs } from "../../quote/base/QuoteFindManyArgs";
@@ -217,7 +207,7 @@ export class AccountResolverBase {
     action: "read",
     possession: "any",
   })
-  async account(
+  async offers(
     @graphql.Parent() parent: Account,
     @graphql.Args() args: OfferFindManyArgs,
     @gqlUserRoles.UserRoles() userRoles: string[]
@@ -228,140 +218,7 @@ export class AccountResolverBase {
       possession: "any",
       resource: "Offer",
     });
-    const results = await this.service.findAccount(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results.map((result) => permission.filter(result));
-  }
-
-  @graphql.ResolveField(() => [Order])
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "read",
-    possession: "any",
-  })
-  async accountIdInOrder(
-    @graphql.Parent() parent: Account,
-    @graphql.Args() args: OrderFindManyArgs,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Order[]> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Order",
-    });
-    const results = await this.service.findAccountIdInOrder(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results.map((result) => permission.filter(result));
-  }
-
-  @graphql.ResolveField(() => [Agent])
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "read",
-    possession: "any",
-  })
-  async accountInAgent(
-    @graphql.Parent() parent: Account,
-    @graphql.Args() args: AgentFindManyArgs,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Agent[]> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Agent",
-    });
-    const results = await this.service.findAccountInAgent(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results.map((result) => permission.filter(result));
-  }
-
-  @graphql.ResolveField(() => [Payment])
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "read",
-    possession: "any",
-  })
-  async accountInPayment(
-    @graphql.Parent() parent: Account,
-    @graphql.Args() args: PaymentFindManyArgs,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Payment[]> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Payment",
-    });
-    const results = await this.service.findAccountInPayment(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results.map((result) => permission.filter(result));
-  }
-
-  @graphql.ResolveField(() => [AccountPaymentMethod])
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "read",
-    possession: "any",
-  })
-  async accountPaymentMethodsInAccount(
-    @graphql.Parent() parent: Account,
-    @graphql.Args() args: AccountPaymentMethodFindManyArgs,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<AccountPaymentMethod[]> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "AccountPaymentMethod",
-    });
-    const results = await this.service.findAccountPaymentMethodsInAccount(
-      parent.id,
-      args
-    );
-
-    if (!results) {
-      return [];
-    }
-
-    return results.map((result) => permission.filter(result));
-  }
-
-  @graphql.ResolveField(() => [Invite])
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "read",
-    possession: "any",
-  })
-  async invitesInAccount(
-    @graphql.Parent() parent: Account,
-    @graphql.Args() args: InviteFindManyArgs,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Invite[]> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Invite",
-    });
-    const results = await this.service.findInvitesInAccount(parent.id, args);
+    const results = await this.service.findOffers(parent.id, args);
 
     if (!results) {
       return [];
@@ -376,7 +233,7 @@ export class AccountResolverBase {
     action: "read",
     possession: "any",
   })
-  async partMessagesInReciever(
+  async partMessages(
     @graphql.Parent() parent: Account,
     @graphql.Args() args: PartMessageFindManyArgs,
     @gqlUserRoles.UserRoles() userRoles: string[]
@@ -387,10 +244,7 @@ export class AccountResolverBase {
       possession: "any",
       resource: "PartMessage",
     });
-    const results = await this.service.findPartMessagesInReciever(
-      parent.id,
-      args
-    );
+    const results = await this.service.findPartMessages(parent.id, args);
 
     if (!results) {
       return [];
@@ -405,7 +259,7 @@ export class AccountResolverBase {
     action: "read",
     possession: "any",
   })
-  async partMessagesInSender(
+  async partSender(
     @graphql.Parent() parent: Account,
     @graphql.Args() args: PartMessageFindManyArgs,
     @gqlUserRoles.UserRoles() userRoles: string[]
@@ -416,10 +270,7 @@ export class AccountResolverBase {
       possession: "any",
       resource: "PartMessage",
     });
-    const results = await this.service.findPartMessagesInSender(
-      parent.id,
-      args
-    );
+    const results = await this.service.findPartSender(parent.id, args);
 
     if (!results) {
       return [];
@@ -434,7 +285,7 @@ export class AccountResolverBase {
     action: "read",
     possession: "any",
   })
-  async quote(
+  async quotes(
     @graphql.Parent() parent: Account,
     @graphql.Args() args: QuoteFindManyArgs,
     @gqlUserRoles.UserRoles() userRoles: string[]
@@ -445,7 +296,7 @@ export class AccountResolverBase {
       possession: "any",
       resource: "Quote",
     });
-    const results = await this.service.findQuote(parent.id, args);
+    const results = await this.service.findQuotes(parent.id, args);
 
     if (!results) {
       return [];
@@ -460,7 +311,7 @@ export class AccountResolverBase {
     action: "read",
     possession: "any",
   })
-  async usersInAccount(
+  async users(
     @graphql.Parent() parent: Account,
     @graphql.Args() args: UserFindManyArgs,
     @gqlUserRoles.UserRoles() userRoles: string[]
@@ -471,7 +322,7 @@ export class AccountResolverBase {
       possession: "any",
       resource: "User",
     });
-    const results = await this.service.findUsersInAccount(parent.id, args);
+    const results = await this.service.findUsers(parent.id, args);
 
     if (!results) {
       return [];

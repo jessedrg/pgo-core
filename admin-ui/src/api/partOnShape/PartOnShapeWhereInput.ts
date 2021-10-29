@@ -6,6 +6,6 @@ export type PartOnShapeWhereInput = {
   did?: StringNullableFilter;
   eid?: StringNullableFilter;
   id?: StringFilter;
-  partId?: PartWhereUniqueInput;
+  part?: PartWhereUniqueInput;
   wid?: StringNullableFilter;
 };

@@ -40,12 +40,12 @@ class Holiday {
 
   @ApiProperty({
     required: false,
-    type: () => [Provider],
+    type: () => Provider,
   })
   @ValidateNested()
   @Type(() => Provider)
   @IsOptional()
-  providersInHolidays?: Array<Provider>;
+  provider?: Provider | null;
 
   @ApiProperty({
     required: true,

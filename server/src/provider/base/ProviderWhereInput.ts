@@ -2,8 +2,7 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
-import { IsOptional, ValidateNested } from "class-validator";
-import { HolidayWhereUniqueInput } from "../../holiday/base/HolidayWhereUniqueInput";
+import { IsOptional } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
 import { FloatNullableFilter } from "../../util/FloatNullableFilter";
 import { JsonNullableFilter } from "../../util/JsonNullableFilter";
@@ -31,18 +30,6 @@ class ProviderWhereInput {
     nullable: true,
   })
   dateFormat?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => HolidayWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => HolidayWhereUniqueInput)
-  @IsOptional()
-  @Field(() => HolidayWhereUniqueInput, {
-    nullable: true,
-  })
-  holidaysId?: HolidayWhereUniqueInput;
 
   @ApiProperty({
     required: false,

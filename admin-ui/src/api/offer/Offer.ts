@@ -2,11 +2,11 @@ import { Account } from "../account/Account";
 import { Part } from "../part/Part";
 
 export type Offer = {
-  accountId?: Account | null;
+  account?: Array<Account>;
   createdAt: Date;
   customNo: string | null;
   id: string;
-  partId?: Part | null;
+  parts?: Array<Part>;
   publishedAt: Date | null;
   status?: "draft" | "pending" | "publish" | "rejected" | null;
   updatedAt: Date;

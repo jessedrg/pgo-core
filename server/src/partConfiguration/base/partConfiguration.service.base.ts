@@ -36,11 +36,11 @@ export class PartConfigurationServiceBase {
     return this.prisma.partConfiguration.delete(args);
   }
 
-  async getPartId(parentId: string): Promise<Part | null> {
+  async getPart(parentId: string): Promise<Part | null> {
     return this.prisma.partConfiguration
       .findUnique({
         where: { id: parentId },
       })
-      .partId();
+      .part();
   }
 }

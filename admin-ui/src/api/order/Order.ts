@@ -1,13 +1,11 @@
-import { Account } from "../account/Account";
 import { JsonValue } from "type-fest";
 import { OrderItem } from "../orderItem/OrderItem";
-import { Payment } from "../payment/Payment";
 import { Organization } from "../organization/Organization";
+import { Payment } from "../payment/Payment";
 import { Production } from "../production/Production";
 import { Shipment } from "../shipment/Shipment";
 
 export type Order = {
-  acountId?: Account | null;
   billingAddress: JsonValue | null;
   comment: string | null;
   createdAt: Date;
@@ -15,11 +13,11 @@ export type Order = {
   estimatedDays: number | null;
   fees: JsonValue | null;
   id: string;
-  orderInOrderItem?: Array<OrderItem>;
-  orderInPayment?: Array<Payment>;
-  organizationId?: Organization | null;
-  productionsInOrders?: Array<Production>;
-  shipmentId?: Shipment | null;
+  orderItems?: Array<OrderItem>;
+  organization?: Organization | null;
+  payment?: Payment | null;
+  productions?: Array<Production>;
+  shipment?: Shipment | null;
   shippingaddress: JsonValue | null;
   state?: Array<
     | "onHold"

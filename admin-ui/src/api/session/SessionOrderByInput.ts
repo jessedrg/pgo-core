@@ -6,5 +6,4 @@ export type SessionOrderByInput = {
   id?: SortOrder;
   sessionToken?: SortOrder;
   updatedAt?: SortOrder;
-  userIdId?: SortOrder;
 };

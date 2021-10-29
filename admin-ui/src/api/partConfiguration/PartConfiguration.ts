@@ -8,7 +8,7 @@ export type PartConfiguration = {
   id: string;
   material: string | null;
   materialType: string | null;
-  partId?: Part | null;
+  part?: Part | null;
   tech: string | null;
   tolerance: number | null;
   updatedAt: Date;

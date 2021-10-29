@@ -4,81 +4,37 @@ import {
   Show,
   SimpleShowLayout,
   ShowProps,
-  ReferenceField,
   TextField,
+  ReferenceField,
   DateField,
   ReferenceManyField,
   Datagrid,
 } from "react-admin";
 
-import { ACCOUNT_TITLE_FIELD } from "../account/AccountTitle";
 import { ORGANIZATION_TITLE_FIELD } from "./OrganizationTitle";
+import { PAYMENT_TITLE_FIELD } from "../payment/PaymentTitle";
 import { SHIPMENT_TITLE_FIELD } from "../shipment/ShipmentTitle";
+import { ACCOUNT_TITLE_FIELD } from "../account/AccountTitle";
 import { ADDRESS_TITLE_FIELD } from "../address/AddressTitle";
-import { ACCOUNTPAYMENTMETHOD_TITLE_FIELD } from "../accountPaymentMethod/AccountPaymentMethodTitle";
 
 export const OrganizationShow = (props: ShowProps): React.ReactElement => {
   return (
     <Show {...props}>
       <SimpleShowLayout>
-        <ReferenceField
-          label="contactAdressId"
-          source="address.id"
-          reference="Address"
-        >
+        <TextField label="addres" source="addres" />
+        <ReferenceField label="address" source="address.id" reference="Address">
           <TextField source={ADDRESS_TITLE_FIELD} />
         </ReferenceField>
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
         <TextField label="name" source="name" />
-        <ReferenceField
-          label="paymenMethodId"
-          source="accountpaymentmethod.id"
-          reference="AccountPaymentMethod"
-        >
-          <TextField source={ACCOUNTPAYMENTMETHOD_TITLE_FIELD} />
-        </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
-        <ReferenceManyField
-          reference="AccountPaymentMethod"
-          target="OrganizationId"
-          label="AccountPaymentMethods"
-        >
-          <Datagrid rowClick="show">
-            <ReferenceField
-              label="accountId"
-              source="account.id"
-              reference="Account"
-            >
-              <TextField source={ACCOUNT_TITLE_FIELD} />
-            </ReferenceField>
-            <DateField source="createdAt" label="Created At" />
-            <TextField label="data" source="data" />
-            <TextField label="ID" source="id" />
-            <ReferenceField
-              label="organizationId"
-              source="organization.id"
-              reference="Organization"
-            >
-              <TextField source={ORGANIZATION_TITLE_FIELD} />
-            </ReferenceField>
-            <TextField label="type" source="type" />
-            <DateField source="updatedAt" label="Updated At" />
-          </Datagrid>
-        </ReferenceManyField>
         <ReferenceManyField
           reference="Order"
           target="OrganizationId"
           label="Orders"
         >
           <Datagrid rowClick="show">
-            <ReferenceField
-              label="accountId"
-              source="account.id"
-              reference="Account"
-            >
-              <TextField source={ACCOUNT_TITLE_FIELD} />
-            </ReferenceField>
             <TextField label="billingAddress" source="billingAddress" />
             <TextField label="comment" source="comment" />
             <DateField source="createdAt" label="Created At" />
@@ -87,14 +43,21 @@ export const OrganizationShow = (props: ShowProps): React.ReactElement => {
             <TextField label="fees" source="fees" />
             <TextField label="ID" source="id" />
             <ReferenceField
-              label="organizationId"
+              label="organization"
               source="organization.id"
               reference="Organization"
             >
               <TextField source={ORGANIZATION_TITLE_FIELD} />
             </ReferenceField>
             <ReferenceField
-              label="shipmentId"
+              label="payment"
+              source="payment.id"
+              reference="Payment"
+            >
+              <TextField source={PAYMENT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="shipment"
               source="shipment.id"
               reference="Shipment"
             >
@@ -115,7 +78,7 @@ export const OrganizationShow = (props: ShowProps): React.ReactElement => {
         >
           <Datagrid rowClick="show">
             <ReferenceField
-              label="accountId"
+              label="account"
               source="account.id"
               reference="Account"
             >
@@ -126,7 +89,7 @@ export const OrganizationShow = (props: ShowProps): React.ReactElement => {
             <TextField label="ID" source="id" />
             <TextField label="Last Name" source="lastName" />
             <ReferenceField
-              label="organizationId"
+              label="organization"
               source="organization.id"
               reference="Organization"
             >

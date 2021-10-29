@@ -37,7 +37,7 @@ class PartOnShapeCreateInput {
   @Field(() => PartWhereUniqueInput, {
     nullable: true,
   })
-  partId?: PartWhereUniqueInput | null;
+  part?: PartWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

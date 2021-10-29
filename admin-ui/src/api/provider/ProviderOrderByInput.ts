@@ -4,7 +4,6 @@ export type ProviderOrderByInput = {
   createdAt?: SortOrder;
   currency?: SortOrder;
   dateFormat?: SortOrder;
-  holidaysIdId?: SortOrder;
   id?: SortOrder;
   name?: SortOrder;
   rating?: SortOrder;
