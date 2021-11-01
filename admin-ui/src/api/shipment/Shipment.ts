@@ -1,4 +1,5 @@
 import { Order } from "../order/Order";
+import { Production } from "../production/Production";
 
 export type Shipment = {
   courier: string | null;
@@ -8,13 +9,13 @@ export type Shipment = {
   deliveredAt: Date | null;
   estimatedAt: Date | null;
   id: string;
-  orders?: Array<Order>;
+  order?: Order | null;
   partial: boolean | null;
-  realtedId: string | null;
-  relatedType: string | null;
+  production?: Production | null;
   shippedAt: Date | null;
   status?: "pending" | "OnTransit" | "delivered" | null;
   tracking: string | null;
   trackingUrl: string | null;
+  type?: "production" | "order" | null;
   updatedAt: Date;
 };

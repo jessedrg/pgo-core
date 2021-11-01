@@ -1,5 +1,4 @@
 import { Account } from "../account/Account";
-import { Organization } from "../organization/Organization";
 import { Payment } from "../payment/Payment";
 
 export type User = {
@@ -8,7 +7,6 @@ export type User = {
   firstName: string | null;
   id: string;
   lastName: string | null;
-  organization?: Organization | null;
   payments?: Array<Payment>;
   roles: Array<string>;
   updatedAt: Date;

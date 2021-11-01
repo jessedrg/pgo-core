@@ -89,10 +89,6 @@ import { InviteList } from "./invite/InviteList";
 import { InviteCreate } from "./invite/InviteCreate";
 import { InviteEdit } from "./invite/InviteEdit";
 import { InviteShow } from "./invite/InviteShow";
-import { SessionList } from "./session/SessionList";
-import { SessionCreate } from "./session/SessionCreate";
-import { SessionEdit } from "./session/SessionEdit";
-import { SessionShow } from "./session/SessionShow";
 import { HolidayList } from "./holiday/HolidayList";
 import { HolidayCreate } from "./holiday/HolidayCreate";
 import { HolidayEdit } from "./holiday/HolidayEdit";
@@ -120,7 +116,7 @@ const App = (): React.ReactElement => {
   return (
     <div className="App">
       <Admin
-        title={"ProtoAndGoCore"}
+        title={"Proto&Go! Core"}
         dataProvider={dataProvider}
         authProvider={httpAuthProvider}
         theme={theme}
@@ -273,13 +269,6 @@ const App = (): React.ReactElement => {
           edit={InviteEdit}
           create={InviteCreate}
           show={InviteShow}
-        />
-        <Resource
-          name="Session"
-          list={SessionList}
-          edit={SessionEdit}
-          create={SessionCreate}
-          show={SessionShow}
         />
         <Resource
           name="Holiday"

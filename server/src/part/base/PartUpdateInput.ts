@@ -14,10 +14,10 @@ import {
 } from "class-validator";
 
 import { Type } from "class-transformer";
+import { PartConfigurationWhereUniqueInput } from "../../partConfiguration/base/PartConfigurationWhereUniqueInput";
 import { PartOnShapeWhereUniqueInput } from "../../partOnShape/base/PartOnShapeWhereUniqueInput";
 import { GraphQLJSONObject } from "graphql-type-json";
 import { JsonValue } from "type-fest";
-import { QuoteWhereUniqueInput } from "../../quote/base/QuoteWhereUniqueInput";
 import { EnumPartStatus } from "./EnumPartStatus";
 @InputType()
 class PartUpdateInput {
@@ -35,6 +35,18 @@ class PartUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => PartConfigurationWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => PartConfigurationWhereUniqueInput)
+  @IsOptional()
+  @Field(() => PartConfigurationWhereUniqueInput, {
+    nullable: true,
+  })
+  partConfiguration?: PartConfigurationWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
     type: () => PartOnShapeWhereUniqueInput,
   })
   @ValidateNested()
@@ -43,7 +55,7 @@ class PartUpdateInput {
   @Field(() => PartOnShapeWhereUniqueInput, {
     nullable: true,
   })
-  partonshape?: PartOnShapeWhereUniqueInput | null;
+  partOnShape?: PartOnShapeWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -76,18 +88,6 @@ class PartUpdateInput {
     nullable: true,
   })
   quantities?: JsonValue | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => QuoteWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => QuoteWhereUniqueInput)
-  @IsOptional()
-  @Field(() => QuoteWhereUniqueInput, {
-    nullable: true,
-  })
-  quote?: QuoteWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

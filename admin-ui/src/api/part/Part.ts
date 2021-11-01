@@ -2,25 +2,20 @@ import { Offer } from "../offer/Offer";
 import { PartConfiguration } from "../partConfiguration/PartConfiguration";
 import { PartMessage } from "../partMessage/PartMessage";
 import { PartOnShape } from "../partOnShape/PartOnShape";
-import { ProductionItem } from "../productionItem/ProductionItem";
 import { JsonValue } from "type-fest";
 import { Quote } from "../quote/Quote";
-import { QuoteItem } from "../quoteItem/QuoteItem";
 
 export type Part = {
   createdAt: Date;
   id: string;
   offer?: Offer | null;
-  partConfigurations?: Array<PartConfiguration>;
+  partConfiguration?: PartConfiguration | null;
   partMessages?: Array<PartMessage>;
-  partonshape?: PartOnShape | null;
-  partOnShapes?: Array<PartOnShape>;
+  partOnShape?: PartOnShape | null;
   parts: number | null;
   process: string | null;
-  productionItems?: Array<ProductionItem>;
   quantities: JsonValue | null;
-  quote?: Quote | null;
-  quoteItems?: Array<QuoteItem>;
+  quotes?: Array<Quote>;
   status?: "draft" | "pending" | "rejected" | "publish" | null;
   surface: number | null;
   updatedAt: Date;

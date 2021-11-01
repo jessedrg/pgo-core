@@ -11,7 +11,7 @@ export type OrderCreateInput = {
   fees?: JsonValue | null;
   organization?: OrganizationWhereUniqueInput | null;
   payment?: PaymentWhereUniqueInput | null;
-  shipment?: ShipmentWhereUniqueInput | null;
+  shipment?: ShipmentWhereUniqueInput;
   shippingaddress?: JsonValue | null;
   state?: Array<
     | "onHold"

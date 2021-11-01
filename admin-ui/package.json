@@ -1,5 +1,5 @@
 {
-  "name": "proto-and-go-core-admin",
+  "name": "proto-go-core-admin",
   "private": true,
   "dependencies": {
     "@apollo/client": "3.3.18",

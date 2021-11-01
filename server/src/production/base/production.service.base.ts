@@ -1,5 +1,11 @@
 import { PrismaService } from "nestjs-prisma";
-import { Prisma, Production, Order } from "@prisma/client";
+import {
+  Prisma,
+  Production,
+  ProductionItem,
+  Shipment,
+  Order,
+} from "@prisma/client";
 
 export class ProductionServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -34,6 +40,28 @@ export class ProductionServiceBase {
     args: Prisma.SelectSubset<T, Prisma.ProductionDeleteArgs>
   ): Promise<Production> {
     return this.prisma.production.delete(args);
+  }
+
+  async findProductionItems(
+    parentId: string,
+    args: Prisma.ProductionItemFindManyArgs
+  ): Promise<ProductionItem[]> {
+    return this.prisma.production
+      .findUnique({
+        where: { id: parentId },
+      })
+      .productionItems(args);
+  }
+
+  async findShipments(
+    parentId: string,
+    args: Prisma.ShipmentFindManyArgs
+  ): Promise<Shipment[]> {
+    return this.prisma.production
+      .findUnique({
+        where: { id: parentId },
+      })
+      .shipments(args);
   }
 
   async getOrder(parentId: string): Promise<Order | null> {

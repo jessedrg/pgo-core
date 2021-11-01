@@ -4,11 +4,11 @@ export type PartOrderByInput = {
   createdAt?: SortOrder;
   id?: SortOrder;
   offerId?: SortOrder;
-  partonshapeId?: SortOrder;
+  partConfigurationId?: SortOrder;
+  partOnShapeId?: SortOrder;
   parts?: SortOrder;
   process?: SortOrder;
   quantities?: SortOrder;
-  quoteId?: SortOrder;
   status?: SortOrder;
   surface?: SortOrder;
   updatedAt?: SortOrder;

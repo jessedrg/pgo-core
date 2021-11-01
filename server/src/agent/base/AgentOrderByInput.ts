@@ -14,6 +14,15 @@ class AgentOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  accountId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["Asc", "Desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   createdAt?: SortOrder;
 
   @ApiProperty({

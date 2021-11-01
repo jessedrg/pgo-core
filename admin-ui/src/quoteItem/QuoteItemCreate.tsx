@@ -10,8 +10,8 @@ import {
   SelectInput,
 } from "react-admin";
 
-import { PartTitle } from "../part/PartTitle";
 import { ProviderTitle } from "../provider/ProviderTitle";
+import { QuoteTitle } from "../quote/QuoteTitle";
 
 export const QuoteItemCreate = (props: CreateProps): React.ReactElement => {
   return (
@@ -20,9 +20,6 @@ export const QuoteItemCreate = (props: CreateProps): React.ReactElement => {
         <NumberInput label="basePrices" source="basePrices" />
         <TextInput label="constructionType" source="constructionType" />
         <NumberInput label="margins" source="margins" />
-        <ReferenceInput source="part.id" reference="Part" label="part">
-          <SelectInput optionText={PartTitle} />
-        </ReferenceInput>
         <NumberInput label="prices" source="prices" />
         <NumberInput step={1} label="productionDays" source="productionDays" />
         <ReferenceInput
@@ -33,6 +30,9 @@ export const QuoteItemCreate = (props: CreateProps): React.ReactElement => {
           <SelectInput optionText={ProviderTitle} />
         </ReferenceInput>
         <NumberInput step={1} label="quantities" source="quantities" />
+        <ReferenceInput source="quote.id" reference="Quote" label="quote">
+          <SelectInput optionText={QuoteTitle} />
+        </ReferenceInput>
         <SelectInput
           source="status"
           label="status"

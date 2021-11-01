@@ -6,7 +6,7 @@ export type PartConfigurationCreateInput = {
   hardness?: string | null;
   material?: string | null;
   materialType?: string | null;
-  part?: PartWhereUniqueInput | null;
+  part?: PartWhereUniqueInput;
   tech?: string | null;
   tolerance?: number | null;
   weight?: number | null;

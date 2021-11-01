@@ -18,7 +18,7 @@ export const ProviderEdit = (props: EditProps): React.ReactElement => {
         <div />
         <NumberInput step={1} label="shippmentDates" source="shippmentDates" />
         <div />
-        <TextInput label="typeson" source="typeson" />
+        <TextInput label="type" source="type" />
         <div />
       </SimpleForm>
     </Edit>

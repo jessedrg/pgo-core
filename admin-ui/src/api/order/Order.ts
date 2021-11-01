@@ -17,7 +17,7 @@ export type Order = {
   organization?: Organization | null;
   payment?: Payment | null;
   productions?: Array<Production>;
-  shipment?: Shipment | null;
+  shipment?: Shipment;
   shippingaddress: JsonValue | null;
   state?: Array<
     | "onHold"

@@ -77,6 +77,15 @@ class ShipmentOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  orderId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["Asc", "Desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   partial?: SortOrder;
 
   @ApiProperty({
@@ -86,16 +95,7 @@ class ShipmentOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  realtedId?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["Asc", "Desc"],
-  })
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  relatedType?: SortOrder;
+  productionId?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -132,6 +132,15 @@ class ShipmentOrderByInput {
     nullable: true,
   })
   trackingUrl?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["Asc", "Desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  type?: SortOrder;
 
   @ApiProperty({
     required: false,

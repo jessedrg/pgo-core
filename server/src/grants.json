@@ -6,7 +6,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "User",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "User",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "User",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "User",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "User",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "User",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "User",
     "action": "create:any",
     "attributes": "*"
@@ -18,7 +54,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "User",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "User",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "User",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "User",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "User",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "User",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "User",
     "action": "delete:any",
     "attributes": "*"
@@ -30,7 +102,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "User",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "User",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "User",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Offer",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Offer",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Offer",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Offer",
     "action": "read:own",
     "attributes": "*"
@@ -42,7 +150,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Offer",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Offer",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Offer",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Offer",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Offer",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Offer",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Offer",
     "action": "update:any",
     "attributes": "*"
@@ -54,7 +198,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Offer",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Offer",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Offer",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Offer",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Offer",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Offer",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Offer",
     "action": "read:any",
     "attributes": "*"
@@ -66,7 +246,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Account",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Account",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Account",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Account",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Account",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Account",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Account",
     "action": "create:any",
     "attributes": "*"
@@ -78,7 +294,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Account",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Account",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Account",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Account",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Account",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Account",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Account",
     "action": "delete:any",
     "attributes": "*"
@@ -90,7 +342,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Account",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Account",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Account",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Part",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Part",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Part",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Part",
     "action": "read:own",
     "attributes": "*"
@@ -102,7 +390,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Part",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Part",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Part",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Part",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Part",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Part",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Part",
     "action": "update:any",
     "attributes": "*"
@@ -114,7 +438,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Part",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Part",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Part",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Part",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Part",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Part",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Part",
     "action": "read:any",
     "attributes": "*"
@@ -126,7 +486,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "PartConfiguration",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "PartConfiguration",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "PartConfiguration",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "PartConfiguration",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "PartConfiguration",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "PartConfiguration",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "PartConfiguration",
     "action": "create:any",
     "attributes": "*"
@@ -138,7 +534,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "PartConfiguration",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "PartConfiguration",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "PartConfiguration",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "PartConfiguration",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "PartConfiguration",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "PartConfiguration",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "PartConfiguration",
     "action": "delete:any",
     "attributes": "*"
@@ -150,7 +582,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "PartConfiguration",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "PartConfiguration",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "PartConfiguration",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "PartOnShape",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "PartOnShape",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "PartOnShape",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "PartOnShape",
     "action": "read:own",
     "attributes": "*"
@@ -162,7 +630,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "PartOnShape",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "PartOnShape",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "PartOnShape",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "PartOnShape",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "PartOnShape",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "PartOnShape",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "PartOnShape",
     "action": "update:any",
     "attributes": "*"
@@ -174,7 +678,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "PartOnShape",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "PartOnShape",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "PartOnShape",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "PartOnShape",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "PartOnShape",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "PartOnShape",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "PartOnShape",
     "action": "read:any",
     "attributes": "*"
@@ -186,7 +726,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Quote",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Quote",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Quote",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Quote",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Quote",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Quote",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Quote",
     "action": "create:any",
     "attributes": "*"
@@ -198,7 +774,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Quote",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Quote",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Quote",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Quote",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Quote",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Quote",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Quote",
     "action": "delete:any",
     "attributes": "*"
@@ -210,7 +822,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Quote",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Quote",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Quote",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "QuoteItem",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "QuoteItem",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "QuoteItem",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "QuoteItem",
     "action": "read:own",
     "attributes": "*"
@@ -222,7 +870,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "QuoteItem",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "QuoteItem",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "QuoteItem",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "QuoteItem",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "QuoteItem",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "QuoteItem",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "QuoteItem",
     "action": "update:any",
     "attributes": "*"
@@ -234,7 +918,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "QuoteItem",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "QuoteItem",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "QuoteItem",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "QuoteItem",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "QuoteItem",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "QuoteItem",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "QuoteItem",
     "action": "read:any",
     "attributes": "*"
@@ -246,7 +966,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Production",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Production",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Production",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Production",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Production",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Production",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Production",
     "action": "create:any",
     "attributes": "*"
@@ -258,7 +1014,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Production",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Production",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Production",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Production",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Production",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Production",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Production",
     "action": "delete:any",
     "attributes": "*"
@@ -270,7 +1062,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Production",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Production",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Production",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "ProductionItem",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "ProductionItem",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "ProductionItem",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "ProductionItem",
     "action": "read:own",
     "attributes": "*"
@@ -282,7 +1110,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "ProductionItem",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "ProductionItem",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "ProductionItem",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "ProductionItem",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "ProductionItem",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "ProductionItem",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "ProductionItem",
     "action": "update:any",
     "attributes": "*"
@@ -294,7 +1158,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "ProductionItem",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "ProductionItem",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "ProductionItem",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "ProductionItem",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "ProductionItem",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "ProductionItem",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "ProductionItem",
     "action": "read:any",
     "attributes": "*"
@@ -306,7 +1206,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "MediaFile",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "MediaFile",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "MediaFile",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "MediaFile",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "MediaFile",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "MediaFile",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "MediaFile",
     "action": "create:any",
     "attributes": "*"
@@ -318,7 +1254,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "MediaFile",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "MediaFile",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "MediaFile",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "MediaFile",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "MediaFile",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "MediaFile",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "MediaFile",
     "action": "delete:any",
     "attributes": "*"
@@ -330,7 +1302,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "MediaFile",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "MediaFile",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "MediaFile",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Provider",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Provider",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Provider",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Provider",
     "action": "read:own",
     "attributes": "*"
@@ -342,7 +1350,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Provider",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Provider",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Provider",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Provider",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Provider",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Provider",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Provider",
     "action": "update:any",
     "attributes": "*"
@@ -354,7 +1398,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Provider",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Provider",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Provider",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Provider",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Provider",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Provider",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Provider",
     "action": "read:any",
     "attributes": "*"
@@ -366,7 +1446,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Order",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Order",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Order",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Order",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Order",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Order",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Order",
     "action": "create:any",
     "attributes": "*"
@@ -378,7 +1494,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Order",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Order",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Order",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Order",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Order",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Order",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Order",
     "action": "delete:any",
     "attributes": "*"
@@ -390,7 +1542,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Order",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Order",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Order",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Organization",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Organization",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Organization",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Organization",
     "action": "read:own",
     "attributes": "*"
@@ -402,7 +1590,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Organization",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Organization",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Organization",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Organization",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Organization",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Organization",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Organization",
     "action": "update:any",
     "attributes": "*"
@@ -414,7 +1638,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Organization",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Organization",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Organization",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Organization",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Organization",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Organization",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Organization",
     "action": "read:any",
     "attributes": "*"
@@ -426,7 +1686,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "OrderItem",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "OrderItem",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "OrderItem",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "OrderItem",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "OrderItem",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "OrderItem",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "OrderItem",
     "action": "create:any",
     "attributes": "*"
@@ -438,7 +1734,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "OrderItem",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "OrderItem",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "OrderItem",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "OrderItem",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "OrderItem",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "OrderItem",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "OrderItem",
     "action": "delete:any",
     "attributes": "*"
@@ -450,7 +1782,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "OrderItem",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "OrderItem",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "OrderItem",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Agent",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Agent",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Agent",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Agent",
     "action": "read:own",
     "attributes": "*"
@@ -462,7 +1830,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Agent",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Agent",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Agent",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Agent",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Agent",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Agent",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Agent",
     "action": "update:any",
     "attributes": "*"
@@ -474,7 +1878,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Agent",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Agent",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Agent",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Agent",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Agent",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Agent",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Agent",
     "action": "read:any",
     "attributes": "*"
@@ -486,7 +1926,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Address",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Address",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Address",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Address",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Address",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Address",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Address",
     "action": "create:any",
     "attributes": "*"
@@ -498,7 +1974,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Address",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Address",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Address",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Address",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Address",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Address",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Address",
     "action": "delete:any",
     "attributes": "*"
@@ -510,7 +2022,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Address",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Address",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Address",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Shipment",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Shipment",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Shipment",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Shipment",
     "action": "read:own",
     "attributes": "*"
@@ -522,7 +2070,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Shipment",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Shipment",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Shipment",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Shipment",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Shipment",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Shipment",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Shipment",
     "action": "update:any",
     "attributes": "*"
@@ -534,7 +2118,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Shipment",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Shipment",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Shipment",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Shipment",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Shipment",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Shipment",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Shipment",
     "action": "read:any",
     "attributes": "*"
@@ -546,7 +2166,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Payment",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Payment",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Payment",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Payment",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Payment",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Payment",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Payment",
     "action": "create:any",
     "attributes": "*"
@@ -558,13 +2214,67 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Payment",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Payment",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Payment",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
     "resource": "Payment",
     "action": "delete:any",
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Payment",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Payment",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Payment",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Payment",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Payment",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Payment",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Payment",
     "action": "read:any",
     "attributes": "*"
@@ -576,7 +2286,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "AccountPaymentMethod",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "AccountPaymentMethod",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "AccountPaymentMethod",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "AccountPaymentMethod",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "AccountPaymentMethod",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "AccountPaymentMethod",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "AccountPaymentMethod",
     "action": "create:any",
     "attributes": "*"
@@ -588,13 +2334,67 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "AccountPaymentMethod",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "AccountPaymentMethod",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "AccountPaymentMethod",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
     "resource": "AccountPaymentMethod",
     "action": "delete:any",
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "AccountPaymentMethod",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "AccountPaymentMethod",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "AccountPaymentMethod",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "AccountPaymentMethod",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "AccountPaymentMethod",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "AccountPaymentMethod",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "AccountPaymentMethod",
     "action": "read:any",
     "attributes": "*"
@@ -606,61 +2406,139 @@
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "provider",
     "resource": "Invite",
-    "action": "create:any",
+    "action": "read:own",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "agent",
     "resource": "Invite",
-    "action": "update:any",
+    "action": "read:own",
     "attributes": "*"
   },
   {
-    "role": "user",
+    "role": "admin",
     "resource": "Invite",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "Invite",
-    "action": "read:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "Session",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Session",
+    "resource": "Invite",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Invite",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Invite",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Invite",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Session",
+    "resource": "Invite",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Invite",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Invite",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Invite",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Session",
+    "resource": "Invite",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Invite",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Invite",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Invite",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Session",
+    "resource": "Invite",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Invite",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Invite",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Invite",
     "action": "read:any",
     "attributes": "*"
   },
   {
     "role": "user",
+    "resource": "Holiday",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Holiday",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Holiday",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Holiday",
     "action": "read:own",
     "attributes": "*"
@@ -672,7 +2550,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Holiday",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Holiday",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Holiday",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Holiday",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Holiday",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Holiday",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Holiday",
     "action": "update:any",
     "attributes": "*"
@@ -684,7 +2598,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "Holiday",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Holiday",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Holiday",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "Holiday",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Holiday",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Holiday",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "Holiday",
     "action": "read:any",
     "attributes": "*"
@@ -696,7 +2646,43 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "PartMessage",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "PartMessage",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "PartMessage",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "PartMessage",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "PartMessage",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "PartMessage",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "PartMessage",
     "action": "create:any",
     "attributes": "*"
@@ -708,13 +2694,67 @@
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "PartMessage",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "PartMessage",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "PartMessage",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
     "resource": "PartMessage",
     "action": "delete:any",
     "attributes": "*"
   },
   {
+    "role": "provider",
+    "resource": "PartMessage",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "PartMessage",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "PartMessage",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
     "role": "user",
+    "resource": "PartMessage",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "PartMessage",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "PartMessage",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
     "resource": "PartMessage",
     "action": "read:any",
     "attributes": "*"

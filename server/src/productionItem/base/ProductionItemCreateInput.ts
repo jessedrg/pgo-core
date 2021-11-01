@@ -1,21 +1,21 @@
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { PartWhereUniqueInput } from "../../part/base/PartWhereUniqueInput";
+import { ProductionWhereUniqueInput } from "../../production/base/ProductionWhereUniqueInput";
 import { ValidateNested, IsOptional, IsInt } from "class-validator";
 import { Type } from "class-transformer";
 @InputType()
 class ProductionItemCreateInput {
   @ApiProperty({
     required: false,
-    type: () => PartWhereUniqueInput,
+    type: () => ProductionWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => PartWhereUniqueInput)
+  @Type(() => ProductionWhereUniqueInput)
   @IsOptional()
-  @Field(() => PartWhereUniqueInput, {
+  @Field(() => ProductionWhereUniqueInput, {
     nullable: true,
   })
-  part?: PartWhereUniqueInput | null;
+  production?: ProductionWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

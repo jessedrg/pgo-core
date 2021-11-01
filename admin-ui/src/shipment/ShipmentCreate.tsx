@@ -7,9 +7,13 @@ import {
   TextInput,
   NumberInput,
   DateTimeInput,
-  BooleanInput,
+  ReferenceInput,
   SelectInput,
+  BooleanInput,
 } from "react-admin";
+
+import { OrderTitle } from "../order/OrderTitle";
+import { ProductionTitle } from "../production/ProductionTitle";
 
 export const ShipmentCreate = (props: CreateProps): React.ReactElement => {
   return (
@@ -20,9 +24,17 @@ export const ShipmentCreate = (props: CreateProps): React.ReactElement => {
         <DateTimeInput label="delayedAt" source="delayedAt" />
         <DateTimeInput label="deliveredAt" source="deliveredAt" />
         <DateTimeInput label="estimatedAt" source="estimatedAt" />
+        <ReferenceInput source="order.id" reference="Order" label="order">
+          <SelectInput optionText={OrderTitle} />
+        </ReferenceInput>
         <BooleanInput label="partial" source="partial" />
-        <TextInput label="realtedId" source="realtedId" />
-        <TextInput label="relatedType" source="relatedType" />
+        <ReferenceInput
+          source="production.id"
+          reference="Production"
+          label="production"
+        >
+          <SelectInput optionText={ProductionTitle} />
+        </ReferenceInput>
         <DateTimeInput label="shippedAt" source="shippedAt" />
         <SelectInput
           source="status"
@@ -38,6 +50,17 @@ export const ShipmentCreate = (props: CreateProps): React.ReactElement => {
         />
         <TextInput label="tracking" source="tracking" />
         <TextInput label="trackingUrl" source="trackingUrl" />
+        <SelectInput
+          source="type"
+          label="type"
+          choices={[
+            { label: "Production", value: "production" },
+            { label: "Order", value: "order" },
+          ]}
+          optionText="label"
+          allowEmpty
+          optionValue="value"
+        />
       </SimpleForm>
     </Create>
   );

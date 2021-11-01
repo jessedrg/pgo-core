@@ -5,9 +5,9 @@ import { Type } from "class-transformer";
 import { IsOptional, ValidateNested, IsEnum } from "class-validator";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
-import { PartWhereUniqueInput } from "../../part/base/PartWhereUniqueInput";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { ProviderWhereUniqueInput } from "../../provider/base/ProviderWhereUniqueInput";
+import { QuoteWhereUniqueInput } from "../../quote/base/QuoteWhereUniqueInput";
 import { EnumQuoteItemStatus } from "./EnumQuoteItemStatus";
 @InputType()
 class QuoteItemWhereInput {
@@ -57,18 +57,6 @@ class QuoteItemWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => PartWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => PartWhereUniqueInput)
-  @IsOptional()
-  @Field(() => PartWhereUniqueInput, {
-    nullable: true,
-  })
-  part?: PartWhereUniqueInput;
-
-  @ApiProperty({
-    required: false,
     type: FloatNullableFilter,
   })
   @Type(() => FloatNullableFilter)
@@ -111,6 +99,18 @@ class QuoteItemWhereInput {
     nullable: true,
   })
   quantities?: IntNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => QuoteWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => QuoteWhereUniqueInput)
+  @IsOptional()
+  @Field(() => QuoteWhereUniqueInput, {
+    nullable: true,
+  })
+  quote?: QuoteWhereUniqueInput;
 
   @ApiProperty({
     required: false,

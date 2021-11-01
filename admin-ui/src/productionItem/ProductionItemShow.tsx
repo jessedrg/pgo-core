@@ -7,7 +7,7 @@ import {
   TextField,
   ReferenceField,
 } from "react-admin";
-import { PART_TITLE_FIELD } from "../part/PartTitle";
+import { PRODUCTION_TITLE_FIELD } from "../production/ProductionTitle";
 
 export const ProductionItemShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -15,8 +15,12 @@ export const ProductionItemShow = (props: ShowProps): React.ReactElement => {
       <SimpleShowLayout>
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
-        <ReferenceField label="part" source="part.id" reference="Part">
-          <TextField source={PART_TITLE_FIELD} />
+        <ReferenceField
+          label="production"
+          source="production.id"
+          reference="Production"
+        >
+          <TextField source={PRODUCTION_TITLE_FIELD} />
         </ReferenceField>
         <TextField label="quantity" source="quantity" />
         <TextField label="shippedQuantity" source="shippedQuantity" />

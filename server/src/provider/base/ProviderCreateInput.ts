@@ -89,7 +89,7 @@ class ProviderCreateInput {
   @Field(() => String, {
     nullable: true,
   })
-  typeson?: string | null;
+  type?: string | null;
 
   @ApiProperty({
     required: false,

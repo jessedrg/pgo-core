@@ -1,5 +1,4 @@
 import { Module } from "@nestjs/common";
-import { NotificationModule } from "./notification/notification.module";
 import { UserModule } from "./user/user.module";
 import { OfferModule } from "./offer/offer.module";
 import { AccountModule } from "./account/account.module";
@@ -21,7 +20,6 @@ import { ShipmentModule } from "./shipment/shipment.module";
 import { PaymentModule } from "./payment/payment.module";
 import { AccountPaymentMethodModule } from "./accountPaymentMethod/accountPaymentMethod.module";
 import { InviteModule } from "./invite/invite.module";
-import { SessionModule } from "./session/session.module";
 import { HolidayModule } from "./holiday/holiday.module";
 import { PartMessageModule } from "./partMessage/partMessage.module";
 import { HealthModule } from "./health/health.module";
@@ -37,7 +35,6 @@ import { GraphQLModule } from "@nestjs/graphql";
 @Module({
   controllers: [],
   imports: [
-    NotificationModule,
     UserModule,
     OfferModule,
     AccountModule,
@@ -59,7 +56,6 @@ import { GraphQLModule } from "@nestjs/graphql";
     PaymentModule,
     AccountPaymentMethodModule,
     InviteModule,
-    SessionModule,
     HolidayModule,
     PartMessageModule,
     HealthModule,

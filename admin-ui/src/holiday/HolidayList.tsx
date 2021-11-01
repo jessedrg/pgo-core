@@ -24,7 +24,7 @@ export const HolidayList = (props: ListProps): React.ReactElement => {
         <TextField label="day" source="day" />
         <TextField label="ID" source="id" />
         <ReferenceField
-          label="Providers"
+          label="Provider"
           source="provider.id"
           reference="Provider"
         >

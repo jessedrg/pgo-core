@@ -61,9 +61,9 @@ export class ProductionItemControllerBase {
       data: {
         ...data,
 
-        part: data.part
+        production: data.production
           ? {
-              connect: data.part,
+              connect: data.production,
             }
           : undefined,
       },
@@ -71,7 +71,7 @@ export class ProductionItemControllerBase {
         createdAt: true,
         id: true,
 
-        part: {
+        production: {
           select: {
             id: true,
           },
@@ -120,7 +120,7 @@ export class ProductionItemControllerBase {
         createdAt: true,
         id: true,
 
-        part: {
+        production: {
           select: {
             id: true,
           },
@@ -164,7 +164,7 @@ export class ProductionItemControllerBase {
         createdAt: true,
         id: true,
 
-        part: {
+        production: {
           select: {
             id: true,
           },
@@ -227,9 +227,9 @@ export class ProductionItemControllerBase {
         data: {
           ...data,
 
-          part: data.part
+          production: data.production
             ? {
-                connect: data.part,
+                connect: data.production,
               }
             : undefined,
         },
@@ -237,7 +237,7 @@ export class ProductionItemControllerBase {
           createdAt: true,
           id: true,
 
-          part: {
+          production: {
             select: {
               id: true,
             },
@@ -282,7 +282,7 @@ export class ProductionItemControllerBase {
           createdAt: true,
           id: true,
 
-          part: {
+          production: {
             select: {
               id: true,
             },

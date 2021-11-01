@@ -59,15 +59,6 @@ class QuoteItemOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  partId?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["Asc", "Desc"],
-  })
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
   prices?: SortOrder;
 
   @ApiProperty({
@@ -96,6 +87,15 @@ class QuoteItemOrderByInput {
     nullable: true,
   })
   quantities?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["Asc", "Desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  quoteId?: SortOrder;
 
   @ApiProperty({
     required: false,

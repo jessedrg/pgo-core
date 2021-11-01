@@ -6,5 +6,6 @@ export type AccountOrderByInput = {
   createdAt?: SortOrder;
   email?: SortOrder;
   id?: SortOrder;
+  organizationId?: SortOrder;
   updatedAt?: SortOrder;
 };

@@ -11,6 +11,7 @@ import {
 import { Type } from "class-transformer";
 import { Part } from "../../part/base/Part";
 import { Provider } from "../../provider/base/Provider";
+import { QuoteItem } from "../../quoteItem/base/QuoteItem";
 import { EnumQuoteStatus } from "./EnumQuoteStatus";
 @ObjectType()
 class Quote {
@@ -67,6 +68,15 @@ class Quote {
   @Type(() => Provider)
   @IsOptional()
   provider?: Provider | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [QuoteItem],
+  })
+  @ValidateNested()
+  @Type(() => QuoteItem)
+  @IsOptional()
+  quoteItems?: Array<QuoteItem>;
 
   @ApiProperty({
     required: false,

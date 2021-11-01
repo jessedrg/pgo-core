@@ -12,7 +12,6 @@ import {
 } from "react-admin";
 
 import { AccountTitle } from "../account/AccountTitle";
-import { OrganizationTitle } from "../organization/OrganizationTitle";
 import { ROLES_OPTIONS } from "../user/RolesOptions";
 
 export const UserEdit = (props: EditProps): React.ReactElement => {
@@ -24,13 +23,6 @@ export const UserEdit = (props: EditProps): React.ReactElement => {
         </ReferenceInput>
         <TextInput label="First Name" source="firstName" />
         <TextInput label="Last Name" source="lastName" />
-        <ReferenceInput
-          source="organization.id"
-          reference="Organization"
-          label="organization"
-        >
-          <SelectInput optionText={OrganizationTitle} />
-        </ReferenceInput>
         <PasswordInput label="Password" source="password" />
         <SelectArrayInput
           source="roles"

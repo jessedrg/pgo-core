@@ -7,13 +7,13 @@ import {
   BooleanField,
   TextField,
   DateField,
+  ReferenceField,
   ReferenceManyField,
   Datagrid,
-  ReferenceField,
 } from "react-admin";
 
-import { PART_TITLE_FIELD } from "../part/PartTitle";
 import { ACCOUNT_TITLE_FIELD } from "./AccountTitle";
+import { PART_TITLE_FIELD } from "../part/PartTitle";
 import { PROVIDER_TITLE_FIELD } from "../provider/ProviderTitle";
 import { ORGANIZATION_TITLE_FIELD } from "../organization/OrganizationTitle";
 
@@ -26,7 +26,29 @@ export const AccountShow = (props: ShowProps): React.ReactElement => {
         <DateField source="createdAt" label="Created At" />
         <TextField label="email" source="email" />
         <TextField label="ID" source="id" />
+        <ReferenceField
+          label="organization"
+          source="organization.id"
+          reference="Organization"
+        >
+          <TextField source={ORGANIZATION_TITLE_FIELD} />
+        </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
+        <ReferenceManyField reference="Agent" target="AccountId" label="Agents">
+          <Datagrid rowClick="show">
+            <ReferenceField
+              label="account"
+              source="account.id"
+              reference="Account"
+            >
+              <TextField source={ACCOUNT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="ID" source="id" />
+            <DateField source="updatedAt" label="Updated At" />
+            <TextField label="zones" source="zones" />
+          </Datagrid>
+        </ReferenceManyField>
         <ReferenceManyField
           reference="PartMessage"
           target="AccountId"
@@ -125,13 +147,6 @@ export const AccountShow = (props: ShowProps): React.ReactElement => {
             <TextField label="First Name" source="firstName" />
             <TextField label="ID" source="id" />
             <TextField label="Last Name" source="lastName" />
-            <ReferenceField
-              label="organization"
-              source="organization.id"
-              reference="Organization"
-            >
-              <TextField source={ORGANIZATION_TITLE_FIELD} />
-            </ReferenceField>
             <TextField label="Roles" source="roles" />
             <DateField source="updatedAt" label="Updated At" />
             <TextField label="Username" source="username" />

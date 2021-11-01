@@ -13,6 +13,6 @@ export type ProviderWhereInput = {
   ratingData?: JsonNullableFilter;
   shippmentDates?: IntNullableFilter;
   technologies?: JsonNullableFilter;
-  typeson?: StringNullableFilter;
+  type?: StringNullableFilter;
   workingDays?: JsonNullableFilter;
 };

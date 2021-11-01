@@ -5,13 +5,13 @@ import {
   IsOptional,
   IsString,
   IsDate,
-  ValidateNested,
   IsInt,
+  ValidateNested,
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { Part } from "../../part/base/Part";
 import { Provider } from "../../provider/base/Provider";
+import { Quote } from "../../quote/base/Quote";
 import { EnumQuoteItemStatus } from "./EnumQuoteItemStatus";
 @ObjectType()
 class QuoteItem {
@@ -66,15 +66,6 @@ class QuoteItem {
 
   @ApiProperty({
     required: false,
-    type: () => Part,
-  })
-  @ValidateNested()
-  @Type(() => Part)
-  @IsOptional()
-  part?: Part | null;
-
-  @ApiProperty({
-    required: false,
     type: Number,
   })
   @IsNumber()
@@ -114,6 +105,15 @@ class QuoteItem {
     nullable: true,
   })
   quantities!: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Quote,
+  })
+  @ValidateNested()
+  @Type(() => Quote)
+  @IsOptional()
+  quote?: Quote | null;
 
   @ApiProperty({
     required: false,

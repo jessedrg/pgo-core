@@ -105,7 +105,7 @@ class OrderCreateInput {
   @Field(() => ShipmentWhereUniqueInput, {
     nullable: true,
   })
-  shipment?: ShipmentWhereUniqueInput | null;
+  shipment?: ShipmentWhereUniqueInput;
 
   @ApiProperty({
     required: false,

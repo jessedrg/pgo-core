@@ -17,7 +17,7 @@ export const HolidayEdit = (props: EditProps): React.ReactElement => {
         <ReferenceInput
           source="provider.id"
           reference="Provider"
-          label="Providers"
+          label="Provider"
         >
           <SelectInput optionText={ProviderTitle} />
         </ReferenceInput>

@@ -3,15 +3,17 @@ import { ApiProperty } from "@nestjs/swagger";
 import {
   IsBoolean,
   IsOptional,
+  ValidateNested,
   IsJSON,
   IsDate,
   IsString,
-  ValidateNested,
 } from "class-validator";
+import { Agent } from "../../agent/base/Agent";
+import { Type } from "class-transformer";
 import { GraphQLJSONObject } from "graphql-type-json";
 import { JsonValue } from "type-fest";
-import { Type } from "class-transformer";
 import { Offer } from "../../offer/base/Offer";
+import { Organization } from "../../organization/base/Organization";
 import { PartMessage } from "../../partMessage/base/PartMessage";
 import { Quote } from "../../quote/base/Quote";
 import { User } from "../../user/base/User";
@@ -27,6 +29,15 @@ class Account {
     nullable: true,
   })
   active!: boolean | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Agent],
+  })
+  @ValidateNested()
+  @Type(() => Agent)
+  @IsOptional()
+  agents?: Array<Agent>;
 
   @ApiProperty({
     required: false,
@@ -70,6 +81,15 @@ class Account {
   @Type(() => Offer)
   @IsOptional()
   offers?: Array<Offer>;
+
+  @ApiProperty({
+    required: false,
+    type: () => Organization,
+  })
+  @ValidateNested()
+  @Type(() => Organization)
+  @IsOptional()
+  organization?: Organization | null;
 
   @ApiProperty({
     required: false,

@@ -13,7 +13,6 @@ import {
 
 import { USER_TITLE_FIELD } from "./UserTitle";
 import { ACCOUNT_TITLE_FIELD } from "../account/AccountTitle";
-import { ORGANIZATION_TITLE_FIELD } from "../organization/OrganizationTitle";
 
 export const UserShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -26,13 +25,6 @@ export const UserShow = (props: ShowProps): React.ReactElement => {
         <TextField label="First Name" source="firstName" />
         <TextField label="ID" source="id" />
         <TextField label="Last Name" source="lastName" />
-        <ReferenceField
-          label="organization"
-          source="organization.id"
-          reference="Organization"
-        >
-          <TextField source={ORGANIZATION_TITLE_FIELD} />
-        </ReferenceField>
         <TextField label="Roles" source="roles" />
         <DateField source="updatedAt" label="Updated At" />
         <TextField label="Username" source="username" />

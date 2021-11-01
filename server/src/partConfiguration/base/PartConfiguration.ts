@@ -89,7 +89,7 @@ class PartConfiguration {
   @ValidateNested()
   @Type(() => Part)
   @IsOptional()
-  part?: Part | null;
+  part?: Part;
 
   @ApiProperty({
     required: false,

@@ -4,13 +4,13 @@ import {
   IsNumber,
   IsOptional,
   IsString,
-  ValidateNested,
   IsInt,
+  ValidateNested,
   IsEnum,
 } from "class-validator";
-import { PartWhereUniqueInput } from "../../part/base/PartWhereUniqueInput";
-import { Type } from "class-transformer";
 import { ProviderWhereUniqueInput } from "../../provider/base/ProviderWhereUniqueInput";
+import { Type } from "class-transformer";
+import { QuoteWhereUniqueInput } from "../../quote/base/QuoteWhereUniqueInput";
 import { EnumQuoteItemStatus } from "./EnumQuoteItemStatus";
 @InputType()
 class QuoteItemUpdateInput {
@@ -46,18 +46,6 @@ class QuoteItemUpdateInput {
     nullable: true,
   })
   margins?: number | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => PartWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => PartWhereUniqueInput)
-  @IsOptional()
-  @Field(() => PartWhereUniqueInput, {
-    nullable: true,
-  })
-  part?: PartWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -103,6 +91,18 @@ class QuoteItemUpdateInput {
     nullable: true,
   })
   quantities?: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => QuoteWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => QuoteWhereUniqueInput)
+  @IsOptional()
+  @Field(() => QuoteWhereUniqueInput, {
+    nullable: true,
+  })
+  quote?: QuoteWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

@@ -10,7 +10,7 @@ export type ProviderOrderByInput = {
   ratingData?: SortOrder;
   shippmentDates?: SortOrder;
   technologies?: SortOrder;
-  typeson?: SortOrder;
+  type?: SortOrder;
   updatedAt?: SortOrder;
   workingDays?: SortOrder;
 };

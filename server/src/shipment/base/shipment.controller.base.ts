@@ -15,8 +15,6 @@ import { ShipmentWhereUniqueInput } from "./ShipmentWhereUniqueInput";
 import { ShipmentFindManyArgs } from "./ShipmentFindManyArgs";
 import { ShipmentUpdateInput } from "./ShipmentUpdateInput";
 import { Shipment } from "./Shipment";
-import { OrderWhereInput } from "../../order/base/OrderWhereInput";
-import { Order } from "../../order/base/Order";
 @swagger.ApiBasicAuth()
 export class ShipmentControllerBase {
   constructor(
@@ -60,7 +58,21 @@ export class ShipmentControllerBase {
       );
     }
     return await this.service.create({
-      data: data,
+      data: {
+        ...data,
+
+        order: data.order
+          ? {
+              connect: data.order,
+            }
+          : undefined,
+
+        production: data.production
+          ? {
+              connect: data.production,
+            }
+          : undefined,
+      },
       select: {
         courier: true,
         createdAt: true,
@@ -69,13 +81,26 @@ export class ShipmentControllerBase {
         deliveredAt: true,
         estimatedAt: true,
         id: true,
+
+        order: {
+          select: {
+            id: true,
+          },
+        },
+
         partial: true,
-        realtedId: true,
-        relatedType: true,
+
+        production: {
+          select: {
+            id: true,
+          },
+        },
+
         shippedAt: true,
         status: true,
         tracking: true,
         trackingUrl: true,
+        type: true,
         updatedAt: true,
       },
     });
@@ -121,13 +146,26 @@ export class ShipmentControllerBase {
         deliveredAt: true,
         estimatedAt: true,
         id: true,
+
+        order: {
+          select: {
+            id: true,
+          },
+        },
+
         partial: true,
-        realtedId: true,
-        relatedType: true,
+
+        production: {
+          select: {
+            id: true,
+          },
+        },
+
         shippedAt: true,
         status: true,
         tracking: true,
         trackingUrl: true,
+        type: true,
         updatedAt: true,
       },
     });
@@ -168,13 +206,26 @@ export class ShipmentControllerBase {
         deliveredAt: true,
         estimatedAt: true,
         id: true,
+
+        order: {
+          select: {
+            id: true,
+          },
+        },
+
         partial: true,
-        realtedId: true,
-        relatedType: true,
+
+        production: {
+          select: {
+            id: true,
+          },
+        },
+
         shippedAt: true,
         status: true,
         tracking: true,
         trackingUrl: true,
+        type: true,
         updatedAt: true,
       },
     });
@@ -227,7 +278,21 @@ export class ShipmentControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          order: data.order
+            ? {
+                connect: data.order,
+              }
+            : undefined,
+
+          production: data.production
+            ? {
+                connect: data.production,
+              }
+            : undefined,
+        },
         select: {
           courier: true,
           createdAt: true,
@@ -236,13 +301,26 @@ export class ShipmentControllerBase {
           deliveredAt: true,
           estimatedAt: true,
           id: true,
+
+          order: {
+            select: {
+              id: true,
+            },
+          },
+
           partial: true,
-          realtedId: true,
-          relatedType: true,
+
+          production: {
+            select: {
+              id: true,
+            },
+          },
+
           shippedAt: true,
           status: true,
           tracking: true,
           trackingUrl: true,
+          type: true,
           updatedAt: true,
         },
       });
@@ -284,13 +362,26 @@ export class ShipmentControllerBase {
           deliveredAt: true,
           estimatedAt: true,
           id: true,
+
+          order: {
+            select: {
+              id: true,
+            },
+          },
+
           partial: true,
-          realtedId: true,
-          relatedType: true,
+
+          production: {
+            select: {
+              id: true,
+            },
+          },
+
           shippedAt: true,
           status: true,
           tracking: true,
           trackingUrl: true,
+          type: true,
           updatedAt: true,
         },
       });
@@ -302,208 +393,5 @@ export class ShipmentControllerBase {
       }
       throw error;
     }
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Get("/:id/orders")
-  @nestAccessControl.UseRoles({
-    resource: "Shipment",
-    action: "read",
-    possession: "any",
-  })
-  @swagger.ApiQuery({
-    type: () => OrderWhereInput,
-    style: "deepObject",
-    explode: true,
-  })
-  async findManyOrders(
-    @common.Req() request: Request,
-    @common.Param() params: ShipmentWhereUniqueInput,
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<Order[]> {
-    const query: OrderWhereInput = request.query;
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Order",
-    });
-    const results = await this.service.findOrders(params.id, {
-      where: query,
-      select: {
-        billingAddress: true,
-        comment: true,
-        createdAt: true,
-        customNo: true,
-        estimatedDays: true,
-        fees: true,
-        id: true,
-
-        organization: {
-          select: {
-            id: true,
-          },
-        },
-
-        payment: {
-          select: {
-            id: true,
-          },
-        },
-
-        shipment: {
-          select: {
-            id: true,
-          },
-        },
-
-        shippingaddress: true,
-        state: true,
-        subtotal: true,
-        taxes: true,
-        total: true,
-        updatedAt: true,
-      },
-    });
-    return results.map((result) => permission.filter(result));
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Post("/:id/orders")
-  @nestAccessControl.UseRoles({
-    resource: "Shipment",
-    action: "update",
-    possession: "any",
-  })
-  async createOrders(
-    @common.Param() params: ShipmentWhereUniqueInput,
-    @common.Body() body: ShipmentWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      orders: {
-        connect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Shipment",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Shipment"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Patch("/:id/orders")
-  @nestAccessControl.UseRoles({
-    resource: "Shipment",
-    action: "update",
-    possession: "any",
-  })
-  async updateOrders(
-    @common.Param() params: ShipmentWhereUniqueInput,
-    @common.Body() body: ShipmentWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      orders: {
-        set: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Shipment",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Shipment"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
-  @common.UseGuards(
-    defaultAuthGuard.DefaultAuthGuard,
-    nestAccessControl.ACGuard
-  )
-  @common.Delete("/:id/orders")
-  @nestAccessControl.UseRoles({
-    resource: "Shipment",
-    action: "update",
-    possession: "any",
-  })
-  async deleteOrders(
-    @common.Param() params: ShipmentWhereUniqueInput,
-    @common.Body() body: ShipmentWhereUniqueInput[],
-    @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<void> {
-    const data = {
-      orders: {
-        disconnect: body,
-      },
-    };
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "update",
-      possession: "any",
-      resource: "Shipment",
-    });
-    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
-    if (invalidAttributes.length) {
-      const roles = userRoles
-        .map((role: string) => JSON.stringify(role))
-        .join(",");
-      throw new common.ForbiddenException(
-        `Updating the relationship: ${
-          invalidAttributes[0]
-        } of ${"Shipment"} is forbidden for roles: ${roles}`
-      );
-    }
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
   }
 }
