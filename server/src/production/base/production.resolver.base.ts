@@ -14,6 +14,10 @@ import { DeleteProductionArgs } from "./DeleteProductionArgs";
 import { ProductionFindManyArgs } from "./ProductionFindManyArgs";
 import { ProductionFindUniqueArgs } from "./ProductionFindUniqueArgs";
 import { Production } from "./Production";
+import { ProductionItemFindManyArgs } from "../../productionItem/base/ProductionItemFindManyArgs";
+import { ProductionItem } from "../../productionItem/base/ProductionItem";
+import { ShipmentFindManyArgs } from "../../shipment/base/ShipmentFindManyArgs";
+import { Shipment } from "../../shipment/base/Shipment";
 import { Order } from "../../order/base/Order";
 import { ProductionService } from "../production.service";
 
@@ -208,6 +212,58 @@ export class ProductionResolverBase {
       }
       throw error;
     }
+  }
+
+  @graphql.ResolveField(() => [ProductionItem])
+  @nestAccessControl.UseRoles({
+    resource: "Production",
+    action: "read",
+    possession: "any",
+  })
+  async productionItems(
+    @graphql.Parent() parent: Production,
+    @graphql.Args() args: ProductionItemFindManyArgs,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<ProductionItem[]> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "ProductionItem",
+    });
+    const results = await this.service.findProductionItems(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results.map((result) => permission.filter(result));
+  }
+
+  @graphql.ResolveField(() => [Shipment])
+  @nestAccessControl.UseRoles({
+    resource: "Production",
+    action: "read",
+    possession: "any",
+  })
+  async shipments(
+    @graphql.Parent() parent: Production,
+    @graphql.Args() args: ShipmentFindManyArgs,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Shipment[]> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Shipment",
+    });
+    const results = await this.service.findShipments(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results.map((result) => permission.filter(result));
   }
 
   @graphql.ResolveField(() => Order, { nullable: true })

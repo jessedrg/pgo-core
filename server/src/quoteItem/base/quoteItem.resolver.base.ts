@@ -14,8 +14,8 @@ import { DeleteQuoteItemArgs } from "./DeleteQuoteItemArgs";
 import { QuoteItemFindManyArgs } from "./QuoteItemFindManyArgs";
 import { QuoteItemFindUniqueArgs } from "./QuoteItemFindUniqueArgs";
 import { QuoteItem } from "./QuoteItem";
-import { Part } from "../../part/base/Part";
 import { Provider } from "../../provider/base/Provider";
+import { Quote } from "../../quote/base/Quote";
 import { QuoteItemService } from "../quoteItem.service";
 
 @graphql.Resolver(() => QuoteItem)
@@ -125,15 +125,15 @@ export class QuoteItemResolverBase {
       data: {
         ...args.data,
 
-        part: args.data.part
-          ? {
-              connect: args.data.part,
-            }
-          : undefined,
-
         provider: args.data.provider
           ? {
               connect: args.data.provider,
+            }
+          : undefined,
+
+        quote: args.data.quote
+          ? {
+              connect: args.data.quote,
             }
           : undefined,
       },
@@ -178,15 +178,15 @@ export class QuoteItemResolverBase {
         data: {
           ...args.data,
 
-          part: args.data.part
-            ? {
-                connect: args.data.part,
-              }
-            : undefined,
-
           provider: args.data.provider
             ? {
                 connect: args.data.provider,
+              }
+            : undefined,
+
+          quote: args.data.quote
+            ? {
+                connect: args.data.quote,
               }
             : undefined,
         },
@@ -223,30 +223,6 @@ export class QuoteItemResolverBase {
     }
   }
 
-  @graphql.ResolveField(() => Part, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "QuoteItem",
-    action: "read",
-    possession: "any",
-  })
-  async part(
-    @graphql.Parent() parent: QuoteItem,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Part | null> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Part",
-    });
-    const result = await this.service.getPart(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return permission.filter(result);
-  }
-
   @graphql.ResolveField(() => Provider, { nullable: true })
   @nestAccessControl.UseRoles({
     resource: "QuoteItem",
@@ -264,6 +240,30 @@ export class QuoteItemResolverBase {
       resource: "Provider",
     });
     const result = await this.service.getProvider(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return permission.filter(result);
+  }
+
+  @graphql.ResolveField(() => Quote, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "QuoteItem",
+    action: "read",
+    possession: "any",
+  })
+  async quote(
+    @graphql.Parent() parent: QuoteItem,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Quote | null> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Quote",
+    });
+    const result = await this.service.getQuote(parent.id);
 
     if (!result) {
       return null;

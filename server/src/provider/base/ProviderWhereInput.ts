@@ -106,7 +106,7 @@ class ProviderWhereInput {
   @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  typeson?: StringNullableFilter;
+  type?: StringNullableFilter;
 
   @ApiProperty({
     required: false,

@@ -8,12 +8,13 @@ export type ShipmentOrderByInput = {
   deliveredAt?: SortOrder;
   estimatedAt?: SortOrder;
   id?: SortOrder;
+  orderId?: SortOrder;
   partial?: SortOrder;
-  realtedId?: SortOrder;
-  relatedType?: SortOrder;
+  productionId?: SortOrder;
   shippedAt?: SortOrder;
   status?: SortOrder;
   tracking?: SortOrder;
   trackingUrl?: SortOrder;
+  type?: SortOrder;
   updatedAt?: SortOrder;
 };

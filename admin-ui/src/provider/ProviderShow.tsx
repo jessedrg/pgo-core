@@ -12,7 +12,7 @@ import {
 } from "react-admin";
 
 import { PROVIDER_TITLE_FIELD } from "./ProviderTitle";
-import { PART_TITLE_FIELD } from "../part/PartTitle";
+import { QUOTE_TITLE_FIELD } from "../quote/QuoteTitle";
 import { ACCOUNT_TITLE_FIELD } from "../account/AccountTitle";
 
 export const ProviderShow = (props: ShowProps): React.ReactElement => {
@@ -28,7 +28,7 @@ export const ProviderShow = (props: ShowProps): React.ReactElement => {
         <TextField label="ratingData" source="ratingData" />
         <TextField label="shippmentDates" source="shippmentDates" />
         <TextField label="techologies" source="technologies" />
-        <TextField label="typeson" source="typeson" />
+        <TextField label="type" source="type" />
         <DateField source="updatedAt" label="Updated At" />
         <TextField label="workingDays" source="workingDays" />
         <ReferenceManyField
@@ -41,7 +41,7 @@ export const ProviderShow = (props: ShowProps): React.ReactElement => {
             <TextField label="day" source="day" />
             <TextField label="ID" source="id" />
             <ReferenceField
-              label="Providers"
+              label="Provider"
               source="provider.id"
               reference="Provider"
             >
@@ -61,9 +61,6 @@ export const ProviderShow = (props: ShowProps): React.ReactElement => {
             <DateField source="createdAt" label="Created At" />
             <TextField label="ID" source="id" />
             <TextField label="margins" source="margins" />
-            <ReferenceField label="part" source="part.id" reference="Part">
-              <TextField source={PART_TITLE_FIELD} />
-            </ReferenceField>
             <TextField label="prices" source="prices" />
             <TextField label="productionDays" source="productionDays" />
             <ReferenceField
@@ -74,6 +71,9 @@ export const ProviderShow = (props: ShowProps): React.ReactElement => {
               <TextField source={PROVIDER_TITLE_FIELD} />
             </ReferenceField>
             <TextField label="quantities" source="quantities" />
+            <ReferenceField label="quote" source="quote.id" reference="Quote">
+              <TextField source={QUOTE_TITLE_FIELD} />
+            </ReferenceField>
             <TextField label="status" source="status" />
             <DateField source="updatedAt" label="Updated At" />
           </Datagrid>

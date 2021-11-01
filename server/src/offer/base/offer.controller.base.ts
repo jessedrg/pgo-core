@@ -297,6 +297,13 @@ export class OfferControllerBase {
         createdAt: true,
         email: true,
         id: true,
+
+        organization: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -478,7 +485,13 @@ export class OfferControllerBase {
           },
         },
 
-        partonshape: {
+        partConfiguration: {
+          select: {
+            id: true,
+          },
+        },
+
+        partOnShape: {
           select: {
             id: true,
           },
@@ -487,13 +500,6 @@ export class OfferControllerBase {
         parts: true,
         process: true,
         quantities: true,
-
-        quote: {
-          select: {
-            id: true,
-          },
-        },
-
         status: true,
         surface: true,
         updatedAt: true,

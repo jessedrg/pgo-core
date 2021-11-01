@@ -6,11 +6,11 @@ export type QuoteItemOrderByInput = {
   createdAt?: SortOrder;
   id?: SortOrder;
   margins?: SortOrder;
-  partId?: SortOrder;
   prices?: SortOrder;
   productionDays?: SortOrder;
   providerId?: SortOrder;
   quantities?: SortOrder;
+  quoteId?: SortOrder;
   status?: SortOrder;
   updatedAt?: SortOrder;
 };

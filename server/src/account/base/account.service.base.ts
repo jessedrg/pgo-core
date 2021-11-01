@@ -2,10 +2,12 @@ import { PrismaService } from "nestjs-prisma";
 import {
   Prisma,
   Account,
+  Agent,
   Offer,
   PartMessage,
   Quote,
   User,
+  Organization,
 } from "@prisma/client";
 
 export class AccountServiceBase {
@@ -41,6 +43,17 @@ export class AccountServiceBase {
     args: Prisma.SelectSubset<T, Prisma.AccountDeleteArgs>
   ): Promise<Account> {
     return this.prisma.account.delete(args);
+  }
+
+  async findAgents(
+    parentId: string,
+    args: Prisma.AgentFindManyArgs
+  ): Promise<Agent[]> {
+    return this.prisma.account
+      .findUnique({
+        where: { id: parentId },
+      })
+      .agents(args);
   }
 
   async findOffers(
@@ -96,5 +109,13 @@ export class AccountServiceBase {
         where: { id: parentId },
       })
       .users(args);
+  }
+
+  async getOrganization(parentId: string): Promise<Organization | null> {
+    return this.prisma.account
+      .findUnique({
+        where: { id: parentId },
+      })
+      .organization();
   }
 }

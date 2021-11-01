@@ -2,12 +2,15 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
-import { IsOptional, IsEnum } from "class-validator";
+import { IsOptional, ValidateNested, IsEnum } from "class-validator";
 import { FloatNullableFilter } from "../../util/FloatNullableFilter";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { OrderWhereUniqueInput } from "../../order/base/OrderWhereUniqueInput";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { ProductionWhereUniqueInput } from "../../production/base/ProductionWhereUniqueInput";
 import { EnumShipmentStatus } from "./EnumShipmentStatus";
+import { EnumShipmentType } from "./EnumShipmentType";
 @InputType()
 class ShipmentWhereInput {
   @ApiProperty({
@@ -78,6 +81,18 @@ class ShipmentWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => OrderWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => OrderWhereUniqueInput)
+  @IsOptional()
+  @Field(() => OrderWhereUniqueInput, {
+    nullable: true,
+  })
+  order?: OrderWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
     type: BooleanNullableFilter,
   })
   @Type(() => BooleanNullableFilter)
@@ -89,25 +104,15 @@ class ShipmentWhereInput {
 
   @ApiProperty({
     required: false,
-    type: StringNullableFilter,
+    type: () => ProductionWhereUniqueInput,
   })
-  @Type(() => StringNullableFilter)
+  @ValidateNested()
+  @Type(() => ProductionWhereUniqueInput)
   @IsOptional()
-  @Field(() => StringNullableFilter, {
+  @Field(() => ProductionWhereUniqueInput, {
     nullable: true,
   })
-  realtedId?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: StringNullableFilter,
-  })
-  @Type(() => StringNullableFilter)
-  @IsOptional()
-  @Field(() => StringNullableFilter, {
-    nullable: true,
-  })
-  relatedType?: StringNullableFilter;
+  production?: ProductionWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -152,5 +157,16 @@ class ShipmentWhereInput {
     nullable: true,
   })
   trackingUrl?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumShipmentType,
+  })
+  @IsEnum(EnumShipmentType)
+  @IsOptional()
+  @Field(() => EnumShipmentType, {
+    nullable: true,
+  })
+  type?: "production" | "order";
 }
 export { ShipmentWhereInput };

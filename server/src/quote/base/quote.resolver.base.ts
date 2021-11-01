@@ -16,6 +16,8 @@ import { QuoteFindUniqueArgs } from "./QuoteFindUniqueArgs";
 import { Quote } from "./Quote";
 import { PartFindManyArgs } from "../../part/base/PartFindManyArgs";
 import { Part } from "../../part/base/Part";
+import { QuoteItemFindManyArgs } from "../../quoteItem/base/QuoteItemFindManyArgs";
+import { QuoteItem } from "../../quoteItem/base/QuoteItem";
 import { Account } from "../../account/base/Account";
 import { Provider } from "../../provider/base/Provider";
 import { QuoteService } from "../quote.service";
@@ -243,6 +245,32 @@ export class QuoteResolverBase {
       resource: "Part",
     });
     const results = await this.service.findParts(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results.map((result) => permission.filter(result));
+  }
+
+  @graphql.ResolveField(() => [QuoteItem])
+  @nestAccessControl.UseRoles({
+    resource: "Quote",
+    action: "read",
+    possession: "any",
+  })
+  async quoteItems(
+    @graphql.Parent() parent: Quote,
+    @graphql.Args() args: QuoteItemFindManyArgs,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<QuoteItem[]> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "QuoteItem",
+    });
+    const results = await this.service.findQuoteItems(parent.id, args);
 
     if (!results) {
       return [];

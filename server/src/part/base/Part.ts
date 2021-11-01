@@ -18,11 +18,9 @@ import { Offer } from "../../offer/base/Offer";
 import { PartConfiguration } from "../../partConfiguration/base/PartConfiguration";
 import { PartMessage } from "../../partMessage/base/PartMessage";
 import { PartOnShape } from "../../partOnShape/base/PartOnShape";
-import { ProductionItem } from "../../productionItem/base/ProductionItem";
 import { GraphQLJSONObject } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { Quote } from "../../quote/base/Quote";
-import { QuoteItem } from "../../quoteItem/base/QuoteItem";
 import { EnumPartStatus } from "./EnumPartStatus";
 @ObjectType()
 class Part {
@@ -53,12 +51,12 @@ class Part {
 
   @ApiProperty({
     required: false,
-    type: () => [PartConfiguration],
+    type: () => PartConfiguration,
   })
   @ValidateNested()
   @Type(() => PartConfiguration)
   @IsOptional()
-  partConfigurations?: Array<PartConfiguration>;
+  partConfiguration?: PartConfiguration | null;
 
   @ApiProperty({
     required: false,
@@ -76,16 +74,7 @@ class Part {
   @ValidateNested()
   @Type(() => PartOnShape)
   @IsOptional()
-  partonshape?: PartOnShape | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => [PartOnShape],
-  })
-  @ValidateNested()
-  @Type(() => PartOnShape)
-  @IsOptional()
-  partOnShapes?: Array<PartOnShape>;
+  partOnShape?: PartOnShape | null;
 
   @ApiProperty({
     required: false,
@@ -111,15 +100,6 @@ class Part {
 
   @ApiProperty({
     required: false,
-    type: () => [ProductionItem],
-  })
-  @ValidateNested()
-  @Type(() => ProductionItem)
-  @IsOptional()
-  productionItems?: Array<ProductionItem>;
-
-  @ApiProperty({
-    required: false,
   })
   @IsJSON()
   @IsOptional()
@@ -130,21 +110,12 @@ class Part {
 
   @ApiProperty({
     required: false,
-    type: () => Quote,
+    type: () => [Quote],
   })
   @ValidateNested()
   @Type(() => Quote)
   @IsOptional()
-  quote?: Quote | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => [QuoteItem],
-  })
-  @ValidateNested()
-  @Type(() => QuoteItem)
-  @IsOptional()
-  quoteItems?: Array<QuoteItem>;
+  quotes?: Array<Quote>;
 
   @ApiProperty({
     required: false,

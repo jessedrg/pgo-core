@@ -8,6 +8,6 @@ export type ProviderCreateInput = {
   ratingData?: JsonValue | null;
   shippmentDates?: number | null;
   technologies?: JsonValue | null;
-  typeson?: string | null;
+  type?: string | null;
   workingDays?: JsonValue | null;
 };

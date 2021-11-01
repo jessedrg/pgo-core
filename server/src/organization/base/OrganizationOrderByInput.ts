@@ -14,15 +14,6 @@ class OrganizationOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  addres?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["Asc", "Desc"],
-  })
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
   addressId?: SortOrder;
 
   @ApiProperty({

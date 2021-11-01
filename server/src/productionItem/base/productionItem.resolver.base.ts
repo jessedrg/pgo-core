@@ -14,7 +14,7 @@ import { DeleteProductionItemArgs } from "./DeleteProductionItemArgs";
 import { ProductionItemFindManyArgs } from "./ProductionItemFindManyArgs";
 import { ProductionItemFindUniqueArgs } from "./ProductionItemFindUniqueArgs";
 import { ProductionItem } from "./ProductionItem";
-import { Part } from "../../part/base/Part";
+import { Production } from "../../production/base/Production";
 import { ProductionItemService } from "../productionItem.service";
 
 @graphql.Resolver(() => ProductionItem)
@@ -124,9 +124,9 @@ export class ProductionItemResolverBase {
       data: {
         ...args.data,
 
-        part: args.data.part
+        production: args.data.production
           ? {
-              connect: args.data.part,
+              connect: args.data.production,
             }
           : undefined,
       },
@@ -171,9 +171,9 @@ export class ProductionItemResolverBase {
         data: {
           ...args.data,
 
-          part: args.data.part
+          production: args.data.production
             ? {
-                connect: args.data.part,
+                connect: args.data.production,
               }
             : undefined,
         },
@@ -210,23 +210,23 @@ export class ProductionItemResolverBase {
     }
   }
 
-  @graphql.ResolveField(() => Part, { nullable: true })
+  @graphql.ResolveField(() => Production, { nullable: true })
   @nestAccessControl.UseRoles({
     resource: "ProductionItem",
     action: "read",
     possession: "any",
   })
-  async part(
+  async production(
     @graphql.Parent() parent: ProductionItem,
     @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Part | null> {
+  ): Promise<Production | null> {
     const permission = this.rolesBuilder.permission({
       role: userRoles,
       action: "read",
       possession: "any",
-      resource: "Part",
+      resource: "Production",
     });
-    const result = await this.service.getPart(parent.id);
+    const result = await this.service.getProduction(parent.id);
 
     if (!result) {
       return null;

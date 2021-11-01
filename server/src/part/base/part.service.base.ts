@@ -1,15 +1,12 @@
 import { PrismaService } from "nestjs-prisma";
-
 import {
   Prisma,
   Part,
-  PartConfiguration,
   PartMessage,
-  PartOnShape,
-  ProductionItem,
-  QuoteItem,
-  Offer,
   Quote,
+  Offer,
+  PartConfiguration,
+  PartOnShape,
 } from "@prisma/client";
 
 export class PartServiceBase {
@@ -47,17 +44,6 @@ export class PartServiceBase {
     return this.prisma.part.delete(args);
   }
 
-  async findPartConfigurations(
-    parentId: string,
-    args: Prisma.PartConfigurationFindManyArgs
-  ): Promise<PartConfiguration[]> {
-    return this.prisma.part
-      .findUnique({
-        where: { id: parentId },
-      })
-      .partConfigurations(args);
-  }
-
   async findPartMessages(
     parentId: string,
     args: Prisma.PartMessageFindManyArgs
@@ -69,37 +55,15 @@ export class PartServiceBase {
       .partMessages(args);
   }
 
-  async findPartOnShapes(
+  async findQuotes(
     parentId: string,
-    args: Prisma.PartOnShapeFindManyArgs
-  ): Promise<PartOnShape[]> {
+    args: Prisma.QuoteFindManyArgs
+  ): Promise<Quote[]> {
     return this.prisma.part
       .findUnique({
         where: { id: parentId },
       })
-      .partOnShapes(args);
-  }
-
-  async findProductionItems(
-    parentId: string,
-    args: Prisma.ProductionItemFindManyArgs
-  ): Promise<ProductionItem[]> {
-    return this.prisma.part
-      .findUnique({
-        where: { id: parentId },
-      })
-      .productionItems(args);
-  }
-
-  async findQuoteItems(
-    parentId: string,
-    args: Prisma.QuoteItemFindManyArgs
-  ): Promise<QuoteItem[]> {
-    return this.prisma.part
-      .findUnique({
-        where: { id: parentId },
-      })
-      .quoteItems(args);
+      .quotes(args);
   }
 
   async getOffer(parentId: string): Promise<Offer | null> {
@@ -110,19 +74,21 @@ export class PartServiceBase {
       .offer();
   }
 
-  async getPartonshape(parentId: string): Promise<PartOnShape | null> {
+  async getPartConfiguration(
+    parentId: string
+  ): Promise<PartConfiguration | null> {
     return this.prisma.part
       .findUnique({
         where: { id: parentId },
       })
-      .partonshape();
+      .partConfiguration();
   }
 
-  async getQuote(parentId: string): Promise<Quote | null> {
+  async getPartOnShape(parentId: string): Promise<PartOnShape | null> {
     return this.prisma.part
       .findUnique({
         where: { id: parentId },
       })
-      .quote();
+      .partOnShape();
   }
 }

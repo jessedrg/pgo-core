@@ -1,10 +1,24 @@
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsJSON, IsOptional } from "class-validator";
+import { AccountWhereUniqueInput } from "../../account/base/AccountWhereUniqueInput";
+import { ValidateNested, IsOptional, IsJSON } from "class-validator";
+import { Type } from "class-transformer";
 import { GraphQLJSONObject } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 @InputType()
 class AgentCreateInput {
+  @ApiProperty({
+    required: false,
+    type: () => AccountWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => AccountWhereUniqueInput)
+  @IsOptional()
+  @Field(() => AccountWhereUniqueInput, {
+    nullable: true,
+  })
+  account?: AccountWhereUniqueInput | null;
+
   @ApiProperty({
     required: false,
   })

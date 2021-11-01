@@ -10,6 +10,8 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { Order } from "../../order/base/Order";
+import { ProductionItem } from "../../productionItem/base/ProductionItem";
+import { Shipment } from "../../shipment/base/Shipment";
 import { EnumProductionStatus } from "./EnumProductionStatus";
 @ObjectType()
 class Production {
@@ -48,6 +50,24 @@ class Production {
   @Type(() => Order)
   @IsOptional()
   order?: Order | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ProductionItem],
+  })
+  @ValidateNested()
+  @Type(() => ProductionItem)
+  @IsOptional()
+  productionItems?: Array<ProductionItem>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Shipment],
+  })
+  @ValidateNested()
+  @Type(() => Shipment)
+  @IsOptional()
+  shipments?: Array<Shipment>;
 
   @ApiProperty({
     required: false,

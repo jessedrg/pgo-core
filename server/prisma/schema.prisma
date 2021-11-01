@@ -8,19 +8,17 @@ generator client {
 }
 
 model User {
-  account        Account?      @relation(fields: [accountId], references: [id])
-  accountId      String?
-  createdAt      DateTime      @default(now())
-  firstName      String?
-  id             String        @id @default(cuid())
-  lastName       String?
-  organization   Organization? @relation(fields: [organizationId], references: [id])
-  organizationId String?
-  password       String
-  payments       Payment[]
-  roles          String[]
-  updatedAt      DateTime      @updatedAt
-  username       String        @unique
+  account   Account?  @relation(fields: [accountId], references: [id])
+  accountId String?
+  createdAt DateTime  @default(now())
+  firstName String?
+  id        String    @id @default(cuid())
+  lastName  String?
+  password  String
+  payments  Payment[]
+  roles     String[]
+  updatedAt DateTime  @updatedAt
+  username  String    @unique
 }
 
 model Offer {
@@ -35,46 +33,46 @@ model Offer {
 }
 
 model Account {
-  active        Boolean?
-  configuration Json?
-  createdAt     DateTime      @default(now())
-  email         String        @unique
-  id            String        @id @default(cuid())
-  offers        Offer[]
-  partMessages  PartMessage[] @relation(name: "sender")
-  partSender    PartMessage[] @relation(name: "partSender")
-  quotes        Quote[]
-  updatedAt     DateTime      @updatedAt
-  users         User[]
+  active         Boolean?
+  agents         Agent[]
+  configuration  Json?
+  createdAt      DateTime      @default(now())
+  email          String        @unique
+  id             String        @id @default(cuid())
+  offers         Offer[]
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+  organizationId String?
+  partMessages   PartMessage[] @relation(name: "sender")
+  partSender     PartMessage[] @relation(name: "partSender")
+  quotes         Quote[]
+  updatedAt      DateTime      @updatedAt
+  users          User[]
 }
 
 model Part {
-  createdAt          DateTime            @default(now())
-  id                 String              @id @default(cuid())
-  offer              Offer?              @relation(fields: [offerId], references: [id])
-  offerId            String?
-  partConfigurations PartConfiguration[]
-  partMessages       PartMessage[]
-  partonshape        PartOnShape?        @relation(name: "partonshape", fields: [partonshapeId], references: [id])
-  partonshapeId      String?
-  partOnShapes       PartOnShape[]       @relation(name: "PartOnPartOnShapes")
-  parts              Int?
-  process            String?
-  productionItems    ProductionItem[]
-  quantities         Json?
-  quote              Quote?              @relation(fields: [quoteId], references: [id])
-  quoteId            String?
-  quoteItems         QuoteItem[]
-  status             EnumPartStatus?
-  surface            Float?
-  updatedAt          DateTime            @updatedAt
-  visible            Boolean?
-  volume             Float?
-  volumeBoundingBox  Float?
-  volumeChips        Float?
-  x                  Float?
-  y                  Float?
-  z                  Float?
+  createdAt           DateTime           @default(now())
+  id                  String             @id @default(cuid())
+  offer               Offer?             @relation(fields: [offerId], references: [id])
+  offerId             String?
+  partConfiguration   PartConfiguration? @relation(fields: [partConfigurationId], references: [id])
+  partConfigurationId String?
+  partMessages        PartMessage[]
+  partOnShape         PartOnShape?       @relation(fields: [partOnShapeId], references: [id])
+  partOnShapeId       String?
+  parts               Int?
+  process             String?
+  quantities          Json?
+  quotes              Quote[]
+  status              EnumPartStatus?
+  surface             Float?
+  updatedAt           DateTime           @updatedAt
+  visible             Boolean?
+  volume              Float?
+  volumeBoundingBox   Float?
+  volumeChips         Float?
+  x                   Float?
+  y                   Float?
+  z                   Float?
 }
 
 model PartConfiguration {
@@ -85,8 +83,7 @@ model PartConfiguration {
   id           String   @id @default(cuid())
   material     String?
   materialType String?
-  part         Part?    @relation(fields: [partId], references: [id])
-  partId       String?
+  part         Part
   tech         String?
   tolerance    Float?
   updatedAt    DateTime @updatedAt
@@ -98,9 +95,7 @@ model PartOnShape {
   did       String?
   eid       String?
   id        String   @id @default(cuid())
-  part      Part?    @relation(name: "PartOnPartOnShapes", fields: [partId], references: [id])
-  partId    String?
-  parts     Part[]   @relation(name: "partonshape")
+  part      Part
   updatedAt DateTime @updatedAt
   wid       String?
 }
@@ -114,6 +109,7 @@ model Quote {
   parts       Part[]
   provider    Provider?         @relation(fields: [providerId], references: [id])
   providerId  String?
+  quoteItems  QuoteItem[]
   status      EnumQuoteStatus[]
   updatedAt   DateTime          @updatedAt
 }
@@ -124,35 +120,37 @@ model QuoteItem {
   createdAt        DateTime             @default(now())
   id               String               @id @default(cuid())
   margins          Float?
-  part             Part?                @relation(fields: [partId], references: [id])
-  partId           String?
   prices           Float?
   productionDays   Int?
   provider         Provider?            @relation(fields: [providerId], references: [id])
   providerId       String?
   quantities       Int?
+  quote            Quote?               @relation(fields: [quoteId], references: [id])
+  quoteId          String?
   status           EnumQuoteItemStatus?
   updatedAt        DateTime             @updatedAt
 }
 
 model Production {
-  createdAt     DateTime              @default(now())
-  discomformity Boolean?
-  id            String                @id @default(cuid())
-  order         Order?                @relation(fields: [orderId], references: [id])
-  orderId       String?
-  status        EnumProductionStatus?
-  updatedAt     DateTime              @updatedAt
+  createdAt       DateTime              @default(now())
+  discomformity   Boolean?
+  id              String                @id @default(cuid())
+  order           Order?                @relation(fields: [orderId], references: [id])
+  orderId         String?
+  productionItems ProductionItem[]
+  shipments       Shipment[]
+  status          EnumProductionStatus?
+  updatedAt       DateTime              @updatedAt
 }
 
 model ProductionItem {
-  createdAt       DateTime @default(now())
-  id              String   @id @default(cuid())
-  part            Part?    @relation(fields: [partId], references: [id])
-  partId          String?
+  createdAt       DateTime    @default(now())
+  id              String      @id @default(cuid())
+  production      Production? @relation(fields: [productionId], references: [id])
+  productionId    String?
   quantity        Int?
   shippedQuantity Int?
-  updatedAt       DateTime @updatedAt
+  updatedAt       DateTime    @updatedAt
 }
 
 model MediaFile {
@@ -176,7 +174,7 @@ model Provider {
   ratingData     Json?
   shippmentDates Int?
   technologies   Json?
-  typeson        String?
+  type           String?
   updatedAt      DateTime    @updatedAt
   workingDays    Json?
 }
@@ -195,8 +193,7 @@ model Order {
   payment         Payment?         @relation(fields: [paymentId], references: [id])
   paymentId       String?
   productions     Production[]
-  shipment        Shipment?        @relation(fields: [shipmentId], references: [id])
-  shipmentId      String?
+  shipment        Shipment
   shippingaddress Json?
   state           EnumOrderState[]
   subtotal        Float?
@@ -206,15 +203,14 @@ model Order {
 }
 
 model Organization {
-  addres    String?
-  address   Address? @relation(fields: [addressId], references: [id])
+  accounts  Account[]
+  address   Address?  @relation(fields: [addressId], references: [id])
   addressId String?
-  createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
+  createdAt DateTime  @default(now())
+  id        String    @id @default(cuid())
   name      String?
   orders    Order[]
-  updatedAt DateTime @updatedAt
-  users     User[]
+  updatedAt DateTime  @updatedAt
 }
 
 model OrderItem {
@@ -229,6 +225,8 @@ model OrderItem {
 }
 
 model Agent {
+  account   Account? @relation(fields: [accountId], references: [id])
+  accountId String?
   createdAt DateTime @default(now())
   id        String   @id @default(cuid())
   updatedAt DateTime @updatedAt
@@ -263,14 +261,16 @@ model Shipment {
   deliveredAt    DateTime?
   estimatedAt    DateTime?
   id             String              @id @default(cuid())
-  orders         Order[]
+  order          Order?              @relation(fields: [orderId], references: [id])
+  orderId        String?
   partial        Boolean?
-  realtedId      String?
-  relatedType    String?
+  production     Production?         @relation(fields: [productionId], references: [id])
+  productionId   String?
   shippedAt      DateTime?
   status         EnumShipmentStatus?
   tracking       String?
   trackingUrl    String?
+  type           EnumShipmentType?
   updatedAt      DateTime            @updatedAt
 }
 
@@ -301,14 +301,6 @@ model Invite {
   expiresAt DateTime?
   id        String    @id @default(cuid())
   updatedAt DateTime  @updatedAt
-}
-
-model Session {
-  authMethod   String?
-  createdAt    DateTime @default(now())
-  id           String   @id @default(cuid())
-  sessionToken String?
-  updatedAt    DateTime @updatedAt
 }
 
 model Holiday {
@@ -389,6 +381,11 @@ enum EnumShipmentStatus {
   pending
   OnTransit
   delivered
+}
+
+enum EnumShipmentType {
+  production
+  order
 }
 
 enum EnumPaymentStatus {

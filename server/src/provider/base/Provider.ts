@@ -144,7 +144,7 @@ class Provider {
   @Field(() => String, {
     nullable: true,
   })
-  typeson!: string | null;
+  type!: string | null;
 
   @ApiProperty({
     required: true,

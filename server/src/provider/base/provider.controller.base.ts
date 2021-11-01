@@ -75,7 +75,7 @@ export class ProviderControllerBase {
         ratingData: true,
         shippmentDates: true,
         technologies: true,
-        typeson: true,
+        type: true,
         updatedAt: true,
         workingDays: true,
       },
@@ -124,7 +124,7 @@ export class ProviderControllerBase {
         ratingData: true,
         shippmentDates: true,
         technologies: true,
-        typeson: true,
+        type: true,
         updatedAt: true,
         workingDays: true,
       },
@@ -168,7 +168,7 @@ export class ProviderControllerBase {
         ratingData: true,
         shippmentDates: true,
         technologies: true,
-        typeson: true,
+        type: true,
         updatedAt: true,
         workingDays: true,
       },
@@ -233,7 +233,7 @@ export class ProviderControllerBase {
           ratingData: true,
           shippmentDates: true,
           technologies: true,
-          typeson: true,
+          type: true,
           updatedAt: true,
           workingDays: true,
         },
@@ -278,7 +278,7 @@ export class ProviderControllerBase {
           ratingData: true,
           shippmentDates: true,
           technologies: true,
-          typeson: true,
+          type: true,
           updatedAt: true,
           workingDays: true,
         },
@@ -511,13 +511,6 @@ export class ProviderControllerBase {
         createdAt: true,
         id: true,
         margins: true,
-
-        part: {
-          select: {
-            id: true,
-          },
-        },
-
         prices: true,
         productionDays: true,
 
@@ -528,6 +521,13 @@ export class ProviderControllerBase {
         },
 
         quantities: true,
+
+        quote: {
+          select: {
+            id: true,
+          },
+        },
+
         status: true,
         updatedAt: true,
       },

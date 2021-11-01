@@ -5,11 +5,15 @@ import {
   IsOptional,
   IsNumber,
   IsDate,
+  ValidateNested,
   IsBoolean,
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { OrderWhereUniqueInput } from "../../order/base/OrderWhereUniqueInput";
+import { ProductionWhereUniqueInput } from "../../production/base/ProductionWhereUniqueInput";
 import { EnumShipmentStatus } from "./EnumShipmentStatus";
+import { EnumShipmentType } from "./EnumShipmentType";
 @InputType()
 class ShipmentCreateInput {
   @ApiProperty({
@@ -69,6 +73,18 @@ class ShipmentCreateInput {
 
   @ApiProperty({
     required: false,
+    type: () => OrderWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => OrderWhereUniqueInput)
+  @IsOptional()
+  @Field(() => OrderWhereUniqueInput, {
+    nullable: true,
+  })
+  order?: OrderWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
     type: Boolean,
   })
   @IsBoolean()
@@ -80,25 +96,15 @@ class ShipmentCreateInput {
 
   @ApiProperty({
     required: false,
-    type: String,
+    type: () => ProductionWhereUniqueInput,
   })
-  @IsString()
+  @ValidateNested()
+  @Type(() => ProductionWhereUniqueInput)
   @IsOptional()
-  @Field(() => String, {
+  @Field(() => ProductionWhereUniqueInput, {
     nullable: true,
   })
-  realtedId?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  relatedType?: string | null;
+  production?: ProductionWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -143,5 +149,16 @@ class ShipmentCreateInput {
     nullable: true,
   })
   trackingUrl?: string | null;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumShipmentType,
+  })
+  @IsEnum(EnumShipmentType)
+  @IsOptional()
+  @Field(() => EnumShipmentType, {
+    nullable: true,
+  })
+  type?: "production" | "order" | null;
 }
 export { ShipmentCreateInput };

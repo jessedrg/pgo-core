@@ -3,7 +3,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
-import { PartWhereUniqueInput } from "../../part/base/PartWhereUniqueInput";
+import { ProductionWhereUniqueInput } from "../../production/base/ProductionWhereUniqueInput";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 @InputType()
 class ProductionItemWhereInput {
@@ -20,15 +20,15 @@ class ProductionItemWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => PartWhereUniqueInput,
+    type: () => ProductionWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => PartWhereUniqueInput)
+  @Type(() => ProductionWhereUniqueInput)
   @IsOptional()
-  @Field(() => PartWhereUniqueInput, {
+  @Field(() => ProductionWhereUniqueInput, {
     nullable: true,
   })
-  part?: PartWhereUniqueInput;
+  production?: ProductionWhereUniqueInput;
 
   @ApiProperty({
     required: false,

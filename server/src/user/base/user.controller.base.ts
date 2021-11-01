@@ -68,12 +68,6 @@ export class UserControllerBase {
               connect: data.account,
             }
           : undefined,
-
-        organization: data.organization
-          ? {
-              connect: data.organization,
-            }
-          : undefined,
       },
       select: {
         account: {
@@ -86,13 +80,6 @@ export class UserControllerBase {
         firstName: true,
         id: true,
         lastName: true,
-
-        organization: {
-          select: {
-            id: true,
-          },
-        },
-
         roles: true,
         updatedAt: true,
         username: true,
@@ -143,13 +130,6 @@ export class UserControllerBase {
         firstName: true,
         id: true,
         lastName: true,
-
-        organization: {
-          select: {
-            id: true,
-          },
-        },
-
         roles: true,
         updatedAt: true,
         username: true,
@@ -195,13 +175,6 @@ export class UserControllerBase {
         firstName: true,
         id: true,
         lastName: true,
-
-        organization: {
-          select: {
-            id: true,
-          },
-        },
-
         roles: true,
         updatedAt: true,
         username: true,
@@ -264,12 +237,6 @@ export class UserControllerBase {
                 connect: data.account,
               }
             : undefined,
-
-          organization: data.organization
-            ? {
-                connect: data.organization,
-              }
-            : undefined,
         },
         select: {
           account: {
@@ -282,13 +249,6 @@ export class UserControllerBase {
           firstName: true,
           id: true,
           lastName: true,
-
-          organization: {
-            select: {
-              id: true,
-            },
-          },
-
           roles: true,
           updatedAt: true,
           username: true,
@@ -335,13 +295,6 @@ export class UserControllerBase {
           firstName: true,
           id: true,
           lastName: true,
-
-          organization: {
-            select: {
-              id: true,
-            },
-          },
-
           roles: true,
           updatedAt: true,
           username: true,

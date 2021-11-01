@@ -1,5 +1,5 @@
 {
-  "name": "proto-and-go-core-server",
+  "name": "proto-go-core-server",
   "private": true,
   "scripts": {
     "start": "nest start",
@@ -14,7 +14,6 @@
     "db:init": "run-s \"db:migrate-save -- --name 'initial version'\" db:migrate-up seed",
     "prisma:generate": "prisma generate",
     "docker:db": "docker-compose -f docker-compose.db.yml up -d",
-    "docker:mock": "docker-compose -f docker-compose.mock.yml up -d",
     "docker:build": "docker build ."
   },
   "dependencies": {

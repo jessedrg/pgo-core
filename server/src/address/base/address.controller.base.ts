@@ -340,8 +340,6 @@ export class AddressControllerBase {
     const results = await this.service.findOrganizations(params.id, {
       where: query,
       select: {
-        addres: true,
-
         address: {
           select: {
             id: true,

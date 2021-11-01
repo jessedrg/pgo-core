@@ -16,7 +16,7 @@ export type Provider = {
   ratingData: JsonValue | null;
   shippmentDates: number | null;
   technologies: JsonValue | null;
-  typeson: string | null;
+  type: string | null;
   updatedAt: Date;
   workingDays: JsonValue | null;
 };

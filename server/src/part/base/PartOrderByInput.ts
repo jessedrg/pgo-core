@@ -41,7 +41,16 @@ class PartOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  partonshapeId?: SortOrder;
+  partConfigurationId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["Asc", "Desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  partOnShapeId?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -69,15 +78,6 @@ class PartOrderByInput {
     nullable: true,
   })
   quantities?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["Asc", "Desc"],
-  })
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  quoteId?: SortOrder;
 
   @ApiProperty({
     required: false,

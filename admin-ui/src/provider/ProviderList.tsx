@@ -21,7 +21,7 @@ export const ProviderList = (props: ListProps): React.ReactElement => {
         <TextField label="ratingData" source="ratingData" />
         <TextField label="shippmentDates" source="shippmentDates" />
         <TextField label="techologies" source="technologies" />
-        <TextField label="typeson" source="typeson" />
+        <TextField label="type" source="type" />
         <DateField source="updatedAt" label="Updated At" />
         <TextField label="workingDays" source="workingDays" />
       </Datagrid>

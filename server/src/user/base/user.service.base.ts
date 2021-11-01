@@ -1,5 +1,5 @@
 import { PrismaService } from "nestjs-prisma";
-import { Prisma, User, Payment, Account, Organization } from "@prisma/client";
+import { Prisma, User, Payment, Account } from "@prisma/client";
 import { PasswordService } from "../../auth/password.service";
 import { transformStringFieldUpdateInput } from "../../prisma.util";
 
@@ -78,13 +78,5 @@ export class UserServiceBase {
         where: { id: parentId },
       })
       .account();
-  }
-
-  async getOrganization(parentId: string): Promise<Organization | null> {
-    return this.prisma.user
-      .findUnique({
-        where: { id: parentId },
-      })
-      .organization();
   }
 }

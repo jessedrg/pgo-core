@@ -135,7 +135,7 @@ class Order {
   @ValidateNested()
   @Type(() => Shipment)
   @IsOptional()
-  shipment?: Shipment | null;
+  shipment?: Shipment;
 
   @ApiProperty({
     required: false,

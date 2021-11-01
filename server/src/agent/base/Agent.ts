@@ -1,11 +1,27 @@
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsString, IsJSON, IsOptional } from "class-validator";
+import { Account } from "../../account/base/Account";
+import {
+  ValidateNested,
+  IsOptional,
+  IsDate,
+  IsString,
+  IsJSON,
+} from "class-validator";
 import { Type } from "class-transformer";
 import { GraphQLJSONObject } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 @ObjectType()
 class Agent {
+  @ApiProperty({
+    required: false,
+    type: () => Account,
+  })
+  @ValidateNested()
+  @Type(() => Account)
+  @IsOptional()
+  account?: Account | null;
+
   @ApiProperty({
     required: true,
   })

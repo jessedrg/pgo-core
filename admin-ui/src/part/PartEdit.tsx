@@ -12,8 +12,8 @@ import {
 } from "react-admin";
 
 import { OfferTitle } from "../offer/OfferTitle";
+import { PartConfigurationTitle } from "../partConfiguration/PartConfigurationTitle";
 import { PartOnShapeTitle } from "../partOnShape/PartOnShapeTitle";
-import { QuoteTitle } from "../quote/QuoteTitle";
 
 export const PartEdit = (props: EditProps): React.ReactElement => {
   return (
@@ -23,18 +23,22 @@ export const PartEdit = (props: EditProps): React.ReactElement => {
           <SelectInput optionText={OfferTitle} />
         </ReferenceInput>
         <ReferenceInput
+          source="partconfiguration.id"
+          reference="PartConfiguration"
+          label="partConfiguration"
+        >
+          <SelectInput optionText={PartConfigurationTitle} />
+        </ReferenceInput>
+        <ReferenceInput
           source="partonshape.id"
           reference="PartOnShape"
-          label="partonshape"
+          label="partOnShape"
         >
           <SelectInput optionText={PartOnShapeTitle} />
         </ReferenceInput>
         <NumberInput step={1} label="parts" source="parts" />
         <TextInput label="process" source="process" />
         <div />
-        <ReferenceInput source="quote.id" reference="Quote" label="quote">
-          <SelectInput optionText={QuoteTitle} />
-        </ReferenceInput>
         <SelectInput
           source="status"
           label="status"

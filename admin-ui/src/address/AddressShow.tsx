@@ -39,7 +39,6 @@ export const AddressShow = (props: ShowProps): React.ReactElement => {
           label="Organizations"
         >
           <Datagrid rowClick="show">
-            <TextField label="addres" source="addres" />
             <ReferenceField
               label="address"
               source="address.id"

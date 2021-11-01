@@ -61,15 +61,15 @@ export class QuoteItemControllerBase {
       data: {
         ...data,
 
-        part: data.part
-          ? {
-              connect: data.part,
-            }
-          : undefined,
-
         provider: data.provider
           ? {
               connect: data.provider,
+            }
+          : undefined,
+
+        quote: data.quote
+          ? {
+              connect: data.quote,
             }
           : undefined,
       },
@@ -79,13 +79,6 @@ export class QuoteItemControllerBase {
         createdAt: true,
         id: true,
         margins: true,
-
-        part: {
-          select: {
-            id: true,
-          },
-        },
-
         prices: true,
         productionDays: true,
 
@@ -96,6 +89,13 @@ export class QuoteItemControllerBase {
         },
 
         quantities: true,
+
+        quote: {
+          select: {
+            id: true,
+          },
+        },
+
         status: true,
         updatedAt: true,
       },
@@ -140,13 +140,6 @@ export class QuoteItemControllerBase {
         createdAt: true,
         id: true,
         margins: true,
-
-        part: {
-          select: {
-            id: true,
-          },
-        },
-
         prices: true,
         productionDays: true,
 
@@ -157,6 +150,13 @@ export class QuoteItemControllerBase {
         },
 
         quantities: true,
+
+        quote: {
+          select: {
+            id: true,
+          },
+        },
+
         status: true,
         updatedAt: true,
       },
@@ -196,13 +196,6 @@ export class QuoteItemControllerBase {
         createdAt: true,
         id: true,
         margins: true,
-
-        part: {
-          select: {
-            id: true,
-          },
-        },
-
         prices: true,
         productionDays: true,
 
@@ -213,6 +206,13 @@ export class QuoteItemControllerBase {
         },
 
         quantities: true,
+
+        quote: {
+          select: {
+            id: true,
+          },
+        },
+
         status: true,
         updatedAt: true,
       },
@@ -269,15 +269,15 @@ export class QuoteItemControllerBase {
         data: {
           ...data,
 
-          part: data.part
-            ? {
-                connect: data.part,
-              }
-            : undefined,
-
           provider: data.provider
             ? {
                 connect: data.provider,
+              }
+            : undefined,
+
+          quote: data.quote
+            ? {
+                connect: data.quote,
               }
             : undefined,
         },
@@ -287,13 +287,6 @@ export class QuoteItemControllerBase {
           createdAt: true,
           id: true,
           margins: true,
-
-          part: {
-            select: {
-              id: true,
-            },
-          },
-
           prices: true,
           productionDays: true,
 
@@ -304,6 +297,13 @@ export class QuoteItemControllerBase {
           },
 
           quantities: true,
+
+          quote: {
+            select: {
+              id: true,
+            },
+          },
+
           status: true,
           updatedAt: true,
         },
@@ -344,13 +344,6 @@ export class QuoteItemControllerBase {
           createdAt: true,
           id: true,
           margins: true,
-
-          part: {
-            select: {
-              id: true,
-            },
-          },
-
           prices: true,
           productionDays: true,
 
@@ -361,6 +354,13 @@ export class QuoteItemControllerBase {
           },
 
           quantities: true,
+
+          quote: {
+            select: {
+              id: true,
+            },
+          },
+
           status: true,
           updatedAt: true,
         },

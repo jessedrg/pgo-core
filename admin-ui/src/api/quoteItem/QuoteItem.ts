@@ -1,5 +1,5 @@
-import { Part } from "../part/Part";
 import { Provider } from "../provider/Provider";
+import { Quote } from "../quote/Quote";
 
 export type QuoteItem = {
   basePrices: number | null;
@@ -7,11 +7,11 @@ export type QuoteItem = {
   createdAt: Date;
   id: string;
   margins: number | null;
-  part?: Part | null;
   prices: number | null;
   productionDays: number | null;
   provider?: Provider | null;
   quantities: number | null;
+  quote?: Quote | null;
   status?: "pending" | "completed" | "rejected" | "canceled" | null;
   updatedAt: Date;
 };

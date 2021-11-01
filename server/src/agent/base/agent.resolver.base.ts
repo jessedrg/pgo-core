@@ -14,6 +14,7 @@ import { DeleteAgentArgs } from "./DeleteAgentArgs";
 import { AgentFindManyArgs } from "./AgentFindManyArgs";
 import { AgentFindUniqueArgs } from "./AgentFindUniqueArgs";
 import { Agent } from "./Agent";
+import { Account } from "../../account/base/Account";
 import { AgentService } from "../agent.service";
 
 @graphql.Resolver(() => Agent)
@@ -120,7 +121,15 @@ export class AgentResolverBase {
     // @ts-ignore
     return await this.service.create({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        account: args.data.account
+          ? {
+              connect: args.data.account,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -159,7 +168,15 @@ export class AgentResolverBase {
       // @ts-ignore
       return await this.service.update({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          account: args.data.account
+            ? {
+                connect: args.data.account,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -191,5 +208,29 @@ export class AgentResolverBase {
       }
       throw error;
     }
+  }
+
+  @graphql.ResolveField(() => Account, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "Agent",
+    action: "read",
+    possession: "any",
+  })
+  async account(
+    @graphql.Parent() parent: Agent,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Account | null> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Account",
+    });
+    const result = await this.service.getAccount(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return permission.filter(result);
   }
 }

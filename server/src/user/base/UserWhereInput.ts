@@ -5,7 +5,6 @@ import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
-import { OrganizationWhereUniqueInput } from "../../organization/base/OrganizationWhereUniqueInput";
 @InputType()
 class UserWhereInput {
   @ApiProperty({
@@ -52,18 +51,6 @@ class UserWhereInput {
     nullable: true,
   })
   lastName?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => OrganizationWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => OrganizationWhereUniqueInput)
-  @IsOptional()
-  @Field(() => OrganizationWhereUniqueInput, {
-    nullable: true,
-  })
-  organization?: OrganizationWhereUniqueInput;
 
   @ApiProperty({
     required: false,

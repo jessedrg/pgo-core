@@ -1,5 +1,5 @@
 import { PrismaService } from "nestjs-prisma";
-import { Prisma, ProductionItem, Part } from "@prisma/client";
+import { Prisma, ProductionItem, Production } from "@prisma/client";
 
 export class ProductionItemServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -36,11 +36,11 @@ export class ProductionItemServiceBase {
     return this.prisma.productionItem.delete(args);
   }
 
-  async getPart(parentId: string): Promise<Part | null> {
+  async getProduction(parentId: string): Promise<Production | null> {
     return this.prisma.productionItem
       .findUnique({
         where: { id: parentId },
       })
-      .part();
+      .production();
   }
 }

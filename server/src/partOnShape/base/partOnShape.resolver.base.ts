@@ -14,7 +14,6 @@ import { DeletePartOnShapeArgs } from "./DeletePartOnShapeArgs";
 import { PartOnShapeFindManyArgs } from "./PartOnShapeFindManyArgs";
 import { PartOnShapeFindUniqueArgs } from "./PartOnShapeFindUniqueArgs";
 import { PartOnShape } from "./PartOnShape";
-import { PartFindManyArgs } from "../../part/base/PartFindManyArgs";
 import { Part } from "../../part/base/Part";
 import { PartOnShapeService } from "../partOnShape.service";
 
@@ -209,32 +208,6 @@ export class PartOnShapeResolverBase {
       }
       throw error;
     }
-  }
-
-  @graphql.ResolveField(() => [Part])
-  @nestAccessControl.UseRoles({
-    resource: "PartOnShape",
-    action: "read",
-    possession: "any",
-  })
-  async parts(
-    @graphql.Parent() parent: PartOnShape,
-    @graphql.Args() args: PartFindManyArgs,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Part[]> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Part",
-    });
-    const results = await this.service.findParts(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results.map((result) => permission.filter(result));
   }
 
   @graphql.ResolveField(() => Part, { nullable: true })

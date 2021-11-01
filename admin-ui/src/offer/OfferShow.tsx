@@ -13,8 +13,8 @@ import {
 } from "react-admin";
 
 import { OFFER_TITLE_FIELD } from "./OfferTitle";
+import { PARTCONFIGURATION_TITLE_FIELD } from "../partConfiguration/PartConfigurationTitle";
 import { PARTONSHAPE_TITLE_FIELD } from "../partOnShape/PartOnShapeTitle";
-import { QUOTE_TITLE_FIELD } from "../quote/QuoteTitle";
 
 export const OfferShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -34,7 +34,14 @@ export const OfferShow = (props: ShowProps): React.ReactElement => {
               <TextField source={OFFER_TITLE_FIELD} />
             </ReferenceField>
             <ReferenceField
-              label="partonshape"
+              label="partConfiguration"
+              source="partconfiguration.id"
+              reference="PartConfiguration"
+            >
+              <TextField source={PARTCONFIGURATION_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="partOnShape"
               source="partonshape.id"
               reference="PartOnShape"
             >
@@ -43,9 +50,6 @@ export const OfferShow = (props: ShowProps): React.ReactElement => {
             <TextField label="parts" source="parts" />
             <TextField label="process" source="process" />
             <TextField label="quantities" source="quantities" />
-            <ReferenceField label="quote" source="quote.id" reference="Quote">
-              <TextField source={QUOTE_TITLE_FIELD} />
-            </ReferenceField>
             <TextField label="status" source="status" />
             <TextField label="surface" source="surface" />
             <DateField source="updatedAt" label="Updated At" />

@@ -95,7 +95,7 @@ class ProviderOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  typeson?: SortOrder;
+  type?: SortOrder;
 
   @ApiProperty({
     required: false,

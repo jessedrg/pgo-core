@@ -11,7 +11,9 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { Order } from "../../order/base/Order";
+import { Production } from "../../production/base/Production";
 import { EnumShipmentStatus } from "./EnumShipmentStatus";
+import { EnumShipmentType } from "./EnumShipmentType";
 @ObjectType()
 class Shipment {
   @ApiProperty({
@@ -87,12 +89,12 @@ class Shipment {
 
   @ApiProperty({
     required: false,
-    type: () => [Order],
+    type: () => Order,
   })
   @ValidateNested()
   @Type(() => Order)
   @IsOptional()
-  orders?: Array<Order>;
+  order?: Order | null;
 
   @ApiProperty({
     required: false,
@@ -107,25 +109,12 @@ class Shipment {
 
   @ApiProperty({
     required: false,
-    type: String,
+    type: () => Production,
   })
-  @IsString()
+  @ValidateNested()
+  @Type(() => Production)
   @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  realtedId!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  relatedType!: string | null;
+  production?: Production | null;
 
   @ApiProperty({
     required: false,
@@ -170,6 +159,17 @@ class Shipment {
     nullable: true,
   })
   trackingUrl!: string | null;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumShipmentType,
+  })
+  @IsEnum(EnumShipmentType)
+  @IsOptional()
+  @Field(() => EnumShipmentType, {
+    nullable: true,
+  })
+  type?: "production" | "order" | null;
 
   @ApiProperty({
     required: true,

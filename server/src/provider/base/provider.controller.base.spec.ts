@@ -18,7 +18,7 @@ const CREATE_INPUT = {
   name: "exampleName",
   rating: 42.42,
   shippmentDates: 42,
-  typeson: "exampleTypeson",
+  type: "exampleType",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
@@ -29,7 +29,7 @@ const CREATE_RESULT = {
   name: "exampleName",
   rating: 42.42,
   shippmentDates: 42,
-  typeson: "exampleTypeson",
+  type: "exampleType",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
@@ -41,7 +41,7 @@ const FIND_MANY_RESULT = [
     name: "exampleName",
     rating: 42.42,
     shippmentDates: 42,
-    typeson: "exampleTypeson",
+    type: "exampleType",
     updatedAt: new Date(),
   },
 ];
@@ -53,7 +53,7 @@ const FIND_ONE_RESULT = {
   name: "exampleName",
   rating: 42.42,
   shippmentDates: 42,
-  typeson: "exampleTypeson",
+  type: "exampleType",
   updatedAt: new Date(),
 };
 

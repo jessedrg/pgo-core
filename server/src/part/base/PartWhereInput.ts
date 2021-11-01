@@ -4,11 +4,11 @@ import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested, IsEnum } from "class-validator";
 import { OfferWhereUniqueInput } from "../../offer/base/OfferWhereUniqueInput";
+import { PartConfigurationWhereUniqueInput } from "../../partConfiguration/base/PartConfigurationWhereUniqueInput";
 import { PartOnShapeWhereUniqueInput } from "../../partOnShape/base/PartOnShapeWhereUniqueInput";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { JsonNullableFilter } from "../../util/JsonNullableFilter";
-import { QuoteWhereUniqueInput } from "../../quote/base/QuoteWhereUniqueInput";
 import { EnumPartStatus } from "./EnumPartStatus";
 import { FloatNullableFilter } from "../../util/FloatNullableFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
@@ -39,6 +39,18 @@ class PartWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => PartConfigurationWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => PartConfigurationWhereUniqueInput)
+  @IsOptional()
+  @Field(() => PartConfigurationWhereUniqueInput, {
+    nullable: true,
+  })
+  partConfiguration?: PartConfigurationWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
     type: () => PartOnShapeWhereUniqueInput,
   })
   @ValidateNested()
@@ -47,7 +59,7 @@ class PartWhereInput {
   @Field(() => PartOnShapeWhereUniqueInput, {
     nullable: true,
   })
-  partonshape?: PartOnShapeWhereUniqueInput;
+  partOnShape?: PartOnShapeWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -81,18 +93,6 @@ class PartWhereInput {
     nullable: true,
   })
   quantities?: JsonNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => QuoteWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => QuoteWhereUniqueInput)
-  @IsOptional()
-  @Field(() => QuoteWhereUniqueInput, {
-    nullable: true,
-  })
-  quote?: QuoteWhereUniqueInput;
 
   @ApiProperty({
     required: false,
