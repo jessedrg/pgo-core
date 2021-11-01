@@ -1,4 +1,5 @@
 import { Module } from "@nestjs/common";
+import { NotificationModule } from "./notification/notification.module";
 import { UserModule } from "./user/user.module";
 import { OfferModule } from "./offer/offer.module";
 import { AccountModule } from "./account/account.module";
@@ -36,6 +37,7 @@ import { GraphQLModule } from "@nestjs/graphql";
 @Module({
   controllers: [],
   imports: [
+    NotificationModule,
     UserModule,
     OfferModule,
     AccountModule,
