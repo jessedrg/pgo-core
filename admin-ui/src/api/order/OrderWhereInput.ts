@@ -1,21 +1,17 @@
-import { JsonNullableFilter } from "../../util/JsonNullableFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { JsonNullableFilter } from "../../util/JsonNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { PaymentWhereUniqueInput } from "../payment/PaymentWhereUniqueInput";
-import { ShipmentWhereUniqueInput } from "../shipment/ShipmentWhereUniqueInput";
 import { FloatNullableFilter } from "../../util/FloatNullableFilter";
 
 export type OrderWhereInput = {
-  billingAddress?: JsonNullableFilter;
   comment?: StringNullableFilter;
-  customNo?: StringNullableFilter;
+  customCode?: StringNullableFilter;
   estimatedDays?: IntNullableFilter;
   fees?: JsonNullableFilter;
   id?: StringFilter;
   payment?: PaymentWhereUniqueInput;
-  shipment?: ShipmentWhereUniqueInput;
-  shippingaddress?: JsonNullableFilter;
   subtotal?: FloatNullableFilter;
   taxes?: JsonNullableFilter;
   total?: FloatNullableFilter;

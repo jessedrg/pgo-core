@@ -1,17 +1,24 @@
 import * as React from "react";
+
 import {
   Create,
   SimpleForm,
   CreateProps,
+  ReferenceInput,
+  SelectInput,
   TextInput,
   DateTimeInput,
-  SelectInput,
 } from "react-admin";
+
+import { AccountTitle } from "../account/AccountTitle";
 
 export const OfferCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
+        <ReferenceInput source="account.id" reference="Account" label="Account">
+          <SelectInput optionText={AccountTitle} />
+        </ReferenceInput>
         <TextInput label="Custom Number" multiline source="customNumber" />
         <DateTimeInput label="Published At" source="publishedAt" />
         <SelectInput

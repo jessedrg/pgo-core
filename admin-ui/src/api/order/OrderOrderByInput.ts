@@ -4,14 +4,13 @@ export type OrderOrderByInput = {
   billingAddress?: SortOrder;
   comment?: SortOrder;
   createdAt?: SortOrder;
-  customNo?: SortOrder;
+  customCode?: SortOrder;
   estimatedDays?: SortOrder;
   fees?: SortOrder;
   id?: SortOrder;
   paymentId?: SortOrder;
-  shipmentId?: SortOrder;
   shippingaddress?: SortOrder;
-  state?: SortOrder;
+  status?: SortOrder;
   subtotal?: SortOrder;
   taxes?: SortOrder;
   total?: SortOrder;

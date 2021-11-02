@@ -2,7 +2,7 @@ import { Account } from "../account/Account";
 import { Part } from "../part/Part";
 
 export type Offer = {
-  account?: Array<Account>;
+  account?: Account | null;
   createdAt: Date;
   customNumber: string | null;
   id: string;

@@ -293,7 +293,7 @@ export class PaymentControllerBase {
         billingAddress: true,
         comment: true,
         createdAt: true,
-        customNo: true,
+        customCode: true,
         estimatedDays: true,
         fees: true,
         id: true,
@@ -304,14 +304,8 @@ export class PaymentControllerBase {
           },
         },
 
-        shipment: {
-          select: {
-            id: true,
-          },
-        },
-
         shippingaddress: true,
-        state: true,
+        status: true,
         subtotal: true,
         taxes: true,
         total: true,

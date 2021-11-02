@@ -12,8 +12,8 @@ import {
   Datagrid,
 } from "react-admin";
 
-import { PART_TITLE_FIELD } from "../part/PartTitle";
 import { ACCOUNT_TITLE_FIELD } from "./AccountTitle";
+import { PART_TITLE_FIELD } from "../part/PartTitle";
 import { MEDIAFILE_TITLE_FIELD } from "../mediaFile/MediaFileTitle";
 import { OFFER_TITLE_FIELD } from "../offer/OfferTitle";
 import { ORGANIZATION_TITLE_FIELD } from "../organization/OrganizationTitle";
@@ -47,6 +47,23 @@ export const AccountShow = (props: ShowProps): React.ReactElement => {
         <ReferenceField label="User" source="user.id" reference="User">
           <TextField source={USER_TITLE_FIELD} />
         </ReferenceField>
+        <ReferenceManyField reference="Offer" target="AccountId" label="Offers">
+          <Datagrid rowClick="show">
+            <ReferenceField
+              label="Account"
+              source="account.id"
+              reference="Account"
+            >
+              <TextField source={ACCOUNT_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="Custom Number" source="customNumber" />
+            <TextField label="ID" source="id" />
+            <TextField label="Published At" source="publishedAt" />
+            <TextField label="Status" source="status" />
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
         <ReferenceManyField
           reference="PartMessage"
           target="AccountId"
