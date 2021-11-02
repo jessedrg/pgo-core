@@ -13,8 +13,7 @@ import { GraphQLJSONObject } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { PaymentWhereUniqueInput } from "../../payment/base/PaymentWhereUniqueInput";
 import { Type } from "class-transformer";
-import { ShipmentWhereUniqueInput } from "../../shipment/base/ShipmentWhereUniqueInput";
-import { EnumOrderState } from "./EnumOrderState";
+import { EnumOrderStatus } from "./EnumOrderStatus";
 @InputType()
 class OrderUpdateInput {
   @ApiProperty({
@@ -47,7 +46,7 @@ class OrderUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  customNo?: string | null;
+  customCode?: string | null;
 
   @ApiProperty({
     required: false,
@@ -84,18 +83,6 @@ class OrderUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => ShipmentWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => ShipmentWhereUniqueInput)
-  @IsOptional()
-  @Field(() => ShipmentWhereUniqueInput, {
-    nullable: true,
-  })
-  shipment?: ShipmentWhereUniqueInput;
-
-  @ApiProperty({
-    required: false,
   })
   @IsJSON()
   @IsOptional()
@@ -106,17 +93,17 @@ class OrderUpdateInput {
 
   @ApiProperty({
     required: false,
-    enum: EnumOrderState,
+    enum: EnumOrderStatus,
     isArray: true,
   })
-  @IsEnum(EnumOrderState, {
+  @IsEnum(EnumOrderStatus, {
     each: true,
   })
   @IsOptional()
-  @Field(() => [EnumOrderState], {
+  @Field(() => [EnumOrderStatus], {
     nullable: true,
   })
-  state?: Array<
+  status?: Array<
     | "onHold"
     | "failed"
     | "processing"

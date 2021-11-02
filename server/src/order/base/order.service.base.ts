@@ -4,8 +4,8 @@ import {
   Order,
   OrderItem,
   Production,
-  Payment,
   Shipment,
+  Payment,
 } from "@prisma/client";
 
 export class OrderServiceBase {
@@ -65,19 +65,22 @@ export class OrderServiceBase {
       .productions(args);
   }
 
+  async findShipments(
+    parentId: string,
+    args: Prisma.ShipmentFindManyArgs
+  ): Promise<Shipment[]> {
+    return this.prisma.order
+      .findUnique({
+        where: { id: parentId },
+      })
+      .shipments(args);
+  }
+
   async getPayment(parentId: string): Promise<Payment | null> {
     return this.prisma.order
       .findUnique({
         where: { id: parentId },
       })
       .payment();
-  }
-
-  async getShipment(parentId: string): Promise<Shipment | null> {
-    return this.prisma.order
-      .findUnique({
-        where: { id: parentId },
-      })
-      .shipment();
   }
 }

@@ -18,8 +18,9 @@ import { OrderItemFindManyArgs } from "../../orderItem/base/OrderItemFindManyArg
 import { OrderItem } from "../../orderItem/base/OrderItem";
 import { ProductionFindManyArgs } from "../../production/base/ProductionFindManyArgs";
 import { Production } from "../../production/base/Production";
-import { Payment } from "../../payment/base/Payment";
+import { ShipmentFindManyArgs } from "../../shipment/base/ShipmentFindManyArgs";
 import { Shipment } from "../../shipment/base/Shipment";
+import { Payment } from "../../payment/base/Payment";
 import { OrderService } from "../order.service";
 
 @graphql.Resolver(() => Order)
@@ -134,12 +135,6 @@ export class OrderResolverBase {
               connect: args.data.payment,
             }
           : undefined,
-
-        shipment: args.data.shipment
-          ? {
-              connect: args.data.shipment,
-            }
-          : undefined,
       },
     });
   }
@@ -185,12 +180,6 @@ export class OrderResolverBase {
           payment: args.data.payment
             ? {
                 connect: args.data.payment,
-              }
-            : undefined,
-
-          shipment: args.data.shipment
-            ? {
-                connect: args.data.shipment,
               }
             : undefined,
         },
@@ -279,6 +268,32 @@ export class OrderResolverBase {
     return results.map((result) => permission.filter(result));
   }
 
+  @graphql.ResolveField(() => [Shipment])
+  @nestAccessControl.UseRoles({
+    resource: "Order",
+    action: "read",
+    possession: "any",
+  })
+  async shipments(
+    @graphql.Parent() parent: Order,
+    @graphql.Args() args: ShipmentFindManyArgs,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Shipment[]> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Shipment",
+    });
+    const results = await this.service.findShipments(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results.map((result) => permission.filter(result));
+  }
+
   @graphql.ResolveField(() => Payment, { nullable: true })
   @nestAccessControl.UseRoles({
     resource: "Order",
@@ -296,30 +311,6 @@ export class OrderResolverBase {
       resource: "Payment",
     });
     const result = await this.service.getPayment(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return permission.filter(result);
-  }
-
-  @graphql.ResolveField(() => Shipment, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "Order",
-    action: "read",
-    possession: "any",
-  })
-  async shipment(
-    @graphql.Parent() parent: Order,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Shipment | null> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Shipment",
-    });
-    const result = await this.service.getShipment(parent.id);
 
     if (!result) {
       return null;

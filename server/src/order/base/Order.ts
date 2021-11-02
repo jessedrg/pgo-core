@@ -19,7 +19,7 @@ import { OrderItem } from "../../orderItem/base/OrderItem";
 import { Payment } from "../../payment/base/Payment";
 import { Production } from "../../production/base/Production";
 import { Shipment } from "../../shipment/base/Shipment";
-import { EnumOrderState } from "./EnumOrderState";
+import { EnumOrderStatus } from "./EnumOrderStatus";
 @ObjectType()
 class Order {
   @ApiProperty({
@@ -60,7 +60,7 @@ class Order {
   @Field(() => String, {
     nullable: true,
   })
-  customNo!: string | null;
+  customCode!: string | null;
 
   @ApiProperty({
     required: false,
@@ -120,12 +120,12 @@ class Order {
 
   @ApiProperty({
     required: false,
-    type: () => Shipment,
+    type: () => [Shipment],
   })
   @ValidateNested()
   @Type(() => Shipment)
   @IsOptional()
-  shipment?: Shipment;
+  shipments?: Array<Shipment>;
 
   @ApiProperty({
     required: false,
@@ -139,17 +139,17 @@ class Order {
 
   @ApiProperty({
     required: false,
-    enum: EnumOrderState,
+    enum: EnumOrderStatus,
     isArray: true,
   })
-  @IsEnum(EnumOrderState, {
+  @IsEnum(EnumOrderStatus, {
     each: true,
   })
   @IsOptional()
-  @Field(() => [EnumOrderState], {
+  @Field(() => [EnumOrderStatus], {
     nullable: true,
   })
-  state?: Array<
+  status?: Array<
     | "onHold"
     | "failed"
     | "processing"

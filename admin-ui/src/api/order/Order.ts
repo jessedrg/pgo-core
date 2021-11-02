@@ -8,16 +8,16 @@ export type Order = {
   billingAddress: JsonValue | null;
   comment: string | null;
   createdAt: Date;
-  customNo: string | null;
+  customCode: string | null;
   estimatedDays: number | null;
   fees: JsonValue | null;
   id: string;
   orderItems?: Array<OrderItem>;
   payment?: Payment | null;
   productions?: Array<Production>;
-  shipment?: Shipment;
+  shipments?: Array<Shipment>;
   shippingaddress: JsonValue | null;
-  state?: Array<
+  status?: Array<
     | "onHold"
     | "failed"
     | "processing"

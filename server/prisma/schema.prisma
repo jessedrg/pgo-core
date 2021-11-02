@@ -20,7 +20,8 @@ model User {
 }
 
 model Offer {
-  account      Account[]
+  account      Account?         @relation(fields: [accountId], references: [id])
+  accountId    String?
   createdAt    DateTime         @default(now())
   customNumber String?          @unique
   id           String           @id @default(cuid())
@@ -208,22 +209,22 @@ model Provider {
 model Order {
   billingAddress  Json?
   comment         String?
-  createdAt       DateTime         @default(now())
-  customNo        String?
+  createdAt       DateTime          @default(now())
+  customCode      String?
   estimatedDays   Int?
   fees            Json?
-  id              String           @id @default(cuid())
+  id              String            @id @default(cuid())
   orderItems      OrderItem[]
-  payment         Payment?         @relation(fields: [paymentId], references: [id])
+  payment         Payment?          @relation(fields: [paymentId], references: [id])
   paymentId       String?
   productions     Production[]
-  shipment        Shipment
+  shipments       Shipment[]
   shippingaddress Json?
-  state           EnumOrderState[]
+  status          EnumOrderStatus[]
   subtotal        Float?
   taxes           Json?
   total           Float?
-  updatedAt       DateTime         @updatedAt
+  updatedAt       DateTime          @updatedAt
 }
 
 model Organization {
@@ -405,7 +406,7 @@ enum EnumProductionStatus {
   rejected
 }
 
-enum EnumOrderState {
+enum EnumOrderStatus {
   onHold
   failed
   processing

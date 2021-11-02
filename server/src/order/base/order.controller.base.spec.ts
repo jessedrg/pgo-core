@@ -13,7 +13,7 @@ const existingId = "existingId";
 const CREATE_INPUT = {
   comment: "exampleComment",
   createdAt: new Date(),
-  customNo: "exampleCustomNo",
+  customCode: "exampleCustomCode",
   estimatedDays: 42,
   id: "exampleId",
   subtotal: 42.42,
@@ -23,7 +23,7 @@ const CREATE_INPUT = {
 const CREATE_RESULT = {
   comment: "exampleComment",
   createdAt: new Date(),
-  customNo: "exampleCustomNo",
+  customCode: "exampleCustomCode",
   estimatedDays: 42,
   id: "exampleId",
   subtotal: 42.42,
@@ -34,7 +34,7 @@ const FIND_MANY_RESULT = [
   {
     comment: "exampleComment",
     createdAt: new Date(),
-    customNo: "exampleCustomNo",
+    customCode: "exampleCustomCode",
     estimatedDays: 42,
     id: "exampleId",
     subtotal: 42.42,
@@ -45,7 +45,7 @@ const FIND_MANY_RESULT = [
 const FIND_ONE_RESULT = {
   comment: "exampleComment",
   createdAt: new Date(),
-  customNo: "exampleCustomNo",
+  customCode: "exampleCustomCode",
   estimatedDays: 42,
   id: "exampleId",
   subtotal: 42.42,

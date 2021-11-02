@@ -438,6 +438,12 @@ export class AccountControllerBase {
     const results = await this.service.findOffers(params.id, {
       where: query,
       select: {
+        account: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         customNumber: true,
         id: true,

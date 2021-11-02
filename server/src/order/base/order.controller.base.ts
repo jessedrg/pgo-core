@@ -19,6 +19,8 @@ import { OrderItemWhereInput } from "../../orderItem/base/OrderItemWhereInput";
 import { OrderItem } from "../../orderItem/base/OrderItem";
 import { ProductionWhereInput } from "../../production/base/ProductionWhereInput";
 import { Production } from "../../production/base/Production";
+import { ShipmentWhereInput } from "../../shipment/base/ShipmentWhereInput";
+import { Shipment } from "../../shipment/base/Shipment";
 @swagger.ApiBasicAuth()
 export class OrderControllerBase {
   constructor(
@@ -70,18 +72,12 @@ export class OrderControllerBase {
               connect: data.payment,
             }
           : undefined,
-
-        shipment: data.shipment
-          ? {
-              connect: data.shipment,
-            }
-          : undefined,
       },
       select: {
         billingAddress: true,
         comment: true,
         createdAt: true,
-        customNo: true,
+        customCode: true,
         estimatedDays: true,
         fees: true,
         id: true,
@@ -92,14 +88,8 @@ export class OrderControllerBase {
           },
         },
 
-        shipment: {
-          select: {
-            id: true,
-          },
-        },
-
         shippingaddress: true,
-        state: true,
+        status: true,
         subtotal: true,
         taxes: true,
         total: true,
@@ -144,7 +134,7 @@ export class OrderControllerBase {
         billingAddress: true,
         comment: true,
         createdAt: true,
-        customNo: true,
+        customCode: true,
         estimatedDays: true,
         fees: true,
         id: true,
@@ -155,14 +145,8 @@ export class OrderControllerBase {
           },
         },
 
-        shipment: {
-          select: {
-            id: true,
-          },
-        },
-
         shippingaddress: true,
-        state: true,
+        status: true,
         subtotal: true,
         taxes: true,
         total: true,
@@ -202,7 +186,7 @@ export class OrderControllerBase {
         billingAddress: true,
         comment: true,
         createdAt: true,
-        customNo: true,
+        customCode: true,
         estimatedDays: true,
         fees: true,
         id: true,
@@ -213,14 +197,8 @@ export class OrderControllerBase {
           },
         },
 
-        shipment: {
-          select: {
-            id: true,
-          },
-        },
-
         shippingaddress: true,
-        state: true,
+        status: true,
         subtotal: true,
         taxes: true,
         total: true,
@@ -284,18 +262,12 @@ export class OrderControllerBase {
                 connect: data.payment,
               }
             : undefined,
-
-          shipment: data.shipment
-            ? {
-                connect: data.shipment,
-              }
-            : undefined,
         },
         select: {
           billingAddress: true,
           comment: true,
           createdAt: true,
-          customNo: true,
+          customCode: true,
           estimatedDays: true,
           fees: true,
           id: true,
@@ -306,14 +278,8 @@ export class OrderControllerBase {
             },
           },
 
-          shipment: {
-            select: {
-              id: true,
-            },
-          },
-
           shippingaddress: true,
-          state: true,
+          status: true,
           subtotal: true,
           taxes: true,
           total: true,
@@ -354,7 +320,7 @@ export class OrderControllerBase {
           billingAddress: true,
           comment: true,
           createdAt: true,
-          customNo: true,
+          customCode: true,
           estimatedDays: true,
           fees: true,
           id: true,
@@ -365,14 +331,8 @@ export class OrderControllerBase {
             },
           },
 
-          shipment: {
-            select: {
-              id: true,
-            },
-          },
-
           shippingaddress: true,
-          state: true,
+          status: true,
           subtotal: true,
           taxes: true,
           total: true,
@@ -735,6 +695,205 @@ export class OrderControllerBase {
   ): Promise<void> {
     const data = {
       productions: {
+        disconnect: body,
+      },
+    };
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "update",
+      possession: "any",
+      resource: "Order",
+    });
+    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
+    if (invalidAttributes.length) {
+      const roles = userRoles
+        .map((role: string) => JSON.stringify(role))
+        .join(",");
+      throw new common.ForbiddenException(
+        `Updating the relationship: ${
+          invalidAttributes[0]
+        } of ${"Order"} is forbidden for roles: ${roles}`
+      );
+    }
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Get("/:id/shipments")
+  @nestAccessControl.UseRoles({
+    resource: "Order",
+    action: "read",
+    possession: "any",
+  })
+  @swagger.ApiQuery({
+    type: () => ShipmentWhereInput,
+    style: "deepObject",
+    explode: true,
+  })
+  async findManyShipments(
+    @common.Req() request: Request,
+    @common.Param() params: OrderWhereUniqueInput,
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<Shipment[]> {
+    const query: ShipmentWhereInput = request.query;
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Shipment",
+    });
+    const results = await this.service.findShipments(params.id, {
+      where: query,
+      select: {
+        courier: true,
+        createdAt: true,
+        declaredValues: true,
+        delayedAt: true,
+        deliveredAt: true,
+        estimatedAt: true,
+        id: true,
+
+        order: {
+          select: {
+            id: true,
+          },
+        },
+
+        partial: true,
+
+        production: {
+          select: {
+            id: true,
+          },
+        },
+
+        shippedAt: true,
+        status: true,
+        tracking: true,
+        trackingUrl: true,
+        type: true,
+        updatedAt: true,
+      },
+    });
+    return results.map((result) => permission.filter(result));
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Post("/:id/shipments")
+  @nestAccessControl.UseRoles({
+    resource: "Order",
+    action: "update",
+    possession: "any",
+  })
+  async createShipments(
+    @common.Param() params: OrderWhereUniqueInput,
+    @common.Body() body: OrderWhereUniqueInput[],
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<void> {
+    const data = {
+      shipments: {
+        connect: body,
+      },
+    };
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "update",
+      possession: "any",
+      resource: "Order",
+    });
+    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
+    if (invalidAttributes.length) {
+      const roles = userRoles
+        .map((role: string) => JSON.stringify(role))
+        .join(",");
+      throw new common.ForbiddenException(
+        `Updating the relationship: ${
+          invalidAttributes[0]
+        } of ${"Order"} is forbidden for roles: ${roles}`
+      );
+    }
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Patch("/:id/shipments")
+  @nestAccessControl.UseRoles({
+    resource: "Order",
+    action: "update",
+    possession: "any",
+  })
+  async updateShipments(
+    @common.Param() params: OrderWhereUniqueInput,
+    @common.Body() body: OrderWhereUniqueInput[],
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<void> {
+    const data = {
+      shipments: {
+        set: body,
+      },
+    };
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "update",
+      possession: "any",
+      resource: "Order",
+    });
+    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
+    if (invalidAttributes.length) {
+      const roles = userRoles
+        .map((role: string) => JSON.stringify(role))
+        .join(",");
+      throw new common.ForbiddenException(
+        `Updating the relationship: ${
+          invalidAttributes[0]
+        } of ${"Order"} is forbidden for roles: ${roles}`
+      );
+    }
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Delete("/:id/shipments")
+  @nestAccessControl.UseRoles({
+    resource: "Order",
+    action: "update",
+    possession: "any",
+  })
+  async deleteShipments(
+    @common.Param() params: OrderWhereUniqueInput,
+    @common.Body() body: OrderWhereUniqueInput[],
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<void> {
+    const data = {
+      shipments: {
         disconnect: body,
       },
     };

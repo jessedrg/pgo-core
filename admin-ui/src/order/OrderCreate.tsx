@@ -12,31 +12,23 @@ import {
 } from "react-admin";
 
 import { PaymentTitle } from "../payment/PaymentTitle";
-import { ShipmentTitle } from "../shipment/ShipmentTitle";
 
 export const OrderCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
         <div />
-        <TextInput label="comment" source="comment" />
-        <TextInput label="customNo" source="customNo" />
-        <NumberInput step={1} label="estimatedDays" source="estimatedDays" />
+        <TextInput label="Comment" source="comment" />
+        <TextInput label="Custom Code" source="customCode" />
+        <NumberInput step={1} label="Estimated Days" source="estimatedDays" />
         <div />
-        <ReferenceInput source="payment.id" reference="Payment" label="payment">
+        <ReferenceInput source="payment.id" reference="Payment" label="Payment">
           <SelectInput optionText={PaymentTitle} />
-        </ReferenceInput>
-        <ReferenceInput
-          source="shipment.id"
-          reference="Shipment"
-          label="shipment"
-        >
-          <SelectInput optionText={ShipmentTitle} />
         </ReferenceInput>
         <div />
         <SelectArrayInput
-          label="state"
-          source="state"
+          label="Status"
+          source="status"
           choices={[
             { label: "OnHold", value: "onHold" },
             { label: "Failed", value: "failed" },
@@ -51,9 +43,9 @@ export const OrderCreate = (props: CreateProps): React.ReactElement => {
           optionText="label"
           optionValue="value"
         />
-        <NumberInput label="subtotal" source="subtotal" />
+        <NumberInput label="Subtotal" source="subtotal" />
         <div />
-        <NumberInput label="total" source="total" />
+        <NumberInput label="Total" source="total" />
       </SimpleForm>
     </Create>
   );
