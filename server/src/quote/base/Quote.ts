@@ -9,7 +9,6 @@ import {
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { Part } from "../../part/base/Part";
 import { Provider } from "../../provider/base/Provider";
 import { QuoteItem } from "../../quoteItem/base/QuoteItem";
 import { EnumQuoteStatus } from "./EnumQuoteStatus";
@@ -50,15 +49,6 @@ class Quote {
   @IsString()
   @Field(() => String)
   id!: string;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Part],
-  })
-  @ValidateNested()
-  @Type(() => Part)
-  @IsOptional()
-  parts?: Array<Part>;
 
   @ApiProperty({
     required: false,

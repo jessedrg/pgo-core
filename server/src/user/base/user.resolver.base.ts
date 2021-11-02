@@ -14,8 +14,6 @@ import { DeleteUserArgs } from "./DeleteUserArgs";
 import { UserFindManyArgs } from "./UserFindManyArgs";
 import { UserFindUniqueArgs } from "./UserFindUniqueArgs";
 import { User } from "./User";
-import { PaymentFindManyArgs } from "../../payment/base/PaymentFindManyArgs";
-import { Payment } from "../../payment/base/Payment";
 import { Account } from "../../account/base/Account";
 import { UserService } from "../user.service";
 
@@ -208,32 +206,6 @@ export class UserResolverBase {
       }
       throw error;
     }
-  }
-
-  @graphql.ResolveField(() => [Payment])
-  @nestAccessControl.UseRoles({
-    resource: "User",
-    action: "read",
-    possession: "any",
-  })
-  async payments(
-    @graphql.Parent() parent: User,
-    @graphql.Args() args: PaymentFindManyArgs,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Payment[]> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Payment",
-    });
-    const results = await this.service.findPayments(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results.map((result) => permission.filter(result));
   }
 
   @graphql.ResolveField(() => Account, { nullable: true })

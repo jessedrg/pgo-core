@@ -17,7 +17,7 @@ class OfferWhereInput {
   @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  customNo?: StringNullableFilter;
+  customNumber?: StringNullableFilter;
 
   @ApiProperty({
     required: false,

@@ -8,6 +8,7 @@ export type AddressOrderByInput = {
   id?: SortOrder;
   lastName?: SortOrder;
   locality?: SortOrder;
+  organizationId?: SortOrder;
   phone?: SortOrder;
   phonePrefix?: SortOrder;
   postalCode?: SortOrder;

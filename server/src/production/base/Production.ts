@@ -1,11 +1,12 @@
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { Account } from "../../account/base/Account";
 import {
+  ValidateNested,
+  IsOptional,
   IsDate,
   IsBoolean,
-  IsOptional,
   IsString,
-  ValidateNested,
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
@@ -15,6 +16,15 @@ import { Shipment } from "../../shipment/base/Shipment";
 import { EnumProductionStatus } from "./EnumProductionStatus";
 @ObjectType()
 class Production {
+  @ApiProperty({
+    required: false,
+    type: () => Account,
+  })
+  @ValidateNested()
+  @Type(() => Account)
+  @IsOptional()
+  account?: Account | null;
+
   @ApiProperty({
     required: true,
   })

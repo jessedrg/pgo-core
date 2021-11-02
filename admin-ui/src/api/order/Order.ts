@@ -1,6 +1,5 @@
 import { JsonValue } from "type-fest";
 import { OrderItem } from "../orderItem/OrderItem";
-import { Organization } from "../organization/Organization";
 import { Payment } from "../payment/Payment";
 import { Production } from "../production/Production";
 import { Shipment } from "../shipment/Shipment";
@@ -14,7 +13,6 @@ export type Order = {
   fees: JsonValue | null;
   id: string;
   orderItems?: Array<OrderItem>;
-  organization?: Organization | null;
   payment?: Payment | null;
   productions?: Array<Production>;
   shipment?: Shipment;

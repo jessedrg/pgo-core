@@ -4,7 +4,7 @@ import { Part } from "../part/Part";
 export type Offer = {
   account?: Array<Account>;
   createdAt: Date;
-  customNo: string | null;
+  customNumber: string | null;
   id: string;
   parts?: Array<Part>;
   publishedAt: Date | null;

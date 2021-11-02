@@ -5,13 +5,15 @@ import {
   Datagrid,
   ListProps,
   BooleanField,
+  ReferenceField,
   TextField,
   DateField,
-  ReferenceField,
 } from "react-admin";
 
 import Pagination from "../Components/Pagination";
+import { AGENT_TITLE_FIELD } from "../agent/AgentTitle";
 import { ORGANIZATION_TITLE_FIELD } from "../organization/OrganizationTitle";
+import { USER_TITLE_FIELD } from "../user/UserTitle";
 
 export const AccountList = (props: ListProps): React.ReactElement => {
   return (
@@ -23,19 +25,25 @@ export const AccountList = (props: ListProps): React.ReactElement => {
       pagination={<Pagination />}
     >
       <Datagrid rowClick="show">
-        <BooleanField label="active" source="active" />
-        <TextField label="configuration" source="configuration" />
+        <BooleanField label="Active" source="active" />
+        <ReferenceField label="Agent" source="agent.id" reference="Agent">
+          <TextField source={AGENT_TITLE_FIELD} />
+        </ReferenceField>
+        <TextField label="Configuration" source="configuration" />
         <DateField source="createdAt" label="Created At" />
-        <TextField label="email" source="email" />
+        <TextField label="Email" source="email" />
         <TextField label="ID" source="id" />
         <ReferenceField
-          label="organization"
+          label="Organization"
           source="organization.id"
           reference="Organization"
         >
           <TextField source={ORGANIZATION_TITLE_FIELD} />
         </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
+        <ReferenceField label="User" source="user.id" reference="User">
+          <TextField source={USER_TITLE_FIELD} />
+        </ReferenceField>
       </Datagrid>
     </List>
   );

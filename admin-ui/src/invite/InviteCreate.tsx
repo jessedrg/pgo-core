@@ -12,9 +12,9 @@ export const InviteCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
-        <BooleanInput label="active" source="active" />
-        <TextInput label="email" source="email" type="email" />
-        <DateTimeInput label="expiresAt" source="expiresAt" />
+        <BooleanInput label="Active" source="active" />
+        <TextInput label="Email" source="email" type="email" />
+        <DateTimeInput label="Expires At" source="expiresAt" />
       </SimpleForm>
     </Create>
   );

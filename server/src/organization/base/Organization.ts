@@ -4,7 +4,8 @@ import { Account } from "../../account/base/Account";
 import { ValidateNested, IsOptional, IsDate, IsString } from "class-validator";
 import { Type } from "class-transformer";
 import { Address } from "../../address/base/Address";
-import { Order } from "../../order/base/Order";
+import { Part } from "../../part/base/Part";
+import { OrganizationPaymentMethod } from "../../organizationPaymentMethod/base/OrganizationPaymentMethod";
 @ObjectType()
 class Organization {
   @ApiProperty({
@@ -18,12 +19,12 @@ class Organization {
 
   @ApiProperty({
     required: false,
-    type: () => Address,
+    type: () => [Address],
   })
   @ValidateNested()
   @Type(() => Address)
   @IsOptional()
-  address?: Address | null;
+  addresses?: Array<Address>;
 
   @ApiProperty({
     required: true,
@@ -54,12 +55,21 @@ class Organization {
 
   @ApiProperty({
     required: false,
-    type: () => [Order],
+    type: () => [Part],
   })
   @ValidateNested()
-  @Type(() => Order)
+  @Type(() => Part)
   @IsOptional()
-  orders?: Array<Order>;
+  parts?: Array<Part>;
+
+  @ApiProperty({
+    required: false,
+    type: () => OrganizationPaymentMethod,
+  })
+  @ValidateNested()
+  @Type(() => OrganizationPaymentMethod)
+  @IsOptional()
+  paymentMethod?: OrganizationPaymentMethod | null;
 
   @ApiProperty({
     required: true,

@@ -15,12 +15,12 @@ export const OrderItemShow = (props: ShowProps): React.ReactElement => {
       <SimpleShowLayout>
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
-        <ReferenceField label="order" source="order.id" reference="Order">
+        <ReferenceField label="Order" source="order.id" reference="Order">
           <TextField source={ORDER_TITLE_FIELD} />
         </ReferenceField>
-        <TextField label="price" source="price" />
-        <TextField label="quantity" source="quantity" />
-        <TextField label="total" source="total" />
+        <TextField label="Price" source="price" />
+        <TextField label="Quantity" source="quantity" />
+        <TextField label="Total" source="total" />
         <DateField source="updatedAt" label="Updated At" />
       </SimpleShowLayout>
     </Show>

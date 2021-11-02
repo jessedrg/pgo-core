@@ -14,6 +14,7 @@ import { DeleteProductionItemArgs } from "./DeleteProductionItemArgs";
 import { ProductionItemFindManyArgs } from "./ProductionItemFindManyArgs";
 import { ProductionItemFindUniqueArgs } from "./ProductionItemFindUniqueArgs";
 import { ProductionItem } from "./ProductionItem";
+import { Part } from "../../part/base/Part";
 import { Production } from "../../production/base/Production";
 import { ProductionItemService } from "../productionItem.service";
 
@@ -124,6 +125,12 @@ export class ProductionItemResolverBase {
       data: {
         ...args.data,
 
+        part: args.data.part
+          ? {
+              connect: args.data.part,
+            }
+          : undefined,
+
         production: args.data.production
           ? {
               connect: args.data.production,
@@ -171,6 +178,12 @@ export class ProductionItemResolverBase {
         data: {
           ...args.data,
 
+          part: args.data.part
+            ? {
+                connect: args.data.part,
+              }
+            : undefined,
+
           production: args.data.production
             ? {
                 connect: args.data.production,
@@ -208,6 +221,30 @@ export class ProductionItemResolverBase {
       }
       throw error;
     }
+  }
+
+  @graphql.ResolveField(() => Part, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "ProductionItem",
+    action: "read",
+    possession: "any",
+  })
+  async part(
+    @graphql.Parent() parent: ProductionItem,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Part | null> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Part",
+    });
+    const result = await this.service.getPart(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return permission.filter(result);
   }
 
   @graphql.ResolveField(() => Production, { nullable: true })

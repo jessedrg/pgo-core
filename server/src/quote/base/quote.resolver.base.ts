@@ -14,8 +14,6 @@ import { DeleteQuoteArgs } from "./DeleteQuoteArgs";
 import { QuoteFindManyArgs } from "./QuoteFindManyArgs";
 import { QuoteFindUniqueArgs } from "./QuoteFindUniqueArgs";
 import { Quote } from "./Quote";
-import { PartFindManyArgs } from "../../part/base/PartFindManyArgs";
-import { Part } from "../../part/base/Part";
 import { QuoteItemFindManyArgs } from "../../quoteItem/base/QuoteItemFindManyArgs";
 import { QuoteItem } from "../../quoteItem/base/QuoteItem";
 import { Account } from "../../account/base/Account";
@@ -225,32 +223,6 @@ export class QuoteResolverBase {
       }
       throw error;
     }
-  }
-
-  @graphql.ResolveField(() => [Part])
-  @nestAccessControl.UseRoles({
-    resource: "Quote",
-    action: "read",
-    possession: "any",
-  })
-  async parts(
-    @graphql.Parent() parent: Quote,
-    @graphql.Args() args: PartFindManyArgs,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Part[]> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Part",
-    });
-    const results = await this.service.findParts(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results.map((result) => permission.filter(result));
   }
 
   @graphql.ResolveField(() => [QuoteItem])

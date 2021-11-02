@@ -1,19 +1,45 @@
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringFilter } from "../../util/StringFilter";
+import { AccountWhereUniqueInput } from "../../account/base/AccountWhereUniqueInput";
+import { ValidateNested, IsOptional, IsEnum } from "class-validator";
 import { Type } from "class-transformer";
-import { IsOptional, ValidateNested, IsEnum } from "class-validator";
+import { MediaFileWhereUniqueInput } from "../../mediaFile/base/MediaFileWhereUniqueInput";
+import { StringFilter } from "../../util/StringFilter";
 import { OfferWhereUniqueInput } from "../../offer/base/OfferWhereUniqueInput";
+import { OrganizationWhereUniqueInput } from "../../organization/base/OrganizationWhereUniqueInput";
 import { PartConfigurationWhereUniqueInput } from "../../partConfiguration/base/PartConfigurationWhereUniqueInput";
 import { PartOnShapeWhereUniqueInput } from "../../partOnShape/base/PartOnShapeWhereUniqueInput";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { JsonNullableFilter } from "../../util/JsonNullableFilter";
 import { EnumPartStatus } from "./EnumPartStatus";
 import { FloatNullableFilter } from "../../util/FloatNullableFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 @InputType()
 class PartWhereInput {
+  @ApiProperty({
+    required: false,
+    type: () => AccountWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => AccountWhereUniqueInput)
+  @IsOptional()
+  @Field(() => AccountWhereUniqueInput, {
+    nullable: true,
+  })
+  account?: AccountWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => MediaFileWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => MediaFileWhereUniqueInput)
+  @IsOptional()
+  @Field(() => MediaFileWhereUniqueInput, {
+    nullable: true,
+  })
+  blueprint?: MediaFileWhereUniqueInput;
+
   @ApiProperty({
     required: false,
     type: StringFilter,
@@ -36,6 +62,42 @@ class PartWhereInput {
     nullable: true,
   })
   offer?: OfferWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => OrganizationWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => OrganizationWhereUniqueInput)
+  @IsOptional()
+  @Field(() => OrganizationWhereUniqueInput, {
+    nullable: true,
+  })
+  organization?: OrganizationWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => MediaFileWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => MediaFileWhereUniqueInput)
+  @IsOptional()
+  @Field(() => MediaFileWhereUniqueInput, {
+    nullable: true,
+  })
+  originalBlueprint?: MediaFileWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => MediaFileWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => MediaFileWhereUniqueInput)
+  @IsOptional()
+  @Field(() => MediaFileWhereUniqueInput, {
+    nullable: true,
+  })
+  originalModel?: MediaFileWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -70,7 +132,7 @@ class PartWhereInput {
   @Field(() => IntNullableFilter, {
     nullable: true,
   })
-  parts?: IntNullableFilter;
+  partsCount?: IntNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -85,17 +147,6 @@ class PartWhereInput {
 
   @ApiProperty({
     required: false,
-    type: JsonNullableFilter,
-  })
-  @Type(() => JsonNullableFilter)
-  @IsOptional()
-  @Field(() => JsonNullableFilter, {
-    nullable: true,
-  })
-  quantities?: JsonNullableFilter;
-
-  @ApiProperty({
-    required: false,
     enum: EnumPartStatus,
   })
   @IsEnum(EnumPartStatus)
@@ -104,6 +155,30 @@ class PartWhereInput {
     nullable: true,
   })
   status?: "draft" | "pending" | "rejected" | "publish";
+
+  @ApiProperty({
+    required: false,
+    type: () => MediaFileWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => MediaFileWhereUniqueInput)
+  @IsOptional()
+  @Field(() => MediaFileWhereUniqueInput, {
+    nullable: true,
+  })
+  stepModel?: MediaFileWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => MediaFileWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => MediaFileWhereUniqueInput)
+  @IsOptional()
+  @Field(() => MediaFileWhereUniqueInput, {
+    nullable: true,
+  })
+  stlModel?: MediaFileWhereUniqueInput;
 
   @ApiProperty({
     required: false,

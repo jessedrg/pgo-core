@@ -13,10 +13,10 @@ export const OfferList = (props: ListProps): React.ReactElement => {
     >
       <Datagrid rowClick="show">
         <DateField source="createdAt" label="Created At" />
-        <TextField label="customNo" source="customNo" />
+        <TextField label="Custom Number" source="customNumber" />
         <TextField label="ID" source="id" />
-        <TextField label="publishedAt" source="publishedAt" />
-        <TextField label="status" source="status" />
+        <TextField label="Published At" source="publishedAt" />
+        <TextField label="Status" source="status" />
         <DateField source="updatedAt" label="Updated At" />
       </Datagrid>
     </List>

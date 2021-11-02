@@ -2281,121 +2281,121 @@
   },
   {
     "role": "user",
-    "resource": "AccountPaymentMethod",
+    "resource": "OrganizationPaymentMethod",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "provider",
-    "resource": "AccountPaymentMethod",
+    "resource": "OrganizationPaymentMethod",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "agent",
-    "resource": "AccountPaymentMethod",
+    "resource": "OrganizationPaymentMethod",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "admin",
-    "resource": "AccountPaymentMethod",
+    "resource": "OrganizationPaymentMethod",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "AccountPaymentMethod",
+    "resource": "OrganizationPaymentMethod",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "provider",
-    "resource": "AccountPaymentMethod",
+    "resource": "OrganizationPaymentMethod",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "agent",
-    "resource": "AccountPaymentMethod",
+    "resource": "OrganizationPaymentMethod",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "admin",
-    "resource": "AccountPaymentMethod",
+    "resource": "OrganizationPaymentMethod",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "AccountPaymentMethod",
+    "resource": "OrganizationPaymentMethod",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "provider",
-    "resource": "AccountPaymentMethod",
+    "resource": "OrganizationPaymentMethod",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "agent",
-    "resource": "AccountPaymentMethod",
+    "resource": "OrganizationPaymentMethod",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "admin",
-    "resource": "AccountPaymentMethod",
+    "resource": "OrganizationPaymentMethod",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "AccountPaymentMethod",
+    "resource": "OrganizationPaymentMethod",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "provider",
-    "resource": "AccountPaymentMethod",
+    "resource": "OrganizationPaymentMethod",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "agent",
-    "resource": "AccountPaymentMethod",
+    "resource": "OrganizationPaymentMethod",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "admin",
-    "resource": "AccountPaymentMethod",
+    "resource": "OrganizationPaymentMethod",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "AccountPaymentMethod",
+    "resource": "OrganizationPaymentMethod",
     "action": "read:any",
     "attributes": "*"
   },
   {
     "role": "provider",
-    "resource": "AccountPaymentMethod",
+    "resource": "OrganizationPaymentMethod",
     "action": "read:any",
     "attributes": "*"
   },
   {
     "role": "agent",
-    "resource": "AccountPaymentMethod",
+    "resource": "OrganizationPaymentMethod",
     "action": "read:any",
     "attributes": "*"
   },
   {
     "role": "admin",
-    "resource": "AccountPaymentMethod",
+    "resource": "OrganizationPaymentMethod",
     "action": "read:any",
     "attributes": "*"
   },
@@ -2756,6 +2756,246 @@
   {
     "role": "admin",
     "resource": "PartMessage",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Price",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Price",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Price",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Price",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Price",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Price",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Price",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Price",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Price",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Price",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Price",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Price",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Price",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Price",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Price",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Price",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Price",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Price",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Price",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Price",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Margin",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Margin",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Margin",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Margin",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Margin",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Margin",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Margin",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Margin",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Margin",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Margin",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Margin",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Margin",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Margin",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Margin",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Margin",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Margin",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Margin",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "provider",
+    "resource": "Margin",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "agent",
+    "resource": "Margin",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Margin",
     "action": "read:any",
     "attributes": "*"
   }

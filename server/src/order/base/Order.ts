@@ -16,7 +16,6 @@ import { GraphQLJSONObject } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { Type } from "class-transformer";
 import { OrderItem } from "../../orderItem/base/OrderItem";
-import { Organization } from "../../organization/base/Organization";
 import { Payment } from "../../payment/base/Payment";
 import { Production } from "../../production/base/Production";
 import { Shipment } from "../../shipment/base/Shipment";
@@ -100,15 +99,6 @@ class Order {
   @Type(() => OrderItem)
   @IsOptional()
   orderItems?: Array<OrderItem>;
-
-  @ApiProperty({
-    required: false,
-    type: () => Organization,
-  })
-  @ValidateNested()
-  @Type(() => Organization)
-  @IsOptional()
-  organization?: Organization | null;
 
   @ApiProperty({
     required: false,

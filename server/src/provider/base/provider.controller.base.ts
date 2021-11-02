@@ -506,12 +506,17 @@ export class ProviderControllerBase {
     const results = await this.service.findQuoteItems(params.id, {
       where: query,
       select: {
-        basePrices: true,
         constructionType: true,
         createdAt: true,
         id: true,
         margins: true,
-        prices: true,
+
+        part: {
+          select: {
+            id: true,
+          },
+        },
+
         productionDays: true,
 
         provider: {

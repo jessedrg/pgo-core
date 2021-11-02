@@ -4,28 +4,33 @@ import {
   Show,
   SimpleShowLayout,
   ShowProps,
+  ReferenceField,
+  TextField,
   DateField,
   BooleanField,
-  TextField,
-  ReferenceField,
   ReferenceManyField,
   Datagrid,
 } from "react-admin";
 
+import { PART_TITLE_FIELD } from "../part/PartTitle";
 import { PRODUCTION_TITLE_FIELD } from "./ProductionTitle";
 import { ORDER_TITLE_FIELD } from "../order/OrderTitle";
+import { ACCOUNT_TITLE_FIELD } from "../account/AccountTitle";
 
 export const ProductionShow = (props: ShowProps): React.ReactElement => {
   return (
     <Show {...props}>
       <SimpleShowLayout>
+        <ReferenceField label="Account" source="account.id" reference="Account">
+          <TextField source={ACCOUNT_TITLE_FIELD} />
+        </ReferenceField>
         <DateField source="createdAt" label="Created At" />
-        <BooleanField label="discomformity" source="discomformity" />
+        <BooleanField label="Discomformity" source="discomformity" />
         <TextField label="ID" source="id" />
-        <ReferenceField label="order" source="order.id" reference="Order">
+        <ReferenceField label="Order" source="order.id" reference="Order">
           <TextField source={ORDER_TITLE_FIELD} />
         </ReferenceField>
-        <TextField label="status" source="status" />
+        <TextField label="Status" source="status" />
         <DateField source="updatedAt" label="Updated At" />
         <ReferenceManyField
           reference="ProductionItem"
@@ -35,15 +40,18 @@ export const ProductionShow = (props: ShowProps): React.ReactElement => {
           <Datagrid rowClick="show">
             <DateField source="createdAt" label="Created At" />
             <TextField label="ID" source="id" />
+            <ReferenceField label="Part" source="part.id" reference="Part">
+              <TextField source={PART_TITLE_FIELD} />
+            </ReferenceField>
             <ReferenceField
-              label="production"
+              label="Production"
               source="production.id"
               reference="Production"
             >
               <TextField source={PRODUCTION_TITLE_FIELD} />
             </ReferenceField>
-            <TextField label="quantity" source="quantity" />
-            <TextField label="shippedQuantity" source="shippedQuantity" />
+            <TextField label="Quantity" source="quantity" />
+            <TextField label="Shipped Quantity" source="shippedQuantity" />
             <DateField source="updatedAt" label="Updated At" />
           </Datagrid>
         </ReferenceManyField>
@@ -53,29 +61,29 @@ export const ProductionShow = (props: ShowProps): React.ReactElement => {
           label="Shipments"
         >
           <Datagrid rowClick="show">
-            <TextField label="courier" source="courier" />
+            <TextField label="Courier" source="courier" />
             <DateField source="createdAt" label="Created At" />
-            <TextField label="declaredValues" source="declaredValues" />
-            <TextField label="delayedAt" source="delayedAt" />
-            <TextField label="deliveredAt" source="deliveredAt" />
-            <TextField label="estimatedAt" source="estimatedAt" />
+            <TextField label="Declared Values" source="declaredValues" />
+            <TextField label="Delayed At" source="delayedAt" />
+            <TextField label="Delivered At" source="deliveredAt" />
+            <TextField label="Estimated At" source="estimatedAt" />
             <TextField label="ID" source="id" />
-            <ReferenceField label="order" source="order.id" reference="Order">
+            <ReferenceField label="Order" source="order.id" reference="Order">
               <TextField source={ORDER_TITLE_FIELD} />
             </ReferenceField>
-            <BooleanField label="partial" source="partial" />
+            <BooleanField label="Partial" source="partial" />
             <ReferenceField
-              label="production"
+              label="Production"
               source="production.id"
               reference="Production"
             >
               <TextField source={PRODUCTION_TITLE_FIELD} />
             </ReferenceField>
-            <TextField label="shippedAt" source="shippedAt" />
-            <TextField label="status" source="status" />
-            <TextField label="tracking" source="tracking" />
-            <TextField label="trackingUrl" source="trackingUrl" />
-            <TextField label="type" source="type" />
+            <TextField label="Shipped At" source="shippedAt" />
+            <TextField label="Status" source="status" />
+            <TextField label="Tracking" source="tracking" />
+            <TextField label="Tracking Url" source="trackingUrl" />
+            <TextField label="Type" source="type" />
             <DateField source="updatedAt" label="Updated At" />
           </Datagrid>
         </ReferenceManyField>

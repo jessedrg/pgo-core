@@ -1,7 +1,7 @@
 import { AccountWhereUniqueInput } from "../account/AccountWhereUniqueInput";
 
 export type UserCreateInput = {
-  account?: AccountWhereUniqueInput | null;
+  account?: AccountWhereUniqueInput;
   firstName?: string | null;
   lastName?: string | null;
   password: string;

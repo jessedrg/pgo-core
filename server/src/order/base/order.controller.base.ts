@@ -65,12 +65,6 @@ export class OrderControllerBase {
       data: {
         ...data,
 
-        organization: data.organization
-          ? {
-              connect: data.organization,
-            }
-          : undefined,
-
         payment: data.payment
           ? {
               connect: data.payment,
@@ -91,12 +85,6 @@ export class OrderControllerBase {
         estimatedDays: true,
         fees: true,
         id: true,
-
-        organization: {
-          select: {
-            id: true,
-          },
-        },
 
         payment: {
           select: {
@@ -161,12 +149,6 @@ export class OrderControllerBase {
         fees: true,
         id: true,
 
-        organization: {
-          select: {
-            id: true,
-          },
-        },
-
         payment: {
           select: {
             id: true,
@@ -224,12 +206,6 @@ export class OrderControllerBase {
         estimatedDays: true,
         fees: true,
         id: true,
-
-        organization: {
-          select: {
-            id: true,
-          },
-        },
 
         payment: {
           select: {
@@ -303,12 +279,6 @@ export class OrderControllerBase {
         data: {
           ...data,
 
-          organization: data.organization
-            ? {
-                connect: data.organization,
-              }
-            : undefined,
-
           payment: data.payment
             ? {
                 connect: data.payment,
@@ -329,12 +299,6 @@ export class OrderControllerBase {
           estimatedDays: true,
           fees: true,
           id: true,
-
-          organization: {
-            select: {
-              id: true,
-            },
-          },
 
           payment: {
             select: {
@@ -394,12 +358,6 @@ export class OrderControllerBase {
           estimatedDays: true,
           fees: true,
           id: true,
-
-          organization: {
-            select: {
-              id: true,
-            },
-          },
 
           payment: {
             select: {
@@ -646,6 +604,12 @@ export class OrderControllerBase {
     const results = await this.service.findProductions(params.id, {
       where: query,
       select: {
+        account: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         discomformity: true,
         id: true,

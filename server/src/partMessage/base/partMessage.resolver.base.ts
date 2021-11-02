@@ -131,12 +131,6 @@ export class PartMessageResolverBase {
             }
           : undefined,
 
-        reciever: args.data.reciever
-          ? {
-              connect: args.data.reciever,
-            }
-          : undefined,
-
         sender: args.data.sender
           ? {
               connect: args.data.sender,
@@ -187,12 +181,6 @@ export class PartMessageResolverBase {
           part: args.data.part
             ? {
                 connect: args.data.part,
-              }
-            : undefined,
-
-          reciever: args.data.reciever
-            ? {
-                connect: args.data.reciever,
               }
             : undefined,
 
@@ -252,30 +240,6 @@ export class PartMessageResolverBase {
       resource: "Part",
     });
     const result = await this.service.getPart(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return permission.filter(result);
-  }
-
-  @graphql.ResolveField(() => Account, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "PartMessage",
-    action: "read",
-    possession: "any",
-  })
-  async reciever(
-    @graphql.Parent() parent: PartMessage,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Account | null> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Account",
-    });
-    const result = await this.service.getReciever(parent.id);
 
     if (!result) {
       return null;

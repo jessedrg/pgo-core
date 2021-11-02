@@ -32,6 +32,15 @@ class ProductionItemOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  partId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["Asc", "Desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   productionId?: SortOrder;
 
   @ApiProperty({

@@ -1,5 +1,5 @@
 export type OfferCreateInput = {
-  customNo?: string | null;
+  customNumber?: string | null;
   publishedAt?: Date | null;
   status?: "draft" | "pending" | "publish" | "rejected" | null;
 };

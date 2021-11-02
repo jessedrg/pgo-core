@@ -1,20 +1,20 @@
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsInt, IsOptional, ValidateNested } from "class-validator";
-import { ProviderWhereUniqueInput } from "../../provider/base/ProviderWhereUniqueInput";
+import { IsDate, IsOptional, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
+import { ProviderWhereUniqueInput } from "../../provider/base/ProviderWhereUniqueInput";
 @InputType()
 class HolidayUpdateInput {
   @ApiProperty({
     required: false,
-    type: Number,
   })
-  @IsInt()
+  @IsDate()
+  @Type(() => Date)
   @IsOptional()
-  @Field(() => Number, {
+  @Field(() => Date, {
     nullable: true,
   })
-  day?: number | null;
+  day?: Date | null;
 
   @ApiProperty({
     required: false,

@@ -14,6 +14,9 @@ import { DeleteQuoteItemArgs } from "./DeleteQuoteItemArgs";
 import { QuoteItemFindManyArgs } from "./QuoteItemFindManyArgs";
 import { QuoteItemFindUniqueArgs } from "./QuoteItemFindUniqueArgs";
 import { QuoteItem } from "./QuoteItem";
+import { PriceFindManyArgs } from "../../price/base/PriceFindManyArgs";
+import { Price } from "../../price/base/Price";
+import { Part } from "../../part/base/Part";
 import { Provider } from "../../provider/base/Provider";
 import { Quote } from "../../quote/base/Quote";
 import { QuoteItemService } from "../quoteItem.service";
@@ -125,6 +128,12 @@ export class QuoteItemResolverBase {
       data: {
         ...args.data,
 
+        part: args.data.part
+          ? {
+              connect: args.data.part,
+            }
+          : undefined,
+
         provider: args.data.provider
           ? {
               connect: args.data.provider,
@@ -178,6 +187,12 @@ export class QuoteItemResolverBase {
         data: {
           ...args.data,
 
+          part: args.data.part
+            ? {
+                connect: args.data.part,
+              }
+            : undefined,
+
           provider: args.data.provider
             ? {
                 connect: args.data.provider,
@@ -221,6 +236,82 @@ export class QuoteItemResolverBase {
       }
       throw error;
     }
+  }
+
+  @graphql.ResolveField(() => [Price])
+  @nestAccessControl.UseRoles({
+    resource: "QuoteItem",
+    action: "read",
+    possession: "any",
+  })
+  async basePrices(
+    @graphql.Parent() parent: QuoteItem,
+    @graphql.Args() args: PriceFindManyArgs,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Price[]> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Price",
+    });
+    const results = await this.service.findBasePrices(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results.map((result) => permission.filter(result));
+  }
+
+  @graphql.ResolveField(() => [Price])
+  @nestAccessControl.UseRoles({
+    resource: "QuoteItem",
+    action: "read",
+    possession: "any",
+  })
+  async prices(
+    @graphql.Parent() parent: QuoteItem,
+    @graphql.Args() args: PriceFindManyArgs,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Price[]> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Price",
+    });
+    const results = await this.service.findPrices(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results.map((result) => permission.filter(result));
+  }
+
+  @graphql.ResolveField(() => Part, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "QuoteItem",
+    action: "read",
+    possession: "any",
+  })
+  async part(
+    @graphql.Parent() parent: QuoteItem,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Part | null> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Part",
+    });
+    const result = await this.service.getPart(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return permission.filter(result);
   }
 
   @graphql.ResolveField(() => Provider, { nullable: true })

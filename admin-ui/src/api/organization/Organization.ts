@@ -1,13 +1,15 @@
 import { Account } from "../account/Account";
 import { Address } from "../address/Address";
-import { Order } from "../order/Order";
+import { Part } from "../part/Part";
+import { OrganizationPaymentMethod } from "../organizationPaymentMethod/OrganizationPaymentMethod";
 
 export type Organization = {
   accounts?: Array<Account>;
-  address?: Address | null;
+  addresses?: Array<Address>;
   createdAt: Date;
   id: string;
   name: string | null;
-  orders?: Array<Order>;
+  parts?: Array<Part>;
+  paymentMethod?: OrganizationPaymentMethod | null;
   updatedAt: Date;
 };

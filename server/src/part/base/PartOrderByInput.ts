@@ -14,6 +14,24 @@ class PartOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  accountId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["Asc", "Desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  blueprintId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["Asc", "Desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   createdAt?: SortOrder;
 
   @ApiProperty({
@@ -41,6 +59,33 @@ class PartOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  organizationId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["Asc", "Desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  originalBlueprintId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["Asc", "Desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  originalModelId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["Asc", "Desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   partConfigurationId?: SortOrder;
 
   @ApiProperty({
@@ -59,7 +104,7 @@ class PartOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  parts?: SortOrder;
+  partsCount?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -87,6 +132,24 @@ class PartOrderByInput {
     nullable: true,
   })
   status?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["Asc", "Desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  stepModelId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["Asc", "Desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  stlModelId?: SortOrder;
 
   @ApiProperty({
     required: false,

@@ -12,6 +12,7 @@ import {
 } from "react-admin";
 
 import { PROVIDER_TITLE_FIELD } from "./ProviderTitle";
+import { PART_TITLE_FIELD } from "../part/PartTitle";
 import { QUOTE_TITLE_FIELD } from "../quote/QuoteTitle";
 import { ACCOUNT_TITLE_FIELD } from "../account/AccountTitle";
 
@@ -38,7 +39,7 @@ export const ProviderShow = (props: ShowProps): React.ReactElement => {
         >
           <Datagrid rowClick="show">
             <DateField source="createdAt" label="Created At" />
-            <TextField label="day" source="day" />
+            <TextField label="Day" source="day" />
             <TextField label="ID" source="id" />
             <ReferenceField
               label="Provider"
@@ -56,22 +57,23 @@ export const ProviderShow = (props: ShowProps): React.ReactElement => {
           label="QuoteItems"
         >
           <Datagrid rowClick="show">
-            <TextField label="basePrices" source="basePrices" />
-            <TextField label="constructionType" source="constructionType" />
+            <TextField label="Construction Type" source="constructionType" />
             <DateField source="createdAt" label="Created At" />
             <TextField label="ID" source="id" />
-            <TextField label="margins" source="margins" />
-            <TextField label="prices" source="prices" />
-            <TextField label="productionDays" source="productionDays" />
+            <TextField label="Margins" source="margins" />
+            <ReferenceField label="Part" source="part.id" reference="Part">
+              <TextField source={PART_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="Production Days" source="productionDays" />
             <ReferenceField
-              label="provider"
+              label="Provider"
               source="provider.id"
               reference="Provider"
             >
               <TextField source={PROVIDER_TITLE_FIELD} />
             </ReferenceField>
             <TextField label="quantities" source="quantities" />
-            <ReferenceField label="quote" source="quote.id" reference="Quote">
+            <ReferenceField label="Quote" source="quote.id" reference="Quote">
               <TextField source={QUOTE_TITLE_FIELD} />
             </ReferenceField>
             <TextField label="status" source="status" />
@@ -85,23 +87,23 @@ export const ProviderShow = (props: ShowProps): React.ReactElement => {
         >
           <Datagrid rowClick="show">
             <ReferenceField
-              label="account"
+              label="Account"
               source="account.id"
               reference="Account"
             >
               <TextField source={ACCOUNT_TITLE_FIELD} />
             </ReferenceField>
-            <TextField label="completedAt" source="completedAt" />
+            <TextField label="Completed At" source="completedAt" />
             <DateField source="createdAt" label="Created At" />
             <TextField label="ID" source="id" />
             <ReferenceField
-              label="provider"
+              label="Provider"
               source="provider.id"
               reference="Provider"
             >
               <TextField source={PROVIDER_TITLE_FIELD} />
             </ReferenceField>
-            <TextField label="status" source="status" />
+            <TextField label="Status" source="status" />
             <DateField source="updatedAt" label="Updated At" />
           </Datagrid>
         </ReferenceManyField>

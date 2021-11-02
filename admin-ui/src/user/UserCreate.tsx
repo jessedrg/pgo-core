@@ -18,7 +18,7 @@ export const UserCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
-        <ReferenceInput source="account.id" reference="Account" label="account">
+        <ReferenceInput source="account.id" reference="Account" label="Account">
           <SelectInput optionText={AccountTitle} />
         </ReferenceInput>
         <TextInput label="First Name" source="firstName" />

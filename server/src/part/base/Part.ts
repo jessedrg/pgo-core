@@ -1,11 +1,12 @@
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { Account } from "../../account/base/Account";
 
 import {
-  IsDate,
-  IsString,
   ValidateNested,
   IsOptional,
+  IsDate,
+  IsString,
   IsInt,
   IsJSON,
   IsEnum,
@@ -14,16 +15,37 @@ import {
 } from "class-validator";
 
 import { Type } from "class-transformer";
+import { MediaFile } from "../../mediaFile/base/MediaFile";
 import { Offer } from "../../offer/base/Offer";
+import { Organization } from "../../organization/base/Organization";
 import { PartConfiguration } from "../../partConfiguration/base/PartConfiguration";
 import { PartMessage } from "../../partMessage/base/PartMessage";
 import { PartOnShape } from "../../partOnShape/base/PartOnShape";
+import { ProductionItem } from "../../productionItem/base/ProductionItem";
 import { GraphQLJSONObject } from "graphql-type-json";
 import { JsonValue } from "type-fest";
-import { Quote } from "../../quote/base/Quote";
+import { QuoteItem } from "../../quoteItem/base/QuoteItem";
 import { EnumPartStatus } from "./EnumPartStatus";
 @ObjectType()
 class Part {
+  @ApiProperty({
+    required: false,
+    type: () => Account,
+  })
+  @ValidateNested()
+  @Type(() => Account)
+  @IsOptional()
+  account?: Account | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => MediaFile,
+  })
+  @ValidateNested()
+  @Type(() => MediaFile)
+  @IsOptional()
+  blueprint?: MediaFile | null;
+
   @ApiProperty({
     required: true,
   })
@@ -48,6 +70,33 @@ class Part {
   @Type(() => Offer)
   @IsOptional()
   offer?: Offer | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Organization,
+  })
+  @ValidateNested()
+  @Type(() => Organization)
+  @IsOptional()
+  organization?: Organization | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => MediaFile,
+  })
+  @ValidateNested()
+  @Type(() => MediaFile)
+  @IsOptional()
+  originalBlueprint?: MediaFile | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => MediaFile,
+  })
+  @ValidateNested()
+  @Type(() => MediaFile)
+  @IsOptional()
+  originalModel?: MediaFile | null;
 
   @ApiProperty({
     required: false,
@@ -85,7 +134,7 @@ class Part {
   @Field(() => Number, {
     nullable: true,
   })
-  parts!: number | null;
+  partsCount!: number | null;
 
   @ApiProperty({
     required: false,
@@ -100,6 +149,15 @@ class Part {
 
   @ApiProperty({
     required: false,
+    type: () => [ProductionItem],
+  })
+  @ValidateNested()
+  @Type(() => ProductionItem)
+  @IsOptional()
+  productionItems?: Array<ProductionItem>;
+
+  @ApiProperty({
+    required: false,
   })
   @IsJSON()
   @IsOptional()
@@ -110,12 +168,12 @@ class Part {
 
   @ApiProperty({
     required: false,
-    type: () => [Quote],
+    type: () => [QuoteItem],
   })
   @ValidateNested()
-  @Type(() => Quote)
+  @Type(() => QuoteItem)
   @IsOptional()
-  quotes?: Array<Quote>;
+  quoteItems?: Array<QuoteItem>;
 
   @ApiProperty({
     required: false,
@@ -127,6 +185,24 @@ class Part {
     nullable: true,
   })
   status?: "draft" | "pending" | "rejected" | "publish" | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => MediaFile,
+  })
+  @ValidateNested()
+  @Type(() => MediaFile)
+  @IsOptional()
+  stepModel?: MediaFile | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => MediaFile,
+  })
+  @ValidateNested()
+  @Type(() => MediaFile)
+  @IsOptional()
+  stlModel?: MediaFile | null;
 
   @ApiProperty({
     required: false,

@@ -1,22 +1,34 @@
+import { Account } from "../account/Account";
+import { MediaFile } from "../mediaFile/MediaFile";
 import { Offer } from "../offer/Offer";
+import { Organization } from "../organization/Organization";
 import { PartConfiguration } from "../partConfiguration/PartConfiguration";
 import { PartMessage } from "../partMessage/PartMessage";
 import { PartOnShape } from "../partOnShape/PartOnShape";
+import { ProductionItem } from "../productionItem/ProductionItem";
 import { JsonValue } from "type-fest";
-import { Quote } from "../quote/Quote";
+import { QuoteItem } from "../quoteItem/QuoteItem";
 
 export type Part = {
+  account?: Account | null;
+  blueprint?: MediaFile | null;
   createdAt: Date;
   id: string;
   offer?: Offer | null;
+  organization?: Organization | null;
+  originalBlueprint?: MediaFile | null;
+  originalModel?: MediaFile | null;
   partConfiguration?: PartConfiguration | null;
   partMessages?: Array<PartMessage>;
   partOnShape?: PartOnShape | null;
-  parts: number | null;
+  partsCount: number | null;
   process: string | null;
+  productionItems?: Array<ProductionItem>;
   quantities: JsonValue | null;
-  quotes?: Array<Quote>;
+  quoteItems?: Array<QuoteItem>;
   status?: "draft" | "pending" | "rejected" | "publish" | null;
+  stepModel?: MediaFile | null;
+  stlModel?: MediaFile | null;
   surface: number | null;
   updatedAt: Date;
   visible: boolean | null;

@@ -1,6 +1,6 @@
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { OfferWhereUniqueInput } from "../../offer/base/OfferWhereUniqueInput";
+import { AccountWhereUniqueInput } from "../../account/base/AccountWhereUniqueInput";
 
 import {
   ValidateNested,
@@ -14,6 +14,9 @@ import {
 } from "class-validator";
 
 import { Type } from "class-transformer";
+import { MediaFileWhereUniqueInput } from "../../mediaFile/base/MediaFileWhereUniqueInput";
+import { OfferWhereUniqueInput } from "../../offer/base/OfferWhereUniqueInput";
+import { OrganizationWhereUniqueInput } from "../../organization/base/OrganizationWhereUniqueInput";
 import { PartConfigurationWhereUniqueInput } from "../../partConfiguration/base/PartConfigurationWhereUniqueInput";
 import { PartOnShapeWhereUniqueInput } from "../../partOnShape/base/PartOnShapeWhereUniqueInput";
 import { GraphQLJSONObject } from "graphql-type-json";
@@ -21,6 +24,30 @@ import { JsonValue } from "type-fest";
 import { EnumPartStatus } from "./EnumPartStatus";
 @InputType()
 class PartUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: () => AccountWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => AccountWhereUniqueInput)
+  @IsOptional()
+  @Field(() => AccountWhereUniqueInput, {
+    nullable: true,
+  })
+  account?: AccountWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => MediaFileWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => MediaFileWhereUniqueInput)
+  @IsOptional()
+  @Field(() => MediaFileWhereUniqueInput, {
+    nullable: true,
+  })
+  blueprint?: MediaFileWhereUniqueInput | null;
+
   @ApiProperty({
     required: false,
     type: () => OfferWhereUniqueInput,
@@ -32,6 +59,42 @@ class PartUpdateInput {
     nullable: true,
   })
   offer?: OfferWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => OrganizationWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => OrganizationWhereUniqueInput)
+  @IsOptional()
+  @Field(() => OrganizationWhereUniqueInput, {
+    nullable: true,
+  })
+  organization?: OrganizationWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => MediaFileWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => MediaFileWhereUniqueInput)
+  @IsOptional()
+  @Field(() => MediaFileWhereUniqueInput, {
+    nullable: true,
+  })
+  originalBlueprint?: MediaFileWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => MediaFileWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => MediaFileWhereUniqueInput)
+  @IsOptional()
+  @Field(() => MediaFileWhereUniqueInput, {
+    nullable: true,
+  })
+  originalModel?: MediaFileWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -66,7 +129,7 @@ class PartUpdateInput {
   @Field(() => Number, {
     nullable: true,
   })
-  parts?: number | null;
+  partsCount?: number | null;
 
   @ApiProperty({
     required: false,
@@ -99,6 +162,30 @@ class PartUpdateInput {
     nullable: true,
   })
   status?: "draft" | "pending" | "rejected" | "publish" | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => MediaFileWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => MediaFileWhereUniqueInput)
+  @IsOptional()
+  @Field(() => MediaFileWhereUniqueInput, {
+    nullable: true,
+  })
+  stepModel?: MediaFileWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => MediaFileWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => MediaFileWhereUniqueInput)
+  @IsOptional()
+  @Field(() => MediaFileWhereUniqueInput, {
+    nullable: true,
+  })
+  stlModel?: MediaFileWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

@@ -8,6 +8,7 @@ import {
   IsInt,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { Part } from "../../part/base/Part";
 import { Production } from "../../production/base/Production";
 @ObjectType()
 class ProductionItem {
@@ -26,6 +27,15 @@ class ProductionItem {
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => Part,
+  })
+  @ValidateNested()
+  @Type(() => Part)
+  @IsOptional()
+  part?: Part | null;
 
   @ApiProperty({
     required: false,

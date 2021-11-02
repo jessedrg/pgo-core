@@ -14,7 +14,7 @@ export const HolidayShow = (props: ShowProps): React.ReactElement => {
     <Show {...props}>
       <SimpleShowLayout>
         <DateField source="createdAt" label="Created At" />
-        <TextField label="day" source="day" />
+        <TextField label="Day" source="day" />
         <TextField label="ID" source="id" />
         <ReferenceField
           label="Provider"

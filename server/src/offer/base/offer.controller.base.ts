@@ -65,7 +65,7 @@ export class OfferControllerBase {
       data: data,
       select: {
         createdAt: true,
-        customNo: true,
+        customNumber: true,
         id: true,
         publishedAt: true,
         status: true,
@@ -108,7 +108,7 @@ export class OfferControllerBase {
       ...args,
       select: {
         createdAt: true,
-        customNo: true,
+        customNumber: true,
         id: true,
         publishedAt: true,
         status: true,
@@ -146,7 +146,7 @@ export class OfferControllerBase {
       where: params,
       select: {
         createdAt: true,
-        customNo: true,
+        customNumber: true,
         id: true,
         publishedAt: true,
         status: true,
@@ -205,7 +205,7 @@ export class OfferControllerBase {
         data: data,
         select: {
           createdAt: true,
-          customNo: true,
+          customNumber: true,
           id: true,
           publishedAt: true,
           status: true,
@@ -244,7 +244,7 @@ export class OfferControllerBase {
         where: params,
         select: {
           createdAt: true,
-          customNo: true,
+          customNumber: true,
           id: true,
           publishedAt: true,
           status: true,
@@ -293,6 +293,13 @@ export class OfferControllerBase {
       where: query,
       select: {
         active: true,
+
+        agent: {
+          select: {
+            id: true,
+          },
+        },
+
         configuration: true,
         createdAt: true,
         email: true,
@@ -305,6 +312,12 @@ export class OfferControllerBase {
         },
 
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
     return results.map((result) => permission.filter(result));
@@ -476,10 +489,40 @@ export class OfferControllerBase {
     const results = await this.service.findParts(params.id, {
       where: query,
       select: {
+        account: {
+          select: {
+            id: true,
+          },
+        },
+
+        blueprint: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         id: true,
 
         offer: {
+          select: {
+            id: true,
+          },
+        },
+
+        organization: {
+          select: {
+            id: true,
+          },
+        },
+
+        originalBlueprint: {
+          select: {
+            id: true,
+          },
+        },
+
+        originalModel: {
           select: {
             id: true,
           },
@@ -497,10 +540,23 @@ export class OfferControllerBase {
           },
         },
 
-        parts: true,
+        partsCount: true,
         process: true,
         quantities: true,
         status: true,
+
+        stepModel: {
+          select: {
+            id: true,
+          },
+        },
+
+        stlModel: {
+          select: {
+            id: true,
+          },
+        },
+
         surface: true,
         updatedAt: true,
         visible: true,

@@ -1,5 +1,5 @@
 import { PrismaService } from "nestjs-prisma";
-import { Prisma, MediaFile } from "@prisma/client";
+import { Prisma, MediaFile, Part } from "@prisma/client";
 
 export class MediaFileServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -34,5 +34,60 @@ export class MediaFileServiceBase {
     args: Prisma.SelectSubset<T, Prisma.MediaFileDeleteArgs>
   ): Promise<MediaFile> {
     return this.prisma.mediaFile.delete(args);
+  }
+
+  async findBlueprintInPart(
+    parentId: string,
+    args: Prisma.PartFindManyArgs
+  ): Promise<Part[]> {
+    return this.prisma.mediaFile
+      .findUnique({
+        where: { id: parentId },
+      })
+      .blueprintInPart(args);
+  }
+
+  async findOriginalBluePrintInPart(
+    parentId: string,
+    args: Prisma.PartFindManyArgs
+  ): Promise<Part[]> {
+    return this.prisma.mediaFile
+      .findUnique({
+        where: { id: parentId },
+      })
+      .originalBluePrintInPart(args);
+  }
+
+  async findOriginalModelInPart(
+    parentId: string,
+    args: Prisma.PartFindManyArgs
+  ): Promise<Part[]> {
+    return this.prisma.mediaFile
+      .findUnique({
+        where: { id: parentId },
+      })
+      .originalModelInPart(args);
+  }
+
+  async findStepModelInPart(
+    parentId: string,
+    args: Prisma.PartFindManyArgs
+  ): Promise<Part[]> {
+    return this.prisma.mediaFile
+      .findUnique({
+        where: { id: parentId },
+      })
+      .stepModelInPart(args);
+  }
+
+  async findStlModelInPart(
+    parentId: string,
+    args: Prisma.PartFindManyArgs
+  ): Promise<Part[]> {
+    return this.prisma.mediaFile
+      .findUnique({
+        where: { id: parentId },
+      })
+      .stlModelInPart(args);
   }
 }

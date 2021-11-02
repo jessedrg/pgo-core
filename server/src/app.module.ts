@@ -18,10 +18,12 @@ import { AgentModule } from "./agent/agent.module";
 import { AddressModule } from "./address/address.module";
 import { ShipmentModule } from "./shipment/shipment.module";
 import { PaymentModule } from "./payment/payment.module";
-import { AccountPaymentMethodModule } from "./accountPaymentMethod/accountPaymentMethod.module";
+import { OrganizationPaymentMethodModule } from "./organizationPaymentMethod/organizationPaymentMethod.module";
 import { InviteModule } from "./invite/invite.module";
 import { HolidayModule } from "./holiday/holiday.module";
 import { PartMessageModule } from "./partMessage/partMessage.module";
+import { PriceModule } from "./price/price.module";
+import { MarginModule } from "./margin/margin.module";
 import { HealthModule } from "./health/health.module";
 import { ACLModule } from "./auth/acl.module";
 import { AuthModule } from "./auth/auth.module";
@@ -54,10 +56,12 @@ import { GraphQLModule } from "@nestjs/graphql";
     AddressModule,
     ShipmentModule,
     PaymentModule,
-    AccountPaymentMethodModule,
+    OrganizationPaymentMethodModule,
     InviteModule,
     HolidayModule,
     PartMessageModule,
+    PriceModule,
+    MarginModule,
     HealthModule,
     ACLModule,
     AuthModule,

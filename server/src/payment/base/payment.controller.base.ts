@@ -60,15 +60,7 @@ export class PaymentControllerBase {
       );
     }
     return await this.service.create({
-      data: {
-        ...data,
-
-        user: data.user
-          ? {
-              connect: data.user,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
         createdAt: true,
         id: true,
@@ -76,12 +68,6 @@ export class PaymentControllerBase {
         transactionId: true,
         transactionUserId: true,
         updatedAt: true,
-
-        user: {
-          select: {
-            id: true,
-          },
-        },
       },
     });
   }
@@ -125,12 +111,6 @@ export class PaymentControllerBase {
         transactionId: true,
         transactionUserId: true,
         updatedAt: true,
-
-        user: {
-          select: {
-            id: true,
-          },
-        },
       },
     });
     return results.map((result) => permission.filter(result));
@@ -169,12 +149,6 @@ export class PaymentControllerBase {
         transactionId: true,
         transactionUserId: true,
         updatedAt: true,
-
-        user: {
-          select: {
-            id: true,
-          },
-        },
       },
     });
     if (result === null) {
@@ -226,15 +200,7 @@ export class PaymentControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: {
-          ...data,
-
-          user: data.user
-            ? {
-                connect: data.user,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
           createdAt: true,
           id: true,
@@ -242,12 +208,6 @@ export class PaymentControllerBase {
           transactionId: true,
           transactionUserId: true,
           updatedAt: true,
-
-          user: {
-            select: {
-              id: true,
-            },
-          },
         },
       });
     } catch (error) {
@@ -287,12 +247,6 @@ export class PaymentControllerBase {
           transactionId: true,
           transactionUserId: true,
           updatedAt: true,
-
-          user: {
-            select: {
-              id: true,
-            },
-          },
         },
       });
     } catch (error) {
@@ -343,12 +297,6 @@ export class PaymentControllerBase {
         estimatedDays: true,
         fees: true,
         id: true,
-
-        organization: {
-          select: {
-            id: true,
-          },
-        },
 
         payment: {
           select: {

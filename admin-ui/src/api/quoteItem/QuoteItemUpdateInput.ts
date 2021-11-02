@@ -1,11 +1,11 @@
+import { PartWhereUniqueInput } from "../part/PartWhereUniqueInput";
 import { ProviderWhereUniqueInput } from "../provider/ProviderWhereUniqueInput";
 import { QuoteWhereUniqueInput } from "../quote/QuoteWhereUniqueInput";
 
 export type QuoteItemUpdateInput = {
-  basePrices?: number | null;
   constructionType?: string | null;
   margins?: number | null;
-  prices?: number | null;
+  part?: PartWhereUniqueInput | null;
   productionDays?: number | null;
   provider?: ProviderWhereUniqueInput | null;
   quantities?: number | null;

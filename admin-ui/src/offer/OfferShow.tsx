@@ -12,7 +12,10 @@ import {
   BooleanField,
 } from "react-admin";
 
+import { ACCOUNT_TITLE_FIELD } from "../account/AccountTitle";
+import { MEDIAFILE_TITLE_FIELD } from "../mediaFile/MediaFileTitle";
 import { OFFER_TITLE_FIELD } from "./OfferTitle";
+import { ORGANIZATION_TITLE_FIELD } from "../organization/OrganizationTitle";
 import { PARTCONFIGURATION_TITLE_FIELD } from "../partConfiguration/PartConfigurationTitle";
 import { PARTONSHAPE_TITLE_FIELD } from "../partOnShape/PartOnShapeTitle";
 
@@ -21,45 +24,94 @@ export const OfferShow = (props: ShowProps): React.ReactElement => {
     <Show {...props}>
       <SimpleShowLayout>
         <DateField source="createdAt" label="Created At" />
-        <TextField label="customNo" source="customNo" />
+        <TextField label="Custom Number" source="customNumber" />
         <TextField label="ID" source="id" />
-        <TextField label="publishedAt" source="publishedAt" />
-        <TextField label="status" source="status" />
+        <TextField label="Published At" source="publishedAt" />
+        <TextField label="Status" source="status" />
         <DateField source="updatedAt" label="Updated At" />
         <ReferenceManyField reference="Part" target="OfferId" label="Parts">
           <Datagrid rowClick="show">
+            <ReferenceField
+              label="Account"
+              source="account.id"
+              reference="Account"
+            >
+              <TextField source={ACCOUNT_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="Blueprint"
+              source="mediafile.id"
+              reference="MediaFile"
+            >
+              <TextField source={MEDIAFILE_TITLE_FIELD} />
+            </ReferenceField>
             <DateField source="createdAt" label="Created At" />
             <TextField label="ID" source="id" />
-            <ReferenceField label="offer" source="offer.id" reference="Offer">
+            <ReferenceField label="Offer" source="offer.id" reference="Offer">
               <TextField source={OFFER_TITLE_FIELD} />
             </ReferenceField>
             <ReferenceField
-              label="partConfiguration"
+              label="Organization"
+              source="organization.id"
+              reference="Organization"
+            >
+              <TextField source={ORGANIZATION_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="Original Blueprint"
+              source="mediafile.id"
+              reference="MediaFile"
+            >
+              <TextField source={MEDIAFILE_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="Original Model"
+              source="mediafile.id"
+              reference="MediaFile"
+            >
+              <TextField source={MEDIAFILE_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="Part Configuration"
               source="partconfiguration.id"
               reference="PartConfiguration"
             >
               <TextField source={PARTCONFIGURATION_TITLE_FIELD} />
             </ReferenceField>
             <ReferenceField
-              label="partOnShape"
+              label="Part On Shape"
               source="partonshape.id"
               reference="PartOnShape"
             >
               <TextField source={PARTONSHAPE_TITLE_FIELD} />
             </ReferenceField>
-            <TextField label="parts" source="parts" />
-            <TextField label="process" source="process" />
-            <TextField label="quantities" source="quantities" />
-            <TextField label="status" source="status" />
-            <TextField label="surface" source="surface" />
+            <TextField label="Parts Count" source="partsCount" />
+            <TextField label="Process" source="process" />
+            <TextField label="Quantities" source="quantities" />
+            <TextField label="Status" source="status" />
+            <ReferenceField
+              label="Step Model"
+              source="mediafile.id"
+              reference="MediaFile"
+            >
+              <TextField source={MEDIAFILE_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="STL Model"
+              source="mediafile.id"
+              reference="MediaFile"
+            >
+              <TextField source={MEDIAFILE_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="Surface" source="surface" />
             <DateField source="updatedAt" label="Updated At" />
-            <BooleanField label="visible" source="visible" />
-            <TextField label="volume" source="volume" />
-            <TextField label="volumeBoundingBox" source="volumeBoundingBox" />
-            <TextField label="volumeChips" source="volumeChips" />
-            <TextField label="x" source="x" />
-            <TextField label="y" source="y" />
-            <TextField label="z" source="z" />
+            <BooleanField label="Visible" source="visible" />
+            <TextField label="Volume" source="volume" />
+            <TextField label="Volume Bounding Box" source="volumeBoundingBox" />
+            <TextField label="Volume Chips" source="volumeChips" />
+            <TextField label="X" source="x" />
+            <TextField label="Y" source="y" />
+            <TextField label="Z" source="z" />
           </Datagrid>
         </ReferenceManyField>
       </SimpleShowLayout>

@@ -3,6 +3,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
+import { PartWhereUniqueInput } from "../../part/base/PartWhereUniqueInput";
 import { ProductionWhereUniqueInput } from "../../production/base/ProductionWhereUniqueInput";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 @InputType()
@@ -17,6 +18,18 @@ class ProductionItemWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => PartWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => PartWhereUniqueInput)
+  @IsOptional()
+  @Field(() => PartWhereUniqueInput, {
+    nullable: true,
+  })
+  part?: PartWhereUniqueInput;
 
   @ApiProperty({
     required: false,

@@ -16,17 +16,17 @@ export const PartConfigurationEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput label="colorFinish" source="colorFinish" />
-        <TextInput label="finish" source="finish" />
-        <TextInput label="hardness" source="hardness" />
-        <TextInput label="material" source="material" />
-        <TextInput label="materialType" source="materialType" />
-        <ReferenceInput source="part.id" reference="Part" label="part">
+        <TextInput label="Color Finish" source="colorFinish" />
+        <TextInput label="Finish" source="finish" />
+        <TextInput label="Hardness" source="hardness" />
+        <TextInput label="Material" source="material" />
+        <TextInput label="MaterialType" source="materialType" />
+        <ReferenceInput source="part.id" reference="Part" label="Part">
           <SelectInput optionText={PartTitle} />
         </ReferenceInput>
-        <TextInput label="tech" source="tech" />
-        <NumberInput label="tolerance" source="tolerance" />
-        <NumberInput label="weight" source="weight" />
+        <TextInput label="Tech" source="tech" />
+        <NumberInput label="Tolerance" source="tolerance" />
+        <NumberInput label="Weight" source="weight" />
       </SimpleForm>
     </Edit>
   );

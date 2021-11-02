@@ -5,7 +5,6 @@ export type PartMessageUpdateInput = {
   message?: string | null;
   messageType?: string | null;
   part?: PartWhereUniqueInput | null;
-  reciever?: AccountWhereUniqueInput | null;
   sender?: AccountWhereUniqueInput | null;
   type?: string | null;
 };

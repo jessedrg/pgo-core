@@ -59,15 +59,6 @@ class PartMessageOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  recieverId?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["Asc", "Desc"],
-  })
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
   senderId?: SortOrder;
 
   @ApiProperty({

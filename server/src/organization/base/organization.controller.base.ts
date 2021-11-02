@@ -17,8 +17,10 @@ import { OrganizationUpdateInput } from "./OrganizationUpdateInput";
 import { Organization } from "./Organization";
 import { AccountWhereInput } from "../../account/base/AccountWhereInput";
 import { Account } from "../../account/base/Account";
-import { OrderWhereInput } from "../../order/base/OrderWhereInput";
-import { Order } from "../../order/base/Order";
+import { AddressWhereInput } from "../../address/base/AddressWhereInput";
+import { Address } from "../../address/base/Address";
+import { PartWhereInput } from "../../part/base/PartWhereInput";
+import { Part } from "../../part/base/Part";
 @swagger.ApiBasicAuth()
 export class OrganizationControllerBase {
   constructor(
@@ -65,22 +67,23 @@ export class OrganizationControllerBase {
       data: {
         ...data,
 
-        address: data.address
+        paymentMethod: data.paymentMethod
           ? {
-              connect: data.address,
+              connect: data.paymentMethod,
             }
           : undefined,
       },
       select: {
-        address: {
+        createdAt: true,
+        id: true,
+        name: true,
+
+        paymentMethod: {
           select: {
             id: true,
           },
         },
 
-        createdAt: true,
-        id: true,
-        name: true,
         updatedAt: true,
       },
     });
@@ -119,15 +122,16 @@ export class OrganizationControllerBase {
     const results = await this.service.findMany({
       ...args,
       select: {
-        address: {
+        createdAt: true,
+        id: true,
+        name: true,
+
+        paymentMethod: {
           select: {
             id: true,
           },
         },
 
-        createdAt: true,
-        id: true,
-        name: true,
         updatedAt: true,
       },
     });
@@ -161,15 +165,16 @@ export class OrganizationControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
-        address: {
+        createdAt: true,
+        id: true,
+        name: true,
+
+        paymentMethod: {
           select: {
             id: true,
           },
         },
 
-        createdAt: true,
-        id: true,
-        name: true,
         updatedAt: true,
       },
     });
@@ -225,22 +230,23 @@ export class OrganizationControllerBase {
         data: {
           ...data,
 
-          address: data.address
+          paymentMethod: data.paymentMethod
             ? {
-                connect: data.address,
+                connect: data.paymentMethod,
               }
             : undefined,
         },
         select: {
-          address: {
+          createdAt: true,
+          id: true,
+          name: true,
+
+          paymentMethod: {
             select: {
               id: true,
             },
           },
 
-          createdAt: true,
-          id: true,
-          name: true,
           updatedAt: true,
         },
       });
@@ -275,15 +281,16 @@ export class OrganizationControllerBase {
       return await this.service.delete({
         where: params,
         select: {
-          address: {
+          createdAt: true,
+          id: true,
+          name: true,
+
+          paymentMethod: {
             select: {
               id: true,
             },
           },
 
-          createdAt: true,
-          id: true,
-          name: true,
           updatedAt: true,
         },
       });
@@ -329,6 +336,13 @@ export class OrganizationControllerBase {
       where: query,
       select: {
         active: true,
+
+        agent: {
+          select: {
+            id: true,
+          },
+        },
+
         configuration: true,
         createdAt: true,
         email: true,
@@ -341,6 +355,12 @@ export class OrganizationControllerBase {
         },
 
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
     return results.map((result) => permission.filter(result));
@@ -486,39 +506,39 @@ export class OrganizationControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Get("/:id/orders")
+  @common.Get("/:id/addresses")
   @nestAccessControl.UseRoles({
     resource: "Organization",
     action: "read",
     possession: "any",
   })
   @swagger.ApiQuery({
-    type: () => OrderWhereInput,
+    type: () => AddressWhereInput,
     style: "deepObject",
     explode: true,
   })
-  async findManyOrders(
+  async findManyAddresses(
     @common.Req() request: Request,
     @common.Param() params: OrganizationWhereUniqueInput,
     @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<Order[]> {
-    const query: OrderWhereInput = request.query;
+  ): Promise<Address[]> {
+    const query: AddressWhereInput = request.query;
     const permission = this.rolesBuilder.permission({
       role: userRoles,
       action: "read",
       possession: "any",
-      resource: "Order",
+      resource: "Address",
     });
-    const results = await this.service.findOrders(params.id, {
+    const results = await this.service.findAddresses(params.id, {
       where: query,
       select: {
-        billingAddress: true,
-        comment: true,
+        company: true,
+        country: true,
         createdAt: true,
-        customNo: true,
-        estimatedDays: true,
-        fees: true,
+        firstName: true,
         id: true,
+        lastName: true,
+        locality: true,
 
         organization: {
           select: {
@@ -526,24 +546,15 @@ export class OrganizationControllerBase {
           },
         },
 
-        payment: {
-          select: {
-            id: true,
-          },
-        },
-
-        shipment: {
-          select: {
-            id: true,
-          },
-        },
-
-        shippingaddress: true,
+        phone: true,
+        phonePrefix: true,
+        postalCode: true,
         state: true,
-        subtotal: true,
-        taxes: true,
-        total: true,
+        street: true,
+        streetNumber: true,
+        type: true,
         updatedAt: true,
+        vat: true,
       },
     });
     return results.map((result) => permission.filter(result));
@@ -554,19 +565,19 @@ export class OrganizationControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Post("/:id/orders")
+  @common.Post("/:id/addresses")
   @nestAccessControl.UseRoles({
     resource: "Organization",
     action: "update",
     possession: "any",
   })
-  async createOrders(
+  async createAddresses(
     @common.Param() params: OrganizationWhereUniqueInput,
     @common.Body() body: OrganizationWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      orders: {
+      addresses: {
         connect: body,
       },
     };
@@ -599,19 +610,19 @@ export class OrganizationControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Patch("/:id/orders")
+  @common.Patch("/:id/addresses")
   @nestAccessControl.UseRoles({
     resource: "Organization",
     action: "update",
     possession: "any",
   })
-  async updateOrders(
+  async updateAddresses(
     @common.Param() params: OrganizationWhereUniqueInput,
     @common.Body() body: OrganizationWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      orders: {
+      addresses: {
         set: body,
       },
     };
@@ -644,19 +655,267 @@ export class OrganizationControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Delete("/:id/orders")
+  @common.Delete("/:id/addresses")
   @nestAccessControl.UseRoles({
     resource: "Organization",
     action: "update",
     possession: "any",
   })
-  async deleteOrders(
+  async deleteAddresses(
     @common.Param() params: OrganizationWhereUniqueInput,
     @common.Body() body: OrganizationWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      orders: {
+      addresses: {
+        disconnect: body,
+      },
+    };
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "update",
+      possession: "any",
+      resource: "Organization",
+    });
+    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
+    if (invalidAttributes.length) {
+      const roles = userRoles
+        .map((role: string) => JSON.stringify(role))
+        .join(",");
+      throw new common.ForbiddenException(
+        `Updating the relationship: ${
+          invalidAttributes[0]
+        } of ${"Organization"} is forbidden for roles: ${roles}`
+      );
+    }
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Get("/:id/parts")
+  @nestAccessControl.UseRoles({
+    resource: "Organization",
+    action: "read",
+    possession: "any",
+  })
+  @swagger.ApiQuery({
+    type: () => PartWhereInput,
+    style: "deepObject",
+    explode: true,
+  })
+  async findManyParts(
+    @common.Req() request: Request,
+    @common.Param() params: OrganizationWhereUniqueInput,
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<Part[]> {
+    const query: PartWhereInput = request.query;
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Part",
+    });
+    const results = await this.service.findParts(params.id, {
+      where: query,
+      select: {
+        account: {
+          select: {
+            id: true,
+          },
+        },
+
+        blueprint: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+        id: true,
+
+        offer: {
+          select: {
+            id: true,
+          },
+        },
+
+        organization: {
+          select: {
+            id: true,
+          },
+        },
+
+        originalBlueprint: {
+          select: {
+            id: true,
+          },
+        },
+
+        originalModel: {
+          select: {
+            id: true,
+          },
+        },
+
+        partConfiguration: {
+          select: {
+            id: true,
+          },
+        },
+
+        partOnShape: {
+          select: {
+            id: true,
+          },
+        },
+
+        partsCount: true,
+        process: true,
+        quantities: true,
+        status: true,
+
+        stepModel: {
+          select: {
+            id: true,
+          },
+        },
+
+        stlModel: {
+          select: {
+            id: true,
+          },
+        },
+
+        surface: true,
+        updatedAt: true,
+        visible: true,
+        volume: true,
+        volumeBoundingBox: true,
+        volumeChips: true,
+        x: true,
+        y: true,
+        z: true,
+      },
+    });
+    return results.map((result) => permission.filter(result));
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Post("/:id/parts")
+  @nestAccessControl.UseRoles({
+    resource: "Organization",
+    action: "update",
+    possession: "any",
+  })
+  async createParts(
+    @common.Param() params: OrganizationWhereUniqueInput,
+    @common.Body() body: OrganizationWhereUniqueInput[],
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<void> {
+    const data = {
+      parts: {
+        connect: body,
+      },
+    };
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "update",
+      possession: "any",
+      resource: "Organization",
+    });
+    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
+    if (invalidAttributes.length) {
+      const roles = userRoles
+        .map((role: string) => JSON.stringify(role))
+        .join(",");
+      throw new common.ForbiddenException(
+        `Updating the relationship: ${
+          invalidAttributes[0]
+        } of ${"Organization"} is forbidden for roles: ${roles}`
+      );
+    }
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Patch("/:id/parts")
+  @nestAccessControl.UseRoles({
+    resource: "Organization",
+    action: "update",
+    possession: "any",
+  })
+  async updateParts(
+    @common.Param() params: OrganizationWhereUniqueInput,
+    @common.Body() body: OrganizationWhereUniqueInput[],
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<void> {
+    const data = {
+      parts: {
+        set: body,
+      },
+    };
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "update",
+      possession: "any",
+      resource: "Organization",
+    });
+    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
+    if (invalidAttributes.length) {
+      const roles = userRoles
+        .map((role: string) => JSON.stringify(role))
+        .join(",");
+      throw new common.ForbiddenException(
+        `Updating the relationship: ${
+          invalidAttributes[0]
+        } of ${"Organization"} is forbidden for roles: ${roles}`
+      );
+    }
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Delete("/:id/parts")
+  @nestAccessControl.UseRoles({
+    resource: "Organization",
+    action: "update",
+    possession: "any",
+  })
+  async deleteParts(
+    @common.Param() params: OrganizationWhereUniqueInput,
+    @common.Body() body: OrganizationWhereUniqueInput[],
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<void> {
+    const data = {
+      parts: {
         disconnect: body,
       },
     };

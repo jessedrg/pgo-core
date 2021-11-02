@@ -77,15 +77,6 @@ class OrderOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  organizationId?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["Asc", "Desc"],
-  })
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
   paymentId?: SortOrder;
 
   @ApiProperty({

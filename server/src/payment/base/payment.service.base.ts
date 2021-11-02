@@ -1,5 +1,5 @@
 import { PrismaService } from "nestjs-prisma";
-import { Prisma, Payment, Order, User } from "@prisma/client";
+import { Prisma, Payment, Order } from "@prisma/client";
 
 export class PaymentServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -45,13 +45,5 @@ export class PaymentServiceBase {
         where: { id: parentId },
       })
       .orders(args);
-  }
-
-  async getUser(parentId: string): Promise<User | null> {
-    return this.prisma.payment
-      .findUnique({
-        where: { id: parentId },
-      })
-      .user();
   }
 }

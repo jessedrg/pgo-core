@@ -3,9 +3,10 @@ import { ApiProperty } from "@nestjs/swagger";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
-import { JsonNullableFilter } from "../../util/JsonNullableFilter";
+import { AgentWhereUniqueInput } from "../../agent/base/AgentWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
 import { OrganizationWhereUniqueInput } from "../../organization/base/OrganizationWhereUniqueInput";
+import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 @InputType()
 class AccountWhereInput {
   @ApiProperty({
@@ -21,14 +22,15 @@ class AccountWhereInput {
 
   @ApiProperty({
     required: false,
-    type: JsonNullableFilter,
+    type: () => AgentWhereUniqueInput,
   })
-  @Type(() => JsonNullableFilter)
+  @ValidateNested()
+  @Type(() => AgentWhereUniqueInput)
   @IsOptional()
-  @Field(() => JsonNullableFilter, {
+  @Field(() => AgentWhereUniqueInput, {
     nullable: true,
   })
-  configuration?: JsonNullableFilter;
+  agent?: AgentWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -63,5 +65,17 @@ class AccountWhereInput {
     nullable: true,
   })
   organization?: OrganizationWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => UserWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => UserWhereUniqueInput)
+  @IsOptional()
+  @Field(() => UserWhereUniqueInput, {
+    nullable: true,
+  })
+  user?: UserWhereUniqueInput;
 }
 export { AccountWhereInput };

@@ -12,11 +12,11 @@ export const OfferEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput label="customNo" multiline source="customNo" />
-        <DateTimeInput label="publishedAt" source="publishedAt" />
+        <TextInput label="Custom Number" multiline source="customNumber" />
+        <DateTimeInput label="Published At" source="publishedAt" />
         <SelectInput
           source="status"
-          label="status"
+          label="Status"
           choices={[
             { label: "Draft", value: "draft" },
             { label: "Pending", value: "pending" },

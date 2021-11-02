@@ -67,12 +67,6 @@ export class PartMessageControllerBase {
             }
           : undefined,
 
-        reciever: data.reciever
-          ? {
-              connect: data.reciever,
-            }
-          : undefined,
-
         sender: data.sender
           ? {
               connect: data.sender,
@@ -86,12 +80,6 @@ export class PartMessageControllerBase {
         messageType: true,
 
         part: {
-          select: {
-            id: true,
-          },
-        },
-
-        reciever: {
           select: {
             id: true,
           },
@@ -153,12 +141,6 @@ export class PartMessageControllerBase {
           },
         },
 
-        reciever: {
-          select: {
-            id: true,
-          },
-        },
-
         sender: {
           select: {
             id: true,
@@ -205,12 +187,6 @@ export class PartMessageControllerBase {
         messageType: true,
 
         part: {
-          select: {
-            id: true,
-          },
-        },
-
-        reciever: {
           select: {
             id: true,
           },
@@ -284,12 +260,6 @@ export class PartMessageControllerBase {
               }
             : undefined,
 
-          reciever: data.reciever
-            ? {
-                connect: data.reciever,
-              }
-            : undefined,
-
           sender: data.sender
             ? {
                 connect: data.sender,
@@ -303,12 +273,6 @@ export class PartMessageControllerBase {
           messageType: true,
 
           part: {
-            select: {
-              id: true,
-            },
-          },
-
-          reciever: {
             select: {
               id: true,
             },
@@ -361,12 +325,6 @@ export class PartMessageControllerBase {
           messageType: true,
 
           part: {
-            select: {
-              id: true,
-            },
-          },
-
-          reciever: {
             select: {
               id: true,
             },

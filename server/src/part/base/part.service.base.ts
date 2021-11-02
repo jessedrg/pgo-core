@@ -1,10 +1,15 @@
 import { PrismaService } from "nestjs-prisma";
+
 import {
   Prisma,
   Part,
   PartMessage,
-  Quote,
+  ProductionItem,
+  QuoteItem,
+  Account,
+  MediaFile,
   Offer,
+  Organization,
   PartConfiguration,
   PartOnShape,
 } from "@prisma/client";
@@ -55,15 +60,42 @@ export class PartServiceBase {
       .partMessages(args);
   }
 
-  async findQuotes(
+  async findProductionItems(
     parentId: string,
-    args: Prisma.QuoteFindManyArgs
-  ): Promise<Quote[]> {
+    args: Prisma.ProductionItemFindManyArgs
+  ): Promise<ProductionItem[]> {
     return this.prisma.part
       .findUnique({
         where: { id: parentId },
       })
-      .quotes(args);
+      .productionItems(args);
+  }
+
+  async findQuoteItems(
+    parentId: string,
+    args: Prisma.QuoteItemFindManyArgs
+  ): Promise<QuoteItem[]> {
+    return this.prisma.part
+      .findUnique({
+        where: { id: parentId },
+      })
+      .quoteItems(args);
+  }
+
+  async getAccount(parentId: string): Promise<Account | null> {
+    return this.prisma.part
+      .findUnique({
+        where: { id: parentId },
+      })
+      .account();
+  }
+
+  async getBlueprint(parentId: string): Promise<MediaFile | null> {
+    return this.prisma.part
+      .findUnique({
+        where: { id: parentId },
+      })
+      .blueprint();
   }
 
   async getOffer(parentId: string): Promise<Offer | null> {
@@ -72,6 +104,30 @@ export class PartServiceBase {
         where: { id: parentId },
       })
       .offer();
+  }
+
+  async getOrganization(parentId: string): Promise<Organization | null> {
+    return this.prisma.part
+      .findUnique({
+        where: { id: parentId },
+      })
+      .organization();
+  }
+
+  async getOriginalBlueprint(parentId: string): Promise<MediaFile | null> {
+    return this.prisma.part
+      .findUnique({
+        where: { id: parentId },
+      })
+      .originalBlueprint();
+  }
+
+  async getOriginalModel(parentId: string): Promise<MediaFile | null> {
+    return this.prisma.part
+      .findUnique({
+        where: { id: parentId },
+      })
+      .originalModel();
   }
 
   async getPartConfiguration(
@@ -90,5 +146,21 @@ export class PartServiceBase {
         where: { id: parentId },
       })
       .partOnShape();
+  }
+
+  async getStepModel(parentId: string): Promise<MediaFile | null> {
+    return this.prisma.part
+      .findUnique({
+        where: { id: parentId },
+      })
+      .stepModel();
+  }
+
+  async getStlModel(parentId: string): Promise<MediaFile | null> {
+    return this.prisma.part
+      .findUnique({
+        where: { id: parentId },
+      })
+      .stlModel();
   }
 }

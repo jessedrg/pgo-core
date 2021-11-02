@@ -8,7 +8,6 @@ export type OrderOrderByInput = {
   estimatedDays?: SortOrder;
   fees?: SortOrder;
   id?: SortOrder;
-  organizationId?: SortOrder;
   paymentId?: SortOrder;
   shipmentId?: SortOrder;
   shippingaddress?: SortOrder;

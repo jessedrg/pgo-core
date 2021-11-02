@@ -1,9 +1,9 @@
-import { AddressWhereUniqueInput } from "../address/AddressWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { OrganizationPaymentMethodWhereUniqueInput } from "../organizationPaymentMethod/OrganizationPaymentMethodWhereUniqueInput";
 
 export type OrganizationWhereInput = {
-  address?: AddressWhereUniqueInput;
   id?: StringFilter;
   name?: StringNullableFilter;
+  paymentMethod?: OrganizationPaymentMethodWhereUniqueInput;
 };

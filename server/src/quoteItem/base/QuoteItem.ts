@@ -1,15 +1,17 @@
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { Price } from "../../price/base/Price";
 import {
-  IsNumber,
+  ValidateNested,
   IsOptional,
   IsString,
   IsDate,
+  IsNumber,
   IsInt,
-  ValidateNested,
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { Part } from "../../part/base/Part";
 import { Provider } from "../../provider/base/Provider";
 import { Quote } from "../../quote/base/Quote";
 import { EnumQuoteItemStatus } from "./EnumQuoteItemStatus";
@@ -17,14 +19,12 @@ import { EnumQuoteItemStatus } from "./EnumQuoteItemStatus";
 class QuoteItem {
   @ApiProperty({
     required: false,
-    type: Number,
+    type: () => [Price],
   })
-  @IsNumber()
+  @ValidateNested()
+  @Type(() => Price)
   @IsOptional()
-  @Field(() => Number, {
-    nullable: true,
-  })
-  basePrices!: number | null;
+  basePrices?: Array<Price>;
 
   @ApiProperty({
     required: false,
@@ -66,14 +66,21 @@ class QuoteItem {
 
   @ApiProperty({
     required: false,
-    type: Number,
+    type: () => Part,
   })
-  @IsNumber()
+  @ValidateNested()
+  @Type(() => Part)
   @IsOptional()
-  @Field(() => Number, {
-    nullable: true,
+  part?: Part | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Price],
   })
-  prices!: number | null;
+  @ValidateNested()
+  @Type(() => Price)
+  @IsOptional()
+  prices?: Array<Price>;
 
   @ApiProperty({
     required: false,

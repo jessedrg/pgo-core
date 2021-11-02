@@ -4,6 +4,7 @@ import {
   Production,
   ProductionItem,
   Shipment,
+  Account,
   Order,
 } from "@prisma/client";
 
@@ -62,6 +63,14 @@ export class ProductionServiceBase {
         where: { id: parentId },
       })
       .shipments(args);
+  }
+
+  async getAccount(parentId: string): Promise<Account | null> {
+    return this.prisma.production
+      .findUnique({
+        where: { id: parentId },
+      })
+      .account();
   }
 
   async getOrder(parentId: string): Promise<Order | null> {
