@@ -65,6 +65,12 @@ export class ProductionControllerBase {
       data: {
         ...data,
 
+        account: data.account
+          ? {
+              connect: data.account,
+            }
+          : undefined,
+
         order: data.order
           ? {
               connect: data.order,
@@ -72,6 +78,12 @@ export class ProductionControllerBase {
           : undefined,
       },
       select: {
+        account: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         discomformity: true,
         id: true,
@@ -121,6 +133,12 @@ export class ProductionControllerBase {
     const results = await this.service.findMany({
       ...args,
       select: {
+        account: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         discomformity: true,
         id: true,
@@ -165,6 +183,12 @@ export class ProductionControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
+        account: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         discomformity: true,
         id: true,
@@ -231,6 +255,12 @@ export class ProductionControllerBase {
         data: {
           ...data,
 
+          account: data.account
+            ? {
+                connect: data.account,
+              }
+            : undefined,
+
           order: data.order
             ? {
                 connect: data.order,
@@ -238,6 +268,12 @@ export class ProductionControllerBase {
             : undefined,
         },
         select: {
+          account: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
           discomformity: true,
           id: true,
@@ -283,6 +319,12 @@ export class ProductionControllerBase {
       return await this.service.delete({
         where: params,
         select: {
+          account: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
           discomformity: true,
           id: true,
@@ -340,6 +382,12 @@ export class ProductionControllerBase {
       select: {
         createdAt: true,
         id: true,
+
+        part: {
+          select: {
+            id: true,
+          },
+        },
 
         production: {
           select: {

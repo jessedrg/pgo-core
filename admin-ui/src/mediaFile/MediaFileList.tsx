@@ -14,9 +14,9 @@ export const MediaFileList = (props: ListProps): React.ReactElement => {
       <Datagrid rowClick="show">
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
-        <TextField label="type" source="type" />
+        <TextField label="Type" source="type" />
         <DateField source="updatedAt" label="Updated At" />
-        <TextField label="url" source="url" />
+        <TextField label="Url" source="url" />
       </Datagrid>
     </List>
   );

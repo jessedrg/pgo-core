@@ -15,6 +15,8 @@ import { JsonValue } from "type-fest";
 import { Offer } from "../../offer/base/Offer";
 import { Organization } from "../../organization/base/Organization";
 import { PartMessage } from "../../partMessage/base/PartMessage";
+import { Part } from "../../part/base/Part";
+import { Production } from "../../production/base/Production";
 import { Quote } from "../../quote/base/Quote";
 import { User } from "../../user/base/User";
 @ObjectType()
@@ -32,12 +34,12 @@ class Account {
 
   @ApiProperty({
     required: false,
-    type: () => [Agent],
+    type: () => Agent,
   })
   @ValidateNested()
   @Type(() => Agent)
   @IsOptional()
-  agents?: Array<Agent>;
+  agent?: Agent | null;
 
   @ApiProperty({
     required: false,
@@ -102,12 +104,21 @@ class Account {
 
   @ApiProperty({
     required: false,
-    type: () => [PartMessage],
+    type: () => [Part],
   })
   @ValidateNested()
-  @Type(() => PartMessage)
+  @Type(() => Part)
   @IsOptional()
-  partSender?: Array<PartMessage>;
+  parts?: Array<Part>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Production],
+  })
+  @ValidateNested()
+  @Type(() => Production)
+  @IsOptional()
+  productions?: Array<Production>;
 
   @ApiProperty({
     required: false,
@@ -128,11 +139,11 @@ class Account {
 
   @ApiProperty({
     required: false,
-    type: () => [User],
+    type: () => User,
   })
   @ValidateNested()
   @Type(() => User)
   @IsOptional()
-  users?: Array<User>;
+  user?: User | null;
 }
 export { Account };

@@ -6,7 +6,6 @@ import { IsOptional, ValidateNested } from "class-validator";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
-import { OrganizationWhereUniqueInput } from "../../organization/base/OrganizationWhereUniqueInput";
 import { PaymentWhereUniqueInput } from "../../payment/base/PaymentWhereUniqueInput";
 import { ShipmentWhereUniqueInput } from "../../shipment/base/ShipmentWhereUniqueInput";
 import { FloatNullableFilter } from "../../util/FloatNullableFilter";
@@ -77,18 +76,6 @@ class OrderWhereInput {
     nullable: true,
   })
   id?: StringFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => OrganizationWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => OrganizationWhereUniqueInput)
-  @IsOptional()
-  @Field(() => OrganizationWhereUniqueInput, {
-    nullable: true,
-  })
-  organization?: OrganizationWhereUniqueInput;
 
   @ApiProperty({
     required: false,

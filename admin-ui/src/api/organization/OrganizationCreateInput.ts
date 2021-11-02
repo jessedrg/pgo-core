@@ -1,6 +1,6 @@
-import { AddressWhereUniqueInput } from "../address/AddressWhereUniqueInput";
+import { OrganizationPaymentMethodWhereUniqueInput } from "../organizationPaymentMethod/OrganizationPaymentMethodWhereUniqueInput";
 
 export type OrganizationCreateInput = {
-  address?: AddressWhereUniqueInput | null;
   name?: string | null;
+  paymentMethod?: OrganizationPaymentMethodWhereUniqueInput | null;
 };

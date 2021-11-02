@@ -16,9 +16,14 @@ import { PartFindUniqueArgs } from "./PartFindUniqueArgs";
 import { Part } from "./Part";
 import { PartMessageFindManyArgs } from "../../partMessage/base/PartMessageFindManyArgs";
 import { PartMessage } from "../../partMessage/base/PartMessage";
-import { QuoteFindManyArgs } from "../../quote/base/QuoteFindManyArgs";
-import { Quote } from "../../quote/base/Quote";
+import { ProductionItemFindManyArgs } from "../../productionItem/base/ProductionItemFindManyArgs";
+import { ProductionItem } from "../../productionItem/base/ProductionItem";
+import { QuoteItemFindManyArgs } from "../../quoteItem/base/QuoteItemFindManyArgs";
+import { QuoteItem } from "../../quoteItem/base/QuoteItem";
+import { Account } from "../../account/base/Account";
+import { MediaFile } from "../../mediaFile/base/MediaFile";
 import { Offer } from "../../offer/base/Offer";
+import { Organization } from "../../organization/base/Organization";
 import { PartConfiguration } from "../../partConfiguration/base/PartConfiguration";
 import { PartOnShape } from "../../partOnShape/base/PartOnShape";
 import { PartService } from "../part.service";
@@ -130,9 +135,39 @@ export class PartResolverBase {
       data: {
         ...args.data,
 
+        account: args.data.account
+          ? {
+              connect: args.data.account,
+            }
+          : undefined,
+
+        blueprint: args.data.blueprint
+          ? {
+              connect: args.data.blueprint,
+            }
+          : undefined,
+
         offer: args.data.offer
           ? {
               connect: args.data.offer,
+            }
+          : undefined,
+
+        organization: args.data.organization
+          ? {
+              connect: args.data.organization,
+            }
+          : undefined,
+
+        originalBlueprint: args.data.originalBlueprint
+          ? {
+              connect: args.data.originalBlueprint,
+            }
+          : undefined,
+
+        originalModel: args.data.originalModel
+          ? {
+              connect: args.data.originalModel,
             }
           : undefined,
 
@@ -145,6 +180,18 @@ export class PartResolverBase {
         partOnShape: args.data.partOnShape
           ? {
               connect: args.data.partOnShape,
+            }
+          : undefined,
+
+        stepModel: args.data.stepModel
+          ? {
+              connect: args.data.stepModel,
+            }
+          : undefined,
+
+        stlModel: args.data.stlModel
+          ? {
+              connect: args.data.stlModel,
             }
           : undefined,
       },
@@ -189,9 +236,39 @@ export class PartResolverBase {
         data: {
           ...args.data,
 
+          account: args.data.account
+            ? {
+                connect: args.data.account,
+              }
+            : undefined,
+
+          blueprint: args.data.blueprint
+            ? {
+                connect: args.data.blueprint,
+              }
+            : undefined,
+
           offer: args.data.offer
             ? {
                 connect: args.data.offer,
+              }
+            : undefined,
+
+          organization: args.data.organization
+            ? {
+                connect: args.data.organization,
+              }
+            : undefined,
+
+          originalBlueprint: args.data.originalBlueprint
+            ? {
+                connect: args.data.originalBlueprint,
+              }
+            : undefined,
+
+          originalModel: args.data.originalModel
+            ? {
+                connect: args.data.originalModel,
               }
             : undefined,
 
@@ -204,6 +281,18 @@ export class PartResolverBase {
           partOnShape: args.data.partOnShape
             ? {
                 connect: args.data.partOnShape,
+              }
+            : undefined,
+
+          stepModel: args.data.stepModel
+            ? {
+                connect: args.data.stepModel,
+              }
+            : undefined,
+
+          stlModel: args.data.stlModel
+            ? {
+                connect: args.data.stlModel,
               }
             : undefined,
         },
@@ -264,30 +353,104 @@ export class PartResolverBase {
     return results.map((result) => permission.filter(result));
   }
 
-  @graphql.ResolveField(() => [Quote])
+  @graphql.ResolveField(() => [ProductionItem])
   @nestAccessControl.UseRoles({
     resource: "Part",
     action: "read",
     possession: "any",
   })
-  async quotes(
+  async productionItems(
     @graphql.Parent() parent: Part,
-    @graphql.Args() args: QuoteFindManyArgs,
+    @graphql.Args() args: ProductionItemFindManyArgs,
     @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Quote[]> {
+  ): Promise<ProductionItem[]> {
     const permission = this.rolesBuilder.permission({
       role: userRoles,
       action: "read",
       possession: "any",
-      resource: "Quote",
+      resource: "ProductionItem",
     });
-    const results = await this.service.findQuotes(parent.id, args);
+    const results = await this.service.findProductionItems(parent.id, args);
 
     if (!results) {
       return [];
     }
 
     return results.map((result) => permission.filter(result));
+  }
+
+  @graphql.ResolveField(() => [QuoteItem])
+  @nestAccessControl.UseRoles({
+    resource: "Part",
+    action: "read",
+    possession: "any",
+  })
+  async quoteItems(
+    @graphql.Parent() parent: Part,
+    @graphql.Args() args: QuoteItemFindManyArgs,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<QuoteItem[]> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "QuoteItem",
+    });
+    const results = await this.service.findQuoteItems(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results.map((result) => permission.filter(result));
+  }
+
+  @graphql.ResolveField(() => Account, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "Part",
+    action: "read",
+    possession: "any",
+  })
+  async account(
+    @graphql.Parent() parent: Part,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Account | null> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Account",
+    });
+    const result = await this.service.getAccount(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return permission.filter(result);
+  }
+
+  @graphql.ResolveField(() => MediaFile, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "Part",
+    action: "read",
+    possession: "any",
+  })
+  async blueprint(
+    @graphql.Parent() parent: Part,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<MediaFile | null> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "MediaFile",
+    });
+    const result = await this.service.getBlueprint(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return permission.filter(result);
   }
 
   @graphql.ResolveField(() => Offer, { nullable: true })
@@ -307,6 +470,78 @@ export class PartResolverBase {
       resource: "Offer",
     });
     const result = await this.service.getOffer(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return permission.filter(result);
+  }
+
+  @graphql.ResolveField(() => Organization, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "Part",
+    action: "read",
+    possession: "any",
+  })
+  async organization(
+    @graphql.Parent() parent: Part,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Organization | null> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Organization",
+    });
+    const result = await this.service.getOrganization(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return permission.filter(result);
+  }
+
+  @graphql.ResolveField(() => MediaFile, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "Part",
+    action: "read",
+    possession: "any",
+  })
+  async originalBlueprint(
+    @graphql.Parent() parent: Part,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<MediaFile | null> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "MediaFile",
+    });
+    const result = await this.service.getOriginalBlueprint(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return permission.filter(result);
+  }
+
+  @graphql.ResolveField(() => MediaFile, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "Part",
+    action: "read",
+    possession: "any",
+  })
+  async originalModel(
+    @graphql.Parent() parent: Part,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<MediaFile | null> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "MediaFile",
+    });
+    const result = await this.service.getOriginalModel(parent.id);
 
     if (!result) {
       return null;
@@ -355,6 +590,54 @@ export class PartResolverBase {
       resource: "PartOnShape",
     });
     const result = await this.service.getPartOnShape(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return permission.filter(result);
+  }
+
+  @graphql.ResolveField(() => MediaFile, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "Part",
+    action: "read",
+    possession: "any",
+  })
+  async stepModel(
+    @graphql.Parent() parent: Part,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<MediaFile | null> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "MediaFile",
+    });
+    const result = await this.service.getStepModel(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return permission.filter(result);
+  }
+
+  @graphql.ResolveField(() => MediaFile, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "Part",
+    action: "read",
+    possession: "any",
+  })
+  async stlModel(
+    @graphql.Parent() parent: Part,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<MediaFile | null> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "MediaFile",
+    });
+    const result = await this.service.getStlModel(parent.id);
 
     if (!result) {
       return null;

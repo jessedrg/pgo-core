@@ -7,5 +7,4 @@ export type PaymentOrderByInput = {
   transactionId?: SortOrder;
   transactionUserId?: SortOrder;
   updatedAt?: SortOrder;
-  userId?: SortOrder;
 };

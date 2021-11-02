@@ -1,27 +1,17 @@
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { FloatNullableFilter } from "../../util/FloatNullableFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested, IsEnum } from "class-validator";
-import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { FloatNullableFilter } from "../../util/FloatNullableFilter";
+import { PartWhereUniqueInput } from "../../part/base/PartWhereUniqueInput";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { ProviderWhereUniqueInput } from "../../provider/base/ProviderWhereUniqueInput";
 import { QuoteWhereUniqueInput } from "../../quote/base/QuoteWhereUniqueInput";
 import { EnumQuoteItemStatus } from "./EnumQuoteItemStatus";
 @InputType()
 class QuoteItemWhereInput {
-  @ApiProperty({
-    required: false,
-    type: FloatNullableFilter,
-  })
-  @Type(() => FloatNullableFilter)
-  @IsOptional()
-  @Field(() => FloatNullableFilter, {
-    nullable: true,
-  })
-  basePrices?: FloatNullableFilter;
-
   @ApiProperty({
     required: false,
     type: StringNullableFilter,
@@ -57,14 +47,15 @@ class QuoteItemWhereInput {
 
   @ApiProperty({
     required: false,
-    type: FloatNullableFilter,
+    type: () => PartWhereUniqueInput,
   })
-  @Type(() => FloatNullableFilter)
+  @ValidateNested()
+  @Type(() => PartWhereUniqueInput)
   @IsOptional()
-  @Field(() => FloatNullableFilter, {
+  @Field(() => PartWhereUniqueInput, {
     nullable: true,
   })
-  prices?: FloatNullableFilter;
+  part?: PartWhereUniqueInput;
 
   @ApiProperty({
     required: false,

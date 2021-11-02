@@ -13,12 +13,12 @@ export const OrderItemCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
-        <ReferenceInput source="order.id" reference="Order" label="order">
+        <ReferenceInput source="order.id" reference="Order" label="Order">
           <SelectInput optionText={OrderTitle} />
         </ReferenceInput>
-        <NumberInput label="price" source="price" />
-        <NumberInput step={1} label="quantity" source="quantity" />
-        <NumberInput label="total" source="total" />
+        <NumberInput label="Price" source="price" />
+        <NumberInput step={1} label="Quantity" source="quantity" />
+        <NumberInput label="Total" source="total" />
       </SimpleForm>
     </Create>
   );

@@ -1,22 +1,30 @@
+import { AccountWhereUniqueInput } from "../account/AccountWhereUniqueInput";
+import { MediaFileWhereUniqueInput } from "../mediaFile/MediaFileWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
 import { OfferWhereUniqueInput } from "../offer/OfferWhereUniqueInput";
+import { OrganizationWhereUniqueInput } from "../organization/OrganizationWhereUniqueInput";
 import { PartConfigurationWhereUniqueInput } from "../partConfiguration/PartConfigurationWhereUniqueInput";
 import { PartOnShapeWhereUniqueInput } from "../partOnShape/PartOnShapeWhereUniqueInput";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { JsonNullableFilter } from "../../util/JsonNullableFilter";
 import { FloatNullableFilter } from "../../util/FloatNullableFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 
 export type PartWhereInput = {
+  account?: AccountWhereUniqueInput;
+  blueprint?: MediaFileWhereUniqueInput;
   id?: StringFilter;
   offer?: OfferWhereUniqueInput;
+  organization?: OrganizationWhereUniqueInput;
+  originalBlueprint?: MediaFileWhereUniqueInput;
+  originalModel?: MediaFileWhereUniqueInput;
   partConfiguration?: PartConfigurationWhereUniqueInput;
   partOnShape?: PartOnShapeWhereUniqueInput;
-  parts?: IntNullableFilter;
+  partsCount?: IntNullableFilter;
   process?: StringNullableFilter;
-  quantities?: JsonNullableFilter;
   status?: "draft" | "pending" | "rejected" | "publish";
+  stepModel?: MediaFileWhereUniqueInput;
+  stlModel?: MediaFileWhereUniqueInput;
   surface?: FloatNullableFilter;
   visible?: BooleanNullableFilter;
   volume?: FloatNullableFilter;

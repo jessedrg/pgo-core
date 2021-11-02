@@ -1,6 +1,6 @@
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
@@ -9,14 +9,14 @@ import { ProviderWhereUniqueInput } from "../../provider/base/ProviderWhereUniqu
 class HolidayWhereInput {
   @ApiProperty({
     required: false,
-    type: IntNullableFilter,
+    type: DateTimeNullableFilter,
   })
-  @Type(() => IntNullableFilter)
+  @Type(() => DateTimeNullableFilter)
   @IsOptional()
-  @Field(() => IntNullableFilter, {
+  @Field(() => DateTimeNullableFilter, {
     nullable: true,
   })
-  day?: IntNullableFilter;
+  day?: DateTimeNullableFilter;
 
   @ApiProperty({
     required: false,

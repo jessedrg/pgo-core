@@ -4,12 +4,13 @@ import {
   Create,
   SimpleForm,
   CreateProps,
-  NumberInput,
   TextInput,
+  NumberInput,
   ReferenceInput,
   SelectInput,
 } from "react-admin";
 
+import { PartTitle } from "../part/PartTitle";
 import { ProviderTitle } from "../provider/ProviderTitle";
 import { QuoteTitle } from "../quote/QuoteTitle";
 
@@ -17,20 +18,21 @@ export const QuoteItemCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
-        <NumberInput label="basePrices" source="basePrices" />
-        <TextInput label="constructionType" source="constructionType" />
-        <NumberInput label="margins" source="margins" />
-        <NumberInput label="prices" source="prices" />
-        <NumberInput step={1} label="productionDays" source="productionDays" />
+        <TextInput label="Construction Type" source="constructionType" />
+        <NumberInput label="Margins" source="margins" />
+        <ReferenceInput source="part.id" reference="Part" label="Part">
+          <SelectInput optionText={PartTitle} />
+        </ReferenceInput>
+        <NumberInput step={1} label="Production Days" source="productionDays" />
         <ReferenceInput
           source="provider.id"
           reference="Provider"
-          label="provider"
+          label="Provider"
         >
           <SelectInput optionText={ProviderTitle} />
         </ReferenceInput>
         <NumberInput step={1} label="quantities" source="quantities" />
-        <ReferenceInput source="quote.id" reference="Quote" label="quote">
+        <ReferenceInput source="quote.id" reference="Quote" label="Quote">
           <SelectInput optionText={QuoteTitle} />
         </ReferenceInput>
         <SelectInput

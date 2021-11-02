@@ -1,23 +1,38 @@
 import * as React from "react";
-import { Edit, SimpleForm, EditProps, TextInput } from "react-admin";
+import {
+  Edit,
+  SimpleForm,
+  EditProps,
+  TextInput,
+  ReferenceInput,
+  SelectInput,
+} from "react-admin";
+import { OrganizationTitle } from "../organization/OrganizationTitle";
 
 export const AddressEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput label="company" source="company" />
-        <TextInput label="country" source="country" />
-        <TextInput label="firstName" source="firstName" />
-        <TextInput label="lastName" source="lastName" />
-        <TextInput label="locality" source="locality" />
-        <TextInput label="phone" source="phone" />
-        <TextInput label="phonePrefix" source="phonePrefix" />
-        <TextInput label="postalCode" source="postalCode" />
-        <TextInput label="state" source="state" />
-        <TextInput label="street" source="street" />
-        <TextInput label="streetNumber" source="streetNumber" />
-        <TextInput label="type" source="type" />
-        <TextInput label="vat" source="vat" />
+        <TextInput label="Company" source="company" />
+        <TextInput label="Country" source="country" />
+        <TextInput label="First Name" source="firstName" />
+        <TextInput label="Last Name" source="lastName" />
+        <TextInput label="Locality" source="locality" />
+        <ReferenceInput
+          source="organization.id"
+          reference="Organization"
+          label="Organization"
+        >
+          <SelectInput optionText={OrganizationTitle} />
+        </ReferenceInput>
+        <TextInput label="Phone" source="phone" />
+        <TextInput label="Phone Prefix" source="phonePrefix" />
+        <TextInput label="Postal Code" source="postalCode" />
+        <TextInput label="State" source="state" />
+        <TextInput label="Street" source="street" />
+        <TextInput label="Street Number" source="streetNumber" />
+        <TextInput label="Type" source="type" />
+        <TextInput label="Vat" source="vat" />
       </SimpleForm>
     </Edit>
   );

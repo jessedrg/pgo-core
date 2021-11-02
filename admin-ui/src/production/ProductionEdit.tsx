@@ -3,23 +3,27 @@ import {
   Edit,
   SimpleForm,
   EditProps,
-  BooleanInput,
   ReferenceInput,
   SelectInput,
+  BooleanInput,
 } from "react-admin";
+import { AccountTitle } from "../account/AccountTitle";
 import { OrderTitle } from "../order/OrderTitle";
 
 export const ProductionEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <BooleanInput label="discomformity" source="discomformity" />
-        <ReferenceInput source="order.id" reference="Order" label="order">
+        <ReferenceInput source="account.id" reference="Account" label="Account">
+          <SelectInput optionText={AccountTitle} />
+        </ReferenceInput>
+        <BooleanInput label="Discomformity" source="discomformity" />
+        <ReferenceInput source="order.id" reference="Order" label="Order">
           <SelectInput optionText={OrderTitle} />
         </ReferenceInput>
         <SelectInput
           source="status"
-          label="status"
+          label="Status"
           choices={[
             { label: "Pending", value: "pending" },
             { label: "Processing", value: "processing" },

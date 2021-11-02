@@ -36,14 +36,11 @@ export class AddressServiceBase {
     return this.prisma.address.delete(args);
   }
 
-  async findOrganizations(
-    parentId: string,
-    args: Prisma.OrganizationFindManyArgs
-  ): Promise<Organization[]> {
+  async getOrganization(parentId: string): Promise<Organization | null> {
     return this.prisma.address
       .findUnique({
         where: { id: parentId },
       })
-      .organizations(args);
+      .organization();
   }
 }

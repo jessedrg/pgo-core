@@ -6,15 +6,13 @@ import {
   ShowProps,
   DateField,
   TextField,
-  ReferenceField,
   ReferenceManyField,
   Datagrid,
+  ReferenceField,
 } from "react-admin";
 
-import { ORGANIZATION_TITLE_FIELD } from "../organization/OrganizationTitle";
 import { PAYMENT_TITLE_FIELD } from "./PaymentTitle";
 import { SHIPMENT_TITLE_FIELD } from "../shipment/ShipmentTitle";
-import { USER_TITLE_FIELD } from "../user/UserTitle";
 
 export const PaymentShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -22,13 +20,10 @@ export const PaymentShow = (props: ShowProps): React.ReactElement => {
       <SimpleShowLayout>
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
-        <TextField label="status" source="status" />
-        <TextField label="transactionId" source="transactionId" />
-        <TextField label="transactionUserId" source="transactionUserId" />
+        <TextField label="Status" source="status" />
+        <TextField label="Transaction Id" source="transactionId" />
+        <TextField label="Transaction User Id" source="transactionUserId" />
         <DateField source="updatedAt" label="Updated At" />
-        <ReferenceField label="user" source="user.id" reference="User">
-          <TextField source={USER_TITLE_FIELD} />
-        </ReferenceField>
         <ReferenceManyField reference="Order" target="PaymentId" label="Orders">
           <Datagrid rowClick="show">
             <TextField label="billingAddress" source="billingAddress" />
@@ -38,13 +33,6 @@ export const PaymentShow = (props: ShowProps): React.ReactElement => {
             <TextField label="estimatedDays" source="estimatedDays" />
             <TextField label="fees" source="fees" />
             <TextField label="ID" source="id" />
-            <ReferenceField
-              label="organization"
-              source="organization.id"
-              reference="Organization"
-            >
-              <TextField source={ORGANIZATION_TITLE_FIELD} />
-            </ReferenceField>
             <ReferenceField
               label="payment"
               source="payment.id"

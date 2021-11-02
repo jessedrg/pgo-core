@@ -78,12 +78,12 @@ class Address {
 
   @ApiProperty({
     required: false,
-    type: () => [Organization],
+    type: () => Organization,
   })
   @ValidateNested()
   @Type(() => Organization)
   @IsOptional()
-  organizations?: Array<Organization>;
+  organization?: Organization | null;
 
   @ApiProperty({
     required: false,

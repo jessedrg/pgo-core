@@ -3,7 +3,6 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Account } from "../../account/base/Account";
 import { ValidateNested, IsOptional, IsDate, IsString } from "class-validator";
 import { Type } from "class-transformer";
-import { Payment } from "../../payment/base/Payment";
 @ObjectType()
 class User {
   @ApiProperty({
@@ -13,7 +12,7 @@ class User {
   @ValidateNested()
   @Type(() => Account)
   @IsOptional()
-  account?: Account | null;
+  account?: Account;
 
   @ApiProperty({
     required: true,
@@ -52,15 +51,6 @@ class User {
     nullable: true,
   })
   lastName!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Payment],
-  })
-  @ValidateNested()
-  @Type(() => Payment)
-  @IsOptional()
-  payments?: Array<Payment>;
 
   @ApiProperty({
     required: true,

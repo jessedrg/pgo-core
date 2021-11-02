@@ -11,7 +11,6 @@ import {
   SelectArrayInput,
 } from "react-admin";
 
-import { OrganizationTitle } from "../organization/OrganizationTitle";
 import { PaymentTitle } from "../payment/PaymentTitle";
 import { ShipmentTitle } from "../shipment/ShipmentTitle";
 
@@ -24,13 +23,6 @@ export const OrderCreate = (props: CreateProps): React.ReactElement => {
         <TextInput label="customNo" source="customNo" />
         <NumberInput step={1} label="estimatedDays" source="estimatedDays" />
         <div />
-        <ReferenceInput
-          source="organization.id"
-          reference="Organization"
-          label="organization"
-        >
-          <SelectInput optionText={OrganizationTitle} />
-        </ReferenceInput>
         <ReferenceInput source="payment.id" reference="Payment" label="payment">
           <SelectInput optionText={PaymentTitle} />
         </ReferenceInput>

@@ -17,19 +17,19 @@ export const QuoteEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <ReferenceInput source="account.id" reference="Account" label="account">
+        <ReferenceInput source="account.id" reference="Account" label="Account">
           <SelectInput optionText={AccountTitle} />
         </ReferenceInput>
-        <DateTimeInput label="completedAt" source="completedAt" />
+        <DateTimeInput label="Completed At" source="completedAt" />
         <ReferenceInput
           source="provider.id"
           reference="Provider"
-          label="provider"
+          label="Provider"
         >
           <SelectInput optionText={ProviderTitle} />
         </ReferenceInput>
         <SelectArrayInput
-          label="status"
+          label="Status"
           source="status"
           choices={[
             { label: "Pending", value: "pending" },

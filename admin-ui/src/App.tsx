@@ -81,10 +81,10 @@ import { PaymentList } from "./payment/PaymentList";
 import { PaymentCreate } from "./payment/PaymentCreate";
 import { PaymentEdit } from "./payment/PaymentEdit";
 import { PaymentShow } from "./payment/PaymentShow";
-import { AccountPaymentMethodList } from "./accountPaymentMethod/AccountPaymentMethodList";
-import { AccountPaymentMethodCreate } from "./accountPaymentMethod/AccountPaymentMethodCreate";
-import { AccountPaymentMethodEdit } from "./accountPaymentMethod/AccountPaymentMethodEdit";
-import { AccountPaymentMethodShow } from "./accountPaymentMethod/AccountPaymentMethodShow";
+import { OrganizationPaymentMethodList } from "./organizationPaymentMethod/OrganizationPaymentMethodList";
+import { OrganizationPaymentMethodCreate } from "./organizationPaymentMethod/OrganizationPaymentMethodCreate";
+import { OrganizationPaymentMethodEdit } from "./organizationPaymentMethod/OrganizationPaymentMethodEdit";
+import { OrganizationPaymentMethodShow } from "./organizationPaymentMethod/OrganizationPaymentMethodShow";
 import { InviteList } from "./invite/InviteList";
 import { InviteCreate } from "./invite/InviteCreate";
 import { InviteEdit } from "./invite/InviteEdit";
@@ -97,6 +97,14 @@ import { PartMessageList } from "./partMessage/PartMessageList";
 import { PartMessageCreate } from "./partMessage/PartMessageCreate";
 import { PartMessageEdit } from "./partMessage/PartMessageEdit";
 import { PartMessageShow } from "./partMessage/PartMessageShow";
+import { PriceList } from "./price/PriceList";
+import { PriceCreate } from "./price/PriceCreate";
+import { PriceEdit } from "./price/PriceEdit";
+import { PriceShow } from "./price/PriceShow";
+import { MarginList } from "./margin/MarginList";
+import { MarginCreate } from "./margin/MarginCreate";
+import { MarginEdit } from "./margin/MarginEdit";
+import { MarginShow } from "./margin/MarginShow";
 import { httpAuthProvider } from "./auth-provider/ra-auth-http";
 
 const App = (): React.ReactElement => {
@@ -257,11 +265,11 @@ const App = (): React.ReactElement => {
           show={PaymentShow}
         />
         <Resource
-          name="AccountPaymentMethod"
-          list={AccountPaymentMethodList}
-          edit={AccountPaymentMethodEdit}
-          create={AccountPaymentMethodCreate}
-          show={AccountPaymentMethodShow}
+          name="OrganizationPaymentMethod"
+          list={OrganizationPaymentMethodList}
+          edit={OrganizationPaymentMethodEdit}
+          create={OrganizationPaymentMethodCreate}
+          show={OrganizationPaymentMethodShow}
         />
         <Resource
           name="Invite"
@@ -283,6 +291,20 @@ const App = (): React.ReactElement => {
           edit={PartMessageEdit}
           create={PartMessageCreate}
           show={PartMessageShow}
+        />
+        <Resource
+          name="Price"
+          list={PriceList}
+          edit={PriceEdit}
+          create={PriceCreate}
+          show={PriceShow}
+        />
+        <Resource
+          name="Margin"
+          list={MarginList}
+          edit={MarginEdit}
+          create={MarginCreate}
+          show={MarginShow}
         />
       </Admin>
     </div>

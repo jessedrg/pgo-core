@@ -20,7 +20,7 @@ class Agent {
   @ValidateNested()
   @Type(() => Account)
   @IsOptional()
-  account?: Account | null;
+  account?: Account;
 
   @ApiProperty({
     required: true,

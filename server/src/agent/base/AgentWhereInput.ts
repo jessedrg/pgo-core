@@ -4,7 +4,6 @@ import { AccountWhereUniqueInput } from "../../account/base/AccountWhereUniqueIn
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { StringFilter } from "../../util/StringFilter";
-import { JsonNullableFilter } from "../../util/JsonNullableFilter";
 @InputType()
 class AgentWhereInput {
   @ApiProperty({
@@ -29,16 +28,5 @@ class AgentWhereInput {
     nullable: true,
   })
   id?: StringFilter;
-
-  @ApiProperty({
-    required: false,
-    type: JsonNullableFilter,
-  })
-  @Type(() => JsonNullableFilter)
-  @IsOptional()
-  @Field(() => JsonNullableFilter, {
-    nullable: true,
-  })
-  zones?: JsonNullableFilter;
 }
 export { AgentWhereInput };

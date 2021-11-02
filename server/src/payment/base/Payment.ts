@@ -10,7 +10,6 @@ import {
 import { Type } from "class-transformer";
 import { Order } from "../../order/base/Order";
 import { EnumPaymentStatus } from "./EnumPaymentStatus";
-import { User } from "../../user/base/User";
 @ObjectType()
 class Payment {
   @ApiProperty({
@@ -78,14 +77,5 @@ class Payment {
   @Type(() => Date)
   @Field(() => Date)
   updatedAt!: Date;
-
-  @ApiProperty({
-    required: false,
-    type: () => User,
-  })
-  @ValidateNested()
-  @Type(() => User)
-  @IsOptional()
-  user?: User | null;
 }
 export { Payment };

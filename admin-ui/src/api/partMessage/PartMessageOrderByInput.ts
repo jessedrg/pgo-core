@@ -6,7 +6,6 @@ export type PartMessageOrderByInput = {
   message?: SortOrder;
   messageType?: SortOrder;
   partId?: SortOrder;
-  recieverId?: SortOrder;
   senderId?: SortOrder;
   type?: SortOrder;
   updatedAt?: SortOrder;

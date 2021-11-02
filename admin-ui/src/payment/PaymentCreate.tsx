@@ -5,9 +5,7 @@ import {
   CreateProps,
   SelectInput,
   TextInput,
-  ReferenceInput,
 } from "react-admin";
-import { UserTitle } from "../user/UserTitle";
 
 export const PaymentCreate = (props: CreateProps): React.ReactElement => {
   return (
@@ -15,7 +13,7 @@ export const PaymentCreate = (props: CreateProps): React.ReactElement => {
       <SimpleForm>
         <SelectInput
           source="status"
-          label="status"
+          label="Status"
           choices={[
             { label: "Pending", value: "pending" },
             { label: "Completed", value: "completed" },
@@ -25,11 +23,8 @@ export const PaymentCreate = (props: CreateProps): React.ReactElement => {
           allowEmpty
           optionValue="value"
         />
-        <TextInput label="transactionId" source="transactionId" />
-        <TextInput label="transactionUserId" source="transactionUserId" />
-        <ReferenceInput source="user.id" reference="User" label="user">
-          <SelectInput optionText={UserTitle} />
-        </ReferenceInput>
+        <TextInput label="Transaction Id" source="transactionId" />
+        <TextInput label="Transaction User Id" source="transactionUserId" />
       </SimpleForm>
     </Create>
   );

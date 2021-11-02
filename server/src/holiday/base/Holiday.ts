@@ -1,12 +1,6 @@
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import {
-  IsDate,
-  IsInt,
-  IsOptional,
-  IsString,
-  ValidateNested,
-} from "class-validator";
+import { IsDate, IsOptional, IsString, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 import { Provider } from "../../provider/base/Provider";
 @ObjectType()
@@ -21,14 +15,14 @@ class Holiday {
 
   @ApiProperty({
     required: false,
-    type: Number,
   })
-  @IsInt()
+  @IsDate()
+  @Type(() => Date)
   @IsOptional()
-  @Field(() => Number, {
+  @Field(() => Date, {
     nullable: true,
   })
-  day!: number | null;
+  day!: Date | null;
 
   @ApiProperty({
     required: true,

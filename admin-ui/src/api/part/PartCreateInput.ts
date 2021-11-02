@@ -1,16 +1,26 @@
+import { AccountWhereUniqueInput } from "../account/AccountWhereUniqueInput";
+import { MediaFileWhereUniqueInput } from "../mediaFile/MediaFileWhereUniqueInput";
 import { OfferWhereUniqueInput } from "../offer/OfferWhereUniqueInput";
+import { OrganizationWhereUniqueInput } from "../organization/OrganizationWhereUniqueInput";
 import { PartConfigurationWhereUniqueInput } from "../partConfiguration/PartConfigurationWhereUniqueInput";
 import { PartOnShapeWhereUniqueInput } from "../partOnShape/PartOnShapeWhereUniqueInput";
 import { JsonValue } from "type-fest";
 
 export type PartCreateInput = {
+  account?: AccountWhereUniqueInput | null;
+  blueprint?: MediaFileWhereUniqueInput | null;
   offer?: OfferWhereUniqueInput | null;
+  organization?: OrganizationWhereUniqueInput | null;
+  originalBlueprint?: MediaFileWhereUniqueInput | null;
+  originalModel?: MediaFileWhereUniqueInput | null;
   partConfiguration?: PartConfigurationWhereUniqueInput | null;
   partOnShape?: PartOnShapeWhereUniqueInput | null;
-  parts?: number | null;
+  partsCount?: number | null;
   process?: string | null;
   quantities?: JsonValue | null;
   status?: "draft" | "pending" | "rejected" | "publish" | null;
+  stepModel?: MediaFileWhereUniqueInput | null;
+  stlModel?: MediaFileWhereUniqueInput | null;
   surface?: number | null;
   visible?: boolean | null;
   volume?: number | null;

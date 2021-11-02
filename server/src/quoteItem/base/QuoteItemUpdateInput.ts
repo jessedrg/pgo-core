@@ -1,30 +1,20 @@
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import {
-  IsNumber,
-  IsOptional,
   IsString,
-  IsInt,
+  IsOptional,
+  IsNumber,
   ValidateNested,
+  IsInt,
   IsEnum,
 } from "class-validator";
-import { ProviderWhereUniqueInput } from "../../provider/base/ProviderWhereUniqueInput";
+import { PartWhereUniqueInput } from "../../part/base/PartWhereUniqueInput";
 import { Type } from "class-transformer";
+import { ProviderWhereUniqueInput } from "../../provider/base/ProviderWhereUniqueInput";
 import { QuoteWhereUniqueInput } from "../../quote/base/QuoteWhereUniqueInput";
 import { EnumQuoteItemStatus } from "./EnumQuoteItemStatus";
 @InputType()
 class QuoteItemUpdateInput {
-  @ApiProperty({
-    required: false,
-    type: Number,
-  })
-  @IsNumber()
-  @IsOptional()
-  @Field(() => Number, {
-    nullable: true,
-  })
-  basePrices?: number | null;
-
   @ApiProperty({
     required: false,
     type: String,
@@ -49,14 +39,15 @@ class QuoteItemUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: Number,
+    type: () => PartWhereUniqueInput,
   })
-  @IsNumber()
+  @ValidateNested()
+  @Type(() => PartWhereUniqueInput)
   @IsOptional()
-  @Field(() => Number, {
+  @Field(() => PartWhereUniqueInput, {
     nullable: true,
   })
-  prices?: number | null;
+  part?: PartWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

@@ -14,6 +14,8 @@ import { DeleteMediaFileArgs } from "./DeleteMediaFileArgs";
 import { MediaFileFindManyArgs } from "./MediaFileFindManyArgs";
 import { MediaFileFindUniqueArgs } from "./MediaFileFindUniqueArgs";
 import { MediaFile } from "./MediaFile";
+import { PartFindManyArgs } from "../../part/base/PartFindManyArgs";
+import { Part } from "../../part/base/Part";
 import { MediaFileService } from "../mediaFile.service";
 
 @graphql.Resolver(() => MediaFile)
@@ -191,5 +193,138 @@ export class MediaFileResolverBase {
       }
       throw error;
     }
+  }
+
+  @graphql.ResolveField(() => [Part])
+  @nestAccessControl.UseRoles({
+    resource: "MediaFile",
+    action: "read",
+    possession: "any",
+  })
+  async blueprintInPart(
+    @graphql.Parent() parent: MediaFile,
+    @graphql.Args() args: PartFindManyArgs,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Part[]> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Part",
+    });
+    const results = await this.service.findBlueprintInPart(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results.map((result) => permission.filter(result));
+  }
+
+  @graphql.ResolveField(() => [Part])
+  @nestAccessControl.UseRoles({
+    resource: "MediaFile",
+    action: "read",
+    possession: "any",
+  })
+  async originalBluePrintInPart(
+    @graphql.Parent() parent: MediaFile,
+    @graphql.Args() args: PartFindManyArgs,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Part[]> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Part",
+    });
+    const results = await this.service.findOriginalBluePrintInPart(
+      parent.id,
+      args
+    );
+
+    if (!results) {
+      return [];
+    }
+
+    return results.map((result) => permission.filter(result));
+  }
+
+  @graphql.ResolveField(() => [Part])
+  @nestAccessControl.UseRoles({
+    resource: "MediaFile",
+    action: "read",
+    possession: "any",
+  })
+  async originalModelInPart(
+    @graphql.Parent() parent: MediaFile,
+    @graphql.Args() args: PartFindManyArgs,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Part[]> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Part",
+    });
+    const results = await this.service.findOriginalModelInPart(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results.map((result) => permission.filter(result));
+  }
+
+  @graphql.ResolveField(() => [Part])
+  @nestAccessControl.UseRoles({
+    resource: "MediaFile",
+    action: "read",
+    possession: "any",
+  })
+  async stepModelInPart(
+    @graphql.Parent() parent: MediaFile,
+    @graphql.Args() args: PartFindManyArgs,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Part[]> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Part",
+    });
+    const results = await this.service.findStepModelInPart(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results.map((result) => permission.filter(result));
+  }
+
+  @graphql.ResolveField(() => [Part])
+  @nestAccessControl.UseRoles({
+    resource: "MediaFile",
+    action: "read",
+    possession: "any",
+  })
+  async stlModelInPart(
+    @graphql.Parent() parent: MediaFile,
+    @graphql.Args() args: PartFindManyArgs,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Part[]> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Part",
+    });
+    const results = await this.service.findStlModelInPart(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results.map((result) => permission.filter(result));
   }
 }

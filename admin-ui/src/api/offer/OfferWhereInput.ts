@@ -3,7 +3,7 @@ import { StringFilter } from "../../util/StringFilter";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 
 export type OfferWhereInput = {
-  customNo?: StringNullableFilter;
+  customNumber?: StringNullableFilter;
   id?: StringFilter;
   publishedAt?: DateTimeNullableFilter;
   status?: "draft" | "pending" | "publish" | "rejected";

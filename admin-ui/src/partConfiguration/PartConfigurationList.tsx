@@ -20,20 +20,20 @@ export const PartConfigurationList = (props: ListProps): React.ReactElement => {
       pagination={<Pagination />}
     >
       <Datagrid rowClick="show">
-        <TextField label="colorFinish" source="colorFinish" />
+        <TextField label="Color Finish" source="colorFinish" />
         <DateField source="createdAt" label="Created At" />
-        <TextField label="finish" source="finish" />
-        <TextField label="hardness" source="hardness" />
+        <TextField label="Finish" source="finish" />
+        <TextField label="Hardness" source="hardness" />
         <TextField label="ID" source="id" />
-        <TextField label="material" source="material" />
-        <TextField label="materialType" source="materialType" />
-        <ReferenceField label="part" source="part.id" reference="Part">
+        <TextField label="Material" source="material" />
+        <TextField label="MaterialType" source="materialType" />
+        <ReferenceField label="Part" source="part.id" reference="Part">
           <TextField source={PART_TITLE_FIELD} />
         </ReferenceField>
-        <TextField label="tech" source="tech" />
-        <TextField label="tolerance" source="tolerance" />
+        <TextField label="Tech" source="tech" />
+        <TextField label="Tolerance" source="tolerance" />
         <DateField source="updatedAt" label="Updated At" />
-        <TextField label="weight" source="weight" />
+        <TextField label="Weight" source="weight" />
       </Datagrid>
     </List>
   );

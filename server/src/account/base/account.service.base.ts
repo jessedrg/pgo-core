@@ -1,13 +1,16 @@
 import { PrismaService } from "nestjs-prisma";
+
 import {
   Prisma,
   Account,
-  Agent,
   Offer,
   PartMessage,
+  Part,
+  Production,
   Quote,
-  User,
+  Agent,
   Organization,
+  User,
 } from "@prisma/client";
 
 export class AccountServiceBase {
@@ -45,17 +48,6 @@ export class AccountServiceBase {
     return this.prisma.account.delete(args);
   }
 
-  async findAgents(
-    parentId: string,
-    args: Prisma.AgentFindManyArgs
-  ): Promise<Agent[]> {
-    return this.prisma.account
-      .findUnique({
-        where: { id: parentId },
-      })
-      .agents(args);
-  }
-
   async findOffers(
     parentId: string,
     args: Prisma.OfferFindManyArgs
@@ -78,15 +70,26 @@ export class AccountServiceBase {
       .partMessages(args);
   }
 
-  async findPartSender(
+  async findParts(
     parentId: string,
-    args: Prisma.PartMessageFindManyArgs
-  ): Promise<PartMessage[]> {
+    args: Prisma.PartFindManyArgs
+  ): Promise<Part[]> {
     return this.prisma.account
       .findUnique({
         where: { id: parentId },
       })
-      .partSender(args);
+      .parts(args);
+  }
+
+  async findProductions(
+    parentId: string,
+    args: Prisma.ProductionFindManyArgs
+  ): Promise<Production[]> {
+    return this.prisma.account
+      .findUnique({
+        where: { id: parentId },
+      })
+      .productions(args);
   }
 
   async findQuotes(
@@ -100,15 +103,12 @@ export class AccountServiceBase {
       .quotes(args);
   }
 
-  async findUsers(
-    parentId: string,
-    args: Prisma.UserFindManyArgs
-  ): Promise<User[]> {
+  async getAgent(parentId: string): Promise<Agent | null> {
     return this.prisma.account
       .findUnique({
         where: { id: parentId },
       })
-      .users(args);
+      .agent();
   }
 
   async getOrganization(parentId: string): Promise<Organization | null> {
@@ -117,5 +117,13 @@ export class AccountServiceBase {
         where: { id: parentId },
       })
       .organization();
+  }
+
+  async getUser(parentId: string): Promise<User | null> {
+    return this.prisma.account
+      .findUnique({
+        where: { id: parentId },
+      })
+      .user();
   }
 }

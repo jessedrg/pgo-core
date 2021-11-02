@@ -18,7 +18,6 @@ import { OrderItemFindManyArgs } from "../../orderItem/base/OrderItemFindManyArg
 import { OrderItem } from "../../orderItem/base/OrderItem";
 import { ProductionFindManyArgs } from "../../production/base/ProductionFindManyArgs";
 import { Production } from "../../production/base/Production";
-import { Organization } from "../../organization/base/Organization";
 import { Payment } from "../../payment/base/Payment";
 import { Shipment } from "../../shipment/base/Shipment";
 import { OrderService } from "../order.service";
@@ -130,12 +129,6 @@ export class OrderResolverBase {
       data: {
         ...args.data,
 
-        organization: args.data.organization
-          ? {
-              connect: args.data.organization,
-            }
-          : undefined,
-
         payment: args.data.payment
           ? {
               connect: args.data.payment,
@@ -188,12 +181,6 @@ export class OrderResolverBase {
         ...args,
         data: {
           ...args.data,
-
-          organization: args.data.organization
-            ? {
-                connect: args.data.organization,
-              }
-            : undefined,
 
           payment: args.data.payment
             ? {
@@ -290,30 +277,6 @@ export class OrderResolverBase {
     }
 
     return results.map((result) => permission.filter(result));
-  }
-
-  @graphql.ResolveField(() => Organization, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "Order",
-    action: "read",
-    possession: "any",
-  })
-  async organization(
-    @graphql.Parent() parent: Order,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Organization | null> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Organization",
-    });
-    const result = await this.service.getOrganization(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return permission.filter(result);
   }
 
   @graphql.ResolveField(() => Payment, { nullable: true })

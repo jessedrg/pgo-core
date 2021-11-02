@@ -16,9 +16,11 @@ import { OrganizationFindUniqueArgs } from "./OrganizationFindUniqueArgs";
 import { Organization } from "./Organization";
 import { AccountFindManyArgs } from "../../account/base/AccountFindManyArgs";
 import { Account } from "../../account/base/Account";
-import { OrderFindManyArgs } from "../../order/base/OrderFindManyArgs";
-import { Order } from "../../order/base/Order";
+import { AddressFindManyArgs } from "../../address/base/AddressFindManyArgs";
 import { Address } from "../../address/base/Address";
+import { PartFindManyArgs } from "../../part/base/PartFindManyArgs";
+import { Part } from "../../part/base/Part";
+import { OrganizationPaymentMethod } from "../../organizationPaymentMethod/base/OrganizationPaymentMethod";
 import { OrganizationService } from "../organization.service";
 
 @graphql.Resolver(() => Organization)
@@ -128,9 +130,9 @@ export class OrganizationResolverBase {
       data: {
         ...args.data,
 
-        address: args.data.address
+        paymentMethod: args.data.paymentMethod
           ? {
-              connect: args.data.address,
+              connect: args.data.paymentMethod,
             }
           : undefined,
       },
@@ -175,9 +177,9 @@ export class OrganizationResolverBase {
         data: {
           ...args.data,
 
-          address: args.data.address
+          paymentMethod: args.data.paymentMethod
             ? {
-                connect: args.data.address,
+                connect: args.data.paymentMethod,
               }
             : undefined,
         },
@@ -240,24 +242,24 @@ export class OrganizationResolverBase {
     return results.map((result) => permission.filter(result));
   }
 
-  @graphql.ResolveField(() => [Order])
+  @graphql.ResolveField(() => [Address])
   @nestAccessControl.UseRoles({
     resource: "Organization",
     action: "read",
     possession: "any",
   })
-  async orders(
+  async addresses(
     @graphql.Parent() parent: Organization,
-    @graphql.Args() args: OrderFindManyArgs,
+    @graphql.Args() args: AddressFindManyArgs,
     @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Order[]> {
+  ): Promise<Address[]> {
     const permission = this.rolesBuilder.permission({
       role: userRoles,
       action: "read",
       possession: "any",
-      resource: "Order",
+      resource: "Address",
     });
-    const results = await this.service.findOrders(parent.id, args);
+    const results = await this.service.findAddresses(parent.id, args);
 
     if (!results) {
       return [];
@@ -266,23 +268,49 @@ export class OrganizationResolverBase {
     return results.map((result) => permission.filter(result));
   }
 
-  @graphql.ResolveField(() => Address, { nullable: true })
+  @graphql.ResolveField(() => [Part])
   @nestAccessControl.UseRoles({
     resource: "Organization",
     action: "read",
     possession: "any",
   })
-  async address(
+  async parts(
     @graphql.Parent() parent: Organization,
+    @graphql.Args() args: PartFindManyArgs,
     @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Address | null> {
+  ): Promise<Part[]> {
     const permission = this.rolesBuilder.permission({
       role: userRoles,
       action: "read",
       possession: "any",
-      resource: "Address",
+      resource: "Part",
     });
-    const result = await this.service.getAddress(parent.id);
+    const results = await this.service.findParts(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results.map((result) => permission.filter(result));
+  }
+
+  @graphql.ResolveField(() => OrganizationPaymentMethod, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "Organization",
+    action: "read",
+    possession: "any",
+  })
+  async paymentMethod(
+    @graphql.Parent() parent: Organization,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<OrganizationPaymentMethod | null> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "OrganizationPaymentMethod",
+    });
+    const result = await this.service.getPaymentMethod(parent.id);
 
     if (!result) {
       return null;

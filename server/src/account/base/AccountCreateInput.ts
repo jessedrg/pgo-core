@@ -3,14 +3,16 @@ import { ApiProperty } from "@nestjs/swagger";
 import {
   IsBoolean,
   IsOptional,
+  ValidateNested,
   IsJSON,
   IsString,
-  ValidateNested,
 } from "class-validator";
+import { AgentWhereUniqueInput } from "../../agent/base/AgentWhereUniqueInput";
+import { Type } from "class-transformer";
 import { GraphQLJSONObject } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { OrganizationWhereUniqueInput } from "../../organization/base/OrganizationWhereUniqueInput";
-import { Type } from "class-transformer";
+import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 @InputType()
 class AccountCreateInput {
   @ApiProperty({
@@ -23,6 +25,18 @@ class AccountCreateInput {
     nullable: true,
   })
   active?: boolean | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => AgentWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => AgentWhereUniqueInput)
+  @IsOptional()
+  @Field(() => AgentWhereUniqueInput, {
+    nullable: true,
+  })
+  agent?: AgentWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -53,5 +67,17 @@ class AccountCreateInput {
     nullable: true,
   })
   organization?: OrganizationWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => UserWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => UserWhereUniqueInput)
+  @IsOptional()
+  @Field(() => UserWhereUniqueInput, {
+    nullable: true,
+  })
+  user?: UserWhereUniqueInput | null;
 }
 export { AccountCreateInput };

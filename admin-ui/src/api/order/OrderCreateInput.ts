@@ -1,5 +1,4 @@
 import { JsonValue } from "type-fest";
-import { OrganizationWhereUniqueInput } from "../organization/OrganizationWhereUniqueInput";
 import { PaymentWhereUniqueInput } from "../payment/PaymentWhereUniqueInput";
 import { ShipmentWhereUniqueInput } from "../shipment/ShipmentWhereUniqueInput";
 
@@ -9,7 +8,6 @@ export type OrderCreateInput = {
   customNo?: string | null;
   estimatedDays?: number | null;
   fees?: JsonValue | null;
-  organization?: OrganizationWhereUniqueInput | null;
   payment?: PaymentWhereUniqueInput | null;
   shipment?: ShipmentWhereUniqueInput;
   shippingaddress?: JsonValue | null;

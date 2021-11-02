@@ -1,24 +1,12 @@
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { AddressWhereUniqueInput } from "../../address/base/AddressWhereUniqueInput";
-import { ValidateNested, IsOptional } from "class-validator";
-import { Type } from "class-transformer";
 import { StringFilter } from "../../util/StringFilter";
+import { Type } from "class-transformer";
+import { IsOptional, ValidateNested } from "class-validator";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { OrganizationPaymentMethodWhereUniqueInput } from "../../organizationPaymentMethod/base/OrganizationPaymentMethodWhereUniqueInput";
 @InputType()
 class OrganizationWhereInput {
-  @ApiProperty({
-    required: false,
-    type: () => AddressWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => AddressWhereUniqueInput)
-  @IsOptional()
-  @Field(() => AddressWhereUniqueInput, {
-    nullable: true,
-  })
-  address?: AddressWhereUniqueInput;
-
   @ApiProperty({
     required: false,
     type: StringFilter,
@@ -40,5 +28,17 @@ class OrganizationWhereInput {
     nullable: true,
   })
   name?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => OrganizationPaymentMethodWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => OrganizationPaymentMethodWhereUniqueInput)
+  @IsOptional()
+  @Field(() => OrganizationPaymentMethodWhereUniqueInput, {
+    nullable: true,
+  })
+  paymentMethod?: OrganizationPaymentMethodWhereUniqueInput;
 }
 export { OrganizationWhereInput };

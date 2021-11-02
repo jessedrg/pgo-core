@@ -21,7 +21,7 @@ export const HolidayList = (props: ListProps): React.ReactElement => {
     >
       <Datagrid rowClick="show">
         <DateField source="createdAt" label="Created At" />
-        <TextField label="day" source="day" />
+        <TextField label="Day" source="day" />
         <TextField label="ID" source="id" />
         <ReferenceField
           label="Provider"

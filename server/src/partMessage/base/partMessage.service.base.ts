@@ -44,14 +44,6 @@ export class PartMessageServiceBase {
       .part();
   }
 
-  async getReciever(parentId: string): Promise<Account | null> {
-    return this.prisma.partMessage
-      .findUnique({
-        where: { id: parentId },
-      })
-      .reciever();
-  }
-
   async getSender(parentId: string): Promise<Account | null> {
     return this.prisma.partMessage
       .findUnique({

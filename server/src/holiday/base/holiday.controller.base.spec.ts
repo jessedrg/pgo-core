@@ -12,27 +12,27 @@ const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
   createdAt: new Date(),
-  day: 42,
+  day: new Date(),
   id: "exampleId",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
   createdAt: new Date(),
-  day: 42,
+  day: new Date(),
   id: "exampleId",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
     createdAt: new Date(),
-    day: 42,
+    day: new Date(),
     id: "exampleId",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
   createdAt: new Date(),
-  day: 42,
+  day: new Date(),
   id: "exampleId",
   updatedAt: new Date(),
 };
@@ -101,6 +101,7 @@ describe("Holiday", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        day: CREATE_RESULT.day.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -113,6 +114,7 @@ describe("Holiday", () => {
         {
           ...FIND_MANY_RESULT[0],
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
+          day: FIND_MANY_RESULT[0].day.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
         },
       ]);
@@ -136,6 +138,7 @@ describe("Holiday", () => {
       .expect({
         ...FIND_ONE_RESULT,
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
+        day: FIND_ONE_RESULT.day.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
       });
   });

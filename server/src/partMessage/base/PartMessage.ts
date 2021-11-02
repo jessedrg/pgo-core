@@ -60,15 +60,6 @@ class PartMessage {
   @ValidateNested()
   @Type(() => Account)
   @IsOptional()
-  reciever?: Account | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => Account,
-  })
-  @ValidateNested()
-  @Type(() => Account)
-  @IsOptional()
   sender?: Account | null;
 
   @ApiProperty({

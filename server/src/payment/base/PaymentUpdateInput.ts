@@ -1,9 +1,7 @@
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { EnumPaymentStatus } from "./EnumPaymentStatus";
-import { IsEnum, IsOptional, IsString, ValidateNested } from "class-validator";
-import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
-import { Type } from "class-transformer";
+import { IsEnum, IsOptional, IsString } from "class-validator";
 @InputType()
 class PaymentUpdateInput {
   @ApiProperty({
@@ -38,17 +36,5 @@ class PaymentUpdateInput {
     nullable: true,
   })
   transactionUserId?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => UserWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => UserWhereUniqueInput)
-  @IsOptional()
-  @Field(() => UserWhereUniqueInput, {
-    nullable: true,
-  })
-  user?: UserWhereUniqueInput | null;
 }
 export { PaymentUpdateInput };

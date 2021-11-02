@@ -18,6 +18,7 @@ import { ProductionItemFindManyArgs } from "../../productionItem/base/Production
 import { ProductionItem } from "../../productionItem/base/ProductionItem";
 import { ShipmentFindManyArgs } from "../../shipment/base/ShipmentFindManyArgs";
 import { Shipment } from "../../shipment/base/Shipment";
+import { Account } from "../../account/base/Account";
 import { Order } from "../../order/base/Order";
 import { ProductionService } from "../production.service";
 
@@ -128,6 +129,12 @@ export class ProductionResolverBase {
       data: {
         ...args.data,
 
+        account: args.data.account
+          ? {
+              connect: args.data.account,
+            }
+          : undefined,
+
         order: args.data.order
           ? {
               connect: args.data.order,
@@ -174,6 +181,12 @@ export class ProductionResolverBase {
         ...args,
         data: {
           ...args.data,
+
+          account: args.data.account
+            ? {
+                connect: args.data.account,
+              }
+            : undefined,
 
           order: args.data.order
             ? {
@@ -264,6 +277,30 @@ export class ProductionResolverBase {
     }
 
     return results.map((result) => permission.filter(result));
+  }
+
+  @graphql.ResolveField(() => Account, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "Production",
+    action: "read",
+    possession: "any",
+  })
+  async account(
+    @graphql.Parent() parent: Production,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Account | null> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Account",
+    });
+    const result = await this.service.getAccount(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return permission.filter(result);
   }
 
   @graphql.ResolveField(() => Order, { nullable: true })

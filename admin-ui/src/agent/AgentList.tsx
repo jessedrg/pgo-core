@@ -20,13 +20,13 @@ export const AgentList = (props: ListProps): React.ReactElement => {
       pagination={<Pagination />}
     >
       <Datagrid rowClick="show">
-        <ReferenceField label="account" source="account.id" reference="Account">
+        <ReferenceField label="Account" source="account.id" reference="Account">
           <TextField source={ACCOUNT_TITLE_FIELD} />
         </ReferenceField>
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
         <DateField source="updatedAt" label="Updated At" />
-        <TextField label="zones" source="zones" />
+        <TextField label="Zones" source="zones" />
       </Datagrid>
     </List>
   );

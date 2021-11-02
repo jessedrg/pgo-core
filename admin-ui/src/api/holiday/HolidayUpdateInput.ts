@@ -1,6 +1,6 @@
 import { ProviderWhereUniqueInput } from "../provider/ProviderWhereUniqueInput";
 
 export type HolidayUpdateInput = {
-  day?: number | null;
+  day?: Date | null;
   provider?: ProviderWhereUniqueInput | null;
 };

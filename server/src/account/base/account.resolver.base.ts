@@ -14,17 +14,19 @@ import { DeleteAccountArgs } from "./DeleteAccountArgs";
 import { AccountFindManyArgs } from "./AccountFindManyArgs";
 import { AccountFindUniqueArgs } from "./AccountFindUniqueArgs";
 import { Account } from "./Account";
-import { AgentFindManyArgs } from "../../agent/base/AgentFindManyArgs";
-import { Agent } from "../../agent/base/Agent";
 import { OfferFindManyArgs } from "../../offer/base/OfferFindManyArgs";
 import { Offer } from "../../offer/base/Offer";
 import { PartMessageFindManyArgs } from "../../partMessage/base/PartMessageFindManyArgs";
 import { PartMessage } from "../../partMessage/base/PartMessage";
+import { PartFindManyArgs } from "../../part/base/PartFindManyArgs";
+import { Part } from "../../part/base/Part";
+import { ProductionFindManyArgs } from "../../production/base/ProductionFindManyArgs";
+import { Production } from "../../production/base/Production";
 import { QuoteFindManyArgs } from "../../quote/base/QuoteFindManyArgs";
 import { Quote } from "../../quote/base/Quote";
-import { UserFindManyArgs } from "../../user/base/UserFindManyArgs";
-import { User } from "../../user/base/User";
+import { Agent } from "../../agent/base/Agent";
 import { Organization } from "../../organization/base/Organization";
+import { User } from "../../user/base/User";
 import { AccountService } from "../account.service";
 
 @graphql.Resolver(() => Account)
@@ -134,9 +136,21 @@ export class AccountResolverBase {
       data: {
         ...args.data,
 
+        agent: args.data.agent
+          ? {
+              connect: args.data.agent,
+            }
+          : undefined,
+
         organization: args.data.organization
           ? {
               connect: args.data.organization,
+            }
+          : undefined,
+
+        user: args.data.user
+          ? {
+              connect: args.data.user,
             }
           : undefined,
       },
@@ -181,9 +195,21 @@ export class AccountResolverBase {
         data: {
           ...args.data,
 
+          agent: args.data.agent
+            ? {
+                connect: args.data.agent,
+              }
+            : undefined,
+
           organization: args.data.organization
             ? {
                 connect: args.data.organization,
+              }
+            : undefined,
+
+          user: args.data.user
+            ? {
+                connect: args.data.user,
               }
             : undefined,
         },
@@ -218,32 +244,6 @@ export class AccountResolverBase {
       }
       throw error;
     }
-  }
-
-  @graphql.ResolveField(() => [Agent])
-  @nestAccessControl.UseRoles({
-    resource: "Account",
-    action: "read",
-    possession: "any",
-  })
-  async agents(
-    @graphql.Parent() parent: Account,
-    @graphql.Args() args: AgentFindManyArgs,
-    @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Agent[]> {
-    const permission = this.rolesBuilder.permission({
-      role: userRoles,
-      action: "read",
-      possession: "any",
-      resource: "Agent",
-    });
-    const results = await this.service.findAgents(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results.map((result) => permission.filter(result));
   }
 
   @graphql.ResolveField(() => [Offer])
@@ -298,24 +298,50 @@ export class AccountResolverBase {
     return results.map((result) => permission.filter(result));
   }
 
-  @graphql.ResolveField(() => [PartMessage])
+  @graphql.ResolveField(() => [Part])
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "read",
     possession: "any",
   })
-  async partSender(
+  async parts(
     @graphql.Parent() parent: Account,
-    @graphql.Args() args: PartMessageFindManyArgs,
+    @graphql.Args() args: PartFindManyArgs,
     @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<PartMessage[]> {
+  ): Promise<Part[]> {
     const permission = this.rolesBuilder.permission({
       role: userRoles,
       action: "read",
       possession: "any",
-      resource: "PartMessage",
+      resource: "Part",
     });
-    const results = await this.service.findPartSender(parent.id, args);
+    const results = await this.service.findParts(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results.map((result) => permission.filter(result));
+  }
+
+  @graphql.ResolveField(() => [Production])
+  @nestAccessControl.UseRoles({
+    resource: "Account",
+    action: "read",
+    possession: "any",
+  })
+  async productions(
+    @graphql.Parent() parent: Account,
+    @graphql.Args() args: ProductionFindManyArgs,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<Production[]> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "Production",
+    });
+    const results = await this.service.findProductions(parent.id, args);
 
     if (!results) {
       return [];
@@ -350,30 +376,28 @@ export class AccountResolverBase {
     return results.map((result) => permission.filter(result));
   }
 
-  @graphql.ResolveField(() => [User])
+  @graphql.ResolveField(() => Agent, { nullable: true })
   @nestAccessControl.UseRoles({
     resource: "Account",
     action: "read",
     possession: "any",
   })
-  async users(
+  async agent(
     @graphql.Parent() parent: Account,
-    @graphql.Args() args: UserFindManyArgs,
     @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<User[]> {
+  ): Promise<Agent | null> {
     const permission = this.rolesBuilder.permission({
       role: userRoles,
       action: "read",
       possession: "any",
-      resource: "User",
+      resource: "Agent",
     });
-    const results = await this.service.findUsers(parent.id, args);
+    const result = await this.service.getAgent(parent.id);
 
-    if (!results) {
-      return [];
+    if (!result) {
+      return null;
     }
-
-    return results.map((result) => permission.filter(result));
+    return permission.filter(result);
   }
 
   @graphql.ResolveField(() => Organization, { nullable: true })
@@ -393,6 +417,30 @@ export class AccountResolverBase {
       resource: "Organization",
     });
     const result = await this.service.getOrganization(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return permission.filter(result);
+  }
+
+  @graphql.ResolveField(() => User, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "Account",
+    action: "read",
+    possession: "any",
+  })
+  async user(
+    @graphql.Parent() parent: Account,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<User | null> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "User",
+    });
+    const result = await this.service.getUser(parent.id);
 
     if (!result) {
       return null;

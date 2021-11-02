@@ -1,9 +1,19 @@
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsString, IsOptional } from "class-validator";
+import { Part } from "../../part/base/Part";
+import { ValidateNested, IsOptional, IsDate, IsString } from "class-validator";
 import { Type } from "class-transformer";
 @ObjectType()
 class MediaFile {
+  @ApiProperty({
+    required: false,
+    type: () => [Part],
+  })
+  @ValidateNested()
+  @Type(() => Part)
+  @IsOptional()
+  blueprintInPart?: Array<Part>;
+
   @ApiProperty({
     required: true,
   })
@@ -19,6 +29,42 @@ class MediaFile {
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Part],
+  })
+  @ValidateNested()
+  @Type(() => Part)
+  @IsOptional()
+  originalBluePrintInPart?: Array<Part>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Part],
+  })
+  @ValidateNested()
+  @Type(() => Part)
+  @IsOptional()
+  originalModelInPart?: Array<Part>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Part],
+  })
+  @ValidateNested()
+  @Type(() => Part)
+  @IsOptional()
+  stepModelInPart?: Array<Part>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Part],
+  })
+  @ValidateNested()
+  @Type(() => Part)
+  @IsOptional()
+  stlModelInPart?: Array<Part>;
 
   @ApiProperty({
     required: false,

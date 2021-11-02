@@ -1,9 +1,9 @@
-import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { ProviderWhereUniqueInput } from "../provider/ProviderWhereUniqueInput";
 
 export type HolidayWhereInput = {
-  day?: IntNullableFilter;
+  day?: DateTimeNullableFilter;
   id?: StringFilter;
   provider?: ProviderWhereUniqueInput;
 };

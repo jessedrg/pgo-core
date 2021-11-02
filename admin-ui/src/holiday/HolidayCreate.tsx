@@ -3,7 +3,7 @@ import {
   Create,
   SimpleForm,
   CreateProps,
-  NumberInput,
+  DateInput,
   ReferenceInput,
   SelectInput,
 } from "react-admin";
@@ -13,7 +13,7 @@ export const HolidayCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
-        <NumberInput step={1} label="day" source="day" />
+        <DateInput label="Day" source="day" />
         <ReferenceInput
           source="provider.id"
           reference="Provider"

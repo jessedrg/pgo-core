@@ -7,7 +7,6 @@ export type PartMessage = {
   message: string | null;
   messageType: string | null;
   part?: Part | null;
-  reciever?: Account | null;
   sender?: Account | null;
   type: string | null;
   updatedAt: Date;

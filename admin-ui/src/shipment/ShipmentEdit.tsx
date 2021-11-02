@@ -19,26 +19,26 @@ export const ShipmentEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput label="courier" source="courier" />
-        <NumberInput label="declaredValues" source="declaredValues" />
-        <DateTimeInput label="delayedAt" source="delayedAt" />
-        <DateTimeInput label="deliveredAt" source="deliveredAt" />
-        <DateTimeInput label="estimatedAt" source="estimatedAt" />
-        <ReferenceInput source="order.id" reference="Order" label="order">
+        <TextInput label="Courier" source="courier" />
+        <NumberInput label="Declared Values" source="declaredValues" />
+        <DateTimeInput label="Delayed At" source="delayedAt" />
+        <DateTimeInput label="Delivered At" source="deliveredAt" />
+        <DateTimeInput label="Estimated At" source="estimatedAt" />
+        <ReferenceInput source="order.id" reference="Order" label="Order">
           <SelectInput optionText={OrderTitle} />
         </ReferenceInput>
-        <BooleanInput label="partial" source="partial" />
+        <BooleanInput label="Partial" source="partial" />
         <ReferenceInput
           source="production.id"
           reference="Production"
-          label="production"
+          label="Production"
         >
           <SelectInput optionText={ProductionTitle} />
         </ReferenceInput>
-        <DateTimeInput label="shippedAt" source="shippedAt" />
+        <DateTimeInput label="Shipped At" source="shippedAt" />
         <SelectInput
           source="status"
-          label="status"
+          label="Status"
           choices={[
             { label: "Pending", value: "pending" },
             { label: "OnTransit", value: "OnTransit" },
@@ -48,11 +48,11 @@ export const ShipmentEdit = (props: EditProps): React.ReactElement => {
           allowEmpty
           optionValue="value"
         />
-        <TextInput label="tracking" source="tracking" />
-        <TextInput label="trackingUrl" source="trackingUrl" />
+        <TextInput label="Tracking" source="tracking" />
+        <TextInput label="Tracking Url" source="trackingUrl" />
         <SelectInput
           source="type"
-          label="type"
+          label="Type"
           choices={[
             { label: "Production", value: "production" },
             { label: "Order", value: "order" },

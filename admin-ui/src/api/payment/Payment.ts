@@ -1,5 +1,4 @@
 import { Order } from "../order/Order";
-import { User } from "../user/User";
 
 export type Payment = {
   createdAt: Date;
@@ -9,5 +8,4 @@ export type Payment = {
   transactionId: string | null;
   transactionUserId: string | null;
   updatedAt: Date;
-  user?: User | null;
 };

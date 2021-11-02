@@ -14,7 +14,6 @@ import { DeleteAddressArgs } from "./DeleteAddressArgs";
 import { AddressFindManyArgs } from "./AddressFindManyArgs";
 import { AddressFindUniqueArgs } from "./AddressFindUniqueArgs";
 import { Address } from "./Address";
-import { OrganizationFindManyArgs } from "../../organization/base/OrganizationFindManyArgs";
 import { Organization } from "../../organization/base/Organization";
 import { AddressService } from "../address.service";
 
@@ -122,7 +121,15 @@ export class AddressResolverBase {
     // @ts-ignore
     return await this.service.create({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        organization: args.data.organization
+          ? {
+              connect: args.data.organization,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -161,7 +168,15 @@ export class AddressResolverBase {
       // @ts-ignore
       return await this.service.update({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          organization: args.data.organization
+            ? {
+                connect: args.data.organization,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -195,29 +210,27 @@ export class AddressResolverBase {
     }
   }
 
-  @graphql.ResolveField(() => [Organization])
+  @graphql.ResolveField(() => Organization, { nullable: true })
   @nestAccessControl.UseRoles({
     resource: "Address",
     action: "read",
     possession: "any",
   })
-  async organizations(
+  async organization(
     @graphql.Parent() parent: Address,
-    @graphql.Args() args: OrganizationFindManyArgs,
     @gqlUserRoles.UserRoles() userRoles: string[]
-  ): Promise<Organization[]> {
+  ): Promise<Organization | null> {
     const permission = this.rolesBuilder.permission({
       role: userRoles,
       action: "read",
       possession: "any",
       resource: "Organization",
     });
-    const results = await this.service.findOrganizations(parent.id, args);
+    const result = await this.service.getOrganization(parent.id);
 
-    if (!results) {
-      return [];
+    if (!result) {
+      return null;
     }
-
-    return results.map((result) => permission.filter(result));
+    return permission.filter(result);
   }
 }

@@ -8,33 +8,32 @@ generator client {
 }
 
 model User {
-  account   Account?  @relation(fields: [accountId], references: [id])
-  accountId String?
-  createdAt DateTime  @default(now())
+  account   Account
+  createdAt DateTime @default(now())
   firstName String?
-  id        String    @id @default(cuid())
+  id        String   @id @default(cuid())
   lastName  String?
   password  String
-  payments  Payment[]
   roles     String[]
-  updatedAt DateTime  @updatedAt
-  username  String    @unique
+  updatedAt DateTime @updatedAt
+  username  String   @unique
 }
 
 model Offer {
-  account     Account[]
-  createdAt   DateTime         @default(now())
-  customNo    String?          @unique
-  id          String           @id @default(cuid())
-  parts       Part[]
-  publishedAt DateTime?
-  status      EnumOfferStatus?
-  updatedAt   DateTime         @updatedAt
+  account      Account[]
+  createdAt    DateTime         @default(now())
+  customNumber String?          @unique
+  id           String           @id @default(cuid())
+  parts        Part[]
+  publishedAt  DateTime?
+  status       EnumOfferStatus?
+  updatedAt    DateTime         @updatedAt
 }
 
 model Account {
   active         Boolean?
-  agents         Agent[]
+  agent          Agent?        @relation(fields: [agentId], references: [id])
+  agentId        String?
   configuration  Json?
   createdAt      DateTime      @default(now())
   email          String        @unique
@@ -42,28 +41,45 @@ model Account {
   offers         Offer[]
   organization   Organization? @relation(fields: [organizationId], references: [id])
   organizationId String?
-  partMessages   PartMessage[] @relation(name: "sender")
-  partSender     PartMessage[] @relation(name: "partSender")
+  partMessages   PartMessage[]
+  parts          Part[]
+  productions    Production[]
   quotes         Quote[]
   updatedAt      DateTime      @updatedAt
-  users          User[]
+  user           User?         @relation(fields: [userId], references: [id])
+  userId         String?
 }
 
 model Part {
+  account             Account?           @relation(fields: [accountId], references: [id])
+  accountId           String?
+  blueprint           MediaFile?         @relation(name: "blueprint", fields: [blueprintId], references: [id])
+  blueprintId         String?
   createdAt           DateTime           @default(now())
   id                  String             @id @default(cuid())
   offer               Offer?             @relation(fields: [offerId], references: [id])
   offerId             String?
+  organization        Organization?      @relation(fields: [organizationId], references: [id])
+  organizationId      String?
+  originalBlueprint   MediaFile?         @relation(name: "originalBluePrintInPart", fields: [originalBlueprintId], references: [id])
+  originalBlueprintId String?
+  originalModel       MediaFile?         @relation(name: "originalModel", fields: [originalModelId], references: [id])
+  originalModelId     String?
   partConfiguration   PartConfiguration? @relation(fields: [partConfigurationId], references: [id])
   partConfigurationId String?
   partMessages        PartMessage[]
   partOnShape         PartOnShape?       @relation(fields: [partOnShapeId], references: [id])
   partOnShapeId       String?
-  parts               Int?
+  partsCount          Int?
   process             String?
+  productionItems     ProductionItem[]
   quantities          Json?
-  quotes              Quote[]
+  quoteItems          QuoteItem[]
   status              EnumPartStatus?
+  stepModel           MediaFile?         @relation(name: "stepModel", fields: [stepModelId], references: [id])
+  stepModelId         String?
+  stlModel            MediaFile?         @relation(name: "stlModel", fields: [stlModelId], references: [id])
+  stlModelId          String?
   surface             Float?
   updatedAt           DateTime           @updatedAt
   visible             Boolean?
@@ -106,7 +122,6 @@ model Quote {
   completedAt DateTime?
   createdAt   DateTime          @default(now())
   id          String            @id @default(cuid())
-  parts       Part[]
   provider    Provider?         @relation(fields: [providerId], references: [id])
   providerId  String?
   quoteItems  QuoteItem[]
@@ -115,12 +130,14 @@ model Quote {
 }
 
 model QuoteItem {
-  basePrices       Float?
+  basePrices       Price[]              @relation(name: "basePrices")
   constructionType String?
   createdAt        DateTime             @default(now())
   id               String               @id @default(cuid())
   margins          Float?
-  prices           Float?
+  part             Part?                @relation(fields: [partId], references: [id])
+  partId           String?
+  prices           Price[]              @relation(name: "prices")
   productionDays   Int?
   provider         Provider?            @relation(fields: [providerId], references: [id])
   providerId       String?
@@ -132,6 +149,8 @@ model QuoteItem {
 }
 
 model Production {
+  account         Account?              @relation(fields: [accountId], references: [id])
+  accountId       String?
   createdAt       DateTime              @default(now())
   discomformity   Boolean?
   id              String                @id @default(cuid())
@@ -146,6 +165,8 @@ model Production {
 model ProductionItem {
   createdAt       DateTime    @default(now())
   id              String      @id @default(cuid())
+  part            Part?       @relation(fields: [partId], references: [id])
+  partId          String?
   production      Production? @relation(fields: [productionId], references: [id])
   productionId    String?
   quantity        Int?
@@ -154,11 +175,16 @@ model ProductionItem {
 }
 
 model MediaFile {
-  createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
-  type      String?
-  updatedAt DateTime @updatedAt
-  url       String?
+  blueprintInPart         Part[]   @relation(name: "blueprint")
+  createdAt               DateTime @default(now())
+  id                      String   @id @default(cuid())
+  originalBluePrintInPart Part[]   @relation(name: "originalBluePrintInPart")
+  originalModelInPart     Part[]   @relation(name: "originalModel")
+  stepModelInPart         Part[]   @relation(name: "stepModel")
+  stlModelInPart          Part[]   @relation(name: "stlModel")
+  type                    String?
+  updatedAt               DateTime @updatedAt
+  url                     String?
 }
 
 model Provider {
@@ -188,8 +214,6 @@ model Order {
   fees            Json?
   id              String           @id @default(cuid())
   orderItems      OrderItem[]
-  organization    Organization?    @relation(fields: [organizationId], references: [id])
-  organizationId  String?
   payment         Payment?         @relation(fields: [paymentId], references: [id])
   paymentId       String?
   productions     Production[]
@@ -203,14 +227,15 @@ model Order {
 }
 
 model Organization {
-  accounts  Account[]
-  address   Address?  @relation(fields: [addressId], references: [id])
-  addressId String?
-  createdAt DateTime  @default(now())
-  id        String    @id @default(cuid())
-  name      String?
-  orders    Order[]
-  updatedAt DateTime  @updatedAt
+  accounts        Account[]
+  addresses       Address[]
+  createdAt       DateTime                   @default(now())
+  id              String                     @id @default(cuid())
+  name            String?
+  parts           Part[]
+  paymentMethod   OrganizationPaymentMethod? @relation(fields: [paymentMethodId], references: [id])
+  paymentMethodId String?
+  updatedAt       DateTime                   @updatedAt
 }
 
 model OrderItem {
@@ -225,8 +250,7 @@ model OrderItem {
 }
 
 model Agent {
-  account   Account? @relation(fields: [accountId], references: [id])
-  accountId String?
+  account   Account
   createdAt DateTime @default(now())
   id        String   @id @default(cuid())
   updatedAt DateTime @updatedAt
@@ -234,23 +258,24 @@ model Agent {
 }
 
 model Address {
-  company       String?
-  country       String?
-  createdAt     DateTime       @default(now())
-  firstName     String?
-  id            String         @id @default(cuid())
-  lastName      String?
-  locality      String?
-  organizations Organization[]
-  phone         String?
-  phonePrefix   String?
-  postalCode    String?
-  state         String?
-  street        String?
-  streetNumber  String?
-  type          String?
-  updatedAt     DateTime       @updatedAt
-  vat           String?
+  company        String?
+  country        String?
+  createdAt      DateTime      @default(now())
+  firstName      String?
+  id             String        @id @default(cuid())
+  lastName       String?
+  locality       String?
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+  organizationId String?
+  phone          String?
+  phonePrefix    String?
+  postalCode     String?
+  state          String?
+  street         String?
+  streetNumber   String?
+  type           String?
+  updatedAt      DateTime      @updatedAt
+  vat            String?
 }
 
 model Shipment {
@@ -282,16 +307,15 @@ model Payment {
   transactionId     String?
   transactionUserId String?
   updatedAt         DateTime           @updatedAt
-  user              User?              @relation(fields: [userId], references: [id])
-  userId            String?
 }
 
-model AccountPaymentMethod {
-  createdAt DateTime @default(now())
-  data      Json?
-  id        String   @id @default(cuid())
-  type      String?
-  updatedAt DateTime @updatedAt
+model OrganizationPaymentMethod {
+  createdAt    DateTime                           @default(now())
+  data         Json?
+  id           String                             @id @default(cuid())
+  organization Organization[]
+  type         EnumOrganizationPaymentMethodType?
+  updatedAt    DateTime                           @updatedAt
 }
 
 model Invite {
@@ -305,7 +329,7 @@ model Invite {
 
 model Holiday {
   createdAt  DateTime  @default(now())
-  day        Int?
+  day        DateTime?
   id         String    @id @default(cuid())
   provider   Provider? @relation(fields: [providerId], references: [id])
   providerId String?
@@ -319,12 +343,28 @@ model PartMessage {
   messageType String?
   part        Part?    @relation(fields: [partId], references: [id])
   partId      String?
-  reciever    Account? @relation(name: "partSender", fields: [recieverId], references: [id])
-  recieverId  String?
-  sender      Account? @relation(name: "sender", fields: [senderId], references: [id])
+  sender      Account? @relation(fields: [senderId], references: [id])
   senderId    String?
   type        String?
   updatedAt   DateTime @updatedAt
+}
+
+model Price {
+  amount              Float?
+  createdAt           DateTime    @default(now())
+  currency            String?
+  id                  String      @id @default(cuid())
+  quantity            Int?
+  quoteItemBasePrices QuoteItem[] @relation(name: "basePrices")
+  quoteItemPrices     QuoteItem[] @relation(name: "prices")
+  updatedAt           DateTime    @updatedAt
+}
+
+model Margin {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+  value     Float?
 }
 
 enum EnumOfferStatus {
@@ -392,4 +432,11 @@ enum EnumPaymentStatus {
   pending
   completed
   rejected
+}
+
+enum EnumOrganizationPaymentMethodType {
+  bankAccount
+  card
+  deferred
+  paypal
 }

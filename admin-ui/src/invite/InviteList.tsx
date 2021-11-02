@@ -19,10 +19,10 @@ export const InviteList = (props: ListProps): React.ReactElement => {
       pagination={<Pagination />}
     >
       <Datagrid rowClick="show">
-        <BooleanField label="active" source="active" />
+        <BooleanField label="Active" source="active" />
         <DateField source="createdAt" label="Created At" />
-        <TextField label="email" source="email" />
-        <TextField label="expiresAt" source="expiresAt" />
+        <TextField label="Email" source="email" />
+        <TextField label="Expires At" source="expiresAt" />
         <TextField label="ID" source="id" />
         <DateField source="updatedAt" label="Updated At" />
       </Datagrid>

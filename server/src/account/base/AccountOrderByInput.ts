@@ -23,6 +23,15 @@ class AccountOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  agentId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["Asc", "Desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   configuration?: SortOrder;
 
   @ApiProperty({
@@ -69,6 +78,15 @@ class AccountOrderByInput {
     nullable: true,
   })
   updatedAt?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["Asc", "Desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  userId?: SortOrder;
 }
 
 export { AccountOrderByInput };

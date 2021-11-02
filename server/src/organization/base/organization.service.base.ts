@@ -1,5 +1,12 @@
 import { PrismaService } from "nestjs-prisma";
-import { Prisma, Organization, Account, Order, Address } from "@prisma/client";
+import {
+  Prisma,
+  Organization,
+  Account,
+  Address,
+  Part,
+  OrganizationPaymentMethod,
+} from "@prisma/client";
 
 export class OrganizationServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -47,22 +54,35 @@ export class OrganizationServiceBase {
       .accounts(args);
   }
 
-  async findOrders(
+  async findAddresses(
     parentId: string,
-    args: Prisma.OrderFindManyArgs
-  ): Promise<Order[]> {
+    args: Prisma.AddressFindManyArgs
+  ): Promise<Address[]> {
     return this.prisma.organization
       .findUnique({
         where: { id: parentId },
       })
-      .orders(args);
+      .addresses(args);
   }
 
-  async getAddress(parentId: string): Promise<Address | null> {
+  async findParts(
+    parentId: string,
+    args: Prisma.PartFindManyArgs
+  ): Promise<Part[]> {
     return this.prisma.organization
       .findUnique({
         where: { id: parentId },
       })
-      .address();
+      .parts(args);
+  }
+
+  async getPaymentMethod(
+    parentId: string
+  ): Promise<OrganizationPaymentMethod | null> {
+    return this.prisma.organization
+      .findUnique({
+        where: { id: parentId },
+      })
+      .paymentMethod();
   }
 }

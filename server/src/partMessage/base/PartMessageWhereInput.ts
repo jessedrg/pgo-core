@@ -63,18 +63,6 @@ class PartMessageWhereInput {
   @Field(() => AccountWhereUniqueInput, {
     nullable: true,
   })
-  reciever?: AccountWhereUniqueInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => AccountWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => AccountWhereUniqueInput)
-  @IsOptional()
-  @Field(() => AccountWhereUniqueInput, {
-    nullable: true,
-  })
   sender?: AccountWhereUniqueInput;
 
   @ApiProperty({

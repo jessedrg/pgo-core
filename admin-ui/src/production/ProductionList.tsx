@@ -4,13 +4,14 @@ import {
   List,
   Datagrid,
   ListProps,
+  ReferenceField,
+  TextField,
   DateField,
   BooleanField,
-  TextField,
-  ReferenceField,
 } from "react-admin";
 
 import Pagination from "../Components/Pagination";
+import { ACCOUNT_TITLE_FIELD } from "../account/AccountTitle";
 import { ORDER_TITLE_FIELD } from "../order/OrderTitle";
 
 export const ProductionList = (props: ListProps): React.ReactElement => {
@@ -23,13 +24,16 @@ export const ProductionList = (props: ListProps): React.ReactElement => {
       pagination={<Pagination />}
     >
       <Datagrid rowClick="show">
+        <ReferenceField label="Account" source="account.id" reference="Account">
+          <TextField source={ACCOUNT_TITLE_FIELD} />
+        </ReferenceField>
         <DateField source="createdAt" label="Created At" />
-        <BooleanField label="discomformity" source="discomformity" />
+        <BooleanField label="Discomformity" source="discomformity" />
         <TextField label="ID" source="id" />
-        <ReferenceField label="order" source="order.id" reference="Order">
+        <ReferenceField label="Order" source="order.id" reference="Order">
           <TextField source={ORDER_TITLE_FIELD} />
         </ReferenceField>
-        <TextField label="status" source="status" />
+        <TextField label="Status" source="status" />
         <DateField source="updatedAt" label="Updated At" />
       </Datagrid>
     </List>

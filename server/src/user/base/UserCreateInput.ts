@@ -15,7 +15,7 @@ class UserCreateInput {
   @Field(() => AccountWhereUniqueInput, {
     nullable: true,
   })
-  account?: AccountWhereUniqueInput | null;
+  account?: AccountWhereUniqueInput;
 
   @ApiProperty({
     required: false,

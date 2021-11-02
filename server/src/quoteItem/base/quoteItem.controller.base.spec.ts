@@ -11,47 +11,39 @@ import { QuoteItemService } from "../quoteItem.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
-  basePrices: 42.42,
   constructionType: "exampleConstructionType",
   createdAt: new Date(),
   id: "exampleId",
   margins: 42.42,
-  prices: 42.42,
   productionDays: 42,
   quantities: 42,
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
-  basePrices: 42.42,
   constructionType: "exampleConstructionType",
   createdAt: new Date(),
   id: "exampleId",
   margins: 42.42,
-  prices: 42.42,
   productionDays: 42,
   quantities: 42,
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
-    basePrices: 42.42,
     constructionType: "exampleConstructionType",
     createdAt: new Date(),
     id: "exampleId",
     margins: 42.42,
-    prices: 42.42,
     productionDays: 42,
     quantities: 42,
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
-  basePrices: 42.42,
   constructionType: "exampleConstructionType",
   createdAt: new Date(),
   id: "exampleId",
   margins: 42.42,
-  prices: 42.42,
   productionDays: 42,
   quantities: 42,
   updatedAt: new Date(),

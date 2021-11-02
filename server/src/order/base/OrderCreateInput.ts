@@ -11,9 +11,8 @@ import {
 } from "class-validator";
 import { GraphQLJSONObject } from "graphql-type-json";
 import { JsonValue } from "type-fest";
-import { OrganizationWhereUniqueInput } from "../../organization/base/OrganizationWhereUniqueInput";
-import { Type } from "class-transformer";
 import { PaymentWhereUniqueInput } from "../../payment/base/PaymentWhereUniqueInput";
+import { Type } from "class-transformer";
 import { ShipmentWhereUniqueInput } from "../../shipment/base/ShipmentWhereUniqueInput";
 import { EnumOrderState } from "./EnumOrderState";
 @InputType()
@@ -70,18 +69,6 @@ class OrderCreateInput {
     nullable: true,
   })
   fees?: JsonValue | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => OrganizationWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => OrganizationWhereUniqueInput)
-  @IsOptional()
-  @Field(() => OrganizationWhereUniqueInput, {
-    nullable: true,
-  })
-  organization?: OrganizationWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

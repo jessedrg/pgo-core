@@ -12,7 +12,7 @@ export const AgentEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <ReferenceInput source="account.id" reference="Account" label="account">
+        <ReferenceInput source="account.id" reference="Account" label="Account">
           <SelectInput optionText={AccountTitle} />
         </ReferenceInput>
         <div />

@@ -17,8 +17,10 @@ import { PartUpdateInput } from "./PartUpdateInput";
 import { Part } from "./Part";
 import { PartMessageWhereInput } from "../../partMessage/base/PartMessageWhereInput";
 import { PartMessage } from "../../partMessage/base/PartMessage";
-import { QuoteWhereInput } from "../../quote/base/QuoteWhereInput";
-import { Quote } from "../../quote/base/Quote";
+import { ProductionItemWhereInput } from "../../productionItem/base/ProductionItemWhereInput";
+import { ProductionItem } from "../../productionItem/base/ProductionItem";
+import { QuoteItemWhereInput } from "../../quoteItem/base/QuoteItemWhereInput";
+import { QuoteItem } from "../../quoteItem/base/QuoteItem";
 @swagger.ApiBasicAuth()
 export class PartControllerBase {
   constructor(
@@ -65,9 +67,39 @@ export class PartControllerBase {
       data: {
         ...data,
 
+        account: data.account
+          ? {
+              connect: data.account,
+            }
+          : undefined,
+
+        blueprint: data.blueprint
+          ? {
+              connect: data.blueprint,
+            }
+          : undefined,
+
         offer: data.offer
           ? {
               connect: data.offer,
+            }
+          : undefined,
+
+        organization: data.organization
+          ? {
+              connect: data.organization,
+            }
+          : undefined,
+
+        originalBlueprint: data.originalBlueprint
+          ? {
+              connect: data.originalBlueprint,
+            }
+          : undefined,
+
+        originalModel: data.originalModel
+          ? {
+              connect: data.originalModel,
             }
           : undefined,
 
@@ -82,12 +114,54 @@ export class PartControllerBase {
               connect: data.partOnShape,
             }
           : undefined,
+
+        stepModel: data.stepModel
+          ? {
+              connect: data.stepModel,
+            }
+          : undefined,
+
+        stlModel: data.stlModel
+          ? {
+              connect: data.stlModel,
+            }
+          : undefined,
       },
       select: {
+        account: {
+          select: {
+            id: true,
+          },
+        },
+
+        blueprint: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         id: true,
 
         offer: {
+          select: {
+            id: true,
+          },
+        },
+
+        organization: {
+          select: {
+            id: true,
+          },
+        },
+
+        originalBlueprint: {
+          select: {
+            id: true,
+          },
+        },
+
+        originalModel: {
           select: {
             id: true,
           },
@@ -105,10 +179,23 @@ export class PartControllerBase {
           },
         },
 
-        parts: true,
+        partsCount: true,
         process: true,
         quantities: true,
         status: true,
+
+        stepModel: {
+          select: {
+            id: true,
+          },
+        },
+
+        stlModel: {
+          select: {
+            id: true,
+          },
+        },
+
         surface: true,
         updatedAt: true,
         visible: true,
@@ -155,10 +242,40 @@ export class PartControllerBase {
     const results = await this.service.findMany({
       ...args,
       select: {
+        account: {
+          select: {
+            id: true,
+          },
+        },
+
+        blueprint: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         id: true,
 
         offer: {
+          select: {
+            id: true,
+          },
+        },
+
+        organization: {
+          select: {
+            id: true,
+          },
+        },
+
+        originalBlueprint: {
+          select: {
+            id: true,
+          },
+        },
+
+        originalModel: {
           select: {
             id: true,
           },
@@ -176,10 +293,23 @@ export class PartControllerBase {
           },
         },
 
-        parts: true,
+        partsCount: true,
         process: true,
         quantities: true,
         status: true,
+
+        stepModel: {
+          select: {
+            id: true,
+          },
+        },
+
+        stlModel: {
+          select: {
+            id: true,
+          },
+        },
+
         surface: true,
         updatedAt: true,
         visible: true,
@@ -221,10 +351,40 @@ export class PartControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
+        account: {
+          select: {
+            id: true,
+          },
+        },
+
+        blueprint: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         id: true,
 
         offer: {
+          select: {
+            id: true,
+          },
+        },
+
+        organization: {
+          select: {
+            id: true,
+          },
+        },
+
+        originalBlueprint: {
+          select: {
+            id: true,
+          },
+        },
+
+        originalModel: {
           select: {
             id: true,
           },
@@ -242,10 +402,23 @@ export class PartControllerBase {
           },
         },
 
-        parts: true,
+        partsCount: true,
         process: true,
         quantities: true,
         status: true,
+
+        stepModel: {
+          select: {
+            id: true,
+          },
+        },
+
+        stlModel: {
+          select: {
+            id: true,
+          },
+        },
+
         surface: true,
         updatedAt: true,
         visible: true,
@@ -309,9 +482,39 @@ export class PartControllerBase {
         data: {
           ...data,
 
+          account: data.account
+            ? {
+                connect: data.account,
+              }
+            : undefined,
+
+          blueprint: data.blueprint
+            ? {
+                connect: data.blueprint,
+              }
+            : undefined,
+
           offer: data.offer
             ? {
                 connect: data.offer,
+              }
+            : undefined,
+
+          organization: data.organization
+            ? {
+                connect: data.organization,
+              }
+            : undefined,
+
+          originalBlueprint: data.originalBlueprint
+            ? {
+                connect: data.originalBlueprint,
+              }
+            : undefined,
+
+          originalModel: data.originalModel
+            ? {
+                connect: data.originalModel,
               }
             : undefined,
 
@@ -326,12 +529,54 @@ export class PartControllerBase {
                 connect: data.partOnShape,
               }
             : undefined,
+
+          stepModel: data.stepModel
+            ? {
+                connect: data.stepModel,
+              }
+            : undefined,
+
+          stlModel: data.stlModel
+            ? {
+                connect: data.stlModel,
+              }
+            : undefined,
         },
         select: {
+          account: {
+            select: {
+              id: true,
+            },
+          },
+
+          blueprint: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
           id: true,
 
           offer: {
+            select: {
+              id: true,
+            },
+          },
+
+          organization: {
+            select: {
+              id: true,
+            },
+          },
+
+          originalBlueprint: {
+            select: {
+              id: true,
+            },
+          },
+
+          originalModel: {
             select: {
               id: true,
             },
@@ -349,10 +594,23 @@ export class PartControllerBase {
             },
           },
 
-          parts: true,
+          partsCount: true,
           process: true,
           quantities: true,
           status: true,
+
+          stepModel: {
+            select: {
+              id: true,
+            },
+          },
+
+          stlModel: {
+            select: {
+              id: true,
+            },
+          },
+
           surface: true,
           updatedAt: true,
           visible: true,
@@ -395,10 +653,40 @@ export class PartControllerBase {
       return await this.service.delete({
         where: params,
         select: {
+          account: {
+            select: {
+              id: true,
+            },
+          },
+
+          blueprint: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
           id: true,
 
           offer: {
+            select: {
+              id: true,
+            },
+          },
+
+          organization: {
+            select: {
+              id: true,
+            },
+          },
+
+          originalBlueprint: {
+            select: {
+              id: true,
+            },
+          },
+
+          originalModel: {
             select: {
               id: true,
             },
@@ -416,10 +704,23 @@ export class PartControllerBase {
             },
           },
 
-          parts: true,
+          partsCount: true,
           process: true,
           quantities: true,
           status: true,
+
+          stepModel: {
+            select: {
+              id: true,
+            },
+          },
+
+          stlModel: {
+            select: {
+              id: true,
+            },
+          },
+
           surface: true,
           updatedAt: true,
           visible: true,
@@ -478,12 +779,6 @@ export class PartControllerBase {
         messageType: true,
 
         part: {
-          select: {
-            id: true,
-          },
-        },
-
-        reciever: {
           select: {
             id: true,
           },
@@ -642,49 +937,49 @@ export class PartControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Get("/:id/quotes")
+  @common.Get("/:id/productionItems")
   @nestAccessControl.UseRoles({
     resource: "Part",
     action: "read",
     possession: "any",
   })
   @swagger.ApiQuery({
-    type: () => QuoteWhereInput,
+    type: () => ProductionItemWhereInput,
     style: "deepObject",
     explode: true,
   })
-  async findManyQuotes(
+  async findManyProductionItems(
     @common.Req() request: Request,
     @common.Param() params: PartWhereUniqueInput,
     @nestAccessControl.UserRoles() userRoles: string[]
-  ): Promise<Quote[]> {
-    const query: QuoteWhereInput = request.query;
+  ): Promise<ProductionItem[]> {
+    const query: ProductionItemWhereInput = request.query;
     const permission = this.rolesBuilder.permission({
       role: userRoles,
       action: "read",
       possession: "any",
-      resource: "Quote",
+      resource: "ProductionItem",
     });
-    const results = await this.service.findQuotes(params.id, {
+    const results = await this.service.findProductionItems(params.id, {
       where: query,
       select: {
-        account: {
-          select: {
-            id: true,
-          },
-        },
-
-        completedAt: true,
         createdAt: true,
         id: true,
 
-        provider: {
+        part: {
           select: {
             id: true,
           },
         },
 
-        status: true,
+        production: {
+          select: {
+            id: true,
+          },
+        },
+
+        quantity: true,
+        shippedQuantity: true,
         updatedAt: true,
       },
     });
@@ -696,19 +991,19 @@ export class PartControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Post("/:id/quotes")
+  @common.Post("/:id/productionItems")
   @nestAccessControl.UseRoles({
     resource: "Part",
     action: "update",
     possession: "any",
   })
-  async createQuotes(
+  async createProductionItems(
     @common.Param() params: PartWhereUniqueInput,
     @common.Body() body: PartWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      quotes: {
+      productionItems: {
         connect: body,
       },
     };
@@ -741,19 +1036,19 @@ export class PartControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Patch("/:id/quotes")
+  @common.Patch("/:id/productionItems")
   @nestAccessControl.UseRoles({
     resource: "Part",
     action: "update",
     possession: "any",
   })
-  async updateQuotes(
+  async updateProductionItems(
     @common.Param() params: PartWhereUniqueInput,
     @common.Body() body: PartWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      quotes: {
+      productionItems: {
         set: body,
       },
     };
@@ -786,19 +1081,219 @@ export class PartControllerBase {
     defaultAuthGuard.DefaultAuthGuard,
     nestAccessControl.ACGuard
   )
-  @common.Delete("/:id/quotes")
+  @common.Delete("/:id/productionItems")
   @nestAccessControl.UseRoles({
     resource: "Part",
     action: "update",
     possession: "any",
   })
-  async deleteQuotes(
+  async deleteProductionItems(
     @common.Param() params: PartWhereUniqueInput,
     @common.Body() body: PartWhereUniqueInput[],
     @nestAccessControl.UserRoles() userRoles: string[]
   ): Promise<void> {
     const data = {
-      quotes: {
+      productionItems: {
+        disconnect: body,
+      },
+    };
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "update",
+      possession: "any",
+      resource: "Part",
+    });
+    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
+    if (invalidAttributes.length) {
+      const roles = userRoles
+        .map((role: string) => JSON.stringify(role))
+        .join(",");
+      throw new common.ForbiddenException(
+        `Updating the relationship: ${
+          invalidAttributes[0]
+        } of ${"Part"} is forbidden for roles: ${roles}`
+      );
+    }
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Get("/:id/quoteItems")
+  @nestAccessControl.UseRoles({
+    resource: "Part",
+    action: "read",
+    possession: "any",
+  })
+  @swagger.ApiQuery({
+    type: () => QuoteItemWhereInput,
+    style: "deepObject",
+    explode: true,
+  })
+  async findManyQuoteItems(
+    @common.Req() request: Request,
+    @common.Param() params: PartWhereUniqueInput,
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<QuoteItem[]> {
+    const query: QuoteItemWhereInput = request.query;
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "QuoteItem",
+    });
+    const results = await this.service.findQuoteItems(params.id, {
+      where: query,
+      select: {
+        constructionType: true,
+        createdAt: true,
+        id: true,
+        margins: true,
+
+        part: {
+          select: {
+            id: true,
+          },
+        },
+
+        productionDays: true,
+
+        provider: {
+          select: {
+            id: true,
+          },
+        },
+
+        quantities: true,
+
+        quote: {
+          select: {
+            id: true,
+          },
+        },
+
+        status: true,
+        updatedAt: true,
+      },
+    });
+    return results.map((result) => permission.filter(result));
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Post("/:id/quoteItems")
+  @nestAccessControl.UseRoles({
+    resource: "Part",
+    action: "update",
+    possession: "any",
+  })
+  async createQuoteItems(
+    @common.Param() params: PartWhereUniqueInput,
+    @common.Body() body: PartWhereUniqueInput[],
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<void> {
+    const data = {
+      quoteItems: {
+        connect: body,
+      },
+    };
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "update",
+      possession: "any",
+      resource: "Part",
+    });
+    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
+    if (invalidAttributes.length) {
+      const roles = userRoles
+        .map((role: string) => JSON.stringify(role))
+        .join(",");
+      throw new common.ForbiddenException(
+        `Updating the relationship: ${
+          invalidAttributes[0]
+        } of ${"Part"} is forbidden for roles: ${roles}`
+      );
+    }
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Patch("/:id/quoteItems")
+  @nestAccessControl.UseRoles({
+    resource: "Part",
+    action: "update",
+    possession: "any",
+  })
+  async updateQuoteItems(
+    @common.Param() params: PartWhereUniqueInput,
+    @common.Body() body: PartWhereUniqueInput[],
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<void> {
+    const data = {
+      quoteItems: {
+        set: body,
+      },
+    };
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "update",
+      possession: "any",
+      resource: "Part",
+    });
+    const invalidAttributes = abacUtil.getInvalidAttributes(permission, data);
+    if (invalidAttributes.length) {
+      const roles = userRoles
+        .map((role: string) => JSON.stringify(role))
+        .join(",");
+      throw new common.ForbiddenException(
+        `Updating the relationship: ${
+          invalidAttributes[0]
+        } of ${"Part"} is forbidden for roles: ${roles}`
+      );
+    }
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(nestMorgan.MorganInterceptor("combined"))
+  @common.UseGuards(
+    defaultAuthGuard.DefaultAuthGuard,
+    nestAccessControl.ACGuard
+  )
+  @common.Delete("/:id/quoteItems")
+  @nestAccessControl.UseRoles({
+    resource: "Part",
+    action: "update",
+    possession: "any",
+  })
+  async deleteQuoteItems(
+    @common.Param() params: PartWhereUniqueInput,
+    @common.Body() body: PartWhereUniqueInput[],
+    @nestAccessControl.UserRoles() userRoles: string[]
+  ): Promise<void> {
+    const data = {
+      quoteItems: {
         disconnect: body,
       },
     };

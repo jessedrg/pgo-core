@@ -1,6 +1,7 @@
 import { SortOrder } from "../../util/SortOrder";
 
 export type ProductionOrderByInput = {
+  accountId?: SortOrder;
   createdAt?: SortOrder;
   discomformity?: SortOrder;
   id?: SortOrder;
