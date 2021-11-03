@@ -2,9 +2,10 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
-import { IsOptional, ValidateNested } from "class-validator";
+import { IsOptional, ValidateNested, IsEnum } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
 import { OrganizationWhereUniqueInput } from "../../organization/base/OrganizationWhereUniqueInput";
+import { EnumAddressType } from "./EnumAddressType";
 @InputType()
 class AddressWhereInput {
   @ApiProperty({
@@ -153,14 +154,14 @@ class AddressWhereInput {
 
   @ApiProperty({
     required: false,
-    type: StringNullableFilter,
+    enum: EnumAddressType,
   })
-  @Type(() => StringNullableFilter)
+  @IsEnum(EnumAddressType)
   @IsOptional()
-  @Field(() => StringNullableFilter, {
+  @Field(() => EnumAddressType, {
     nullable: true,
   })
-  type?: StringNullableFilter;
+  type?: "Billing" | "Shipping";
 
   @ApiProperty({
     required: false,

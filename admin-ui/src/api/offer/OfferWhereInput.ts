@@ -5,7 +5,7 @@ import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 
 export type OfferWhereInput = {
   account?: AccountWhereUniqueInput;
-  customNumber?: StringNullableFilter;
+  customCode?: StringNullableFilter;
   id?: StringFilter;
   publishedAt?: DateTimeNullableFilter;
   status?: "draft" | "pending" | "publish" | "rejected";

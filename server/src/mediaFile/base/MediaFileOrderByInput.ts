@@ -23,6 +23,15 @@ class MediaFileOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  fileName?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["Asc", "Desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   id?: SortOrder;
 
   @ApiProperty({

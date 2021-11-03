@@ -63,6 +63,7 @@ export class MediaFileControllerBase {
       data: data,
       select: {
         createdAt: true,
+        fileName: true,
         id: true,
         type: true,
         updatedAt: true,
@@ -105,6 +106,7 @@ export class MediaFileControllerBase {
       ...args,
       select: {
         createdAt: true,
+        fileName: true,
         id: true,
         type: true,
         updatedAt: true,
@@ -142,6 +144,7 @@ export class MediaFileControllerBase {
       where: params,
       select: {
         createdAt: true,
+        fileName: true,
         id: true,
         type: true,
         updatedAt: true,
@@ -200,6 +203,7 @@ export class MediaFileControllerBase {
         data: data,
         select: {
           createdAt: true,
+          fileName: true,
           id: true,
           type: true,
           updatedAt: true,
@@ -238,6 +242,7 @@ export class MediaFileControllerBase {
         where: params,
         select: {
           createdAt: true,
+          fileName: true,
           id: true,
           type: true,
           updatedAt: true,

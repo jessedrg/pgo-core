@@ -27,7 +27,7 @@ export const OfferShow = (props: ShowProps): React.ReactElement => {
           <TextField source={ACCOUNT_TITLE_FIELD} />
         </ReferenceField>
         <DateField source="createdAt" label="Created At" />
-        <TextField label="Custom Number" source="customNumber" />
+        <TextField label="Custom Code" source="customCode" />
         <TextField label="ID" source="id" />
         <TextField label="Published At" source="publishedAt" />
         <TextField label="Status" source="status" />

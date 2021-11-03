@@ -24,6 +24,7 @@ export const MediaFileShow = (props: ShowProps): React.ReactElement => {
     <Show {...props}>
       <SimpleShowLayout>
         <DateField source="createdAt" label="Created At" />
+        <TextField label="FileName" source="fileName" />
         <TextField label="ID" source="id" />
         <TextField label="Type" source="type" />
         <DateField source="updatedAt" label="Updated At" />

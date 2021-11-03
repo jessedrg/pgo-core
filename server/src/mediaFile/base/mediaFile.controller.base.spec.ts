@@ -12,6 +12,7 @@ const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
   createdAt: new Date(),
+  fileName: "exampleFileName",
   id: "exampleId",
   type: "exampleType",
   updatedAt: new Date(),
@@ -19,6 +20,7 @@ const CREATE_INPUT = {
 };
 const CREATE_RESULT = {
   createdAt: new Date(),
+  fileName: "exampleFileName",
   id: "exampleId",
   type: "exampleType",
   updatedAt: new Date(),
@@ -27,6 +29,7 @@ const CREATE_RESULT = {
 const FIND_MANY_RESULT = [
   {
     createdAt: new Date(),
+    fileName: "exampleFileName",
     id: "exampleId",
     type: "exampleType",
     updatedAt: new Date(),
@@ -35,6 +38,7 @@ const FIND_MANY_RESULT = [
 ];
 const FIND_ONE_RESULT = {
   createdAt: new Date(),
+  fileName: "exampleFileName",
   id: "exampleId",
   type: "exampleType",
   updatedAt: new Date(),

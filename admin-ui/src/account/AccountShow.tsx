@@ -57,7 +57,7 @@ export const AccountShow = (props: ShowProps): React.ReactElement => {
               <TextField source={ACCOUNT_TITLE_FIELD} />
             </ReferenceField>
             <DateField source="createdAt" label="Created At" />
-            <TextField label="Custom Number" source="customNumber" />
+            <TextField label="Custom Code" source="customCode" />
             <TextField label="ID" source="id" />
             <TextField label="Published At" source="publishedAt" />
             <TextField label="Status" source="status" />
@@ -73,7 +73,6 @@ export const AccountShow = (props: ShowProps): React.ReactElement => {
             <DateField source="createdAt" label="Created At" />
             <TextField label="ID" source="id" />
             <TextField label="message" source="message" />
-            <TextField label="messageType" source="messageType" />
             <ReferenceField label="part" source="part.id" reference="Part">
               <TextField source={PART_TITLE_FIELD} />
             </ReferenceField>
@@ -86,6 +85,7 @@ export const AccountShow = (props: ShowProps): React.ReactElement => {
             </ReferenceField>
             <TextField label="type" source="type" />
             <DateField source="updatedAt" label="Updated At" />
+            <TextField label="UserType" source="userType" />
           </Datagrid>
         </ReferenceManyField>
         <ReferenceManyField reference="Part" target="AccountId" label="Parts">
