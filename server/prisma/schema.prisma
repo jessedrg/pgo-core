@@ -8,7 +8,7 @@ generator client {
 }
 
 model User {
-  account   Account
+  account   Account?
   createdAt DateTime @default(now())
   firstName String?
   id        String   @id @default(cuid())
@@ -100,7 +100,7 @@ model PartConfiguration {
   id           String   @id @default(cuid())
   material     String?
   materialType String?
-  part         Part
+  part         Part?
   tech         String?
   tolerance    Float?
   updatedAt    DateTime @updatedAt
@@ -112,7 +112,7 @@ model PartOnShape {
   did       String?
   eid       String?
   id        String   @id @default(cuid())
-  part      Part
+  part      Part?
   updatedAt DateTime @updatedAt
   wid       String?
 }
@@ -251,7 +251,7 @@ model OrderItem {
 }
 
 model Agent {
-  account   Account
+  account   Account?
   createdAt DateTime @default(now())
   id        String   @id @default(cuid())
   updatedAt DateTime @updatedAt
