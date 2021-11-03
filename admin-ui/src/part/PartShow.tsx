@@ -113,7 +113,6 @@ export const PartShow = (props: ShowProps): React.ReactElement => {
             <DateField source="createdAt" label="Created At" />
             <TextField label="ID" source="id" />
             <TextField label="message" source="message" />
-            <TextField label="messageType" source="messageType" />
             <ReferenceField label="part" source="part.id" reference="Part">
               <TextField source={PART_TITLE_FIELD} />
             </ReferenceField>
@@ -126,6 +125,7 @@ export const PartShow = (props: ShowProps): React.ReactElement => {
             </ReferenceField>
             <TextField label="type" source="type" />
             <DateField source="updatedAt" label="Updated At" />
+            <TextField label="UserType" source="userType" />
           </Datagrid>
         </ReferenceManyField>
         <ReferenceManyField

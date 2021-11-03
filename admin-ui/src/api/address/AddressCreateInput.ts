@@ -13,6 +13,6 @@ export type AddressCreateInput = {
   state?: string | null;
   street?: string | null;
   streetNumber?: string | null;
-  type?: string | null;
+  type?: "Billing" | "Shipping" | null;
   vat?: string | null;
 };

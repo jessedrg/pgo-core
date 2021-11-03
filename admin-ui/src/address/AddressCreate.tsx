@@ -31,7 +31,17 @@ export const AddressCreate = (props: CreateProps): React.ReactElement => {
         <TextInput label="State" source="state" />
         <TextInput label="Street" source="street" />
         <TextInput label="Street Number" source="streetNumber" />
-        <TextInput label="Type" source="type" />
+        <SelectInput
+          source="type"
+          label="Type"
+          choices={[
+            { label: "Billing", value: "Billing" },
+            { label: "Shipping", value: "Shipping" },
+          ]}
+          optionText="label"
+          allowEmpty
+          optionValue="value"
+        />
         <TextInput label="Vat" source="vat" />
       </SimpleForm>
     </Create>

@@ -15,7 +15,6 @@ export const PartMessageCreate = (props: CreateProps): React.ReactElement => {
     <Create {...props}>
       <SimpleForm>
         <TextInput label="message" source="message" />
-        <TextInput label="messageType" source="messageType" />
         <ReferenceInput source="part.id" reference="Part" label="part">
           <SelectInput optionText={PartTitle} />
         </ReferenceInput>
@@ -23,6 +22,18 @@ export const PartMessageCreate = (props: CreateProps): React.ReactElement => {
           <SelectInput optionText={AccountTitle} />
         </ReferenceInput>
         <TextInput label="type" source="type" />
+        <SelectInput
+          source="userType"
+          label="UserType"
+          choices={[
+            { label: "Agent", value: "Agent" },
+            { label: "Client", value: "Client" },
+            { label: "Provider", value: "Provider" },
+          ]}
+          optionText="label"
+          allowEmpty
+          optionValue="value"
+        />
       </SimpleForm>
     </Create>
   );

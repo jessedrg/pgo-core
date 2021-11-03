@@ -1,8 +1,15 @@
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, IsDate, ValidateNested } from "class-validator";
+import {
+  IsString,
+  IsOptional,
+  IsDate,
+  ValidateNested,
+  IsEnum,
+} from "class-validator";
 import { Type } from "class-transformer";
 import { Organization } from "../../organization/base/Organization";
+import { EnumAddressType } from "./EnumAddressType";
 @ObjectType()
 class Address {
   @ApiProperty({
@@ -153,14 +160,14 @@ class Address {
 
   @ApiProperty({
     required: false,
-    type: String,
+    enum: EnumAddressType,
   })
-  @IsString()
+  @IsEnum(EnumAddressType)
   @IsOptional()
-  @Field(() => String, {
+  @Field(() => EnumAddressType, {
     nullable: true,
   })
-  type!: string | null;
+  type?: "Billing" | "Shipping" | null;
 
   @ApiProperty({
     required: true,

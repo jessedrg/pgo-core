@@ -16,6 +16,6 @@ export type AddressWhereInput = {
   state?: StringNullableFilter;
   street?: StringNullableFilter;
   streetNumber?: StringNullableFilter;
-  type?: StringNullableFilter;
+  type?: "Billing" | "Shipping";
   vat?: StringNullableFilter;
 };

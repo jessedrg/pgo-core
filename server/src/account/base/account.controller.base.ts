@@ -445,7 +445,7 @@ export class AccountControllerBase {
         },
 
         createdAt: true,
-        customNumber: true,
+        customCode: true,
         id: true,
         publishedAt: true,
         status: true,
@@ -624,7 +624,6 @@ export class AccountControllerBase {
         createdAt: true,
         id: true,
         message: true,
-        messageType: true,
 
         part: {
           select: {
@@ -640,6 +639,7 @@ export class AccountControllerBase {
 
         type: true,
         updatedAt: true,
+        userType: true,
       },
     });
     return results.map((result) => permission.filter(result));
