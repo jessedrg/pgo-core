@@ -68,7 +68,7 @@ class ProviderCreateInput {
   @Field(() => Number, {
     nullable: true,
   })
-  shippmentDates?: number | null;
+  shipmentDays?: number | null;
 
   @ApiProperty({
     required: false,

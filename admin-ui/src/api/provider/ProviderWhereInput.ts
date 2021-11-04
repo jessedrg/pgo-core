@@ -11,7 +11,7 @@ export type ProviderWhereInput = {
   name?: StringNullableFilter;
   rating?: FloatNullableFilter;
   ratingData?: JsonNullableFilter;
-  shippmentDates?: IntNullableFilter;
+  shipmentDays?: IntNullableFilter;
   technologies?: JsonNullableFilter;
   type?: StringNullableFilter;
   workingDays?: JsonNullableFilter;

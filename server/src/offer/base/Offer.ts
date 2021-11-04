@@ -39,7 +39,7 @@ class Offer {
   @Field(() => String, {
     nullable: true,
   })
-  customNumber!: string | null;
+  customCode!: string | null;
 
   @ApiProperty({
     required: true,

@@ -27,7 +27,7 @@ export const ProviderShow = (props: ShowProps): React.ReactElement => {
         <TextField label="name" source="name" />
         <TextField label="rating" source="rating" />
         <TextField label="ratingData" source="ratingData" />
-        <TextField label="shippmentDates" source="shippmentDates" />
+        <TextField label="shippmentDays" source="shipmentDays" />
         <TextField label="techologies" source="technologies" />
         <TextField label="type" source="type" />
         <DateField source="updatedAt" label="Updated At" />

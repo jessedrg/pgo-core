@@ -77,7 +77,7 @@ class ProviderOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  shippmentDates?: SortOrder;
+  shipmentDays?: SortOrder;
 
   @ApiProperty({
     required: false,

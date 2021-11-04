@@ -1,9 +1,16 @@
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsString, IsOptional, ValidateNested } from "class-validator";
+import {
+  IsDate,
+  IsString,
+  IsOptional,
+  ValidateNested,
+  IsEnum,
+} from "class-validator";
 import { Type } from "class-transformer";
 import { Part } from "../../part/base/Part";
 import { Account } from "../../account/base/Account";
+import { EnumPartMessageUserType } from "./EnumPartMessageUserType";
 @ObjectType()
 class PartMessage {
   @ApiProperty({
@@ -32,17 +39,6 @@ class PartMessage {
     nullable: true,
   })
   message!: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  messageType!: string | null;
 
   @ApiProperty({
     required: false,
@@ -80,5 +76,16 @@ class PartMessage {
   @Type(() => Date)
   @Field(() => Date)
   updatedAt!: Date;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumPartMessageUserType,
+  })
+  @IsEnum(EnumPartMessageUserType)
+  @IsOptional()
+  @Field(() => EnumPartMessageUserType, {
+    nullable: true,
+  })
+  userType?: "Agent" | "Client" | "Provider" | null;
 }
 export { PartMessage };

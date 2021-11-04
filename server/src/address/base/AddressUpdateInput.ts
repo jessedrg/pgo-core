@@ -1,8 +1,9 @@
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, ValidateNested } from "class-validator";
+import { IsString, IsOptional, ValidateNested, IsEnum } from "class-validator";
 import { OrganizationWhereUniqueInput } from "../../organization/base/OrganizationWhereUniqueInput";
 import { Type } from "class-transformer";
+import { EnumAddressType } from "./EnumAddressType";
 @InputType()
 class AddressUpdateInput {
   @ApiProperty({
@@ -140,14 +141,14 @@ class AddressUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: String,
+    enum: EnumAddressType,
   })
-  @IsString()
+  @IsEnum(EnumAddressType)
   @IsOptional()
-  @Field(() => String, {
+  @Field(() => EnumAddressType, {
     nullable: true,
   })
-  type?: string | null;
+  type?: "Billing" | "Shipping" | null;
 
   @ApiProperty({
     required: false,

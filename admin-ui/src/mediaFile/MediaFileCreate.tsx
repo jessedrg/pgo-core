@@ -5,6 +5,7 @@ export const MediaFileCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
+        <TextInput label="FileName" source="fileName" />
         <TextInput label="Type" source="type" />
         <TextInput label="Url" source="url" />
       </SimpleForm>

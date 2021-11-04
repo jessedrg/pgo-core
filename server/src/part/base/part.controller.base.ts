@@ -776,7 +776,6 @@ export class PartControllerBase {
         createdAt: true,
         id: true,
         message: true,
-        messageType: true,
 
         part: {
           select: {
@@ -792,6 +791,7 @@ export class PartControllerBase {
 
         type: true,
         updatedAt: true,
+        userType: true,
       },
     });
     return results.map((result) => permission.filter(result));
