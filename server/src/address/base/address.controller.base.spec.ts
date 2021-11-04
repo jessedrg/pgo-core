@@ -24,7 +24,6 @@ const CREATE_INPUT = {
   state: "exampleState",
   street: "exampleStreet",
   streetNumber: "exampleStreetNumber",
-  type: "exampleType",
   updatedAt: new Date(),
   vat: "exampleVat",
 };
@@ -42,7 +41,6 @@ const CREATE_RESULT = {
   state: "exampleState",
   street: "exampleStreet",
   streetNumber: "exampleStreetNumber",
-  type: "exampleType",
   updatedAt: new Date(),
   vat: "exampleVat",
 };
@@ -61,7 +59,6 @@ const FIND_MANY_RESULT = [
     state: "exampleState",
     street: "exampleStreet",
     streetNumber: "exampleStreetNumber",
-    type: "exampleType",
     updatedAt: new Date(),
     vat: "exampleVat",
   },
@@ -80,7 +77,6 @@ const FIND_ONE_RESULT = {
   state: "exampleState",
   street: "exampleStreet",
   streetNumber: "exampleStreetNumber",
-  type: "exampleType",
   updatedAt: new Date(),
   vat: "exampleVat",
 };

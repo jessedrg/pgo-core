@@ -24,9 +24,9 @@ import { HolidayModule } from "./holiday/holiday.module";
 import { PartMessageModule } from "./partMessage/partMessage.module";
 import { PriceModule } from "./price/price.module";
 import { MarginModule } from "./margin/margin.module";
+import { HealthModule } from "./health/health.module";
 import { ACLModule } from "./auth/acl.module";
 import { AuthModule } from "./auth/auth.module";
-import { HealthModule } from "./health/health.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
 import { MorganModule } from "nest-morgan";
 import { ConfigModule, ConfigService } from "@nestjs/config";
@@ -62,9 +62,9 @@ import { GraphQLModule } from "@nestjs/graphql";
     PartMessageModule,
     PriceModule,
     MarginModule,
+    HealthModule,
     ACLModule,
     AuthModule,
-    HealthModule,
     SecretsManagerModule,
     MorganModule,
     ConfigModule.forRoot({ isGlobal: true }),

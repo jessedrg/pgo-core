@@ -16,7 +16,7 @@ export const ProviderEdit = (props: EditProps): React.ReactElement => {
         <TextInput label="name" source="name" />
         <NumberInput label="rating" source="rating" />
         <div />
-        <NumberInput step={1} label="shippmentDates" source="shippmentDates" />
+        <NumberInput step={1} label="shippmentDates" source="shipmentDates" />
         <div />
         <TextInput label="type" source="type" />
         <div />

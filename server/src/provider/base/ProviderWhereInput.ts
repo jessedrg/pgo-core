@@ -84,7 +84,7 @@ class ProviderWhereInput {
   @Field(() => IntNullableFilter, {
     nullable: true,
   })
-  shippmentDates?: IntNullableFilter;
+  shipmentDates?: IntNullableFilter;
 
   @ApiProperty({
     required: false,

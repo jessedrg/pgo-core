@@ -32,7 +32,7 @@ class OfferOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  customNumber?: SortOrder;
+  customCode?: SortOrder;
 
   @ApiProperty({
     required: false,

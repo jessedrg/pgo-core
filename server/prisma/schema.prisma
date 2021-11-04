@@ -8,7 +8,7 @@ generator client {
 }
 
 model User {
-  account   Account?
+  account   Account
   createdAt DateTime @default(now())
   firstName String?
   id        String   @id @default(cuid())
@@ -20,15 +20,15 @@ model User {
 }
 
 model Offer {
-  account      Account?         @relation(fields: [accountId], references: [id])
-  accountId    String?
-  createdAt    DateTime         @default(now())
-  customNumber String?          @unique
-  id           String           @id @default(cuid())
-  parts        Part[]
-  publishedAt  DateTime?
-  status       EnumOfferStatus?
-  updatedAt    DateTime         @updatedAt
+  account     Account?         @relation(fields: [accountId], references: [id])
+  accountId   String?
+  createdAt   DateTime         @default(now())
+  customCode  String?          @unique
+  id          String           @id @default(cuid())
+  parts       Part[]
+  publishedAt DateTime?
+  status      EnumOfferStatus?
+  updatedAt   DateTime         @updatedAt
 }
 
 model Account {
@@ -100,7 +100,7 @@ model PartConfiguration {
   id           String   @id @default(cuid())
   material     String?
   materialType String?
-  part         Part?
+  part         Part
   tech         String?
   tolerance    Float?
   updatedAt    DateTime @updatedAt
@@ -112,7 +112,7 @@ model PartOnShape {
   did       String?
   eid       String?
   id        String   @id @default(cuid())
-  part      Part?
+  part      Part
   updatedAt DateTime @updatedAt
   wid       String?
 }
@@ -178,6 +178,7 @@ model ProductionItem {
 model MediaFile {
   blueprintInPart         Part[]   @relation(name: "blueprint")
   createdAt               DateTime @default(now())
+  fileName                String?
   id                      String   @id @default(cuid())
   originalBluePrintInPart Part[]   @relation(name: "originalBluePrintInPart")
   originalModelInPart     Part[]   @relation(name: "originalModel")
@@ -189,21 +190,21 @@ model MediaFile {
 }
 
 model Provider {
-  createdAt      DateTime    @default(now())
-  currency       String?
-  dateFormat     String?
-  holidays       Holiday[]
-  id             String      @id @default(cuid())
-  name           String?
-  quoteItems     QuoteItem[]
-  quotes         Quote[]
-  rating         Float?
-  ratingData     Json?
-  shippmentDates Int?
-  technologies   Json?
-  type           String?
-  updatedAt      DateTime    @updatedAt
-  workingDays    Json?
+  createdAt     DateTime    @default(now())
+  currency      String?
+  dateFormat    String?
+  holidays      Holiday[]
+  id            String      @id @default(cuid())
+  name          String?
+  quoteItems    QuoteItem[]
+  quotes        Quote[]
+  rating        Float?
+  ratingData    Json?
+  shipmentDates Int?
+  technologies  Json?
+  type          String?
+  updatedAt     DateTime    @updatedAt
+  workingDays   Json?
 }
 
 model Order {
@@ -251,7 +252,7 @@ model OrderItem {
 }
 
 model Agent {
-  account   Account?
+  account   Account
   createdAt DateTime @default(now())
   id        String   @id @default(cuid())
   updatedAt DateTime @updatedAt
@@ -261,12 +262,12 @@ model Agent {
 model Address {
   company        String?
   country        String?
-  createdAt      DateTime      @default(now())
+  createdAt      DateTime         @default(now())
   firstName      String?
-  id             String        @id @default(cuid())
+  id             String           @id @default(cuid())
   lastName       String?
   locality       String?
-  organization   Organization? @relation(fields: [organizationId], references: [id])
+  organization   Organization?    @relation(fields: [organizationId], references: [id])
   organizationId String?
   phone          String?
   phonePrefix    String?
@@ -274,8 +275,8 @@ model Address {
   state          String?
   street         String?
   streetNumber   String?
-  type           String?
-  updatedAt      DateTime      @updatedAt
+  type           EnumAddressType?
+  updatedAt      DateTime         @updatedAt
   vat            String?
 }
 
@@ -338,16 +339,16 @@ model Holiday {
 }
 
 model PartMessage {
-  createdAt   DateTime @default(now())
-  id          String   @id @default(cuid())
-  message     String?
-  messageType String?
-  part        Part?    @relation(fields: [partId], references: [id])
-  partId      String?
-  sender      Account? @relation(fields: [senderId], references: [id])
-  senderId    String?
-  type        String?
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime                 @default(now())
+  id        String                   @id @default(cuid())
+  message   String?
+  part      Part?                    @relation(fields: [partId], references: [id])
+  partId    String?
+  sender    Account?                 @relation(fields: [senderId], references: [id])
+  senderId  String?
+  type      String?
+  updatedAt DateTime                 @updatedAt
+  userType  EnumPartMessageUserType?
 }
 
 model Price {
@@ -418,6 +419,11 @@ enum EnumOrderStatus {
   refound
 }
 
+enum EnumAddressType {
+  Billing
+  Shipping
+}
+
 enum EnumShipmentStatus {
   pending
   OnTransit
@@ -440,4 +446,10 @@ enum EnumOrganizationPaymentMethodType {
   card
   deferred
   paypal
+}
+
+enum EnumPartMessageUserType {
+  Agent
+  Client
+  Provider
 }

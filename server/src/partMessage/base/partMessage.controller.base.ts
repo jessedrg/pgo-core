@@ -77,7 +77,6 @@ export class PartMessageControllerBase {
         createdAt: true,
         id: true,
         message: true,
-        messageType: true,
 
         part: {
           select: {
@@ -93,6 +92,7 @@ export class PartMessageControllerBase {
 
         type: true,
         updatedAt: true,
+        userType: true,
       },
     });
   }
@@ -133,7 +133,6 @@ export class PartMessageControllerBase {
         createdAt: true,
         id: true,
         message: true,
-        messageType: true,
 
         part: {
           select: {
@@ -149,6 +148,7 @@ export class PartMessageControllerBase {
 
         type: true,
         updatedAt: true,
+        userType: true,
       },
     });
     return results.map((result) => permission.filter(result));
@@ -184,7 +184,6 @@ export class PartMessageControllerBase {
         createdAt: true,
         id: true,
         message: true,
-        messageType: true,
 
         part: {
           select: {
@@ -200,6 +199,7 @@ export class PartMessageControllerBase {
 
         type: true,
         updatedAt: true,
+        userType: true,
       },
     });
     if (result === null) {
@@ -270,7 +270,6 @@ export class PartMessageControllerBase {
           createdAt: true,
           id: true,
           message: true,
-          messageType: true,
 
           part: {
             select: {
@@ -286,6 +285,7 @@ export class PartMessageControllerBase {
 
           type: true,
           updatedAt: true,
+          userType: true,
         },
       });
     } catch (error) {
@@ -322,7 +322,6 @@ export class PartMessageControllerBase {
           createdAt: true,
           id: true,
           message: true,
-          messageType: true,
 
           part: {
             select: {
@@ -338,6 +337,7 @@ export class PartMessageControllerBase {
 
           type: true,
           updatedAt: true,
+          userType: true,
         },
       });
     } catch (error) {

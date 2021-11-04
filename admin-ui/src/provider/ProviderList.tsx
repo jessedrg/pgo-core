@@ -19,7 +19,7 @@ export const ProviderList = (props: ListProps): React.ReactElement => {
         <TextField label="name" source="name" />
         <TextField label="rating" source="rating" />
         <TextField label="ratingData" source="ratingData" />
-        <TextField label="shippmentDates" source="shippmentDates" />
+        <TextField label="shippmentDates" source="shipmentDates" />
         <TextField label="techologies" source="technologies" />
         <TextField label="type" source="type" />
         <DateField source="updatedAt" label="Updated At" />

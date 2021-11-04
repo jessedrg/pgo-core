@@ -17,7 +17,7 @@ const CREATE_INPUT = {
   id: "exampleId",
   name: "exampleName",
   rating: 42.42,
-  shippmentDates: 42,
+  shipmentDates: 42,
   type: "exampleType",
   updatedAt: new Date(),
 };
@@ -28,7 +28,7 @@ const CREATE_RESULT = {
   id: "exampleId",
   name: "exampleName",
   rating: 42.42,
-  shippmentDates: 42,
+  shipmentDates: 42,
   type: "exampleType",
   updatedAt: new Date(),
 };
@@ -40,7 +40,7 @@ const FIND_MANY_RESULT = [
     id: "exampleId",
     name: "exampleName",
     rating: 42.42,
-    shippmentDates: 42,
+    shipmentDates: 42,
     type: "exampleType",
     updatedAt: new Date(),
   },
@@ -52,7 +52,7 @@ const FIND_ONE_RESULT = {
   id: "exampleId",
   name: "exampleName",
   rating: 42.42,
-  shippmentDates: 42,
+  shipmentDates: 42,
   type: "exampleType",
   updatedAt: new Date(),
 };
