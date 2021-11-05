@@ -15,7 +15,7 @@ export type Address = {
   state: string | null;
   street: string | null;
   streetNumber: string | null;
-  type: string | null;
+  type?: "Billing" | "Shipping" | null;
   updatedAt: Date;
   vat: string | null;
 };

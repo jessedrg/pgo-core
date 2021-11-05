@@ -5,6 +5,7 @@ export const MediaFileEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
+        <TextInput label="FileName" source="fileName" />
         <TextInput label="Type" source="type" />
         <TextInput label="Url" source="url" />
       </SimpleForm>

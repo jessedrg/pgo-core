@@ -3,8 +3,8 @@ import { AccountWhereUniqueInput } from "../account/AccountWhereUniqueInput";
 
 export type PartMessageCreateInput = {
   message?: string | null;
-  messageType?: string | null;
   part?: PartWhereUniqueInput | null;
   sender?: AccountWhereUniqueInput | null;
   type?: string | null;
+  userType?: "Agent" | "Client" | "Provider" | null;
 };

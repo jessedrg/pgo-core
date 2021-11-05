@@ -1,9 +1,10 @@
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, ValidateNested } from "class-validator";
+import { IsString, IsOptional, ValidateNested, IsEnum } from "class-validator";
 import { PartWhereUniqueInput } from "../../part/base/PartWhereUniqueInput";
 import { Type } from "class-transformer";
 import { AccountWhereUniqueInput } from "../../account/base/AccountWhereUniqueInput";
+import { EnumPartMessageUserType } from "./EnumPartMessageUserType";
 @InputType()
 class PartMessageUpdateInput {
   @ApiProperty({
@@ -16,17 +17,6 @@ class PartMessageUpdateInput {
     nullable: true,
   })
   message?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  messageType?: string | null;
 
   @ApiProperty({
     required: false,
@@ -62,5 +52,16 @@ class PartMessageUpdateInput {
     nullable: true,
   })
   type?: string | null;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumPartMessageUserType,
+  })
+  @IsEnum(EnumPartMessageUserType)
+  @IsOptional()
+  @Field(() => EnumPartMessageUserType, {
+    nullable: true,
+  })
+  userType?: "Agent" | "Client" | "Provider" | null;
 }
 export { PartMessageUpdateInput };

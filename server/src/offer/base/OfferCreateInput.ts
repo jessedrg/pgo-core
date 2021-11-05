@@ -33,7 +33,7 @@ class OfferCreateInput {
   @Field(() => String, {
     nullable: true,
   })
-  customNumber?: string | null;
+  customCode?: string | null;
 
   @ApiProperty({
     required: false,

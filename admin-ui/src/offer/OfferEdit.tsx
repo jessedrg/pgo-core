@@ -19,7 +19,7 @@ export const OfferEdit = (props: EditProps): React.ReactElement => {
         <ReferenceInput source="account.id" reference="Account" label="Account">
           <SelectInput optionText={AccountTitle} />
         </ReferenceInput>
-        <TextInput label="Custom Number" multiline source="customNumber" />
+        <TextInput label="Custom Code" multiline source="customCode" />
         <DateTimeInput label="Published At" source="publishedAt" />
         <SelectInput
           source="status"

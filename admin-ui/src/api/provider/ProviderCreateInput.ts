@@ -6,7 +6,7 @@ export type ProviderCreateInput = {
   name?: string | null;
   rating?: number | null;
   ratingData?: JsonValue | null;
-  shippmentDates?: number | null;
+  shipmentDays?: number | null;
   technologies?: JsonValue | null;
   type?: string | null;
   workingDays?: JsonValue | null;

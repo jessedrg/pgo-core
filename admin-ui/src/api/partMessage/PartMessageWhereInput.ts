@@ -6,8 +6,8 @@ import { AccountWhereUniqueInput } from "../account/AccountWhereUniqueInput";
 export type PartMessageWhereInput = {
   id?: StringFilter;
   message?: StringNullableFilter;
-  messageType?: StringNullableFilter;
   part?: PartWhereUniqueInput;
   sender?: AccountWhereUniqueInput;
   type?: StringNullableFilter;
+  userType?: "Agent" | "Client" | "Provider";
 };

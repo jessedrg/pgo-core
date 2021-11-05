@@ -77,7 +77,7 @@ export class OfferControllerBase {
         },
 
         createdAt: true,
-        customNumber: true,
+        customCode: true,
         id: true,
         publishedAt: true,
         status: true,
@@ -126,7 +126,7 @@ export class OfferControllerBase {
         },
 
         createdAt: true,
-        customNumber: true,
+        customCode: true,
         id: true,
         publishedAt: true,
         status: true,
@@ -170,7 +170,7 @@ export class OfferControllerBase {
         },
 
         createdAt: true,
-        customNumber: true,
+        customCode: true,
         id: true,
         publishedAt: true,
         status: true,
@@ -243,7 +243,7 @@ export class OfferControllerBase {
           },
 
           createdAt: true,
-          customNumber: true,
+          customCode: true,
           id: true,
           publishedAt: true,
           status: true,
@@ -288,7 +288,7 @@ export class OfferControllerBase {
           },
 
           createdAt: true,
-          customNumber: true,
+          customCode: true,
           id: true,
           publishedAt: true,
           status: true,

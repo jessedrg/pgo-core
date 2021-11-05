@@ -8,7 +8,7 @@ export type ProviderOrderByInput = {
   name?: SortOrder;
   rating?: SortOrder;
   ratingData?: SortOrder;
-  shippmentDates?: SortOrder;
+  shipmentDays?: SortOrder;
   technologies?: SortOrder;
   type?: SortOrder;
   updatedAt?: SortOrder;
