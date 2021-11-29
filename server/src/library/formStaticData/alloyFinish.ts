@@ -1,0 +1,15 @@
+const alloyFinish = [
+  { alloy: 'ABS-Like', finish_id: 'Painted' },
+  { alloy: 'ABS-Like', finish_id: 'Pigmented' },
+  { alloy: 'PMMA-Like', finish_id: 'No finish' },
+  { alloy: 'ABS-V0-Like', finish_id: 'Painted' },
+  { alloy: 'ABS-V0-Like', finish_id: 'Pigmented' },
+  { alloy: 'Opaque', finish_id: 'Pigmented' },
+  { alloy: 'Transparent', finish_id: 'No finish' },
+  { alloy: 'Pigmented', finish_id: 'Pigmented' },
+  { alloy: 'Painted', finish_id: 'Painted' },
+  { alloy: 'Transparent', finish_id: 'No finish' },
+  { alloy: 'Pigmented - ABS-V0-Like', finish_id: 'Pigmented' },
+  { alloy: 'Pigmented', finish_id: 'Pigmented' },
+  { alloy: 'Transparent', finish_id: 'No finish' },
+];
